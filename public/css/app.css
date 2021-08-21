@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 @import url(https://fonts.googleapis.com/css?family=Hind+Vadodara:400,500&display=swap);
 @import url(https://indestructibletype.com/fonts/Jost.css);
-
+@charset "UTF-8";
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -2174,6 +2174,7 @@ progress {
     -webkit-transition: none;
     transition: none;
   }
+
   .form-control::file-selector-button {
     transition: none;
   }
@@ -2181,6 +2182,7 @@ progress {
 .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
   background-color: #dde0e3;
 }
+
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: #dde0e3;
 }
@@ -2619,7 +2621,6 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-
 .form-floating > .form-control::-moz-placeholder {
   color: transparent;
 }
@@ -2941,7 +2942,7 @@ textarea.form-control-lg {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   vertical-align: middle;
 }
 
@@ -4468,7 +4469,6 @@ textarea.form-control-lg {
   background-color: #fff;
   border: 0 solid rgba(0, 0, 0, 0.125);
   border-radius: 0.2rem;
-  display: flex;
   flex-direction: column;
   min-width: 0;
   position: relative;
@@ -5503,7 +5503,7 @@ textarea.form-control-lg {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }
 
 .btn-close-white {
@@ -6747,6 +6747,7 @@ textarea.form-control-lg {
 
 .d-table-cell {
   display: table-cell !important;
+  width: 50%;
 }
 
 .d-flex {
@@ -8176,14 +8177,14 @@ textarea.form-control-lg {
   -webkit-user-select: auto !important;
   -moz-user-select: auto !important;
   -ms-user-select: auto !important;
-      user-select: auto !important;
+  user-select: auto !important;
 }
 
 .user-select-none {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
-      user-select: none !important;
+  user-select: none !important;
 }
 
 .pe-none {
@@ -13827,6 +13828,7 @@ textarea.form-control-lg {
 .card {
   box-shadow: 0 2px 4px rgba(126, 142, 177, 0.12);
   margin-bottom: 1.5rem;
+  align-items: center;
 }
 
 a.card {
@@ -14733,7 +14735,7 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }
 
 .splash .splash-icon {
@@ -15605,7 +15607,7 @@ pre.snippet {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }
 
 .apexcharts-canvas ::-webkit-scrollbar {
@@ -17000,7 +17002,7 @@ div.dt-buttons a.btn.processing:after, div.dt-buttons button.btn.processing:afte
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
-      user-select: none !important;
+  user-select: none !important;
 }
 
 .gu-transit {
@@ -17019,7 +17021,7 @@ div.dt-buttons a.btn.processing:after, div.dt-buttons button.btn.processing:afte
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }
 
 .fc {
@@ -17096,7 +17098,7 @@ div.dt-buttons a.btn.processing:after, div.dt-buttons button.btn.processing:afte
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   width: 1em;
 }
 
@@ -17169,7 +17171,7 @@ div.dt-buttons a.btn.processing:after, div.dt-buttons button.btn.processing:afte
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   vertical-align: middle;
 }
 
@@ -21176,7 +21178,7 @@ svg {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }
 
 .jvm-container {
@@ -22907,7 +22909,7 @@ svg {
   height: 28px;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   -webkit-user-select: none;
 }
 
@@ -22936,7 +22938,7 @@ svg {
   min-height: 32px;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   -webkit-user-select: none;
 }
 
@@ -22990,7 +22992,7 @@ svg {
   padding: 6px;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   -webkit-user-select: none;
 }
 
@@ -23558,7 +23560,7 @@ svg {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   vertical-align: middle;
 }
 
@@ -23614,7 +23616,7 @@ svg {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }
 
 .sw.sw-loading:after {

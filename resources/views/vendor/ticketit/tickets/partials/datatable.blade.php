@@ -2,12 +2,6 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Default</h5>
-                    <h6 class="card-subtitle text-muted">Highly flexible tool that many advanced features to any HTML
-                        table.
-                    </h6>
-                </div>
                 <div class="card-body">
 
                     <table class="table table-flush dataTable dtr-inline" id="datatable-basic" style="width: 100%;"
