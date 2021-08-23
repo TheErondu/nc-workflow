@@ -68,7 +68,7 @@
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="mb-3">
-                                            <label>>{{ __('E-Mail Address') }}</label>
+                                            <label>{{ __('E-Mail Address') }}</label>
                                             <input
                                                 class="form-control form-control-lg @error('email') is-invalid @enderror"
                                                 type="email" name="email" placeholder="Enter your email" />

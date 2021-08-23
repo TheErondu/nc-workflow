@@ -2,19 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Communication;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use \Illuminate\Http\Response;
 class MessageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+   /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Response $id)
     {
-        return view('dashboard.messages.index');
+        $welcome_message = Message::all()->where('type','message')->sortByDesc('id', 0)->first();
+        $notifications = Message::all()->where('type','notification');
+        return view('dashboard.messages.index',compact('welcome_message','notifications'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id) {
+        // retreive all records from db
+
+        $message = Message::all()->find($id);
+
+        return Storage::download($message->file,$message->filename);
+
     }
 
     /**
@@ -24,7 +53,8 @@ class MessageController extends Controller
      */
     public function create()
     {
-        //
+        $messages = Message::all();
+        return view('dashboard.messages.create',[ 'messsages' => $messages ]);
     }
 
     /**
@@ -35,27 +65,51 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'             => 'required',
+            'file.*' => 'required|in:csv,doc,jpg,jpeg,txt,xlx,xls,pdf|max:2048',
+            'filename'           => '',
+            'message'           => '',
+            'type'           => 'required',
+        ]);
+        $user = auth()->user();
+        $message = new Message();
+        $message->title     = $request->input('title');
+        if($request->file('file')){
+        $message->file   = $request->file('file')->store('public/files');
+        $message->filename = $request->file('file')->getClientOriginalName();
+        }
+        $message->message = $request->input('message');
+        $message->type = $request->input('type');
+        $message->user_id = $user->id;
+        $message->save();
+        $request->session()->flash('message', 'Successfully created message');
+        return redirect()->route('messages.create');
     }
 
-    /**
+   /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Communication  $communication
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Communication $communication)
-    {
-        //
+    public function show($id){
+
+        $message = Message::with('user')->find($id);
+
+        return view('dashboard.message.show', [ 'message' => $message ]);
+
+
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Communication  $communication
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function edit(Communication $communication)
+    public function edit(Message $message)
     {
         //
     }
@@ -64,10 +118,10 @@ class MessageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Communication  $communication
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Communication $communication)
+    public function update(Request $request, Message $message)
     {
         //
     }
@@ -75,10 +129,10 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Communication  $communication
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Communication $communication)
+    public function destroy(Message $message)
     {
         //
     }

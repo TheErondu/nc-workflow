@@ -19,9 +19,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('home');
     });
         Route::resource('messages', 'App\Http\Controllers\MessageController');
+        Route::get('messages/{id}/download', 'App\Http\Controllers\MessageController@download')->name('file.download');
         Route::resource('content', 'App\Http\Controllers\ContentController');
         Route::resource('documents', 'App\Http\Controllers\DocumentController');
         Route::resource('dutylog', 'App\Http\Controllers\DutyloggerController');

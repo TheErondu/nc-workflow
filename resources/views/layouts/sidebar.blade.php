@@ -1,9 +1,6 @@
 <nav id="sidebar" class="sidebar">
     <a class="sidebar-brand" href="/">
-        <svg>
-            <use xlink:href="#ion-ios-pulse-strong"></use>
-        </svg>
-        Spark
+        <img src="/img/brave_logo.jpeg" style="width: 5rem;">
     </a>
     <div class="sidebar-content">
 

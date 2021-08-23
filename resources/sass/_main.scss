@@ -31685,3 +31685,8 @@ button.toast-close-button {
 .sw-theme-arrows.sw-dark > .nav .nav-link.danger:after {
   border-left-color: #f2545b;
 }
+.tab .nav-tabs .nav-link.active {
+    background: #28304e;
+    color: #dee2e6;
+    border-radius: 0.6rem;
+}

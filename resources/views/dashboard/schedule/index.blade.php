@@ -4,18 +4,171 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Empty card</h5>
-                </div>
                 <div class="card-body">
-                    <div class="my-5">&nbsp;</div>
+                    <div class="col-12">
+                        <div class="tab">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab"
+                                        role="tab">MD/CEO Welcome</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab"
+                                        role="tab">NOTIFICATIONS</a></li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab-1" role="tabpanel">
+                                        <div class="card-body">
+                                            <div id="fullcalendar1"></div>
+                                        </div>
+
+                                </div>
+                                <div class="tab-pane" id="tab-2" role="tabpanel">
+
+                                    <div class="card-body">
+                                        <div id="fullcalendar0"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
         </div>
-    </div>
 
 </div>
 @endsection
 @section('javascript')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var calendarEl = document.getElementById('fullcalendar0');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            themeSystem: 'bootstrap',
+            initialView: 'dayGridMonth',
+            initialDate: '2021-07-07',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [{
+                    title: 'All Day Event',
+                    start: '2021-07-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2021-07-07',
+                    end: '2021-07-10'
+                },
+                {
+                    groupId: '999',
+                    title: 'Repeating Event',
+                    start: '2021-07-09T16:00:00'
+                },
+                {
+                    groupId: '999',
+                    title: 'Repeating Event',
+                    start: '2021-07-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2021-07-11',
+                    end: '2021-07-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-07-12T10:30:00',
+                    end: '2021-07-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2021-07-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-07-12T14:30:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2021-07-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2021-07-28'
+                }
+            ]
+        });
+        setTimeout(function() {
+            calendar.render();
+        }, 250)
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var calendarEl = document.getElementById('fullcalendar1');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            themeSystem: 'bootstrap',
+            initialView: 'dayGridMonth',
+            initialDate: '2021-07-07',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [{
+                    title: 'All Day Event',
+                    start: '2021-07-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2021-07-07',
+                    end: '2021-07-10'
+                },
+                {
+                    groupId: '999',
+                    title: 'Repeating Event',
+                    start: '2021-07-09T16:00:00'
+                },
+                {
+                    groupId: '999',
+                    title: 'Repeating Event',
+                    start: '2021-07-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2021-07-11',
+                    end: '2021-07-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-07-12T10:30:00',
+                    end: '2021-07-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2021-07-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-07-12T14:30:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2021-07-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2021-07-28'
+                }
+            ]
+        });
+        setTimeout(function() {
+            calendar.render();
+        }, 250)
+    });
+</script>
 
 @endsection
