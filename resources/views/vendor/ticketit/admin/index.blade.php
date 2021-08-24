@@ -271,7 +271,7 @@
 @section('footer')
     @if ($tickets_count)
         {{-- @include('ticketit::shared.footer') --}}
-        <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('gstatic/loader.js') }}"></script>
         <script type="text/javascript">
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {

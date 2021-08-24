@@ -2,29 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Schedule;
 use Illuminate\Http\Request;
+
+use App\Models\Schedule;
 
 class ScheduleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
+        if($request->ajax()) {
+            $data = Schedule::whereDate('start_date', '>=', $request->start)
+                ->whereDate('end_date',   '<=', $request->end)
+                ->get(['id', 'name', 'start_date', 'end_date']);
+            return response()->json($data);
+        }
         return view('dashboard.schedule.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function calendarEvents(Request $request)
+    {
+
+        switch ($request->type) {
+           case 'create':
+              $event = Schedule::create([
+                  'name' => $request->name,
+                  'start_date' => $request->start_date,
+                  'end_date' => $request->end_date,
+              ]);
+
+              return response()->json($event);
+             break;
+
+           case 'edit':
+              $event = Schedule::find($request->id)->update([
+                  'name' => $request->name,
+                  'start_date' => $request->start_date,
+                  'end_date' => $request->end_date,
+              ]);
+
+              return response()->json($event);
+             break;
+
+           case 'delete':
+              $event = Schedule::find($request->id)->delete();
+
+              return response()->json($event);
+             break;
+
+           default:
+             # ...
+             break;
+        }
+    }
+
     public function create()
     {
-        //
+        $schedules = Schedule::all();
+        return view('dashboard.schedule.create',[ 'schedules' => $schedules ]);
     }
 
     /**
@@ -35,18 +71,53 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'             => 'required',
+            'start'           => 'required',
+            'end'           => 'required',
+            'start'           => 'required',
+            'status'           => 'required',
+            'producer1'           => 'required',
+            'producer2'           => 'required',
+            'dop1'           => 'required',
+            'dop2'           => 'required',
+            'dop3'           => 'required',
+            'dop4'           => 'required',
+
+        ]);
+        $user = auth()->user();
+        $schedule = new Schedule();
+        $schedule->title     = $request->input('title');
+        $schedule->start = $request->input('start');
+        $schedule->end = $request->input('end');
+        $schedule->status = $request->input('status');
+        $schedule->producer1 = $request->input('producer1');
+        $schedule->producer2 = $request->input('producer2');
+        $schedule->dop1 = $request->input('dop1');
+        $schedule->dop2 = $request->input('dop2');
+        $schedule->dop3 = $request->input('dop3');
+        $schedule->dop4 = $request->input('dop4');
+        $schedule->description = $request->input('description');
+        $schedule->user_id = $user->id;
+        $schedule->save();
+        $request->session()->flash('message', 'Successfully created schedule');
+        return redirect()->route('schedule.create');
     }
 
-    /**
+   /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Schedule  $schedule
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Schedule $schedule)
-    {
-        //
+    public function show($id){
+
+        $schedule = Schedule::all()->find($id);
+
+        return view('dashboard.schedule.show', [ 'schedule' => $schedule ]);
+
+
+
     }
 
     /**
@@ -55,23 +126,59 @@ class ScheduleController extends Controller
      * @param  \App\Models\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function edit(Schedule $schedule)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
-        //
+        $schedule = Schedule::all()->find($id);
+        return view('dashboard.schedule.edit', [ 'schedule' => $schedule,]);
     }
 
-    /**
+       /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Schedule  $schedule
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        //var_dump('bazinga');
+        //die();
+        $validatedData = $request->validate([
+            'title'             => 'required',
+            'start'           => 'required',
+            'end'           => 'required',
+            'start'           => 'required',
+            'status'           => 'required',
+            'producer1'           => 'required',
+            'producer2'           => 'required',
+            'dop1'           => 'required',
+            'dop2'           => 'required',
+            'dop3'           => 'required',
+            'dop4'           => 'required',
 
+        ]);
+        $schedule = Schedule::find($id);
+        $schedule->title     = $request->input('title');
+        $schedule->start = $request->input('start');
+        $schedule->end = $request->input('end');
+        $schedule->status = $request->input('status');
+        $schedule->producer1 = $request->input('producer1');
+        $schedule->producer2 = $request->input('producer2');
+        $schedule->dop1 = $request->input('dop1');
+        $schedule->dop2 = $request->input('dop2');
+        $schedule->dop3 = $request->input('dop3');
+        $schedule->dop4 = $request->input('dop4');
+        $schedule->description = $request->input('description');
+        $schedule->save();
+        $request->session()->flash('message', 'Successfully created schedule');
+        return redirect()->route('schedule.edit',$schedule->id);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -83,3 +190,4 @@ class ScheduleController extends Controller
         //
     }
 }
+

@@ -1,21 +1,15 @@
 .card {
     word-wrap: break-word;
     background-clip: border-box;
-    background-color: #fff;
+    background-color: #5f5d5f5e;
     border: 0 solid rgba(0, 0, 0, 0.125);
-    border-radius: 2.0rem;
+    border-radius: 0.7rem;
     flex-direction: column;
     min-width: 0;
     position: relative;
 }
-.tab .nav-tabs .nav-link.active {
-    background: #28304e;
-    color: #dee2e6;
-    border-radius: 0.6rem;
-    margin-bottom: 0.7rem;
-}
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    background-color: #687ae8;
+    background-color: #000;
     color: #fff;
     border-radius: 0.658rem;
 }
@@ -32,11 +26,16 @@
     white-space: nowrap;
 }
 .tab .tab-content {
-    background: #fff;
-    border-radius: 1.5rem;
+    background: #5F5D5F;
+    border-radius: 0 0 0.7rem 0.7rem;
     box-shadow: 2px 4px 2rem 2px rgb(0 0 0 / 19%);
     padding: 1.25rem;
-
+}
+.tab .tab-content-black {
+    background: #000000;
+    border-radius: 0 0 0.7rem 0.7rem;
+    box-shadow: 2px 4px 2rem 2px rgb(0 0 0 / 19%);
+    padding: 1.25rem;
 }
 .small-card {
     width: 15rem;
@@ -78,13 +77,22 @@
 }
 .sidebar-brand, .sidebar-brand:hover {
     background: #000000;
-    color: #fff;
+    color: black;
     display: block;
     /* font-size: 1.175rem; */
     /* font-weight: 500; */
     padding: 0.9rem;
-    text-decoration: none;
+    text-decoration: underline;
     width: 100%;
+}
+
+.sidebar-dropdown .sidebar-link {
+    background: #000;
+    color: #f8f9fa;
+    font-size: 90%;
+    font-weight: 400;
+    margin: 0 0.5rem;
+    padding: 0.35rem 1.5rem 0.35rem 2.75rem;
 }
 .sidebar-content, .sidebar-nav {
     background: #000000;
@@ -109,7 +117,9 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
     margin-right: 0.75rem;
 }
 .card-header:first-child {
-    border-radius: 1.2rem 1.2rem 0 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background: black;
+    color: white;
 }
 
 .alert-danger {
@@ -128,3 +138,158 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
     border-radius: 1.0rem;
     margin: 1.0rem;
 }
+
+.popper,
+.tooltip {
+  position: absolute;
+  z-index: 9999;
+  background: #FFC107;
+  color: black;
+  width: 150px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  padding: 10px;
+  text-align: center;
+}
+.style5 .tooltip {
+  background: #1E252B;
+  color: #FFFFFF;
+  max-width: 200px;
+  width: auto;
+  font-size: .8rem;
+  padding: .5em 1em;
+}
+.popper .popper__arrow,
+.tooltip .tooltip-arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: 5px;
+}
+
+.tooltip .tooltip-arrow,
+.popper .popper__arrow {
+  border-color: #FFC107;
+}
+.style5 .tooltip .tooltip-arrow {
+  border-color: #1E252B;
+}
+.popper[x-placement^="top"],
+.tooltip[x-placement^="top"] {
+  margin-bottom: 5px;
+}
+.popper[x-placement^="top"] .popper__arrow,
+.tooltip[x-placement^="top"] .tooltip-arrow {
+  border-width: 5px 5px 0 5px;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  bottom: -5px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.popper[x-placement^="bottom"],
+.tooltip[x-placement^="bottom"] {
+  margin-top: 5px;
+}
+.tooltip[x-placement^="bottom"] .tooltip-arrow,
+.popper[x-placement^="bottom"] .popper__arrow {
+  border-width: 0 5px 5px 5px;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  top: -5px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.tooltip[x-placement^="right"],
+.popper[x-placement^="right"] {
+  margin-left: 5px;
+}
+.popper[x-placement^="right"] .popper__arrow,
+.tooltip[x-placement^="right"] .tooltip-arrow {
+  border-width: 5px 5px 5px 0;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  left: -5px;
+  top: calc(50% - 5px);
+  margin-left: 0;
+  margin-right: 0;
+}
+.popper[x-placement^="left"],
+.tooltip[x-placement^="left"] {
+  margin-right: 5px;
+}
+.popper[x-placement^="left"] .popper__arrow,
+.tooltip[x-placement^="left"] .tooltip-arrow {
+  border-width: 5px 0 5px 5px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  right: -5px;
+  top: calc(50% - 5px);
+  margin-left: 0;
+  margin-right: 0;
+}
+.first-tab {
+  border-radius: 1.2rem 0 0 0;
+}
+.last-tab {
+    border-radius: 0 0 0 1.2rem;
+  }
+
+  .tab .nav-tabs {
+    border: 0;
+    background: black;
+}
+
+.tab .nav-tabs .nav-link {
+    background: transparent;
+    border: 0;
+    color: #f8f9fa;
+    padding: 0.75rem 1rem;
+    font-size: medium;
+}
+
+
+.tab .nav-tabs .nav-link.active {
+    border-bottom: 3px solid red;
+    color: #dee2e6;
+}
+.table {
+    --bs-table-bg:transparent;
+    --bs-table-accent-bg:transparent;
+    --bs-table-striped-color:#5F5D5F;
+    --bs-table-striped-bg:#f8f9fa;
+    --bs-table-active-color:#5F5D5F;
+    --bs-table-active-bg:rgba(0,0,0,0.1);
+    --bs-table-hover-color:#5F5D5F;
+    --bs-table-hover-bg:rgba(0,0,0,0.075);
+    border-color: #7d7e7f;
+    color: #fff;
+    margin-bottom: 1rem;
+    vertical-align: top;
+    width: 100%;
+  }
+  .table-card {
+    background-color: #414141;
+    border-radius: 0.7rem;
+    margin: -0.1rem;
+}
+.card-black {
+    word-wrap: break-word;
+    background-clip: border-box;
+    background-color: #000000;
+    border: 0 solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.7rem;
+    flex-direction: column;
+    min-width: 0;
+    position: relative;
+}
+.body{
+    margin: 100%;
+    }

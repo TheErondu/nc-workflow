@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card-black">
                     <div class="card-body">
                         <div class="col-12">
                             <div class="tab">
@@ -20,7 +20,7 @@
                                     </div>
                                     <div class="tab-pane" id="tab-2" role="tabpanel">
 
-                                        <div class="card-body">
+                                        <div class="card">
                                             <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                 <div class="row">
                                                     <table id="datatables-basic"

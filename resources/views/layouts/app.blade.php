@@ -17,7 +17,10 @@
 
     <!-- PICK ONE OF THE STYLES BELOW -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link href="{{ asset('css/summernote.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/nunito.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Jost.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/hind-vadodara.css') }}" rel="stylesheet">
 
   <!-- <link href="css/classic.css" rel="stylesheet"> -->
     <!-- <link href="css/dark.css" rel="stylesheet"> -->
@@ -36,17 +39,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
     <!-- END SETTINGS -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-120946860-7');
-    </script>
 </head>
 
 <body>
@@ -81,7 +74,8 @@
     </svg>
     <script src="{{ asset('js/main.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="{{ asset('js/summernote.min.js') }}"></script>
+
 </body>
 
 

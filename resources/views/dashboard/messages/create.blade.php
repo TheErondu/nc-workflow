@@ -104,7 +104,6 @@
 $(function() {
 
     var options = $.extend(true, {lang: '' , codemirror: {theme: 'monokai', mode: 'text/html', htmlMode: true, lineWrapping: true} } , {
-        
 "toolbar": [
     ["style", ["style"]],
     ["font", ["bold", "underline", "italic", "clear"]],
