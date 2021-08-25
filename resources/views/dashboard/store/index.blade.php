@@ -22,6 +22,7 @@
                                             <div class="card-header">
                                                 <span>NC Store</span>
                                             </div>
+                                            <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
                                                         <table id="datatables-basic"
@@ -79,6 +80,7 @@
                                                         </table>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="tab-2" role="tabpanel">
@@ -86,6 +88,7 @@
                                             <div class="card-header">
                                                 <span>All Requested Items</span>
                                             </div>
+                                            <div class="table-responsive">
                                             <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                 <div class="row">
                                                     <table id="datatables-basic"
@@ -131,6 +134,7 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="tab-3" role="tabpanel">
@@ -139,6 +143,7 @@
                                             <div class="card-header">
                                                 <span>NC Store</span>
                                             </div>
+                                            <div class="table-responsive">
                                             <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                 <div class="row">
                                                     <table id="datatables-basic" data-stripe-classes="[]"
@@ -183,7 +188,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-
+                                            </div>
                                         </div>
                                     </div>
 

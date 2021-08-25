@@ -17637,8 +17637,8 @@ a.fc-event, a.fc-event:hover {
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-  background-color: rgba(255, 220, 40, 0.15);
-  background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
+  background-color: rgba(18, 13, 156);
+  background-color: var(--fc-today-bg-color, rgb(18, 13, 156));
 }
 
 .fc .fc-daygrid-day-frame {
