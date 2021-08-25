@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <div class="col-12">
                             <div class="tab">
-                                <ul class="nav nav-tabs" role="tablist">
+                                <ul class="nav nav-tabs justify-content-around" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab"
                                             role="tab">MD/CEO Welcome</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab"
@@ -20,12 +20,12 @@
                                     </div>
                                     <div class="tab-pane" id="tab-2" role="tabpanel">
 
-                                        <div class="card-body">
+                                        <div class="card-body table-card">
                                             <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
                                                         <table id="datatables-basic"
-                                                            class="table table-striped dataTable dtr-inline"
+                                                            class="table table-flushed dataTable dtr-inline"
                                                             style="width: 100%;" role="grid"
                                                             aria-describedby="datatables-basic_info">
                                                             <thead>
@@ -69,17 +69,7 @@
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <div>
-                                                    <h5
-                                                        class="card-header d-flex justify-content-between align-items-baseline flex-wrap">
-                                                        <a href="{{ route('messages.create') }}"
-                                                            class="btn btn-primary">Cancel <i
-                                                                class="fa fa-undo-alt"></i></a>
 
-                                                        <a href="{{ route('messages.create') }}"
-                                                            class="btn btn-primary">Create <i class="fa fa-plus"></i></a>
-                                                </div>
-                                                </h5>
                                             </div>
                                         </div>
                                     </div>

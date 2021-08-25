@@ -3815,7 +3815,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border: 0;
   clear: both;
-  color: #495057;
+  color: #ddd;
   display: block;
   font-weight: 400;
   padding: 0.35rem 1.5rem;
@@ -17637,8 +17637,8 @@ a.fc-event, a.fc-event:hover {
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-  background-color: rgba(18, 13, 156);
-  background-color: var(--fc-today-bg-color, rgb(18, 13, 156));
+  background-color: #0a15ab;
+  background-color: var(--fc-today-bg-color, #0a15ab);
 }
 
 .fc .fc-daygrid-day-frame {
