@@ -94,39 +94,55 @@
     </div>
 @endsection
 @section('javascript')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+<script src="{{asset ('js/codemirror.min.js') }}"></script>
+<script src="{{asset ('js/xml.min.js') }}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.min.js"></script>
+<script src="{{asset ('js/summernote.min.js') }}"></script>
+<script src="{{asset ('js/summernote-cleaner.js') }}"></script>
+
 <script>
 
 
 $(function() {
 
     var options = $.extend(true, {lang: '' , codemirror: {theme: 'monokai', mode: 'text/html', htmlMode: true, lineWrapping: true} } , {
-"toolbar": [
-    ["style", ["style"]],
-    ["font", ["bold", "underline", "italic", "clear"]],
-    ["fontsize", ["fontsize"]],
-    ["fontname", ["fontname"]],
-    ["color", ["color"]],
-    ["para", ["ul", "ol", "paragraph"]],
-    ["table", ["table"]],
-    ["height", ["height"]],
-    ["insert", ["link", "picture", "video"]],
-    ["view", ["fullscreen", "codeview", "help"]]
-    ["style", ["style"]],
-    ["help", ["help"]]
-]
+        toolbar:[
+        ['cleaner',['cleaner']], // The Button
+        ['style',['style']],
+        ['font',['bold','italic','underline','clear']],
+        ['fontname',['fontname']],
+        ['fontcolor',['color']],
+        ['para',['ul','ol','paragraph']],
+        ['height',['height']],
+        ['table',['table']],
+        ['insert',['media','link','hr']],
+        ['help',['help']]
+    ],
+    cleaner:{
+          action: 'both',
+          newline: '<br>',
+          icon: '<i class="note-icon">[Your Button]</i>',
+          keepHtml: false,
+          keepOnlyTags: ['<p>', '<br>', '<ul>', '<li>', '<b>', '<strong>','<i>', '<a>'],
+          keepClasses: false,
+          badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'],
+          badAttributes: ['style', 'start'],
+          limitChars: false,
+          limitDisplay: 'both',
+          limitStop: false
+    }
 });
 
     $("textarea.summernote-editor").summernote(options);
 
     $("label[for=message]").click(function () {
+
+
         $("#message").summernote("focus");
     });
 });
 
 
 </script>
+<script src="{{asset ('js/summernote-cleaner.js') }}"></script>
 @endsection

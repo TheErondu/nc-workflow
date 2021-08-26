@@ -67,7 +67,7 @@ hr:not([size]) {
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-  color: #203a45;
+  color: #e5e8ea;
   font-family: Jost, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.2;
@@ -14524,8 +14524,8 @@ body {
 }
 
 .sidebar-link:hover {
-  background: #fff;
-  color: #212529;
+  background: rgba(54, 54, 54, 0.442);
+  color: #edf0f3;
 }
 
 .sidebar-link:hover .fab, .sidebar-link:hover .fal, .sidebar-link:hover .far, .sidebar-link:hover .fas, .sidebar-link:hover svg {
