@@ -56,7 +56,7 @@
                 <ul id="reports" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link"
                         href="{{ route('reports.index') }}"> <i class="align-middle me-2 fas fa-clipboard-check"></i> <span
-                        class="align-middle">Director's Manager</span></a></li>
+                        class="align-middle">Director's Report</span></a></li>
                     <li class="sidebar-item"><a class="sidebar-link"
                         href="{{ route('oblogs.index') }}"> <i class="align-middle me-2 fas fa-shipping-fast"></i> <span
                         class="align-middle">OB Logs</span></a></li>
@@ -82,7 +82,7 @@
                         class="align-middle">Trip Logger</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link"
                             href="{{ route('vehicles.index') }}"><i class="align-middle me-2 fas fa-chart-line"></i> <span
-                            class="align-middle">Vehicle Manager</span></a></li>
+                            class="align-middle">Mileage Tracker</span></a></li>
                 </ul>
             </li>
             <li @if(Route::is('departments.*', 'employees.*') ) class="sidebar-item active" @else class="sidebar-item" @endif>
