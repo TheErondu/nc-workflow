@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('content', 'App\Http\Controllers\ContentController');
         Route::resource('documents', 'App\Http\Controllers\DocumentController');
         Route::resource('dutylog', 'App\Http\Controllers\DutyloggerController');
+        Route::resource('reports', 'App\Http\Controllers\ReportsController');
+        Route::resource('oblogs', 'App\Http\Controllers\OBlogsController');
         Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
         Route::get('calendar-event', [App\Http\Controllers\ScheduleController::class, 'index']);
 Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::class, 'calendarEvents']);
