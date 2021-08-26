@@ -15,6 +15,20 @@ class CreateOBlogsTable extends Migration
     {
         Schema::create('o_blogs', function (Blueprint $table) {
             $table->id();
+            $table->string('event_name');
+            $table->string('event_date');
+            $table->string('location');
+            $table->string('producer');
+            $table->string('director');
+            $table->string('vision_mixer');
+            $table->string('sound');
+            $table->string('engineer');
+            $table->string('dop');
+            $table->string('reporter');
+            $table->string('digital');
+            $table->string('transmission_time');
+            $table->string('comment');
+            $table->string('uploaded_by');
             $table->timestamps();
         });
     }

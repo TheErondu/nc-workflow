@@ -15,6 +15,15 @@ class CreateTripLoggersTable extends Migration
     {
         Schema::create('trip_loggers', function (Blueprint $table) {
             $table->id();
+            $table->string('number_plate');
+            $table->string('productin_name');
+            $table->date('trip_date');
+            $table->string('designated_driver');
+            $table->string('odometer_start');
+            $table->string('odometer_stop');
+            $table->string('trip_information');
+            $table->string('trip_distance');
+            $table->string('fuel_station');
             $table->timestamps();
         });
     }
