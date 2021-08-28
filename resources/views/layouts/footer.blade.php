@@ -19,7 +19,7 @@
             </div>
             <div class="col-4 text-end">
                 <p class="mb-0">
-                    &copy; 2021 - <a href="dashboard-default.html" class="text-muted">Spark</a>
+                    &copy; 2021 - <a href="dashboard-default.html" class="text-muted">BraveTech Media</a>
                 </p>
             </div>
         </div>

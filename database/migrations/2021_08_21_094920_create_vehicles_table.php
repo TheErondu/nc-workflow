@@ -19,9 +19,9 @@ class CreateVehiclesTable extends Migration
             $table->string('vehicle_make');
             $table->string('purpose');
             $table->string('vehicle_colour');
-            $table->string('assigned_driver')
+            $table->string('assigned_driver');
 
-        
+
             $table->timestamps();
         });
     }

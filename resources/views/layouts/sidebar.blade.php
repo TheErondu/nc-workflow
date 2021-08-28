@@ -12,8 +12,8 @@
                         class="align-middle">Communication</span>
                 </a>
             </li>
-            <li @if(Route::is('humans.*') ) class="sidebar-item active" @else class="sidebar-item" @endif>
-                <a data-bs-target="#" class="sidebar-link" href="{{ route('humans.index') }}">
+            <li @if(Route::is('awards.*') ) class="sidebar-item active" @else class="sidebar-item" @endif>
+                <a data-bs-target="#" class="sidebar-link" href="{{ route('awards.index') }}">
                     <i class="align-middle me-2 fas fa-fw fa-users"></i> <span
                         class="align-middle">Awards</span>
                 </a>

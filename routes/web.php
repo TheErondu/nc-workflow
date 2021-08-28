@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('calendar-event', [App\Http\Controllers\ScheduleController::class, 'index']);
 Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::class, 'calendarEvents']);
         Route::resource('documents', 'App\Http\Controllers\DocumentController');
-        Route::resource('humans', 'App\Http\Controllers\HumansController');
+        Route::resource('awards', 'App\Http\Controllers\AwardsController');
         Route::resource('tracker', 'App\Http\Controllers\VehicleController');
         Route::resource('vehicles', 'App\Http\Controllers\TrackerController');
         Route::resource('departments', 'App\Http\Controllers\DepartmentController');

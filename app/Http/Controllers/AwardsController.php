@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Humans;
 use Illuminate\Http\Request;
 
-class HumansController extends Controller
+class AwardsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class HumansController extends Controller
      */
     public function index()
     {
-        return view('dashboard.humans.index');
+        return view('dashboard.awards.index');
     }
 
     /**
