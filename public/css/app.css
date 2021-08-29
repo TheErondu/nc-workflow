@@ -18242,6 +18242,7 @@ a.fc-event, a.fc-event:hover {
 
 .fc .fc-list-day-cushion, .fc .fc-list-table td {
   padding: 8px 14px;
+  background-color: black;
 }
 
 .fc .fc-list-day-cushion:after {
