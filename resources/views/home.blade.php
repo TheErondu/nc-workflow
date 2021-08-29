@@ -13,7 +13,6 @@
                             style="width: 100%; height: 400px;" loop autoplay></lottie-player>
                         <div class="intro-text">
                             <h5>Release 3.0</h5>
-                          <?php  echo public_path(); ?>
                         </div>
 
                     </div>
