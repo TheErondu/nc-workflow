@@ -17232,6 +17232,7 @@ div.dt-buttons a.btn.processing:after, div.dt-buttons button.btn.processing:afte
   align-items: center;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .fc .fc-toolbar.fc-header-toolbar {

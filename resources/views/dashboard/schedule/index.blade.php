@@ -121,9 +121,7 @@
                         });
                     },
                 });
-                setTimeout(function() {
 				calendar.render();
-			}, 250)
              });
         </script>
 
