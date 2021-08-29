@@ -260,6 +260,7 @@ tbody, td, tfoot, th, thead, tr {
 
 label {
   display: inline-block;
+  margin: 0.5rem;
 }
 
 button {
@@ -16603,7 +16604,7 @@ div.dataTables_wrapper div.dataTables_filter label {
 div.dataTables_wrapper div.dataTables_filter input {
   display: inline-block;
   margin-left: 0.5em;
-  width: auto;
+  width: 50%;
 }
 
 div.dataTables_wrapper div.dataTables_info {

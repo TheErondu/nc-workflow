@@ -260,6 +260,7 @@ tbody, td, tfoot, th, thead, tr {
 
 label {
   display: inline-block;
+  margin: 0.5rem;
 }
 
 button {
@@ -16607,7 +16608,7 @@ div.dataTables_wrapper div.dataTables_filter label {
 div.dataTables_wrapper div.dataTables_filter input {
   display: inline-block;
   margin-left: 0.5em;
-  width: auto;
+  width: 50%;
 }
 
 div.dataTables_wrapper div.dataTables_info {
@@ -17367,8 +17368,8 @@ div.dt-buttons a.btn.processing:after, div.dt-buttons button.btn.processing:afte
 .fc .fc-view-harness {
   flex-grow: 1;
   position: relative;
+  
 }
-
 .fc .fc-view-harness-active > .fc-view {
   bottom: 0;
   left: 0;

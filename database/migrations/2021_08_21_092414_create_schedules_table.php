@@ -29,6 +29,7 @@ class CreateSchedulesTable extends Migration
             $table->string('video_editor');
             $table->string('graphic_editor');
             $table->string('digital_editor');
+            $table->string('type');
             $table->string('others');
 
             $table->timestamps();

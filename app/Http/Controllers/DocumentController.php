@@ -13,7 +13,7 @@ class DocumentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   $documents = Document::all();
         return view('dashboard.documents.index');
     }
 

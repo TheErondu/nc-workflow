@@ -14,7 +14,7 @@ class ScheduleController extends Controller
         if($request->ajax()) {
             $data = Schedule::whereDate('start_date', '>=', $request->start)
                 ->whereDate('end_date',   '<=', $request->end)
-                ->get(['id', 'name', 'start_date', 'end_date']);
+                ->get(['id', 'name', 'start_date', 'end_date', 'type']);
             return response()->json($data);
         }
         return view('dashboard.schedule.index');
@@ -98,6 +98,7 @@ class ScheduleController extends Controller
         $schedule->dop3 = $request->input('dop3');
         $schedule->dop4 = $request->input('dop4');
         $schedule->description = $request->input('description');
+        $schedule->type = $request->input('type');
         $schedule->user_id = $user->id;
         $schedule->save();
         $request->session()->flash('message', 'Successfully created schedule');
@@ -175,6 +176,7 @@ class ScheduleController extends Controller
         $schedule->dop3 = $request->input('dop3');
         $schedule->dop4 = $request->input('dop4');
         $schedule->description = $request->input('description');
+        $schedule->type = $request->input('type');
         $schedule->save();
         $request->session()->flash('message', 'Successfully created schedule');
         return redirect()->route('schedule.edit',$schedule->id);

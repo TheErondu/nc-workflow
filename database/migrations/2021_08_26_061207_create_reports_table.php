@@ -15,22 +15,22 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('bulletin_1');
+            $table->string('bulletin');
             $table->string('dts_in');
             $table->string('actual_in');
-            $table->string('variance');
+            $table->string('variance1');
             $table->string('dts_out');
             $table->string('actual_out');
-            $table->string('variance');
+            $table->string('variance2');
             $table->string('comment');
-            $table->string('bulletin_2');
-            $table->string('dts_in');
-            $table->string('actual_in');
-            $table->string('variance');
-            $table->string('dts_out');
-            $table->string('actual_out');
-            $table->string('variance');
-            $table->string('comment');
+            $table->string('b2bulletin');
+            $table->string('b2dts_in');
+            $table->string('b2actual_in');
+            $table->string('b2variance1');
+            $table->string('b2dts_out');
+            $table->string('b2actual_out');
+            $table->string('b2variance2');
+            $table->string('b2comment');
             $table->timestamps();
         });
     }

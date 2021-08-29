@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Humans;
+use App\Models\Awards;
 use Illuminate\Http\Request;
 
 class AwardsController extends Controller
@@ -13,8 +13,8 @@ class AwardsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('dashboard.awards.index');
+    {   $awards = Awards::all();
+        return view('dashboard.awards.index',[ 'awards' => $awards ]);
     }
 
     /**
