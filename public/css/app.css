@@ -31966,3 +31966,13 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
   min-width: 0;
   position: relative;
 }
+
+.lottie-full {
+  opacity: 1 !important;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.intro-text {
+  text-align: center;
+}

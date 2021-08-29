@@ -38,4 +38,7 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::resource('departments', 'App\Http\Controllers\DepartmentController');
         Route::resource('store', 'App\Http\Controllers\StoreController');
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');
+        Route::get('animation', 'App\Http\Controllers\LottieController@index');
 });
+
+Route::get('animation', 'App\Http\Controllers\LottieController@index');
