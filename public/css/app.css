@@ -5589,7 +5589,7 @@ textarea.form-control-lg {
 
 .modal-content {
   background-clip: padding-box;
-  background-color: #fff;
+  background-color: #232020;
   border: 0 solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   display: flex;
@@ -5623,7 +5623,7 @@ textarea.form-control-lg {
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
-  display: flex;
+  display: none;
   flex-shrink: 0;
   justify-content: space-between;
   padding: 1rem;
@@ -30975,6 +30975,7 @@ button.toast-close-button {
 .select2-container--bootstrap4 .select2-results__option {
   font-size: 0.9375rem;
   padding: 0.375rem 0.7rem;
+  color: black;
 }
 
 .select2-container--bootstrap4 .select2-results__option[role=group] {
@@ -31967,6 +31968,17 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
   position: relative;
 }
 
+.card-opaque {
+  word-wrap: break-word;
+  background-clip: border-box;
+  background-color: #414141;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.7rem;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+
 .lottie-full {
   opacity: 1 !important;
   overflow-y: scroll;
@@ -31975,4 +31987,8 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
 
 .intro-text {
   text-align: center;
+}
+
+.table th {
+  background-color: #000000;
 }

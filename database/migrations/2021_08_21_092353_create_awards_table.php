@@ -26,6 +26,7 @@ class CreateAwardsTable extends Migration
             $table->string('fullname2')->nullable();
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();
+            $table->string('type')->nullable();
             $table->string('commendation')->nullable();
 
             $table->timestamps();

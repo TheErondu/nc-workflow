@@ -26,7 +26,7 @@
                                     <div class="card-header" style="margin-bottom: 1.0rem;">
                                         <span>Show of the week </span>
                                     </div>
-                                    @if (count($awards) > 0)
+                                    @if (count($shows) > 0)
 
 
                                         <table class="table datatable dtr-inline" cellspacing="0" width="100%">
@@ -38,14 +38,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($shows as $show)
                                                 <tr>
-                                                    @foreach ($awards as $show)
+                                                    <td>{{ $show->show_title }}</td>
+                                                        <td>{{ $show->show_location }}</td>
+                                                        <td><img src="uploads/{{ $show->photo }}" height="40px" width="60px"/></td>
 
-                                                        <td>{{ $show->$show_title }}</td>
-                                                        <td>{{ $show->$show_title }}</td>
-                                                        <td>{{ $show->$photo }}</td>
-                                                    @endforeach
                                                 </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     @else
@@ -76,11 +76,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    @foreach ($awards as $show)
+                                                    @foreach ($awards as $awardee)
 
-                                                        <td>{{ $show->$show_title }}</td>
-                                                        <td>{{ $show->$show_title }}</td>
-                                                        <td>{{ $show->$photo }}</td>
+                                                        <td>{{ $awardee->name }}</td>
+                                                        <td>{{ $awardee->description }}</td>
+                                                        <td><img src="uploads/{{ $awardee->picture }}" height="40px" width="60px"/></td>
                                                     @endforeach
                                                 </tr>
                                             </tbody>
@@ -100,24 +100,28 @@
                                         <span>Team Collaboration of the Month </span>
                                     </div>
 
-                                    @if (count($awards) > 0)
+                                    @if (count($teams) > 0)
 
 
                                         <table class="table datatable dtr-inline" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Show Title</th>
-                                                    <th>Showing Time</th>
-                                                    <th>Image</th>
+                                                    <th>Team member 1</th>
+                                                    <th>Team Member 2</th>
+                                                    <th>Image1</th>
+                                                    <th>Image1</th>
+                                                    <th>Commendation</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    @foreach ($awards as $show)
+                                                    @foreach ($teams as $team)
 
-                                                        <td>{{ $show->$show_title }}</td>
-                                                        <td>{{ $show->$show_title }}</td>
-                                                        <td>{{ $show->$photo }}</td>
+                                                        <td>{{ $team->fullname1 }}</td>
+                                                        <td>{{ $team->fullname2 }}</td>
+                                                        <td><img src="uploads/{{ $team->image1 }}" height="40px" width="60px"/></td>
+                                                        <td><img src="uploads/{{ $team->image2 }}" height="40px" width="60px"/></td>
+                                                        <td>{{ $team->commendation }}</td>
                                                     @endforeach
                                                 </tr>
                                             </tbody>

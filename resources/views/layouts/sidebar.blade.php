@@ -68,20 +68,20 @@
                         class="align-middle">Content Calendar</span>
                 </a>
             </li>
-            <li @if(Route::is('issues.*', 'vehicles.*, tracker.*') ) class="sidebar-item active" @else class="sidebar-item" @endif>
+            <li @if(Route::is('triplogger.*', 'vehicles.*, tracker.*') ) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#logistics" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-truck"></i> <span
                         class="align-middle">Logistics</span>
                 </a>
                 <ul id="logistics" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link"
-                        href="{{ route('tracker.index') }}">  <i class="align-middle me-2 fas fa-car"></i> <span
+                        href="{{ route('vehicles.index') }}">  <i class="align-middle me-2 fas fa-car"></i> <span
                         class="align-middle">Vehicle Manager</span></a></li>
                     <li class="sidebar-item"><a class="sidebar-link"
-                        href="{{ route('vehicles.index') }}"><i class="align-middle me-2 fas fa-file"></i> <span
+                        href="{{ route('triplogger.index') }}"><i class="align-middle me-2 fas fa-file"></i> <span
                         class="align-middle">Trip Logger</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link"
-                            href="{{ route('vehicles.index') }}"><i class="align-middle me-2 fas fa-chart-line"></i> <span
+                            href="{{ route('tracker.index') }}"><i class="align-middle me-2 fas fa-chart-line"></i> <span
                             class="align-middle">Mileage Tracker</span></a></li>
                 </ul>
             </li>

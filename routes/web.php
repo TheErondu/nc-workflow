@@ -33,8 +33,13 @@ Route::group(['middleware' => ['auth']], function () {
 Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::class, 'calendarEvents']);
         Route::resource('documents', 'App\Http\Controllers\DocumentController');
         Route::resource('awards', 'App\Http\Controllers\AwardsController');
-        Route::resource('tracker', 'App\Http\Controllers\VehicleController');
-        Route::resource('vehicles', 'App\Http\Controllers\TrackerController');
+        Route::get('show-of-the-week/new', 'App\Http\Controllers\AwardsController@CreateShow');
+        Route::get('awardee/new', 'App\Http\Controllers\AwardsController@CreateAward');
+        Route::get('team-of-month/new', 'App\Http\Controllers\AwardsController@CreateTeam');
+        Route::resource('vehicles', 'App\Http\Controllers\VehicleController');
+        Route::get('vehicles/delete/{id}', [App\Http\Controllers\VehicleController::class, 'delete'])->name('delete');
+        Route::resource('tracker', 'App\Http\Controllers\TrackerController');
+        Route::resource('triplogger', 'App\Http\Controllers\TriploggerController');
         Route::resource('departments', 'App\Http\Controllers\DepartmentController');
         Route::resource('store', 'App\Http\Controllers\StoreController');
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');

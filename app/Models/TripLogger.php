@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TripLogger extends Model
 {
     use HasFactory;
+
+    protected $table = 'trip_loggers';
 }

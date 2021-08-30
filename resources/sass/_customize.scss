@@ -290,6 +290,16 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
     min-width: 0;
     position: relative;
 }
+.card-opaque {
+    word-wrap: break-word;
+    background-clip: border-box;
+    background-color: #414141;
+    border: 0 solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.7rem;
+    flex-direction: column;
+    min-width: 0;
+    position: relative;
+}
 
 
 .lottie-full
@@ -300,4 +310,8 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
 }
 .intro-text {
 text-align: center;
+}
+
+.table th{
+    background-color: #000000;
 }
