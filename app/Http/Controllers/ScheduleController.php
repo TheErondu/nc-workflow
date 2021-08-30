@@ -121,12 +121,7 @@ class ScheduleController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
+ 
     /**
      * Show the form for editing the specified resource.
      *

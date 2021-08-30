@@ -102,28 +102,50 @@ class MessageController extends Controller
 
 
     }
-
-    /**
+/**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Message  $message
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Message $message)
+    public function edit($id)
     {
-        //
+        $message = message::all()->find($id);
+        return view('dashboard.messages.edit', [ 'message' => $message,]);
     }
+
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Message  $message
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title'             => 'required',
+            'file.*' => 'required|in:csv,doc,jpg,jpeg,txt,xlx,xls,pdf|max:2048',
+            'filename'           => '',
+            'message'           => '',
+            'type'           => 'required',
+        ]);
+        $message = Message::find($id);
+        $user = auth()->user();
+        $message->title     = $request->input('title');
+        if($request->file('file')){
+        $message->file   = $request->file('file')->store('public/files');
+        $message->filename = $request->file('file')->getClientOriginalName();
+        }
+        $message->message = $request->input('message');
+        $message->type = $request->input('type');
+        $message->user_id = $user->id;
+        $message->save();
+        $request->session()->flash('message', 'Changes have been saved!');
+        return redirect()->route('messages.edit',$message->id);
+
     }
 
     /**

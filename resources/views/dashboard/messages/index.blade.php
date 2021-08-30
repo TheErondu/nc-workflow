@@ -21,6 +21,14 @@
                                     <div class="tab-pane" id="tab-2" role="tabpanel">
 
                                         <div class="card-body table-card">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group mr-2" role="group" aria-label="First group">
+                                                    <button type="button" class="btn btn-secondary"><a
+                                                            href="{{ route('messages.create') }}">Add a
+                                                            Message</a></button>
+                                                </div>
+
+                                            </div>
                                             <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
@@ -56,7 +64,10 @@
                                                                 @foreach ($notifications as $message)
                                                                     <tr class="odd">
                                                                         <td class="dtr-control" tabindex="0">
-                                                                            {{ $message->title }}</td>
+                                                                            <a
+                                                                                href="{{ route('messages.edit', $message->id) }}">
+                                                                                {{ $message->title }}</a>
+                                                                        </td>
                                                                         <td><a
                                                                                 href="{{ route('file.download', $message->id) }}">Click
                                                                                 to download file</a></td>
