@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card" style="background-image: url(img/login-bg.jpg);background-size: contain;background-color: #000000c9;background-blend-mode: overlay;">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Brave is a production system which gives control over inventory, use of assets while
+                        <h5 style="color:white;" class="card-title mb-0">Brave is a production system which gives control over inventory, use of assets while
                             optimizing the whole team for maximum output.</h5>
                     </div>
                     <div class="lottie-full">
