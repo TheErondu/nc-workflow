@@ -13,8 +13,10 @@ class TrackerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
-        return view('dashboard.logistics.tracker.index');
+        $mileage_trackers = Tracker::all();
+        return view('dashboard.logistics.tracker.index', compact('mileage_trackers'));
     }
 
     /**

@@ -31,6 +31,9 @@ class CreateReportsTable extends Migration
             $table->string('b2actual_out');
             $table->string('b2variance2');
             $table->string('b2comment');
+            $table->unsignedInteger('user_id');
+
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

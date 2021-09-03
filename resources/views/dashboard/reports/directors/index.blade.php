@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card table-card">
                 <div class="card-header" style="margin-bottom: 1.0rem;">
-                    <span>Trip Logger </span>
+                    <span>Director's Report Detail </span>
                 </div>
                 <div class="row">
                     @if (Session::has('message'))
@@ -41,40 +41,59 @@
                         </div>
                     @endif
                 </div>
-                @if (count($triploggers) > 0)
+                @if (count($directors_report) > 0)
 
                 <div class="table-responsive" style="padding: 1.2rem; ">
                     <table class="table datatable dtr-inline" width="100%">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="white-space:nowrap;">Number Plate</th>
-                                <th style="white-space:nowrap;">Production Make</th>
-                                <th style="white-space:nowrap;">Trip date</th>
-                                <th style="white-space:nowrap;">Designated Driver</th>
-                                <th style="white-space:nowrap;">Odometer start</th>
-                                <th style="white-space:nowrap;">Odometer Stop</th>
-                                <th style="white-space:nowrap;">Trip Information</th>
-                                <th style="white-space:nowrap;">Trip Distance</th>
-                                <th style="white-space:nowrap;">Fuel Station</th>
+                                <th style="white-space:nowrap;">Bulletin 1</th>
+                                <th style="white-space:nowrap;">DTS In</th>
+                                <th style="white-space:nowrap;">Actual In</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">DTS Out</th>
+                                <th style="white-space:nowrap;">Actual Out</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">Comment</th>
+                                <th style="white-space:nowrap;">Bulletin 2</th>
+                                <th style="white-space:nowrap;">DTS In</th>
+                                <th style="white-space:nowrap;">Actual In</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">DTS Out</th>
+                                <th style="white-space:nowrap;">Actual Out</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">Comment</th>
+                                <th style="white-space:nowrap;">Uploaded By</th>
+                                <th style="white-space:nowrap;">Time of Upload</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($triploggers as $log)
+                            @foreach ($directors_report as $report)
                             <tr>
-                                <td><a href="{{route('triplogger.edit', $log->id)}}"><i class="far fa-edit"></i></a></td>
-                                <td>{{ $log->number_plate }}</td>
-                                    <td>{{ $log->production_name }}</td>
-                                    <td>{{ $log->trip_date }}</td>
-                                    <td>{{ $log->assigned_driver }}</td>
-                                    <td>{{ $log->odometer_start }}</td>
-                                    <td>{{ $log->odometer_stop }}</td>
-                                    <td>{{ $log->trip_information }}</td>
-                                    <td>{{ $log->trip_distance }}</td>
-                                    <td>{{ $log->fuel_station }}</td>
-
-
-                            </tr>
+                                    <td><a href="{{route('reports.edit',
+                                           $report->id)}}"><i class="far fa-edit"></i></a>
+                                    </td>
+                                    <td>{{ $report->bulletin }}</td>
+                                    <td>{{ $report->dts_in }}</td>
+                                    <td>{{ $report->actual_in }}</td>
+                                    <td>{{ $report->variance1 }}</td>
+                                    <td>{{ $report->dts_out }}</td>
+                                    <td>{{ $report->actual_out }}</td>
+                                    <td>{{ $report->variance2 }}</td>
+                                    <td>{{ $report->comment }}</td>
+                                    <td>{{ $report->b2bulletin }}</td>
+                                    <td>{{ $report->b2dts_in }}</td>
+                                    <td>{{ $report->b2actual_in }}</td>
+                                    <td>{{ $report->b2variance1 }}</td>
+                                    <td>{{ $report->b2dts_out }}</td>
+                                    <td>{{ $report->b2actual_out }}</td>
+                                    <td>{{ $report->b2variance2 }}</td>
+                                    <td>{{ $report->b2comment }}</td>
+                                    <td>{{ $report->user->name }}</td>
+                                    <td>{{ $report->created_at }}</td>
+                                    
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -82,8 +101,8 @@
                 @else
                 <div class="card">
                     <div class="card-body card-black">
-                      <p>No Vehicles Have Been Added yet, Click  <a href="{{ route('triplogger.create') }}" data-toggle="tooltip" title="" data-original-title="Add Vehicles">Here</a> to add Logs<p>
-                    <p><a class="btn btn-primary" href="{{ route('triplogger.create') }}">Add Trip Log</a>
+                      <p>No Reports Have Been Added yet, Click  <a href="{{ route('reports.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add Reports<p>
+                    <p><a class="btn btn-primary" href="{{ route('reports.create') }}">Add a Report</a>
                     </p>
                 </div>
                     </div>
@@ -101,8 +120,6 @@
         $('.table').DataTable({
             responsive: false,
             "sAutoWidth": true,
-    "bDestroy":true,
-    "sPaginationType": "bootstrap", // full_numbers
     "iDisplayStart ": 10,
     "iDisplayLength": 10,
     "bPaginate": false, //hide pagination

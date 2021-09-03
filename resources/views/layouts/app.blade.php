@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from spark.bootlab.io/tables-datatables.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Aug 2021 13:24:16 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
     <meta charset="utf-8">
@@ -22,23 +19,14 @@
     <link href="{{ asset('css/Jost.css') }}" rel="stylesheet">
     <link href="{{ asset('css/hind-vadodara.css') }}" rel="stylesheet">
 
-  <!-- <link href="css/classic.css" rel="stylesheet"> -->
-    <!-- <link href="css/dark.css" rel="stylesheet"> -->
-    <!-- <link href="css/light.css" rel="stylesheet"> -->
-
-    <!-- BEGIN SETTINGS -->
-    <!-- You can remove this after picking a style -->
     <style>
         body {
             opacity: 0;
         }
-
     </style>
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/settings.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-    <!-- END SETTINGS -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/settings.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
 </head>
 
@@ -73,12 +61,36 @@
         </defs>
     </svg>
     <script src="{{ asset('js/main.js') }}"></script>
-
     <script src="{{ asset('js/summernote.min.js') }}"></script>
+    <script>
+        // display a modal (small modal)
+        $(document).on('click', '#smallButton', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            $.ajax({
+                url: href
+                , beforeSend: function() {
+                    $('#loader').show();
+                },
+                // return the result
+                success: function(result) {
+                    $('#smallModal').modal("show");
+                    $('#smallBody').html(result).show();
+                }
+                , complete: function() {
+                    $('#modal-body').trigger('click');
+                }
+                , error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                    $('#loader').remove();
+                }
+                , timeout: 8000
+            })
+        });
+
+    </script>
 
 </body>
-
-
-<!-- Mirrored from spark.bootlab.io/tables-datatables.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Aug 2021 13:24:16 GMT -->
 
 </html>

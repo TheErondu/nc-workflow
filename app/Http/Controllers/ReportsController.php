@@ -14,7 +14,8 @@ class ReportsController extends Controller
      */
     public function index()
     {
-        //
+        $directors_report = Reports::all();
+        return view('dashboard.reports.directors.index', compact('directors_report'));
     }
 
     /**
@@ -24,7 +25,9 @@ class ReportsController extends Controller
      */
     public function create()
     {
-        //
+
+
+        return view('dashboard.reports.directors.create');
     }
 
     /**
@@ -35,7 +38,47 @@ class ReportsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'bulletin'             => 'required',
+            'dts_in'             => 'required',
+            'actual_in'           => 'required',
+            'variance1'           => 'required',
+            'dts_out'           => 'required',
+            'actual_out'           => 'required',
+            'variance2'         => 'required',
+            'comment'         => 'required',
+            'b2bulletin'             => 'required',
+            'b2dts_in'             => 'required',
+            'b2actual_in'           => 'required',
+            'b2variance1'           => 'required',
+            'b2dts_out'           => 'required',
+            'b2actual_out'           => 'required',
+            'b2variance2'         => 'required',
+            'b2comment'         => 'required',
+        ]);
+
+        $user = auth()->user();
+        $reports = new Reports();
+        $reports->bulletin = $request->input('bulletin');
+        $reports->dts_in = $request->input('dts_in');
+        $reports->actual_in = $request->input('actual_in');
+        $reports->variance1 = $request->input('variance1');
+        $reports->dts_out = $request->input('dts_out');
+        $reports->actual_out = $request->input('actual_out');
+        $reports->variance2 = $request->input('variance2');
+        $reports->comment = $request->input('comment');
+        $reports->b2bulletin = $request->input('b2bulletin');
+        $reports->b2dts_in = $request->input('b2dts_in');
+        $reports->b2actual_in = $request->input('b2actual_in');
+        $reports->b2variance1 = $request->input('b2variance1');
+        $reports->b2dts_out = $request->input('b2dts_out');
+        $reports->b2actual_out = $request->input('b2actual_out');
+        $reports->b2variance2 = $request->input('b2variance2');
+        $reports->b2comment = $request->input('b2comment');
+        $reports->user_id = $user->id;
+        $reports->save();
+        $request->session()->flash('message', 'Successfully created Report');
+        return redirect()->route('reports.index');
     }
 
     /**
@@ -49,15 +92,16 @@ class ReportsController extends Controller
         //
     }
 
-    /**
+     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Reports  $reports
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reports $reports)
+    public function edit($id)
     {
-        //
+        $reports = Reports::all()->find($id);
+        return view('dashboard.reports.directors.edit', compact('reports'));
     }
 
     /**
@@ -69,17 +113,59 @@ class ReportsController extends Controller
      */
     public function update(Request $request, Reports $reports)
     {
-        //
+        $validatedData = $request->validate([
+            'bulletin'             => 'required',
+            'dts_in'             => 'required',
+            'actual_in'           => 'required',
+            'variance1'           => 'required',
+            'dts_out'           => 'required',
+            'actual_out'           => 'required',
+            'variance2'         => 'required',
+            'comment'         => 'required',
+            'b2bulletin'             => 'required',
+            'b2dts_in'             => 'required',
+            'b2actual_in'           => 'required',
+            'b2variance1'           => 'required',
+            'b2dts_out'           => 'required',
+            'b2actual_out'           => 'required',
+            'b2variance2'         => 'required',
+            'b2comment'         => 'required',
+        ]);
+
+        $reports->bulletin = $request->input('bulletin');
+        $reports->dts_in = $request->input('dts_in');
+        $reports->actual_in = $request->input('actual_in');
+        $reports->variance1 = $request->input('variance1');
+        $reports->dts_out = $request->input('dts_out');
+        $reports->actual_out = $request->input('actual_out');
+        $reports->variance2 = $request->input('variance2');
+        $reports->comment = $request->input('comment');
+        $reports->b2bulletin = $request->input('b2bulletin');
+        $reports->b2dts_in = $request->input('b2dts_in');
+        $reports->b2actual_in = $request->input('b2actual_in');
+        $reports->b2variance1 = $request->input('b2variance1');
+        $reports->b2dts_out = $request->input('b2dts_out');
+        $reports->b2actual_out = $request->input('b2actual_out');
+        $reports->b2variance2 = $request->input('b2variance2');
+        $reports->b2comment = $request->input('b2comment');
+        $reports->user_id = $user->id;
+        $reports->save();
+        $request->session()->flash('message', 'Successfully created Report');
+        return redirect()->route('reports.index');
     }
 
-    /**
+   /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Reports  $reports
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reports $reports)
-    {
-        //
+    public function destroy($id){
+        $reports = Reports::find($id);
+        if($reports){
+            $reports->delete();
+        }
+        return redirect()->route('reports.index')->with('message', 'Successfully Deleted Report');
+
     }
 }
