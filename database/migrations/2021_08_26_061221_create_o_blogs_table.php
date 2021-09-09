@@ -28,7 +28,9 @@ class CreateOBlogsTable extends Migration
             $table->string('digital');
             $table->string('transmission_time');
             $table->string('comment');
-            $table->string('uploaded_by');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamps();
             $table->timestamps();
         });
     }

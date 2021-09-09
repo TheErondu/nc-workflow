@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add  Vehicle</h5>
+                        <h5 class="card-title" style="color: white;">Add OB Logs</h5>
 
                     </div>
                     <div class="row">
@@ -43,52 +43,163 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('vehicles.update', $vehicle->id) }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('oblogs.update',$oblogs->id) }}">
+                           @method('PUT')
                             @csrf
-                            @method('PUT')
-                            <div class="row">
-                                <div class="mb-3 col-md-4">
-                                    <label for="show_title">Assigned Driver </label>
-                                    <select class="form-control select2" name="assigned_driver" id="assigned_driver">
-                                        @foreach($drivers as $driver)
-                                        <option value="{{ $driver->name }}" @if($vehicle->assigned_driver === $driver->name) selected='selected' @endif>{{ $driver->name }}</option>
+
+                            <div class=" row justify-content-between">
+                                <div class="mb-3 col-md-12">
+                                    <label for="event_name">Event Name </label>
+                                    <input name="event_name" type="text" class="form-control" id="event_name"
+                                        value="{{ $oblogs->event_name }}" required placeholder="">
+                                </div>
+
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Event date</label>
+                                    <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                                        <input name="event_date" type="text" class="form-control datetimepicker-input" value="{{ $oblogs->event_date }}" data-target="#datetimepicker-minimum" />
+                                        <div class="input-group-text" data-target="#datetimepicker-minimum" data-toggle="datetimepicker"><i
+                                                class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="location">Location</label>
+                                    <input name="location" type="text" class="form-control" id="location"
+                                        value="{{ $oblogs->location }}" required placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-6">
+                                    <label for="producer">Producer  </label>
+                                    <select class="form-control select2" name="producer" id="producer" data-placeholder=" select Producer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->producer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="director">Director </label>
+                                    <select class="form-control select2" name="director" id="director" data-placeholder=" select Director">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->director === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-6">
+                                    <label for="vision_mixer">Vision Mixer  </label>
+                                    <select class="form-control select2" name="vision_mixer" id="vision_mixer" data-placeholder=" select Vision Mixer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->vision_mixer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="sound">Sound  </label>
+                                    <select class="form-control select2" name="sound" id="sound" data-placeholder=" select Sound ">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->sound === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-6">
+                                    <label for="engineer">Engineer  </label>
+                                    <select class="form-control select2" name="engineer" id="engineer" data-placeholder=" select Engineer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->engineer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="dop">Director of photography </label>
+                                    <select class="form-control select2" name="dop" id="dop" data-placeholder=" select Director of photography">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->dop === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-6">
+                                    <label for="reporter">Reporter  </label>
+                                    <select class="form-control select2" name="reporter" id="reporter" data-placeholder=" select Reporter">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->reporter === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="digital">Digital</label>
+                                    <select class="form-control select2" name="digital" id="digital" data-placeholder=" select Digital">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($oblogs->digital === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <input id="type" name="type" class="form-control type" hidden value="award" required  type="text">
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-4">
-                                    <label for="number_plate">Number Plate</label>
-                                    <input name="number_plate" type="text" class="form-control" id="number_plate" value="{{ $vehicle->number_plate }}"  required placeholder="">
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="vehicle_make">Vehicle Make</label>
-                                    <input name="vehicle_make" type="text" class="form-control" id="vehicle_make" value="{{ $vehicle->vehicle_make }}" required placeholder="">
-                                </div>
-                            </div>
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-4">
-                                    <label for="purpose">Purpose</label>
-                                    <input name="purpose" type="text" class="form-control" id="purpose" value="{{ $vehicle->purpose }}" required placeholder="">
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="vehicle_colour">Vehicle Color</label>
-                                    <input name="vehicle_colour" type="text" class="form-control" id="vehicle_colour" value="{{ $vehicle->vehicle_colour }}" required placeholder="">
-                                </div>
-                            </div>
-
-
-                            <div class="row justify-content-between">
+                            <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <a href="{{ route('awards.index') }}" style="background-color: rgb(53, 54, 55) !important;"
-                                        class="btn btn-primary">Cancel</a>
+                                    <label for="transmission_time">Transmission Time </label>
+                                    <input name="transmission_time" type="text" class="form-control" id="transmission_time"
+                                        value="{{ $oblogs->transmission_time }}" required placeholder="">
                                 </div>
-                                <div class="mb-3 col-md-1">
-                                    <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
-                                        class="btn btn-primary">Submit</button>
+
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-12">
+                                    <label for="comment">Comment</label>
+                                    <textarea name="comment" type="text" class="form-control"
+                                        id="comment" required
+                                        placeholder="">{{ $oblogs->comment}}</textarea>
                                 </div>
                             </div>
+
+
+
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-3">
+                                    <span>Uploaded by: <br> {{Auth::user()->name }}</span>
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
+                                </div>
+                            </div>
+
+
+                                <div class="row justify-content-between">
+                                    <div class="mb-3 col-md-6">
+                                        <button form="delete-form" style="background-color: red !important;" type="submit"
+                                        class="btn btn-primary">Delete</button>
+                                    </div>
+                                    <div class="mb-3 col-md-1">
+                                        <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
+                                            class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                        </form>
+                        <form action="{{ route('oblogs.destroy', $oblogs->id) }}" id="delete-form" method="POST">
+                            @method('DELETE')
+                            @csrf
+
                         </form>
                     </div>
                 </div>
@@ -98,24 +209,25 @@
     </div>
 @endsection
 @section('javascript')
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
             // Select2
-			$(".select2").each(function() {
-				$(this)
-					.wrap("<div class=\"position-relative\"></div>")
-					.select2({
-						placeholder: "Select value",
-						dropdownParent: $(this).parent()
-					});
-			})
+            $(".select2").each(function() {
+                $(this)
+                    .wrap("<div class=\"position-relative\"></div>")
+                    .select2({
+                        placeholder: "Select value",
+                        dropdownParent: $(this).parent()
+                    });
+            })
             // Datetimepicker
             $('#datetimepicker-minimum').datetimepicker({
-                format:'YYYY-MM-DD HH:mm:ss'
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
             $('#datetimepicker-minimum2').datetimepicker({
-                format:'YYYY-MM-DD HH:mm:ss'
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
             $('#datetimepicker-view-mode').datetimepicker({
                 viewMode: 'years'
@@ -124,8 +236,9 @@
                 format: 'LT'
             });
             $('#datetimepicker-date').datetimepicker({
-                format: 'LT'
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
         });
     </script>
+
 @endsection

@@ -14,7 +14,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('dashboard.store.index');
+        $items = Store::all();
+
+        return view('dashboard.store.index', compact('items'));
     }
 
     /**

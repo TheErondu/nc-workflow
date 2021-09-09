@@ -1,85 +1,85 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\Content;
 use Illuminate\Http\Request;
 
-class ContentController extends Controller
+use App\Models\Content;
+use Spatie\QueryBuilder\QueryBuilder;
+
+
+class ContentController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        return view('dashboard.content.index');
+            // $data = Content::where('country','KENYA')->whereDate('start', '>=', $request->start)
+            // ->whereDate('end',   '<=', $request->end)
+            //     ->get(['id', 'title','start', 'end']);
+                $data = QueryBuilder::for(Content::class)
+                ->allowedFilters('country')->whereDate('start', '>=', $request->start)
+                ->whereDate('end',   '<=', $request->end)
+                    ->get(['id', 'title','start', 'end']);
+
+            return response()->json($data);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function GetNigeriaEvents(Request $request)
     {
-        //
+        $data = Content::where('country','Nigeria')->whereDate('start', '>=', $request->start)
+        ->whereDate('end',   '<=', $request->end)
+            ->get(['id', 'title','start', 'end']);
+
+        return response()->json($data);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function GetSouthAfricaEvents(Request $request)
     {
-        //
+        $data = Content::where('country','SOUTH AFRICA')->whereDate('start', '>=', $request->start)
+        ->whereDate('end',   '<=', $request->end)
+            ->get(['id', 'title','start', 'end']);
+
+        return response()->json($data);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Content  $content
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Content $content)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Content  $content
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Content $content)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Content  $content
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Content $content)
+    public function calendarEvents(Request $request)
     {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Content  $content
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Content $content)
-    {
-        //
+        switch ($request->type) {
+           case 'create':
+              $event = Content::create([
+                  'title' => $request->title,
+                  'start' => $request->start,
+                  'end' => $request->end,
+              ]);
+
+              return response()->json($event);
+             break;
+
+           case 'edit':
+              $event = Content::find($request->id)->update([
+                  'title' => $request->title,
+                  'start' => $request->start,
+                  'end' => $request->end,
+              ]);
+
+              return response()->json($event);
+             break;
+
+           case 'delete':
+              $event = Content::find($request->id)->delete();
+
+              return response()->json($event);
+             break;
+
+           default:
+             # ...
+             break;
+        }
     }
 }

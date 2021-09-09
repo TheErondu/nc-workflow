@@ -46,4 +46,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Reports');
     }
+    public function ob_logs()
+    {
+        return $this->hasMany('App\Models\OBlogs');
+    }
 }

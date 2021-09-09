@@ -11,7 +11,7 @@ class ScheduleController extends ApiController
 
     public function index(Request $request)
     {
-            $data = Schedule::where('type','preproduction')->whereDate('start', '>=', $request->start)
+            $data = Schedule::whereDate('start', '>=', $request->start)
                 ->whereDate('end',   '<=', $request->end)
                 ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
 

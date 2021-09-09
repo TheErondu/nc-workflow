@@ -39,6 +39,7 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::resource('vehicles', 'App\Http\Controllers\VehicleController');
         Route::get('vehicles/delete/{id}', [App\Http\Controllers\VehicleController::class, 'delete'])->name('delete');
         Route::resource('tracker', 'App\Http\Controllers\TrackerController');
+        Route::get('mileage/track/{id}', [App\Http\Controllers\TrackerController::class, 'track'])->name('tracker.track');
         Route::resource('triplogger', 'App\Http\Controllers\TriploggerController');
         Route::resource('departments', 'App\Http\Controllers\DepartmentController');
         Route::resource('store', 'App\Http\Controllers\StoreController');

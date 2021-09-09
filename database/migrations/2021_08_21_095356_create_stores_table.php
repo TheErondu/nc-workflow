@@ -18,6 +18,7 @@ class CreateStoresTable extends Migration
             $table->string('item_name');
             $table->string('serial_no');
             $table->string('state');
+            $table->string('assigned_department');
             $table->timestamps();
         });
     }

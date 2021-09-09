@@ -108,10 +108,10 @@ class ReportsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reports  $reports
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reports $reports)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'bulletin'             => 'required',
@@ -131,7 +131,8 @@ class ReportsController extends Controller
             'b2variance2'         => 'required',
             'b2comment'         => 'required',
         ]);
-
+        $user = auth()->user();
+        $reports = Reports::find($id);
         $reports->bulletin = $request->input('bulletin');
         $reports->dts_in = $request->input('dts_in');
         $reports->actual_in = $request->input('actual_in');
@@ -150,7 +151,7 @@ class ReportsController extends Controller
         $reports->b2comment = $request->input('b2comment');
         $reports->user_id = $user->id;
         $reports->save();
-        $request->session()->flash('message', 'Successfully created Report');
+        $request->session()->flash('message', 'Successfully Edited Report');
         return redirect()->route('reports.index');
     }
 

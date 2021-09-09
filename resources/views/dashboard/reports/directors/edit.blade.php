@@ -55,9 +55,9 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('reports.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('reports.update', $reports->id) }}">
                             @csrf
-
+                            @method('PUT')
                             <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-6">
                                     <label for="bulletin">Bulletin </label>

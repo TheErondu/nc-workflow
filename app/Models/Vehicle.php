@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     use HasFactory;
+    public function tracker()
+    {
+        return $this->hasMany('App\Models\Tracker');
+    }
 }

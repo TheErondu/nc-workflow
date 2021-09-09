@@ -90,8 +90,10 @@ class TripLoggerController extends Controller
     public function edit($id)
     {   $triplogger = Triplogger::all()->find($id);
         $drivers = User::all()->where('department','drivers');
-        return view('dashboard.logistics.triplogger.edit', compact('drivers','triplogger'));
+        $vehicles = Vehicle::all();
+        return view('dashboard.logistics.triplogger.edit', compact('drivers','triplogger','vehicles'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -127,8 +129,18 @@ class TripLoggerController extends Controller
 
     return redirect()->route('triplogger.index');
     }
-    public function destroy(TripLogger $tripLogger)
-    {
-        //
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id){
+        $triplogger = TripLogger::find($id);
+        if($triplogger){
+            $triplogger->delete();
+        }
+        return redirect()->route('triplogger.index')->with('message', 'Successfully Deleted trip Log');
+
     }
 }

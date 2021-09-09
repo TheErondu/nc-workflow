@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OBlogs;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OBlogsController extends Controller
@@ -13,8 +14,9 @@ class OBlogsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+
+    {   $oblogs = OBlogs::all();
+        return view('dashboard.reports.oblogs.index', compact('oblogs'));
     }
 
     /**
@@ -24,7 +26,8 @@ class OBlogsController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('dashboard.reports.oblogs.create', compact('users'));
     }
 
     /**
@@ -35,7 +38,41 @@ class OBlogsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'event_name'             => 'required',
+            'event_date'             => 'required',
+            'location'           => 'required',
+            'producer'           => 'required',
+            'director'           => 'required',
+            'vision_mixer'           => 'required',
+            'sound'         => 'required',
+            'engineer'         => 'required',
+            'dop'             => 'required',
+            'reporter'             => 'required',
+            'digital'           => 'required',
+            'transmission_time'           => 'required',
+            'comment'           => 'required',
+        ]);
+
+        $user = auth()->user();
+        $oblogs = new OBlogs();
+        $oblogs->event_name = $request->input('event_name');
+        $oblogs->event_date = $request->input('event_date');
+        $oblogs->location = $request->input('location');
+        $oblogs->producer = $request->input('producer');
+        $oblogs->director = $request->input('director');
+        $oblogs->vision_mixer = $request->input('vision_mixer');
+        $oblogs->sound = $request->input('sound');
+        $oblogs->engineer = $request->input('engineer');
+        $oblogs->dop = $request->input('dop');
+        $oblogs->reporter = $request->input('reporter');
+        $oblogs->digital = $request->input('digital');
+        $oblogs->transmission_time = $request->input('transmission_time');
+        $oblogs->comment = $request->input('comment');
+        $oblogs->user_id = $user->id;
+        $oblogs->save();
+        $request->session()->flash('message', 'Log added Successfully!');
+        return redirect()->route('oblogs.index');
     }
 
     /**
@@ -52,34 +89,74 @@ class OBlogsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\OBlogs  $oBlogs
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(OBlogs $oBlogs)
+    public function edit($id)
     {
-        //
+        $oblogs = OBlogs::all()->find($id);
+        $users = User::all();
+        return view('dashboard.reports.oblogs.edit', compact('oblogs','users'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OBlogs  $oBlogs
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OBlogs $oBlogs)
+    public function update(Request $request,  $id)
     {
-        //
+        $validatedData = $request->validate([
+            'event_name'             => 'required',
+            'event_date'             => 'required',
+            'location'           => 'required',
+            'producer'           => 'required',
+            'director'           => 'required',
+            'vision_mixer'           => 'required',
+            'sound'         => 'required',
+            'engineer'         => 'required',
+            'dop'             => 'required',
+            'reporter'             => 'required',
+            'digital'           => 'required',
+            'transmission_time'           => 'required',
+            'comment'           => 'required',
+        ]);
+        $oblogs = OBlogs::find($id);
+        $user = auth()->user();
+        $oblogs->event_name = $request->input('event_name');
+        $oblogs->event_date = $request->input('event_date');
+        $oblogs->location = $request->input('location');
+        $oblogs->producer = $request->input('producer');
+        $oblogs->director = $request->input('director');
+        $oblogs->vision_mixer = $request->input('vision_mixer');
+        $oblogs->sound = $request->input('sound');
+        $oblogs->engineer = $request->input('engineer');
+        $oblogs->dop = $request->input('dop');
+        $oblogs->reporter = $request->input('reporter');
+        $oblogs->digital = $request->input('digital');
+        $oblogs->transmission_time = $request->input('transmission_time');
+        $oblogs->comment = $request->input('comment');
+        $oblogs->user_id = $user->id;
+        $oblogs->save();
+        $request->session()->flash('message', 'Log added Successfully!');
+        return redirect()->route('oblogs.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OBlogs  $oBlogs
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OBlogs $oBlogs)
-    {
-        //
+    public function destroy($id){
+        $oblogs = OBlogs::find($id);
+        if($oblogs){
+            $oblogs->delete();
+        }
+        return redirect()->route('oblogs.index')->with('message', 'Successfully Deleted Log!');
+
     }
+
 }

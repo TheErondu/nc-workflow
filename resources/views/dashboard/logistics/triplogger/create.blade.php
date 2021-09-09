@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add Vehicle</h5>
+                        <h5 class="card-title" style="color: white;">Add Trip Log</h5>
 
                     </div>
                     <div class="row">

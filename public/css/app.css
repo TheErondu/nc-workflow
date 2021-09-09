@@ -31979,6 +31979,23 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
   position: relative;
 }
 
+.card-chart {
+  word-wrap: break-word;
+  background-clip: border-box;
+  background-color: #ffffff;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.7rem;
+  margin: 0.2rem;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+
+.card-header-flat {
+  border-radius: 0rem;
+  background-color: #000000;
+}
+
 .lottie-full {
   opacity: 1 !important;
   overflow-y: scroll;
@@ -31991,4 +32008,8 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
 
 .table th {
   background-color: #000000;
+}
+
+.alert {
+  opacity: 0.6 !important;
 }

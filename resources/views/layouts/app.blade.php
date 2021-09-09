@@ -27,6 +27,7 @@
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/settings.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
 
 </head>
 
@@ -62,7 +63,12 @@
     </svg>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/summernote.min.js') }}"></script>
-   
+    <script>
+        $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert").slideUp(500);
+});
+        </script>
+
 </body>
 
 </html>

@@ -104,11 +104,14 @@ class AwardsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Humans  $humans
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Humans $humans)
     {
+
+        $award = Award::find($id);
+
         $awards->show_title     = $request->input('show_title');
         $awards->showing_time = $request->input('showing_time');
         $awards->show_location = $request->input('show_location');
