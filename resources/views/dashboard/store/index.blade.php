@@ -4,6 +4,40 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="row">
+                        @if (Session::has('message'))
+                            <div class="container">
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <div class="alert-icon">
+                                        <i class="far fa-fw fa-bell"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                        <strong> {{ session('message') }}</strong>
+                                    </div>
+
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                            <div class="container">
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    @foreach ($errors->all() as $error)
+                                        <div class="alert-icon">
+                                            <i class="far fa-fw fa-bell"></i>
+                                        </div>
+                                        <div class="alert-message">
+                                            <strong> {{ $error }}</strong>
+                                        </div>
+
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                     <div>
                         <div class="col-12">
                             <div class="tab">
@@ -19,63 +53,38 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab-1" role="tabpanel">
                                         <div class="card table-card">
-                                            <div class="card-header">
-                                                <span>NC Store</span>
-                                            </div>
-                                            <div class="table-responsive">
+                                            <a href="{{route('store.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                                                    class="btn btn-primary create-button">Add Item <i class="fas fa-plus"></i></a>
+                                                    <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
-                                                        <table id="datatables-basic"
-                                                            class="table table dataTable dtr-inline"
-                                                            style="width: 100%;" role="grid"
-                                                            aria-describedby="datatables-basic_info">
+                                                        <table class="table display nowrap" width="100%">
                                                             <thead>
-                                                                <tr role="row">
-                                                                    <th class="" tabindex="0"
-                                                                        aria-controls="datatables-basic" rowspan="1"
-                                                                        colspan="1" style="width: 283px;"
-                                                                        aria-label="Name: activate to sort column ascending">
-                                                                        Action
-                                                                    </th>
-                                                                    <th class="" tabindex="0"
-                                                                        aria-controls="datatables-basic" rowspan="1"
-                                                                        colspan="1" style="width: 283px;"
-                                                                        aria-label="Name: activate to sort column ascending">
-                                                                        Item name</th>
-                                                                    <th class="" tabindex="0"
-                                                                        aria-controls="datatables-basic" rowspan="1"
-                                                                        colspan="1" style="width: 441px;"
-                                                                        aria-label="Position: activate to sort column ascending"
-                                                                        aria-sort="descending">Created at</th>
-                                                                    <th class="" tabindex="0"
-                                                                        aria-controls="datatables-basic" rowspan="1"
-                                                                        colspan="1" style="width: 441px;"
-                                                                        aria-label="Position: activate to sort column ascending"
-                                                                        aria-sort="descending">Updated at</th>
-                                                                    <th class="" tabindex="0"
-                                                                        aria-controls="datatables-basic" rowspan="1"
-                                                                        colspan="1" style="width: 207px;"
-                                                                        aria-label="Office: activate to sort column ascending">
-                                                                        Serial no</th>
-                                                                    <th class="" tabindex="0"
-                                                                        aria-controls="datatables-basic" rowspan="1"
-                                                                        colspan="1" style="width: 207px;"
-                                                                        aria-label="Office: activate to sort column ascending">
-                                                                        State</th>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th style="white-space:nowrap;">Item name</th>
+                                                                    <th style="white-space:nowrap;">Serial No</th>
+                                                                    <th style="white-space:nowrap;">State</th>
+                                                                    <th style="white-space:nowrap;">Created at</th>
+                                                                    <th style="white-space:nowrap;">Updated at</th>
+                                                                    <th style="white-space:nowrap;">Assigned Department</th>
+
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-
-                                                                <tr class="odd">
-                                                                    <td><a href="#">Edit</a></td>
-                                                                    <td class="dtr-control" tabindex="0">IDX V-MOUNT
-                                                                        PLATE</td>
-                                                                    <td>10-21-2019 10:06:33</td>
-                                                                    <td class="sorting_1">10-21-2019 10:06:40 </td>
-                                                                    <td>UR-84797</td>
-                                                                    <td>New Item</td>
-
-                                                                </tr>
+                                                                @foreach ($store_items as $item)
+                                                                    <tr>
+                                                                        <td><a
+                                                                                href="{{ route('store.edit', $item->id) }}">
+                                                                                <i class="far fa-edit"></i></a></td>
+                                                                        <td>{{ $item->item_name }}</td>
+                                                                        <td>{{ $item->serial_no }}</td>
+                                                                        <td>{{ $item->state }}</td>
+                                                                        <td>{{ $item->created_at }}</td>
+                                                                        <td>{{ $item->updated_at }}</td>
+                                                                        <td>{{ $item->assigned_department }}</td>
+                                                                    </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -85,109 +94,96 @@
                                     </div>
                                     <div class="tab-pane" id="tab-2" role="tabpanel">
                                         <div class="card table-card">
-                                            <div class="card-header">
-                                                <span>All Requested Items</span>
-                                            </div>
                                             <div class="table-responsive">
-                                            <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                                <div class="row">
-                                                    <table id="datatables-basic"
-                                                        class="table table-striped dataTable dtr-inline"
-                                                        style="width: 100%;" role="grid"
-                                                        aria-describedby="datatables-basic_info">
-                                                        <thead>
-                                                            <tr role="row">
-                                                                <th class="" tabindex="0" aria-controls="datatables-basic"
-                                                                    rowspan="1" colspan="1" style="width: 283px;"
-                                                                    aria-label="Name: activate to sort column ascending">
-                                                                    Action
-                                                                </th>
-                                                                <th class="" tabindex="0" aria-controls="datatables-basic"
-                                                                    rowspan="1" colspan="1" style="width: 283px;"
-                                                                    aria-label="Name: activate to sort column ascending">
-                                                                    Return by</th>
-                                                                <th class="" tabindex="0" aria-controls="datatables-basic"
-                                                                    rowspan="1" colspan="1" style="width: 441px;"
-                                                                    aria-label="Position: activate to sort column ascending"
-                                                                    aria-sort="descending">Borrower</th>
-                                                                <th class="" tabindex="0" aria-controls="datatables-basic"
-                                                                    rowspan="1" colspan="1" style="width: 441px;"
-                                                                    aria-label="Position: activate to sort column ascending"
-                                                                    aria-sort="descending">Requested at</th>
-                                                                <th class="" tabindex="0" aria-controls="datatables-basic"
-                                                                    rowspan="1" colspan="1" style="width: 207px;"
-                                                                    aria-label="Office: activate to sort column ascending">
-                                                                    Requested Item</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                    <div class="row">
+                                                        <table id="datatables-basic"
+                                                            class="table table-striped dataTable dtr-inline"
+                                                            style="width: 100%;" role="grid"
+                                                            aria-describedby="datatables-basic_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="___class_+?28___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 283px;"
+                                                                        aria-label="Name: activate to sort column ascending">
+                                                                        Action
+                                                                    </th>
+                                                                    <th class="___class_+?29___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 283px;"
+                                                                        aria-label="Name: activate to sort column ascending">
+                                                                        Return by</th>
+                                                                    <th class="___class_+?30___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 441px;"
+                                                                        aria-label="Position: activate to sort column ascending"
+                                                                        aria-sort="descending">Borrower</th>
+                                                                    <th class="___class_+?31___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 441px;"
+                                                                        aria-label="Position: activate to sort column ascending"
+                                                                        aria-sort="descending">Requested at</th>
+                                                                    <th class="___class_+?32___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 207px;"
+                                                                        aria-label="Office: activate to sort column ascending">
+                                                                        Requested Item</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($store_requests as $request)
+                                                                    <tr class="odd">
+                                                                        <td><a href="#">Approve/Reject</a></td>
+                                                                        <td class="sorting_1">
+                                                                            {{ $request->return_date }}</td>
+                                                                        <td>{{ $request->user->name }}</td>
+                                                                        <td>{{ $request->created_at }}</td>
+                                                                        <td class="dtr-control" tabindex="0">
+                                                                            {{ $request->item }}</td>
 
-                                                            <tr class="odd">
-                                                                <td><a href="#">Approve/Reject</a></td>
-                                                                <td class="dtr-control" tabindex="0">25-Aug-21</td>
-                                                                <td>TOLULOPE</td>
-                                                                <td class="sorting_1">08-18-2021 04:59:32</td>
-                                                                <td>BEHRINGER HPS3000</td>
-
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="tab-3" role="tabpanel">
 
                                         <div class="card table-card">
-                                            <div class="card-header">
-                                                <span>NC Store</span>
-                                            </div>
                                             <div class="table-responsive">
-                                            <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                                <div class="row">
-                                                    <table id="datatables-basic" data-stripe-classes="[]"
-                                                        class="table table-flushed dataTable dtr-inline"
-                                                        style="width: 100%;" role="grid"
-                                                        aria-describedby="datatables-basic_info">
-                                                        <thead>
-                                                            <tr role="row">
-                                                                <th class="sorting" tabindex="0"
-                                                                    aria-controls="datatables-basic" rowspan="1" colspan="1"
-                                                                    style="width: 283px;"
-                                                                    aria-label="Name: activate to sort column ascending">
-                                                                    Action</th>
+                                                <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                    <div class="row">
+                                                        <table class="table display nowrap" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th style="white-space:nowrap;">Item name</th>
+                                                                    <th style="white-space:nowrap;">Serial No</th>
+                                                                    <th style="white-space:nowrap;">State</th>
+                                                                    <th style="white-space:nowrap;">Assigned Department</th>
 
-                                                                <th class="sorting sorting_desc" tabindex="0"
-                                                                    aria-controls="datatables-basic" rowspan="1" colspan="1"
-                                                                    style="width: 441px;"
-                                                                    aria-label="Position: activate to sort column ascending"
-                                                                    aria-sort="descending">Return by</th>
-                                                                <th class="sorting sorting_desc" tabindex="0"
-                                                                    aria-controls="datatables-basic" rowspan="1" colspan="1"
-                                                                    style="width: 441px;"
-                                                                    aria-label="Position: activate to sort column ascending"
-                                                                    aria-sort="descending">Borrower</th>
-                                                                <th class="sorting" tabindex="0"
-                                                                    aria-controls="datatables-basic" rowspan="1" colspan="1"
-                                                                    style="width: 207px;"
-                                                                    aria-label="Office: activate to sort column ascending">
-                                                                    Item</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                            <tr class="odd">
-                                                                <td><a href="#">Returned ??</a></td>
-                                                                <td class="dtr-control" tabindex="0">11-Mar-21</td>
-
-                                                                <td class="sorting_1">ADELANDE</td>
-                                                                <td>Behringer HPM100</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{-- @foreach ($store_items as $item)
+                                                                    <tr>
+                                                                        <td><a
+                                                                                href="{{ route('store.edit', $store_items->id) }}">
+                                                                                <i class="far fa-edit"></i></a>Returned??</td>
+                                                                        <td>{{ $item->user->name }}</td>
+                                                                        <td>{{ $item->serial_no }}</td>
+                                                                        <td>{{ $item->state }}</td>
+                                                                        <td>{{ $item->assigned_department }}</td>
+                                                                    </tr>
+                                                                @endforeach --}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -204,5 +200,25 @@
         </div>
     @endsection
     @section('javascript')
-
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
+                $('.table').DataTable({
+                    responsive: false,
+                    "sAutoWidth": true,
+                    "bDestroy": true,
+                    "sPaginationType": "bootstrap", // full_numbers
+                    "iDisplayStart ": 10,
+                    "iDisplayLength": 10,
+                    "bPaginate": false, //hide pagination
+                    "bFilter": true, //hide Search bar
+                    "bInfo": false,
+                });
+                /* =========================================================================================== */
+                /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                    $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+                });
+            });
+        </script>
     @endsection

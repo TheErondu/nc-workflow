@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add Vehicle</h5>
+                        <h5 class="card-title" style="color: white;">Store Manager</h5>
 
                     </div>
                     <div class="row">
@@ -43,58 +43,34 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('triplogger.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('store.store') }}">
                             @csrf
 
-                            <div class=" row justify-content-around">
+                            <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
-                                    <label for="number_plate">Number plate </label>
-                                    <select class="form-control select2" name="number_plate" id="number_plate">
-                                        <option value="not Assigned">--Not Assigned--</option>
-                                        @foreach ($vehicles as $vehicle)
-                                            <option value="{{ $vehicle->number_plate }}">{{ $vehicle->number_plate }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="assigned_driver">User</label>
-                                    <select class="form-control select2" name="assigned_driver" id="assigned_driver">
-                                        <option value="{{ Auth::user()->name }}">{{ Auth::user()->name }}</option>
-                                        @foreach ($drivers as $driver)
-                                            <option value="{{ $driver->name }}">{{ $driver->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="item_name">Item Name</label>
+                                    <input name="item_name" type="text" class="form-control" id="item_name"
+                                        value="{{ old('item_name') }}" required placeholder="">
                                 </div>
                             </div>
                             <input id="type" name="type" class="form-control type" hidden value="award" required
                                 type="text">
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
-                                    <label for="production_name">Production Name</label>
-                                    <input name="production_name" type="text" class="form-control" id="production_name"
-                                        value="{{ old('production_name') }}" required placeholder="">
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label class="form-label">Trip Date</label>
-                                    <div class="input-group date" id="datetimepicker-date" data-target-input="nearest">
-                                        <input name="trip_date" type="text" class="form-control datetimepicker-input"
-                                            data-target="#datetimepicker-date" />
-                                        <div class="input-group-text" data-target="#datetimepicker-date"
-                                            data-toggle="datetimepicker"><i class="fa fa-calendar"></i></div>
-                                    </div>
+                                    <label for="serial_no">Serial No</label>
+                                    <input name="serial_no" type="text" class="form-control" id="serial_no"
+                                        value="{{ old('serial_no') }}" required placeholder="">
                                 </div>
 
                                 <div class="row justify-content-between">
-                                    <div class="mb-3 col-md-6">
-                                        <label for="odometer_start">Odometer Start</label>
-                                        <input name="odometer_start" type="text" class="form-control" id="odometer_start"
-                                            value="{{ old('odometer_start') }}" required placeholder="">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="odometer_stop">Odometer Stop</label>
-                                        <input name="odometer_stop" type="text" class="form-control" id="odometer_stop"
-                                            value="{{ old('odometer_stop') }}" required placeholder="">
+                                    <div class="mb-3 col-md-4">
+                                        <label for="assigned_department">Assigned Department</label>
+                                        <select class="form-control select2" name="assigned_department" id="assigned_department">
+                                            <option value="{{ Auth::user()->department }}">{{ Auth::user()->department }}</option>
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->name }}">{{ $department->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row justify-content-between">

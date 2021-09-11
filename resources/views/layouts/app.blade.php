@@ -10,7 +10,7 @@
     <meta name="description" content="Modern, flexible and responsive Bootstrap 5 admin &amp; dashboard template">
     <meta name="author" content="Bootlab">
 
-    <title>Spark - Bootstrap 5 Admin &amp; Dashboard Template</title>
+    <title>Brave - Dashboard</title>
 
     <!-- PICK ONE OF THE STYLES BELOW -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

@@ -17,7 +17,9 @@ class CreateStoreRequestsTable extends Migration
             $table->id();
             $table->string('item');
             $table->string('return_date');
-            $table->string('borrower');
+            $table->unsignedBigInteger('user_id');
+            $table->string('status')->default('pending');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

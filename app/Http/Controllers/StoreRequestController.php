@@ -14,7 +14,8 @@ class StoreRequestController extends Controller
      */
     public function index()
     {
-        //
+        $store_requests = StoreRequest::all();
+        return view('dashboard.store.index',compact('store_requests'));
     }
 
     /**
