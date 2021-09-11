@@ -29,7 +29,7 @@
                                     @if (count($shows) > 0)
 
 
-                                        <table class="table datatable dtr-inline" cellspacing="0" width="100%">
+                                        <table <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Show Title</th>
@@ -66,7 +66,7 @@
                                     @if (count($awards) > 0)
 
 
-                                        <table class="table datatable dtr-inline" cellspacing="0" width="100%">
+                                        <table <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Show Title</th>
@@ -103,7 +103,7 @@
                                     @if (count($teams) > 0)
 
 
-                                        <table class="table datatable dtr-inline" cellspacing="0" width="100%">
+                                        <table <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Team member 1</th>

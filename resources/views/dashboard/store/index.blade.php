@@ -58,7 +58,7 @@
                                                     <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
-                                                        <table class="table display nowrap" width="100%">
+                                                        <table <table class="table table-bordered display nowrap" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th></th>
@@ -98,7 +98,7 @@
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
                                                         <table id="datatables-basic"
-                                                            class="table table-striped dataTable dtr-inline"
+                                                            <table class="table table-bordered table-striped dataTable dtr-inline"
                                                             style="width: 100%;" role="grid"
                                                             aria-describedby="datatables-basic_info">
                                                             <thead>
@@ -157,7 +157,7 @@
                                             <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
-                                                        <table class="table display nowrap" width="100%">
+                                                        <table <table class="table table-bordered display nowrap" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th></th>

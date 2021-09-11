@@ -26,7 +26,7 @@
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
                                                         <table id="datatables-basic"
-                                                            class="table table dataTable dtr-inline"
+                                                            <table class="table table-bordered table dataTable dtr-inline"
                                                             style="width: 100%;" role="grid"
                                                             aria-describedby="datatables-basic_info">
                                                             <thead>
@@ -92,7 +92,7 @@
                                             <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                 <div class="row">
                                                     <table id="datatables-basic"
-                                                        class="table table-striped dataTable dtr-inline"
+                                                        <table class="table table-bordered table-striped dataTable dtr-inline"
                                                         style="width: 100%;" role="grid"
                                                         aria-describedby="datatables-basic_info">
                                                         <thead>
@@ -147,7 +147,7 @@
                                             <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                 <div class="row">
                                                     <table id="datatables-basic" data-stripe-classes="[]"
-                                                        class="table table-flushed dataTable dtr-inline"
+                                                        <table class="table table-bordered table-flushed dataTable dtr-inline"
                                                         style="width: 100%;" role="grid"
                                                         aria-describedby="datatables-basic_info">
                                                         <thead>

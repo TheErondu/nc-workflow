@@ -90,7 +90,7 @@
                         @if (count($mileage_trackers) > 0)
 
                             <div class="table-responsive" style="padding: 1.2rem; ">
-                                <table class="table display nowrap" width="100%">
+                                <table <table class="table table-bordered display nowrap" width="100%">
                                     <thead>
                                         <tr>
                                             <th></th>

@@ -44,7 +44,7 @@
                 @if (count($vehicles) > 0)
 
 
-                    <table class="table datatable dtr-inline" cellspacing="0" width="100%">
+                    <table <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>#</th>

@@ -33,7 +33,7 @@
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
                                                         <table id="datatables-basic"
-                                                            class="table table-flushed dataTable dtr-inline"
+                                                            <table class="table table-bordered table-flushed dataTable dtr-inline"
                                                             style="width: 100%;" role="grid"
                                                             aria-describedby="datatables-basic_info">
                                                             <thead>

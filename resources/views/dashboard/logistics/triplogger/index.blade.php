@@ -44,7 +44,7 @@
                 @if (count($triploggers) > 0)
 
                 <div class="table-responsive" style="padding: 1.2rem; ">
-                    <table class="table datatable dtr-inline" width="100%">
+                    <table <table class="table table-bordered datatable dtr-inline" width="100%">
                         <thead>
                             <tr>
                                 <th></th>
