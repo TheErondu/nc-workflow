@@ -281,7 +281,7 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
   .table-card {
     background-color: #414141;
     border-radius: 0.7rem;
-    margin: -0.1rem;
+    margin: 1.5rem;
 }
 .card-black {
     word-wrap: break-word;
@@ -334,4 +334,17 @@ text-align: center;
 }
 .alert{
     opacity: 0.6 !important;
+}
+
+.highlight-black
+{
+    background-color: black;
+    text-align: center;
+    border-radius: 0.9rem;
+    width: max-content;
+    padding: 0.5rem;
+}
+.dataTable > thead > tr > th[class*="sort"]:before,
+.dataTable > thead > tr > th[class*="sort"]:after {
+    content: "" !important;
 }

@@ -13218,7 +13218,7 @@ textarea.form-control-lg {
 }
 
 .accordion .card-title a {
-  color: red;
+  color: white;
 }
 
 .alert {
@@ -13813,7 +13813,7 @@ a.card {
 }
 
 .card-title {
-  color: red;
+  color: white;
   font-size: 0.9375rem;
   line-height: 1.5;
 }
@@ -16609,6 +16609,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   display: inline-block;
   margin-left: 0.5em;
   width: 50%;
+  border-radius: 1.1rem;
 }
 
 div.dataTables_wrapper div.dataTables_info {

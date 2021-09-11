@@ -25,7 +25,7 @@
                     <i class="align-middle fas fa-tools"></i>&nbsp;<span>  Support</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="{{route('store.create')}}"><i class="align-middle me-1 fas fa-fw fa-cart-plus"></i>
+                    <a class="dropdown-item" href="{{route('store-requests.index')}}"><i class="align-middle me-1 fas fa-fw fa-cart-plus"></i>
                         Request Item from Store</a>
                     <a class="dropdown-item" href="{{route('tickets.create')}}"><i
                             class="align-middle me-1 fas fa-fw fa-exclamation-triangle"></i> Report Tech Problem</a>

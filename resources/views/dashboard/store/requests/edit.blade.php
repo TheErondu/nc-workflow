@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add  Vehicle</h5>
+                        <h5 class="card-title" style="color: white;">Store Manager</h5>
 
                     </div>
                     <div class="row">
@@ -43,53 +43,70 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('vehicles.update', $vehicle->id) }}">
-                            @csrf
+                        @csrf
+                        <div class="row justify-content-around">
+                            @if( Request::get('returned'))
+                            <div class="mb-3 col-md-4">
+                                <h5 class="highlight-black" for="borrower">Borrower : {{ Auth::user()->name }}</h5>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                    <h5 class="highlight-black" for="borrower">Item : {{ $store_request->item }}</h5>
+                                </div>
+
+                            <div class="mb-3 col-md-4">
+                                <h5 class="highlight-black" for="borrower">Return Date :&nbsp;{{ \Carbon\Carbon::parse($store_request->return_date)->format('d-M-Y') }}</h5>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="mb-3 col-md-6">
+                                <button form="return-form" style="background-color: green !important;" type="submit"
+                                    class="btn btn-primary">Mark as Returned&nbsp;<i class="fas fa-check"></i></button>
+
+                            </div>
+                            <form action="{{ route('store-requests.return', $store_request->id) }}" id="return-form"
+                                method="POST">
+                                @method('PUT')
+                                @csrf
+
+                            </form>
+
+                        </div>
+
+                            @else
+                            <div class="mb-3 col-md-4">
+                                <h5 class="highlight-black" for="borrower">Borrower : {{ Auth::user()->name }}</h5>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                    <h5 class="highlight-black" for="borrower">Item : {{ $store_request->item }}</h5>
+                                </div>
+
+                            <div class="mb-3 col-md-4">
+                                <h5 class="highlight-black" for="borrower">Return Date :&nbsp;{{ \Carbon\Carbon::parse($store_request->return_date)->format('d-M-Y') }}</h5>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="mb-3 col-md-6">
+                                <button form="approve-form" style="background-color: green !important;" type="submit"
+                                    class="btn btn-primary">Approve</button>
+                                <button form="reject-form" style="background-color: red !important;" type="submit"
+                                    class="btn btn-primary">Reject</button>
+                            </div>
+
+                        </div>
+                        <form action="{{ route('store-requests.approve', $store_request->id) }}" id="approve-form"
+                            method="POST">
                             @method('PUT')
-                            <div class="row">
-                                <div class="mb-3 col-md-4">
-                                    <label for="show_title">Assigned Driver </label>
-                                    <select class="form-control select2" name="assigned_driver" id="assigned_driver">
-                                        @foreach($drivers as $driver)
-                                        <option value="{{ $driver->name }}" @if($vehicle->assigned_driver === $driver->name) selected='selected' @endif>{{ $driver->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <input id="type" name="type" class="form-control type" hidden value="award" required  type="text">
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-4">
-                                    <label for="number_plate">Number Plate</label>
-                                    <input name="number_plate" type="text" class="form-control" id="number_plate" value="{{ $vehicle->number_plate }}"  required placeholder="">
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="vehicle_make">Vehicle Make</label>
-                                    <input name="vehicle_make" type="text" class="form-control" id="vehicle_make" value="{{ $vehicle->vehicle_make }}" required placeholder="">
-                                </div>
-                            </div>
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-4">
-                                    <label for="purpose">Purpose</label>
-                                    <input name="purpose" type="text" class="form-control" id="purpose" value="{{ $vehicle->purpose }}" required placeholder="">
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="vehicle_colour">Vehicle Color</label>
-                                    <input name="vehicle_colour" type="text" class="form-control" id="vehicle_colour" value="{{ $vehicle->vehicle_colour }}" required placeholder="">
-                                </div>
-                            </div>
+                            @csrf
 
-
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-6">
-                                    <a href="{{ route('awards.index') }}" style="background-color: rgb(53, 54, 55) !important;"
-                                        class="btn btn-primary">Cancel</a>
-                                </div>
-                                <div class="mb-3 col-md-1">
-                                    <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
-                                        class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
                         </form>
+
+                        <form action="{{ route('store-requests.reject', $store_request->id) }}" id="reject-form"
+                            method="POST">
+                            @method('PUT')
+                            @csrf
+
+                        </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -102,20 +119,20 @@
         document.addEventListener("DOMContentLoaded", function() {
 
             // Select2
-			$(".select2").each(function() {
-				$(this)
-					.wrap("<div class=\"position-relative\"></div>")
-					.select2({
-						placeholder: "Select value",
-						dropdownParent: $(this).parent()
-					});
-			})
+            $(".select2").each(function() {
+                $(this)
+                    .wrap("<div class=\"position-relative\"></div>")
+                    .select2({
+                        placeholder: "Select value",
+                        dropdownParent: $(this).parent()
+                    });
+            })
             // Datetimepicker
             $('#datetimepicker-minimum').datetimepicker({
-                format:'YYYY-MM-DD HH:mm:ss'
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
             $('#datetimepicker-minimum2').datetimepicker({
-                format:'YYYY-MM-DD HH:mm:ss'
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
             $('#datetimepicker-view-mode').datetimepicker({
                 viewMode: 'years'
@@ -124,7 +141,7 @@
                 format: 'LT'
             });
             $('#datetimepicker-date').datetimepicker({
-                format: 'LT'
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
         });
     </script>

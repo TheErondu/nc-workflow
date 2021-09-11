@@ -58,7 +58,7 @@
                                                     <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
-                                                        <table <table class="table table-bordered display nowrap" width="100%">
+                                                        <table class="table table-bordered display nowrap" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th></th>
@@ -97,8 +97,7 @@
                                             <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
-                                                        <table id="datatables-basic"
-                                                            <table class="table table-bordered table-striped dataTable dtr-inline"
+                                                        <table class="table table-bordered dataTable dtr-inline"
                                                             style="width: 100%;" role="grid"
                                                             aria-describedby="datatables-basic_info">
                                                             <thead>
@@ -134,11 +133,11 @@
                                                             <tbody>
                                                                 @foreach ($store_requests as $request)
                                                                     <tr class="odd">
-                                                                        <td><a href="#">Approve/Reject</a></td>
+                                                                        <td><a href="{{ route('store-requests.edit',$request->id) }}">Approve/Reject</a></td>
                                                                         <td class="sorting_1">
-                                                                            {{ $request->return_date }}</td>
+                                                                            {{ \Carbon\Carbon::parse($request->return_date)->format('d-M-Y') }}</td>
                                                                         <td>{{ $request->user->name }}</td>
-                                                                        <td>{{ $request->created_at }}</td>
+                                                                        <td>{{ \Carbon\Carbon::parse($request->created_at)->format('d-M-Y') }}</td>
                                                                         <td class="dtr-control" tabindex="0">
                                                                             {{ $request->item }}</td>
 
@@ -157,29 +156,26 @@
                                             <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
-                                                        <table <table class="table table-bordered display nowrap" width="100%">
+                                                        <table class="table table-bordered display nowrap" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th></th>
-                                                                    <th style="white-space:nowrap;">Item name</th>
-                                                                    <th style="white-space:nowrap;">Serial No</th>
-                                                                    <th style="white-space:nowrap;">State</th>
-                                                                    <th style="white-space:nowrap;">Assigned Department</th>
+                                                                    <th style="white-space:nowrap;">Return By</th>
+                                                                    <th style="white-space:nowrap;">Borrower</th>
+                                                                    <th style="white-space:nowrap;">Item</th>
 
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {{-- @foreach ($store_items as $item)
+                                                                @foreach ($approved_items as $item)
                                                                     <tr>
                                                                         <td><a
-                                                                                href="{{ route('store.edit', $store_items->id) }}">
-                                                                                <i class="far fa-edit"></i></a>Returned??</td>
+                                                                                href="{{ route('store-requests.edit',['id'=> $item->id, 'returned' => "yes"]) }}">Returned??</a></td>
+                                                                        <td>{{ $item->return_date }}</td>
                                                                         <td>{{ $item->user->name }}</td>
-                                                                        <td>{{ $item->serial_no }}</td>
-                                                                        <td>{{ $item->state }}</td>
-                                                                        <td>{{ $item->assigned_department }}</td>
+                                                                        <td>{{ $item->item }}</td>
                                                                     </tr>
-                                                                @endforeach --}}
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>

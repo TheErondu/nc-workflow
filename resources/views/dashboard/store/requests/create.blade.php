@@ -43,58 +43,30 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('store.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('store-requests.store',$requested_item->id) }}">
                             @csrf
-
                             <div class="row justify-content-around">
-                                <div class="mb-3 col-md-4">
-                                    <label for="item_name">Item Name</label>
-                                    <input name="item_name" type="text" class="form-control" id="item_name"
-                                        value="{{ old('item_name') }}" required placeholder="">
+                                <div class="mb-3 col-md-12">
+                                    <h5 class="highlight-black" for="borrower">Borrower : {{ Auth::user()->name }}</h5>
                                 </div>
-                            </div>
-                            <input id="type" name="type" class="form-control type" hidden value="award" required
-                                type="text">
-                            <div class="row justify-content-around">
-                                <div class="mb-3 col-md-4">
-                                    <label for="serial_no">Serial No</label>
-                                    <input name="serial_no" type="text" class="form-control" id="serial_no"
-                                        value="{{ old('serial_no') }}" required placeholder="">
-                                </div>
-
-                                <div class="row justify-content-between">
-                                    <div class="mb-3 col-md-4">
-                                        <label for="assigned_department">Assigned Department</label>
-                                        <select class="form-control select2" name="assigned_department" id="assigned_department">
-                                            <option value="{{ Auth::user()->department }}">{{ Auth::user()->department }}</option>
-                                            @foreach ($departments as $department)
-                                                <option value="{{ $department->name }}">{{ $department->name }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="row justify-content-between">
+                                        <div class="mb-3 col-md-6">
+                                            <h5 class="highlight-black" for="borrower">Item : {{ $requested_item->item_name }}</h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row justify-content-between">
-                                    <div class="mb-3 col-md-6">
-                                        <label for="trip_distance">Trip Distance</label>
-                                        <input name="trip_distance" type="text" class="form-control" id="trip_distance"
-                                            value="{{ old('trip_distance') }}" required placeholder="">
+                                    <div class="row justify-content-between">
+                                        <div class="mb-3 col-md-4">
+                                            <label for="assigned_department">Return Date</label>
+                                            <div class="input-group date" id="datetimepicker-minimum"
+                                                data-target-input="nearest">
+                                                <input name="return_date" type="text" class="form-control datetimepicker-input"
+                                                    data-target="#datetimepicker-minimum" />
+                                                <div class="input-group-text" data-target="#datetimepicker-minimum"
+                                                    data-toggle="datetimepicker"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="fuel_station">Fuel Station Used</label>
-                                        <input name="fuel_station" type="text" class="form-control" id="fuel_station"
-                                            value="{{ old('fuel_station') }}" required placeholder="">
                                     </div>
-                                </div>
-                                <div class="row justify-content-between">
-                                    <div class="mb-3 col-12">
-                                        <label for="trip_information">Trip Information</label>
-                                        <textarea name="trip_information" type="text" class="form-control"
-                                            id="trip_information" required
-                                            placeholder="">{{ old('trip_information') }}</textarea>
-                                    </div>
-                                </div>
-
-
                                 <div class="row justify-content-between">
                                     <div class="mb-3 col-md-6">
                                         <a href="{{ route('triplogger.index') }}"

@@ -42,7 +42,20 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::get('mileage/track/{id}', [App\Http\Controllers\TrackerController::class, 'track'])->name('tracker.track');
         Route::resource('triplogger', 'App\Http\Controllers\TriploggerController');
         Route::resource('departments', 'App\Http\Controllers\DepartmentController');
+
         Route::resource('store', 'App\Http\Controllers\StoreController');
+        Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
+        Route::get('store-requests/create/{id}', 'App\Http\Controllers\StoreController@createRequest')->name('store-requests.create');
+        Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
+        Route::post('store-requests/{id}', 'App\Http\Controllers\StoreController@storeRequest')->name('store-requests.store');
+        Route::get('store-requests/{id}', 'App\Http\Controllers\StoreController@editRequest')->name('store-requests.edit');
+        Route::put('store-requests/approve/{id}', 'App\Http\Controllers\StoreController@Approve')->name('store-requests.approve');
+        Route::put('store-requests/reject/{id}', 'App\Http\Controllers\StoreController@Reject')->name('store-requests.reject');
+        Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
+
+
+
+
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');
         Route::get('animation', 'App\Http\Controllers\LottieController@index');
 });

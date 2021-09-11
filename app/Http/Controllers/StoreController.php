@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Models\Department;
 use App\Models\StoreRequest;
 use Illuminate\Http\Request;
+use Auth;
 
 class StoreController extends Controller
 {
@@ -17,8 +18,25 @@ class StoreController extends Controller
     public function index()
     {
         $store_items = Store::all();
+        $store_requests = StoreRequest::all()->where('status','pending');
+        $approved_items =StoreRequest::all()->where('status','Approved');
+        return view('dashboard.store.index', compact('store_items','store_requests','approved_items'));
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function RequestIndex()
+    {
+        $user_department = Auth::user()->department;
+        $user = auth()->user();
+        $available_items = Store::all()->where('assigned_department', $user_department);
+        $all_requested = StoreRequest::all()->where('status', "!=",'pending');
+        $requested_items = StoreRequest::all()->where('status', 'pending')->where('user_id',$user->id);
         $store_requests = StoreRequest::all();
-        return view('dashboard.store.index', compact('store_items','store_requests'));
+        return view('dashboard.store.requests.index', compact('available_items','store_requests','requested_items','all_requested'));
     }
 
     /**
@@ -31,9 +49,17 @@ class StoreController extends Controller
         $departments = Department::all();
         return view('dashboard.store.items.create',compact('departments'));
     }
-    public function createRequest()
-    {
 
+     /**
+     * Show the form for creating a new resource.
+     *@param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function createRequest($id)
+    {   $requested_item = Store::all()->find($id);
+        $store_items = Store::all();
+        $store_requests = StoreRequest::all();
+        return view('dashboard.store.requests.create', compact('store_items','store_requests','requested_item'));
     }
 
     /**
@@ -62,13 +88,24 @@ class StoreController extends Controller
 
      /**
      * Store a newly created resource in storage.
-     *
+     * @param int $id
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeRequest(Request $request)
+    public function storeRequest(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'return_date'           => 'required',
+        ]);
+        $user = auth()->user();
+        $requested_item = $requested_item = Store::all()->find($id);
+        $store_requests = new storeRequest();
+        $store_requests->user_id = $user->id;
+        $store_requests->item = $requested_item->item_name;
+        $store_requests->return_date = $request->input('return_date');
+        $store_requests->save();
+        $request->session()->flash('message', 'Item successfully requested from store!');
+        return redirect()->route('store-requests.index');
     }
 
     /**
@@ -85,12 +122,14 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Store  $store
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function editRequest(Store $store)
+    public function editRequest(Request $request, $id)
     {
-        //
+        $departments = Department::all();
+        $store_request = storeRequest::all()->find($id);
+        return view('dashboard.store.requests.edit',compact('departments','store_request'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -129,6 +168,57 @@ class StoreController extends Controller
         $request->session()->flash('message', 'Successfully Updated Item!');
         return redirect()->route('store.index');
     }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function Approve(Request $request, $id)
+    {
+        $store_request = StoreRequest::all()->find($id);
+        $store_request->status = "Approved";
+        $store_request->save();
+        $request->session()->flash('message', 'Request Approved !');
+        return redirect()->route('store.index');
+
+    }
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function Reject(Request $request, $id)
+    {
+        $store_request = StoreRequest::all()->find($id);
+        $store_request->status = "Rejected";
+        $store_request->save();
+        $request->session()->flash('message', 'Request Rejected !');
+        return redirect()->route('store.index');
+
+    }
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function Return(Request $request, $id)
+    {
+        $store_request = StoreRequest::all()->find($id);
+        $store_request->status = "Returned";
+        $store_request->save();
+        $request->session()->flash('message', 'Requested Item has been marked as Returned !');
+        return redirect()->route('store.index');
+
+    }
+
+
 
     /**
      * Update the specified resource in storage.
