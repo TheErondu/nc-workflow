@@ -23,13 +23,12 @@
                         <div class="tab-content">
                             <div class="tab-pane active py-3" id="Show" role="tabpanel">
                                 <div class="card table-card">
-                                    <div class="card-header" style="margin-bottom: 1.0rem;">
-                                        <span>Show of the week </span>
-                                    </div>
+
                                     @if (count($shows) > 0)
 
 
-                                        <table <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+                                        <table class="table table-bordered datatable dtr-inline" cellspacing="0"
+                                            width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Show Title</th>
@@ -39,12 +38,13 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($shows as $show)
-                                                <tr>
-                                                    <td>{{ $show->show_title }}</td>
+                                                    <tr>
+                                                        <td>{{ $show->show_title }}</td>
                                                         <td>{{ $show->show_location }}</td>
-                                                        <td><img src="uploads/{{ $show->photo }}" height="40px" width="60px"/></td>
+                                                        <td><img src="uploads/{{ $show->photo }}" height="40px"
+                                                                width="60px" /></td>
 
-                                                </tr>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -59,14 +59,13 @@
                             </div>
                             <div class="tab-pane fade py-3" id="Awardee" role="tabpanel">
                                 <div class="card table-card">
-                                    <div class="card-header" style="margin-bottom: 1.0rem;">
-                                        <span>Awardees</span>
-                                    </div>
+
 
                                     @if (count($awards) > 0)
 
 
-                                        <table <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+                                        <table class="table table-bordered datatable dtr-inline" cellspacing="0"
+                                            width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Show Title</th>
@@ -80,7 +79,8 @@
 
                                                         <td>{{ $awardee->name }}</td>
                                                         <td>{{ $awardee->description }}</td>
-                                                        <td><img src="uploads/{{ $awardee->picture }}" height="40px" width="60px"/></td>
+                                                        <td><img src="uploads/{{ $awardee->picture }}" height="40px"
+                                                                width="60px" /></td>
                                                     @endforeach
                                                 </tr>
                                             </tbody>
@@ -96,14 +96,13 @@
                             </div>
                             <div class="tab-pane fade py-3" id="Team" role="tabpanel">
                                 <div class="card table-card">
-                                    <div class="card-header" style="margin-bottom: 1.0rem;">
-                                        <span>Team Collaboration of the Month </span>
-                                    </div>
+                                    
 
                                     @if (count($teams) > 0)
 
 
-                                        <table <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+                                        <table class="table table-bordered datatable dtr-inline" cellspacing="0"
+                                            width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Team member 1</th>
@@ -119,8 +118,10 @@
 
                                                         <td>{{ $team->fullname1 }}</td>
                                                         <td>{{ $team->fullname2 }}</td>
-                                                        <td><img src="uploads/{{ $team->image1 }}" height="40px" width="60px"/></td>
-                                                        <td><img src="uploads/{{ $team->image2 }}" height="40px" width="60px"/></td>
+                                                        <td><img src="uploads/{{ $team->image1 }}" height="40px"
+                                                                width="60px" /></td>
+                                                        <td><img src="uploads/{{ $team->image2 }}" height="40px"
+                                                                width="60px" /></td>
                                                         <td>{{ $team->commendation }}</td>
                                                     @endforeach
                                                 </tr>

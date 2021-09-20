@@ -5,9 +5,7 @@
         <div class="col-12">
             <div class="card table-card">
                 <div class="card-header" style="margin-bottom: 1.0rem;">
-                    <span>Documents Logs </span>
-                    <a href="{{route('editors.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
-                    class="btn btn-primary create-button">Add New Document <i class="fas fa-plus"></i></a>
+                    <span>Mcr Logs </span>
                 </div>
                 <div class="row">
                     @if (Session::has('message'))
@@ -43,34 +41,48 @@
                         </div>
                     @endif
                 </div>
-                @if (count($documents) > 0)
+                @if (count($mcr_logs) > 0)
 
                 <div class="table-responsive" style="padding: 1.2rem; ">
-                    <table class="table table-bordered datatable dtr-inline" width="100%">
+                    <table <table class="table table-bordered datatable dtr-inline" width="100%">
                         <thead>
                             <tr>
                                 <th></th>
-
-                                <th style="white-space:nowrap;">1PM Stories</th>
-                                <th style="white-space:nowrap;">7PM Stories</th>
-                                <th style="white-space:nowrap;">9PM Stories</th>
-                                <th style="white-space:nowrap;">CLOSED AT</th>
+                                <th style="white-space:nowrap;">Bulletin 1</th>
+                                <th style="white-space:nowrap;">DTS In</th>
+                                <th style="white-space:nowrap;">Actual In</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">DTS Out</th>
+                                <th style="white-space:nowrap;">Actual Out</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">Comment</th>
+                                <th style="white-space:nowrap;">Bulletin 2</th>
+                                <th style="white-space:nowrap;">DTS In</th>
+                                <th style="white-space:nowrap;">Actual In</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">DTS Out</th>
+                                <th style="white-space:nowrap;">Actual Out</th>
+                                <th style="white-space:nowrap;">Variance</th>
+                                <th style="white-space:nowrap;">Comment</th>
                                 <th style="white-space:nowrap;">Uploaded By</th>
                                 <th style="white-space:nowrap;">Time of Upload</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($documents as $document)
+                            @foreach ($mcr_logs as $log)
                             <tr>
-                                    <td><a href="{{route('documents.edit',
+                                    <td><a href="{{route('mcr.edit',
                                            $log->id)}}"><i class="far fa-edit"></i></a>
                                     </td>
-                                    <td>{{ $log->first_interval }}</td>
-                                    <td>{{ $log->second_interval }}</td>
-                                    <td>{{ $log->third_interval }}</td>
-                                    <td>{{ $log->closed_at }}</td>
+                                    <td>{{ $log->sto }}</td>
+                                    <td>{{ $log->timing }}</td>
+                                    <td>{{ $log->programmes }}</td>
+                                    <td>{{ $log->remarks }}</td>
+                                    <td>{{ $log->squeezebacks }}</td>
+                                    <td>{{ $log->tc }}</td>
+                                    <td>{{ $log->traffic }}</td>
+                                    <td>{{ $log->handed_over_to }}</td>
                                     <td>{{ $log->user->name }}</td>
-                                    <td>{{ $log->created_at }}</td>
 
 
                                 </tr>
@@ -81,8 +93,8 @@
                 @else
                 <div class="card">
                     <div class="card-body card-black">
-                      <p>No Documents Have Been Added yet, Click  <a href="{{ route('documents.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add Logs<p>
-                    <p><a class="btn btn-primary" href="{{ route('documents.create') }}">Add a Log</a>
+                      <p>No Logs Have Been Added yet, Click  <a href="{{ route('mcr.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add Logs<p>
+                    <p><a class="btn btn-primary" href="{{ route('mcr.create') }}">Add a Log</a>
                     </p>
                 </div>
                     </div>

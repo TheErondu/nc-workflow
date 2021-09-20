@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFacilitiesTable extends Migration
+class CreateEditorLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateFacilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('facilities', function (Blueprint $table) {
-
+        Schema::create('editor_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('location');
-            $table->string('type');
+            $table->foreignId('user_id')->constrained();
+            $table->text('first_interval');
+            $table->text('second_interval');
+            $table->text('third_interval');
+            $table->string('closed_at');
             $table->timestamps();
-
         });
     }
 
@@ -31,6 +31,6 @@ class CreateFacilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facilities');
+        Schema::dropIfExists('editor_logs');
     }
 }

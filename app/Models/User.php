@@ -54,4 +54,20 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\OBlogs');
     }
+    public function production_logs()
+    {
+        return $this->hasMany('App\Models\ProductionShowLogs');
+    }
+    public function prompter_logs()
+    {
+        return $this->hasMany('App\Models\PrompterLogs');
+    }
+    public function video_editors_reports()
+    {
+        return $this->hasMany('App\Models\VideoEditorsReports');
+    }
+    public function transmission()
+    {
+        return $this->hasMany('App\Models\TransmissionReport');
+    }
 }

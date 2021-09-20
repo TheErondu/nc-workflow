@@ -44,6 +44,12 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::resource('departments', 'App\Http\Controllers\DepartmentController');
 
         Route::resource('store', 'App\Http\Controllers\StoreController');
+        Route::resource('logs/mcr', 'App\Http\Controllers\McrLogsController');
+        Route::resource('logs/production', 'App\Http\Controllers\ProductionShowLogsController');
+        Route::resource('logs/engineers', 'App\Http\Controllers\EngineerLogsController');
+        Route::resource('logs/editors', 'App\Http\Controllers\EditorLogsController');
+        Route::resource('logs/prompter', 'App\Http\Controllers\PrompterLogsController');
+        Route::resource('logs/transmission', 'App\Http\Controllers\TransmissionReportController');
         Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
         Route::get('store-requests/create/{id}', 'App\Http\Controllers\StoreController@createRequest')->name('store-requests.create');
         Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
@@ -52,12 +58,9 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::put('store-requests/approve/{id}', 'App\Http\Controllers\StoreController@Approve')->name('store-requests.approve');
         Route::put('store-requests/reject/{id}', 'App\Http\Controllers\StoreController@Reject')->name('store-requests.reject');
         Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
-
-
-
-
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');
         Route::get('animation', 'App\Http\Controllers\LottieController@index');
 });
 
-Route::get('animation', 'App\Http\Controllers\LottieController@index');
+
+
