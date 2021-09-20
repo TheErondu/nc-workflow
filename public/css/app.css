@@ -31788,7 +31788,7 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
 }
 
 .create-button {
-  margin: 0.7rem;
+  margin-left: 0.7rem;
 }
 
 .alert-danger {
@@ -31963,7 +31963,7 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
 .table-card {
   background-color: #414141;
   border-radius: 0.7rem;
-  margin: 1.5rem;
+  margin: -0.7rem;
 }
 
 .card-black {

@@ -63,6 +63,11 @@
                                     class="btn btn-primary">Mark as Returned&nbsp;<i class="fas fa-check"></i></button>
 
                             </div>
+                            <div class="mb-3 col-md-6">
+                                <a href="{{ url()->previous() }}" style="background-color: red !important;"
+                                    class="btn btn-primary">Go Back&nbsp;<i class="fas fa-back"></i></a>
+
+                            </div>
                             <form action="{{ route('store-requests.return', $store_request->id) }}" id="return-form"
                                 method="POST">
                                 @method('PUT')

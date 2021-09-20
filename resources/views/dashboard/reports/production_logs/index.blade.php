@@ -45,8 +45,8 @@
                 </div>
                 @if (count($production_logs) > 0)
 
-                <div class="table-responsive" style="padding: 1.2rem; ">
-                    <table class="table table-bordered datatable dtr-inline" width="100%">
+                <div class="table-responsive">
+                    <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th></th>

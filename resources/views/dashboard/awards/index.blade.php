@@ -22,7 +22,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active py-3" id="Show" role="tabpanel">
-                                <div class="card table-card">
+                                <div class="table-card">
 
                                     @if (count($shows) > 0)
 
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade py-3" id="Awardee" role="tabpanel">
-                                <div class="card table-card">
+                                <div class=" table-card">
 
 
                                     @if (count($awards) > 0)
@@ -95,8 +95,10 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade py-3" id="Team" role="tabpanel">
-                                <div class="card table-card">
-                                    
+                                <div class=" table-card">
+                                    <div class="card-header" style="margin-bottom: 1.0rem;">
+                                        <span>Team Collaboration of the Month </span>
+                                    </div>
 
                                     @if (count($teams) > 0)
 
@@ -141,21 +143,24 @@
                     </div>
 
                 </div>
-            @endsection
-            @section('javascript')
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
-                        $('.table').DataTable({
-                            responsive: true
-                        });
-                        /* =========================================================================================== */
-                        /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
-                        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                            $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
-                        });
-                        /* =========================================================================================== */
-                    });
-                </script>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('javascript')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
+            $('.table').DataTable({
+                responsive: true
+            });
+            /* =========================================================================================== */
+            /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+            });
+            /* =========================================================================================== */
+        });
+    </script>
 
-            @endsection
+@endsection
