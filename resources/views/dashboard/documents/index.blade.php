@@ -6,7 +6,7 @@
             <div class="card table-card">
                 <div class="card-header" style="margin-bottom: 1.0rem;">
                     <span>Documents Logs </span>
-                    <a href="{{route('editors.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                    <a href="{{route('documents.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
                     class="btn btn-primary create-button">Add New Document <i class="fas fa-plus"></i></a>
                 </div>
                 <div class="row">
@@ -51,12 +51,8 @@
                             <tr>
                                 <th></th>
 
-                                <th style="white-space:nowrap;">1PM Stories</th>
-                                <th style="white-space:nowrap;">7PM Stories</th>
-                                <th style="white-space:nowrap;">9PM Stories</th>
-                                <th style="white-space:nowrap;">CLOSED AT</th>
-                                <th style="white-space:nowrap;">Uploaded By</th>
-                                <th style="white-space:nowrap;">Time of Upload</th>
+                                <th style="white-space:nowrap;">Title </th>
+                                <th style="white-space:nowrap;">Download Link</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,12 +61,8 @@
                                     <td><a href="{{route('documents.edit',
                                            $log->id)}}"><i class="far fa-edit"></i></a>
                                     </td>
-                                    <td>{{ $log->first_interval }}</td>
-                                    <td>{{ $log->second_interval }}</td>
-                                    <td>{{ $log->third_interval }}</td>
-                                    <td>{{ $log->closed_at }}</td>
-                                    <td>{{ $log->user->name }}</td>
-                                    <td>{{ $log->created_at }}</td>
+                                    <td>{{ $document->document_title }}</td>
+                                    <td>{{ $document->download_link }}</td>
 
 
                                 </tr>

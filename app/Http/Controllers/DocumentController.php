@@ -23,8 +23,8 @@ class DocumentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   $documents = Document::all();
+        return view('dashboard.documents.create',compact('documents'));
     }
 
     /**
