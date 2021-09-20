@@ -48,9 +48,9 @@ body {
   background-color: #000;
   color: white;
   font-family: var(--bs-font-sans-serif);
-  font-size: 0.9375rem;
-  font-weight: 400;
-  line-height: 1.5;
+  font-size: 0.8375rem;
+  font-weight: 300;
+  line-height: 1.2;
   margin: 0;
 }
 
@@ -76,23 +76,23 @@ hr:not([size]) {
 }
 
 .h1, h1 {
-  font-size: 1.875rem;
+  font-size: 1.575rem;
 }
 
 .h2, h2 {
-  font-size: 1.64062rem;
+  font-size: 1.44062rem;
 }
 
 .h3, h3 {
-  font-size: 1.40625rem;
+  font-size: 1.20625rem;
 }
 
 .h4, h4 {
-  font-size: 1.17188rem;
+  font-size: 1.07188rem;
 }
 
 .h5, .h6, h5, h6 {
-  font-size: 0.9375rem;
+  font-size: 0.8375rem;
 }
 
 p {

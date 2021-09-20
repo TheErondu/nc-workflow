@@ -103,6 +103,7 @@
 
                 var calendar = new FullCalendar.Calendar(ProdCal, {
                     themeSystem: 'bootstrap',
+                    aspectRatio: 2.2,
                     initialView: 'dayGridMonth',
                     headerToolbar: {
                         left: 'prev,next today',
@@ -154,6 +155,7 @@
 
                 var calendar = new FullCalendar.Calendar(VideoCal, {
                     themeSystem: 'bootstrap',
+                    aspectRatio: 2.2,
                     initialView: 'dayGridMonth',
                     headerToolbar: {
                         left: 'prev,next today',
@@ -208,6 +210,7 @@
 
                 var calendar = new FullCalendar.Calendar(GraphiCal, {
                     themeSystem: 'bootstrap',
+                    aspectRatio: 2.2,
                     initialView: 'dayGridMonth',
                     headerToolbar: {
                         left: 'prev,next today',

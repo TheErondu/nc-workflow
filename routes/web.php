@@ -60,6 +60,8 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');
         Route::get('animation', 'App\Http\Controllers\LottieController@index');
+        
+
 });
 
 
