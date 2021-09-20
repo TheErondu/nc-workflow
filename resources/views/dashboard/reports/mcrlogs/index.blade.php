@@ -44,7 +44,7 @@
                 @if (count($mcr_logs) > 0)
 
                 <div class="table-responsive" style="padding: 1.2rem; ">
-                    <table <table class="table table-bordered datatable dtr-inline" width="100%">
+                    <table class="table table-bordered datatable dtr-inline" width="100%">
                         <thead>
                             <tr>
                                 <th></th>
