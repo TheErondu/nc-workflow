@@ -23,3 +23,4 @@ Route::get('schedule/graphics', [App\Http\Controllers\API\ScheduleController::cl
 Route::get('schedule/digital', [App\Http\Controllers\API\ScheduleController::class, 'GetDigitalEvents']);
 Route::post('calendar-crud-ajax', [App\Http\Controllers\API\ScheduleController::class, 'calendarEvents']);
 Route::get('content', [App\Http\Controllers\API\ContentController::class, 'index']);
+Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);

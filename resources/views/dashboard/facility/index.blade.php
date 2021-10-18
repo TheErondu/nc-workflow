@@ -1,0 +1,110 @@
+@extends('layouts.app')
+@section('content')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card table-card">
+                <div class="card-header" style="margin-bottom: 1.0rem;">
+                    <span>Facilities </span>
+                    <a href="{{route('facility.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                    class="btn btn-primary create-button">Add New Facility <i class="fas fa-plus"></i></a>
+                </div>
+                <div class="row">
+                    @if (Session::has('message'))
+                        <div class="container">
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <div class="alert-icon">
+                                    <i class="far fa-fw fa-bell"></i>
+                                </div>
+                                <div class="alert-message">
+                                    <strong> {{ session('message') }}</strong>
+                                </div>
+
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="container">
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert-icon">
+                                        <i class="far fa-fw fa-bell"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                        <strong> {{ $error }}</strong>
+                                    </div>
+
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                @if (count($facilities) > 0)
+
+                <div class="table-responsive">
+                    <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width=10% ></th>
+                                <th style="white-space:nowrap;">Name</th>
+                                <th style="white-space:nowrap;">Type</th>
+                                <th style="white-space:nowrap;">Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($facilities as $facility)
+                            <tr>
+                                    <td><a href="{{route('facility.edit',
+                                           $facility->id)}}"><i class="far fa-edit"></i></a>
+                                    </td>
+                                    <td>{{ $facility->name }}</td>
+                                    <td>{{ $facility->type }}</td>
+                                    <td>{{ $facility->location }}</td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    </div>
+                @else
+                <div class="card">
+                    <div class="card-body card-black">
+                      <p>No Facilities Have Been Added yet, Click  <a href="{{ route('facility.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add facilities<p>
+                    <p><a class="btn btn-primary" href="{{ route('facility.create') }}">Add a Facility</a>
+                    </p>
+                </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+</div>
+@endsection
+@section('javascript')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
+        $('.table').DataTable({
+            responsive: false,
+            "sAutoWidth": true,
+    "iDisplayStart ": 10,
+    "iDisplayLength": 10,
+    "bPaginate": false, //hide pagination
+    "bFilter": true, //hide Search bar
+    "bInfo": false,
+        });
+        /* =========================================================================================== */
+        /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+        });
+        /* =========================================================================================== */
+    });
+</script>
+
+@endsection

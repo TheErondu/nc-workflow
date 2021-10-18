@@ -15,7 +15,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $drivers = User::all()->where('department','drivers');
+        $drivers = User::all()->where('department','DRIVERS');
         $vehicles = Vehicle::all();
         return view('dashboard.logistics.vehicles.index',compact('vehicles', 'drivers'));
     }
@@ -26,7 +26,7 @@ class VehicleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   $drivers = User::all()->where('department','drivers');
+    {   $drivers = User::all()->where('department','DRIVERS');
         return view('dashboard.logistics.vehicles.create',compact('drivers'));
     }
 
@@ -77,7 +77,7 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {   $vehicle = Vehicle::all()->find($id);
-        $drivers = User::all()->where('department','drivers');
+        $drivers = User::all()->where('department','DRIVERS');
         return view('dashboard.logistics.vehicles.edit', compact('drivers','vehicle'));
     }
 

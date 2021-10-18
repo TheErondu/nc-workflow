@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::Routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -60,7 +60,10 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');
         Route::get('animation', 'App\Http\Controllers\LottieController@index');
-        
+        Route::resource('facility', App\Http\Controllers\FacilityController::class);
+        Route::resource('facility_type', App\Http\Controllers\FacilityTypeController::class);
+        Route::resource('booking', App\Http\Controllers\BookingController::class);
+
 
 });
 

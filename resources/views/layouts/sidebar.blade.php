@@ -65,9 +65,9 @@
                     <li @if (Route::is('production.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('production.index') }}"> <i
                                 class="align-middle me-2 fas fa-tag"></i> <span class="align-middle">Production Show
                                 Logs</span></a></li>
-                    <li @if (Route::is('engineer.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('engineers.index') }}"> <i
+                    {{-- <li @if (Route::is('engineer.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('engineers.index') }}"> <i
                                 class="align-middle me-2 fas fa-wrench"></i> <span class="align-middle">Engineer
-                                Logs</span></a></li>
+                                Logs</span></a></li> --}}
                     <li @if (Route::is('prompter.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('prompter.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Prompter
                                 Logs</span></a></li>

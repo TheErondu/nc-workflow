@@ -6,7 +6,7 @@
             <div class="card table-card">
                 <div class="card-header" style="margin-bottom: 1.0rem;">
                     <span>Production Logs </span>
-                    <a href="{{route('editors.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                    <a href="{{route('transmission.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
                     class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>
                 </div>
                 <div class="row">
@@ -83,8 +83,8 @@
                 @else
                 <div class="card">
                     <div class="card-body card-black">
-                      <p>No Logs Have Been Added yet, Click  <a href="{{ route('editors.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add Logs<p>
-                    <p><a class="btn btn-primary" href="{{ route('editors.create') }}">Add a Log</a>
+                      <p>No Logs Have Been Added yet, Click  <a href="{{ route('transmission.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add Logs<p>
+                    <p><a class="btn btn-primary" href="{{ route('transmission.create') }}">Add a Log</a>
                     </p>
                 </div>
                     </div>

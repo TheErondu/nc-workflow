@@ -221,7 +221,7 @@
 
                         // your event source
                         {
-                            url: '/api/content?filter[country]=SA',
+                            url: '/api/content?filter[country]=ZA',
                             method: 'GET',
                             id: 'id',
                             title: 'name',

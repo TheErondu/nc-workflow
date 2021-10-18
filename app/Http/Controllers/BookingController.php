@@ -2,29 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
 use Illuminate\Http\Request;
+
+use App\Models\Booking;
+use App\Models\Country;
+use App\Models\Facility;
 
 class BookingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+        return view('dashboard.booking.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $bookings = Booking::all();
+        $studios = Facility::all()->where('type','=','Studio');
+        $boardrooms = Facility::all()->where('type','=','BoardRoom');
+        return view('dashboard.booking.create',compact('studios','boardrooms'));
     }
 
     /**
@@ -35,51 +33,113 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'           => 'required',
+            'date'           => 'required',
+            'start_time'           => 'required',
+            'end_time'           => 'required',
+            'type'           => 'required',
+            'facility'           => 'required',
+            'description'           => 'required',
+
+
+        ]);
+        $user = auth()->user();
+        $booking = new Booking();
+        $booking->title = $request->input('title');
+        $booking->date = $request->input('date');
+        $booking->start = $request->input('start');
+        $booking->end = $request->input('end');
+        $booking->type = $request->input('type');
+        $booking->facility = $request->input('facility');
+        $booking->description = $request->input('description');
+        $booking->user_id = $user->id;
+        $booking->save();
+        $request->session()->flash('message', 'Success!');
+        $type = $request->input('type');
+        return redirect()->route('booking.index', ['type'=> $type]);
     }
 
-    /**
+   /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Booking  $booking
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
-    {
-        //
+    public function show($id){
+
+        $booking = Booking::all()->find($id);
+
+        return view('dashboard.booking.show', [ 'booking' => $booking ]);
+
+
+
     }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Booking  $booking
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Booking $booking)
+    public function edit($id)
     {
-        //
+        $booking = Booking::all()->find($id);
+        $countries = Country::all();
+        return view('dashboard.booking.edit', [ 'booking' => $booking,'countries' =>$countries]);
     }
 
-    /**
+       /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Booking  $booking
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        //var_dump('bazinga');
+        //die();
+        $validatedData = $request->validate([
+            'title'           => 'required',
+            'date'           => 'required',
+            'end'           => 'required',
+            'start'           => 'required',
+            'end'           => 'required',
+            'delivery_date'           => 'required',
+            'type'           => 'required',
+            'facility'           => 'required',
+            'description'           => 'required',
 
+
+        ]);
+        $booking = Booking::find($id);
+        $booking->title = $request->input('title');
+        $booking->date = $request->input('date');
+        $booking->start = $request->input('start');
+        $booking->end = $request->input('end');
+        $booking->type = $request->input('type');
+        $booking->facility = $request->input('facility');
+        $booking->description = $request->input('description');
+        $booking->save();
+        $request->session()->flash('message', 'Success!');
+        $type = $request->input('type');
+        return redirect()->route('booking.index', ['type'=> $type]);
+    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Booking  $booking
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
-    {
-        //
+    public function destroy($id){
+        $booking = Booking::find($id);
+        if($booking){
+            $booking->delete();
+        }
+        return redirect()->route('booking.index')->with('message', 'Booking Deleted');
+
     }
 }
+

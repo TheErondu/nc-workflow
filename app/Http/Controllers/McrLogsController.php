@@ -67,12 +67,12 @@ class McrLogsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Mcr_logs  $mcr_logs
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Mcr_logs $mcr_logs)
+    public function show($id)
     {
         //
     }

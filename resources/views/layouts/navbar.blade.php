@@ -13,9 +13,9 @@
                     <i class="align-middle fas fa-calendar-plus"></i>&nbsp;<span>  Bookings</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1 fas fa-fw fa-podcast"></i>
+                    <a class="dropdown-item" href="{{route('booking.index', ['type'=>'boardroom']) }}"><i class="align-middle me-1 fas fa-fw fa-podcast"></i>
                         Book Boardroom</a>
-                    <a class="dropdown-item" href="#"><i
+                    <a class="dropdown-item" href="{{route('booking.index', ['type'=>'studio']) }}"><i
                             class="align-middle me-1 fas fa-fw fa-film"></i> Book a Studio</a>
                 </div>
             </li>
@@ -28,7 +28,7 @@
                     <a class="dropdown-item" href="{{route('store-requests.index')}}"><i class="align-middle me-1 fas fa-fw fa-cart-plus"></i>
                         Request Item from Store</a>
                     <a class="dropdown-item" href="{{route('tickets.create')}}"><i
-                            class="align-middle me-1 fas fa-fw fa-exclamation-triangle"></i> Report Tech Problem</a>
+                            class="align-middle me-1 fas fa-fw fa-exclamation-triangle"></i> Report  Tech Problem</a>
                 </div>
             </li>
 

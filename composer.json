@@ -21,6 +21,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
+        "barryvdh/laravel-ide-helper": "^2.10",
         "bennett-treptow/laravel-migration-generator": "^3.2",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
@@ -62,7 +63,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "barryvdh/laravel-ide-helper"
+            ]
         }
     },
     "config": {
