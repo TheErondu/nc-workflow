@@ -6,7 +6,7 @@
     @if ($tickets_count)
 
         <div class="row">
-            <div class="card bg-light small-card">
+            <div class="card bg-dark small-card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col mt-0">

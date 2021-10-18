@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card table-card">
                 <div class="card-header" style="margin-bottom: 1.0rem;">
-                    <span>Production Logs </span>
+                    <span>Transmission Logs </span>
                     <a href="{{route('editors.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
                     class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>
                 </div>
