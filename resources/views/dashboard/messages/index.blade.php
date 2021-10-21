@@ -16,7 +16,10 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab-1" role="tabpanel">
-                                        {!! $welcome_message->message !!}
+                                        <div style="overflow-y: auto; height:360px; ">
+                                            {!! $welcome_message->message !!}
+                                            </div>
+
                                     </div>
                                     <div class="tab-pane" id="tab-2" role="tabpanel">
 

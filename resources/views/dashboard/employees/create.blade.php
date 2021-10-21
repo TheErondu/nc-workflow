@@ -58,7 +58,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="show_title">Department</label>
                                     <select class="form-control select2" name="assigned_driver" id="assigned_driver">
-                                    <option value="not Assigned">--Not Assigned--</option>
+                                    <option value="not Assigned">Select Department </option>
                                         @foreach($departments as $department)
                                             <option value="{{ $department->id }}">{{ $department->name }}</option>
                                         @endforeach
