@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -14,7 +15,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.employees.index');
+        $employees = User::all();
+        return view('dashboard.employees.index',compact('employees'));
     }
 
     /**
@@ -24,7 +26,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        return view('dashboard.employees.create',compact('departments'));
     }
 
     /**
