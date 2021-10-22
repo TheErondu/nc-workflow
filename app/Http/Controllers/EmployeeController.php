@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
@@ -113,6 +114,33 @@ class EmployeeController extends Controller
         $employee->status = $request->input('status');
         $employee->save();
         $request->session()->flash('message', 'Successfully Updated User info');
+
+        return redirect()->route('employees.index');
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function resetpass(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'reset_password'             => 'required',
+        ]);
+
+        $employee = User::find($id);
+        $email = $employee->email;
+        $details = [
+            'title' => 'Your password has been reset!',
+            'body' => 'Your password has been reset! your new password is : ' .$request->input('reset_password'). '',
+        ];
+        Mail::to($email)->send( new \App\Mail\ResetPass($details));
+        $employee->password = Hash::make($request->input('reset_password'));
+        $employee->save();
+        $request->session()->flash('message', 'Password Reset!');
 
         return redirect()->route('employees.index');
     }

@@ -74,7 +74,6 @@
                                             @endforeach
                                         </select>
                                 </div>
-
                             </div>
 
 
@@ -87,6 +86,21 @@
                                     <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
                                         class="btn btn-primary">Submit</button>
                                 </div>
+                            </div>
+                        </form>
+                        <form action="{{ route('employees.reset', $employee->id) }}" id="reset_password" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="row justify-content-between">
+                            <div class="mb-3 col-md-4">
+                                <label for="reset_password">Reset password</label>
+                                <input name="reset_password" type="password" class="form-control" id="reset_password"  required placeholder="">
+                                <br>
+                                <div class="mb-3 col-md-4">
+                                    <button form="reset_password" style="background-color: red !important;" type="submit"
+                                    class="btn btn-primary">reset</button>
+                            </div>
+                            </div>
                             </div>
                         </form>
                     </div>
