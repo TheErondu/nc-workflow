@@ -110,7 +110,6 @@ class EmployeeController extends Controller
         $employee->name     = $request->input('name');
         $employee->email = $request->input('email');
         $employee->department_id = $request->input('department_id');
-        $employee->password = Hash::make($request->input('password'));
         $employee->status = $request->input('status');
         $employee->save();
         $request->session()->flash('message', 'Successfully Updated User info');
