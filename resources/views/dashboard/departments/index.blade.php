@@ -51,6 +51,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name </th>
+                                    <th>H.O.D </th>
                                     <th>Created at</th>
                                     <th>Updated at</th>
                                 </tr>
@@ -61,6 +62,7 @@
                                         <td><a href="{{ route('departments.edit', $department->id) }}"><i
                                                     class="far fa-edit"></i></a></td>
                                         <td>{{ $department->name }}</td>
+                                        <td>{{ $department->hod->name }}</td>
                                         <td>{{ $department->created_at }}</td>
                                         <td>{{ $department->updated_at }}</td>
 

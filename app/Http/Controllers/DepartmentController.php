@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Events\SendMail;
+use App\Models\Users;
+use Illuminate\Support\Facades\Event;
 
 class DepartmentController extends Controller
 {
@@ -14,7 +17,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {   $departments = Department::all();
-        return view('dashboard.departments.index', compact('departments'));
+        $users = Users::all();
+        return view('dashboard.departments.index', compact('departments','users'));
     }
 
     /**
@@ -40,6 +44,7 @@ class DepartmentController extends Controller
         ]);
         $department = new Department();
         $department->name = $request->input('name');
+        $department->hod = $request->input('hod');
         $department->color = $request->input('color');
         $department->save();
         $request->session()->flash('message', 'Successfully added Department');
@@ -66,7 +71,8 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::all()->find($id);
-        return view('dashboard.departments.edit',compact('department'));
+        $users = Users::all();
+        return view('dashboard.departments.edit',compact('department','users'));
     }
 
      /**
@@ -83,8 +89,10 @@ class DepartmentController extends Controller
         ]);
         $department = Department::find($id);
         $department->name = $request->input('name');
+        $department->user_id = $request->input('hod');
         $department->color = $request->input('color');
         $department->save();
+        Event::dispatch(new SendMail($department->hod->id));
         $request->session()->flash('message', 'Successfully Edited Department');
         return redirect()->route('departments.index');
     }

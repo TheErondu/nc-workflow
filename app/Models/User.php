@@ -75,4 +75,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Department', 'department_id');
     }
+    public function hod()
+    {
+        return $this->hasOne('App\Models\Department');
+    }
 }

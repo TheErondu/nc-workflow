@@ -52,8 +52,15 @@
                                     <label for="name">Name</label>
                                     <input name="name" value="{{ $department->name }}" type="text" class="form-control" id="name" required placeholder="">
                                 </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="director">Head of Department </label>
+                                <select class="form-control select2" name="hod" id="hod" data-placeholder=" select Head of Department">
+                                    <option value="" selected>select</option>
+                                    @foreach($users as $user)
+                                    <option value="{{ $user->id }}" @if($department->hod->id === $user->id) selected='selected' @endif>{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="name">Color</label>
                                     <input type="color" id="color" name="color" value="{{$department->color}}"><br><br>

@@ -51,6 +51,15 @@
                                     <label for="name">Name</label>
                                     <input name="name" type="text" class="form-control" id="name" required placeholder="">
                                 </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="hod">Head of Department  </label>
+                                    <select class="form-control select2" name="hod" id="hod" data-placeholder=" select Head of Department">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="name">Color</label>
                                     <input type="color" id="color" name="color" value="#ff0000"><br><br>
@@ -79,6 +88,15 @@
 @section('javascript')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+             // Select2
+             $(".select2").each(function() {
+                $(this)
+                    .wrap("<div class=\"position-relative\"></div>")
+                    .select2({
+                        placeholder: "Select value",
+                        dropdownParent: $(this).parent()
+                    });
+            })
             // Datetimepicker
             $('#datetimepicker-minimum').datetimepicker({
                 format:'YYYY-MM-DD HH:mm:ss'
