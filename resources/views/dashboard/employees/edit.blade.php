@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="password">Password (Leave Blank or Type to Reset Password)</label>
-                                    <input name="password" value="" type="password" class="form-control" id="password" required placeholder="" autocomplete="off">
+                                    <input name="password" value="" type="password" class="form-control" id="password" placeholder="" autocomplete="off">
                                 </div>
 
                             </div>
