@@ -31,8 +31,6 @@
 
         <div class="col-12 col-lg-6">
             <div class="card">
-
-                @foreach ($all_departments as $department)"{{$department->color}}",@endforeach
                 <div class="card-header">
                     <h5 class="card-title">Bar Chart</h5>
                     <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
