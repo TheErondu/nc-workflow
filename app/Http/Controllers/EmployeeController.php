@@ -54,7 +54,7 @@ class EmployeeController extends Controller
         $employee = new User();
         $employee->name     = $request->input('name');
         $employee->email = $request->input('email');
-        $employee->department = $request->input('department');
+        $employee->department_id = $request->input('department_id');
         $employee->password = Hash::make($request->input('password'));
         $employee->status = $request->input('status');
         $employee->save();
@@ -102,14 +102,14 @@ class EmployeeController extends Controller
         $validatedData = $request->validate([
             'name'             => 'required',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id),],
-            'department'           => 'required',
+            'department_id'           => 'required',
             'status'           => 'required'
         ]);
 
         $employee = User::find($id);
         $employee->name     = $request->input('name');
         $employee->email = $request->input('email');
-        $employee->department_id = $request->input('department');
+        $employee->department_id = $request->input('department_id');
         $employee->password = Hash::make($request->input('password'));
         $employee->status = $request->input('status');
         $employee->save();
