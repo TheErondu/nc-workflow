@@ -16,7 +16,7 @@ class TripLoggerController extends Controller
      */
     public function index()
     {
-        $drivers = User::all()->where('department','drivers');
+        $drivers = User::all()->where('department_id',11);
         $vehicles = Vehicle::all();
         $triploggers = Triplogger::all();
         return view('dashboard.logistics.triplogger.index',compact('vehicles','triploggers', 'drivers'));
@@ -30,7 +30,7 @@ class TripLoggerController extends Controller
     public function create()
     {
         $vehicles = Vehicle::all();
-        $drivers = User::all()->where('department','drivers');
+        $drivers = User::all()->where('department_id',11);
         return view('dashboard.logistics.triplogger.create',compact('drivers','vehicles'));
     }
 
@@ -89,7 +89,7 @@ class TripLoggerController extends Controller
      */
     public function edit($id)
     {   $triplogger = Triplogger::all()->find($id);
-        $drivers = User::all()->where('department','drivers');
+        $drivers = User::all()->where('department_id',11);
         $vehicles = Vehicle::all();
         return view('dashboard.logistics.triplogger.edit', compact('drivers','triplogger','vehicles'));
     }

@@ -12,6 +12,10 @@ class Department extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+    public function employees()
+    {
+        return $this->hasMany('App\Models\Employee');
+    }
 
     public function getCreatedAtAttribute($date)
     {

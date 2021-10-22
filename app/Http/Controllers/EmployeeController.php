@@ -5,6 +5,8 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
@@ -27,7 +29,10 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view('dashboard.employees.create',compact('departments'));
+        $status = array(
+            'inactive','active',
+        );
+        return view('dashboard.employees.create',compact('departments','status'));
     }
 
     /**
@@ -38,7 +43,24 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name'             => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:5', 'confirmed'],
+            'department'           => 'required',
+            'status'           => 'required'
+        ]);
+
+        $employee = new User();
+        $employee->name     = $request->input('name');
+        $employee->email = $request->input('email');
+        $employee->department = $request->input('department');
+        $employee->password = Hash::make($request->input('password'));
+        $employee->status = $request->input('status');
+        $employee->save();
+        $request->session()->flash('message', 'Successfully added User');
+
+        return redirect()->route('employees.index');
     }
 
     /**
@@ -55,24 +77,45 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
+    public function edit( $id)
     {
-        //
+        $employee  = Employee::find($id);
+        $departments = Department::all();
+        $status = array(
+            'Inactive','Active',
+        );
+        return view('dashboard.employees.edit',compact('employee','departments','status'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employee  $employee
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name'             => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id),],
+            'department'           => 'required',
+            'status'           => 'required'
+        ]);
+
+        $employee = User::find($id);
+        $employee->name     = $request->input('name');
+        $employee->email = $request->input('email');
+        $employee->department_id = $request->input('department');
+        $employee->password = Hash::make($request->input('password'));
+        $employee->status = $request->input('status');
+        $employee->save();
+        $request->session()->flash('message', 'Successfully Updated User info');
+
+        return redirect()->route('employees.index');
     }
 
     /**

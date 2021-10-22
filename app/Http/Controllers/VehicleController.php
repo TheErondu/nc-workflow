@@ -15,9 +15,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $drivers = User::all()->where('department','DRIVERS');
+        $drivers = User::all()->where('department_id', 11);
         $vehicles = Vehicle::all();
-        return view('dashboard.logistics.vehicles.index',compact('vehicles', 'drivers'));
+        return view('dashboard.logistics.vehicles.index', compact('vehicles', 'drivers'));
     }
 
     /**
@@ -26,8 +26,9 @@ class VehicleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   $drivers = User::all()->where('department','DRIVERS');
-        return view('dashboard.logistics.vehicles.create',compact('drivers'));
+    {
+        $drivers = User::all()->where('department_id', 11);
+        return view('dashboard.logistics.vehicles.create', compact('drivers'));
     }
 
     /**
@@ -69,16 +70,17 @@ class VehicleController extends Controller
         //
     }
 
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   $vehicle = Vehicle::all()->find($id);
-        $drivers = User::all()->where('department','DRIVERS');
-        return view('dashboard.logistics.vehicles.edit', compact('drivers','vehicle'));
+    {
+        $vehicle = Vehicle::all()->find($id);
+        $drivers = User::all()->where('department_id', 11);
+        return view('dashboard.logistics.vehicles.edit', compact('drivers', 'vehicle'));
     }
 
     /**
@@ -89,13 +91,14 @@ class VehicleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Vehicle $vehicle)
-    {   $validatedData = $request->validate([
-        'number_plate'             => 'required',
-        'vehicle_make'           => 'required',
-        'purpose'           => 'required',
-        'vehicle_colour'           => 'required',
-        'assigned_driver'           => 'required'
-    ]);
+    {
+        $validatedData = $request->validate([
+            'number_plate'             => 'required',
+            'vehicle_make'           => 'required',
+            'purpose'           => 'required',
+            'vehicle_colour'           => 'required',
+            'assigned_driver'           => 'required'
+        ]);
 
         $vehicle->number_plate     = $request->input('number_plate');
         $vehicle->vehicle_make = $request->input('vehicle_make');
@@ -107,7 +110,7 @@ class VehicleController extends Controller
         return redirect()->route('vehicles.index');
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -117,7 +120,7 @@ class VehicleController extends Controller
     {
 
         $vehicle = Vehicle::find($id);
-        if($vehicle){
+        if ($vehicle) {
             $vehicle->delete();
         }
 
@@ -129,10 +132,9 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id){
+    public function delete($id)
+    {
         $vehicle = Vehicle::find($id);
         return view('dashboard.logistics.vehicles.delete', compact('vehicle'));
-
     }
-
 }

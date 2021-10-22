@@ -51,6 +51,10 @@
                                     <label for="name">Name</label>
                                     <input name="name" type="text" class="form-control" id="name" required placeholder="">
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="name">Color</label>
+                                    <input type="color" id="color" name="color" value="#ff0000"><br><br>
+                                </div>
                             </div>
 
 

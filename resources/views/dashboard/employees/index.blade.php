@@ -53,6 +53,7 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Department</th>
                                     <th>Created At</th>
                                     <th></th>
                                 </tr>
@@ -64,6 +65,7 @@
                                                     class="far fa-edit"></i></a></td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->email }}</td>
+                                        <td>{{ $employee->department->name }}</td>
                                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $employee->created_at)->format('d-M-Y') }}
                                         </td>
                                     </tr>

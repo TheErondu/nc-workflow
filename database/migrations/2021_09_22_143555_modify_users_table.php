@@ -14,7 +14,7 @@ class ModifyUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function($table) {
-            $table->foreignId('department_id');
+            $table->foreign('department_id')->references('id')->on('departments');
 
         });
     }
@@ -26,8 +26,6 @@ class ModifyUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function($table) {
-            $table->dropColumn('department_id');
-        });
+       //
     }
 }

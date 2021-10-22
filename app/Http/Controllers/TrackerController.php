@@ -7,7 +7,7 @@ use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class TrackerController extends Controller
 {

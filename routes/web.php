@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,7 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::resource('facility_type', App\Http\Controllers\FacilityTypeController::class);
         Route::resource('booking', App\Http\Controllers\BookingController::class);
         Route::resource('employees', App\Http\Controllers\EmployeeController::class);
+        Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
 
 
 });

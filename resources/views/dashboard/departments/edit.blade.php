@@ -53,6 +53,12 @@
                                     <input name="name" value="{{ $department->name }}" type="text" class="form-control" id="name" required placeholder="">
                                 </div>
                             </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="name">Color</label>
+                                    <input type="color" id="color" name="color" value="{{$department->color}}"><br><br>
+                                </div>
+                            </div>
 
 
                             <div class="row justify-content-between">

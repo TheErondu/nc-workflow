@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add  Vehicle</h5>
+                        <h5 class="card-title" style="color: white;">Edit  User Information</h5>
 
                     </div>
                     <div class="row">
@@ -43,45 +43,48 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('vehicles.update', $vehicle->id) }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('employees.update',$employee->id) }}">
                             @csrf
                             @method('PUT')
-                            <div class="row">
+                            <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
-                                    <label for="show_title">Assigned Driver </label>
-                                    <select class="form-control select2" name="assigned_driver" id="assigned_driver">
-                                        @foreach($drivers as $driver)
-                                        <option value="{{ $driver->name }}" @if($vehicle->assigned_driver === $driver->name) selected='selected' @endif>{{ $driver->name }}</option>
+                                    <label for="name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="name" value="{{$employee->name}}"  required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="email">Email</label>
+                                    <input name="email" type="email" class="form-control" id="email" value="{{$employee->email}}"  required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="show_title">Department</label>
+                                    <select class="form-control select2" name="department" id="department">
+                                    <option value="not Assigned">Select Department </option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}" @if($department->id === $employee->department->id) selected ='selected' @endif>{{ $department->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <input id="type" name="type" class="form-control type" hidden value="award" required  type="text">
-                            <div class="row justify-content-between">
+                            <div class="row justify-content-left">
                                 <div class="mb-3 col-md-4">
-                                    <label for="number_plate">Number Plate</label>
-                                    <input name="number_plate" type="text" class="form-control" id="number_plate" value="{{ $vehicle->number_plate }}"  required placeholder="">
+                                    <label for="show_title">Status</label>
+                                    <select class="form-control select2" name="status" id="status">
+                                            @foreach($status as $status)
+                                                <option value="{{ $status}}" @if($status === $employee->status) selected='selected' @endif>{{ $status }}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="vehicle_make">Vehicle Make</label>
-                                    <input name="vehicle_make" type="text" class="form-control" id="vehicle_make" value="{{ $vehicle->vehicle_make }}" required placeholder="">
+                                    <label for="password">Password (Leave Blank or Type to Reset Password)</label>
+                                    <input name="password" value="" type="password" class="form-control" id="password" required placeholder="" autocomplete="off">
                                 </div>
-                            </div>
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-4">
-                                    <label for="purpose">Purpose</label>
-                                    <input name="purpose" type="text" class="form-control" id="purpose" value="{{ $vehicle->purpose }}" required placeholder="">
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="vehicle_colour">Vehicle Color</label>
-                                    <input name="vehicle_colour" type="text" class="form-control" id="vehicle_colour" value="{{ $vehicle->vehicle_colour }}" required placeholder="">
-                                </div>
+
                             </div>
 
 
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <a href="{{ route('awards.index') }}" style="background-color: rgb(53, 54, 55) !important;"
+                                    <a href="{{ route('employees.index') }}" style="background-color: rgb(53, 54, 55) !important;"
                                         class="btn btn-primary">Cancel</a>
                                 </div>
                                 <div class="mb-3 col-md-1">

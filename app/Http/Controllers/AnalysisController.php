@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Analysis;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
@@ -14,7 +15,13 @@ class AnalysisController extends Controller
      */
     public function index()
     {
-        //
+        // $data = array(
+        //     "Speed", "Reliability", "Comfort", "Safety", "Efficiency"
+        // );
+        $departments = Department::where('id', '>', 0)->pluck('name');
+        $all_departments = Department::all();
+
+        return view('dashboard.analytics.main', compact('departments','all_departments'));
     }
 
     /**

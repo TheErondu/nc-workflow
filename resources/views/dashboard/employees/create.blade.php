@@ -43,21 +43,20 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('vehicles.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('employees.store') }}">
                             @csrf
-                            <input id="type" name="type" class="form-control type" hidden value="award" required  type="text">
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
-                                    <label for="number_plate">Name</label>
-                                    <input name="number_plate" type="text" class="form-control" id="number_plate" value="{{old ('number_plate') }}"  required placeholder="">
+                                    <label for="name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="name" value="{{old ('name') }}"  required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="number_plate">Email</label>
-                                    <input name="number_plate" type="text" class="form-control" id="number_plate" value="{{old ('number_plate') }}"  required placeholder="">
+                                    <label for="email">Email</label>
+                                    <input name="email" type="email" class="form-control" id="email" value="{{old ('email') }}"  required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="show_title">Department</label>
-                                    <select class="form-control select2" name="assigned_driver" id="assigned_driver">
+                                    <select class="form-control select2" name="department" id="department">
                                     <option value="not Assigned">Select Department </option>
                                         @foreach($departments as $department)
                                             <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -67,13 +66,22 @@
                             </div>
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
-                                    <label for="purpose">Purpose</label>
-                                    <input name="purpose" type="text" class="form-control" id="purpose" value="{{old ('purpose') }}" required placeholder="">
+                                    <label for="show_title">Status</label>
+                                    <select class="form-control select2" name="status" id="status">
+                                            @foreach($status as $status)
+                                                <option value="{{ $status}}">{{ $status }}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="vehicle_colour">Vehicle Color</label>
-                                    <input name="vehicle_colour" type="text" class="form-control" id="vehicle_colour" value="{{old ('vehicle_colour') }}" required placeholder="">
+                                    <label for="password">Password</label>
+                                    <input name="password" type="password" class="form-control" id="password" required placeholder="">
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="password_confirmation">Confirm Password</label>
+                                    <input name="password_confirmation" type="password" class="form-control" id="password" required placeholder="">
+                                </div>
+
                             </div>
 
 

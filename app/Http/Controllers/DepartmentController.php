@@ -40,6 +40,7 @@ class DepartmentController extends Controller
         ]);
         $department = new Department();
         $department->name = $request->input('name');
+        $department->color = $request->input('color');
         $department->save();
         $request->session()->flash('message', 'Successfully added Department');
         return redirect()->route('departments.index');
@@ -82,6 +83,7 @@ class DepartmentController extends Controller
         ]);
         $department = Department::find($id);
         $department->name = $request->input('name');
+        $department->color = $request->input('color');
         $department->save();
         $request->session()->flash('message', 'Successfully Edited Department');
         return redirect()->route('departments.index');

@@ -114,7 +114,7 @@
                 </ul>
             </li>
             <li class="sidebar-item ">
-                <a data-bs-target="#" href="{{ route('content.index') }}" class="sidebar-link">
+                <a data-bs-target="#" href="{{ route('analytics.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analysis</span>
                 </a>
             </li>
