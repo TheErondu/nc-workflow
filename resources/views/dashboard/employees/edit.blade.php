@@ -57,10 +57,10 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="show_title">Department</label>
-                                    <select class="form-control select2" name="department" id="department">
+                                    <select class="form-control select2" name="department_id" id="department_id">
                                     <option value="not Assigned">Select Department </option>
                                         @foreach($departments as $department)
-                                            <option value="{{ $department->id }}" @if($department->id === $employee->department->id) selected ='selected' @endif>{{ $department->name }}</option>
+                                            <option value="{{ $department->id }}" @if($department->id === $employee->department_id) selected ='selected' @endif>{{ $department->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
