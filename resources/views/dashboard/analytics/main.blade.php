@@ -4,26 +4,66 @@
 
     <div class="header">
         <h1 class="header-title">
-           Analytics
+          Ticket Analytics
         </h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="dashboard-default.html">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Charts</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Chart.js</li>
-            </ol>
-        </nav>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-6">
-            <div class="card flex-fill w-100">
+        <div class="col-12 col-lg-4">
+            <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Most Active User</h5>
-                    <h6 class="card-subtitle text-muted">A line chart is a way of plotting data points on a line.</h6>
+                    <h5 class="card-title">Most Active Engineer</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart">
-                        <canvas id="chartjs-line"></canvas>
+                        <canvas id="chartjs-bar0"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Least Active Engineer</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="chartjs-bar1"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Most Active Borrower</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="chartjs-bar2"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="header">
+        <h1 class="header-title">
+          Production Analytics
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Bar Chart</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="chartjs-bar3"></canvas>
                     </div>
                 </div>
             </div>
@@ -37,32 +77,84 @@
                 </div>
                 <div class="card-body">
                     <div class="chart">
-                        <canvas id="chartjs-bar"></canvas>
+                        <canvas id="chartjs-bar4"></canvas>
                     </div>
                 </div>
             </div>
 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Bar Chart</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="chartjs-bar5"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Doughnut Chart</h5>
-                    <h6 class="card-subtitle text-muted">Doughnut charts are excellent at showing the relational proportions between data.</h6>
+                    <h5 class="card-title">Bar Chart</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart chart-xs">
-                        <canvas id="chartjs-doughnut"></canvas>
+                    <div class="chart">
+                        <canvas id="chartjs-bar6"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="header">
+        <h1 class="header-title">
+          Equipment Utilization
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Bar Chart</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="chartjs-bar7"></canvas>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Bar Chart</h5>
+                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="chartjs-bar8"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Users by Department</h5>
-                    <h6 class="card-subtitle text-muted">Visual representation of the Employees by Department</h6>
+                    <h6 class="card-subtitle text-muted">Shows the staff size</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart chart-xs">
@@ -71,60 +163,26 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-12 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Radar Chart</h5>
-                    <h6 class="card-subtitle text-muted">A radar chart is a way of showing multiple data points and the variation between them.
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart">
-                        <canvas id="chartjs-radar"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Polar Area Chart</h5>
-                    <h6 class="card-subtitle text-muted">Polar area charts are similar to pie charts, but each segment has the same angle.</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart">
-                        <canvas id="chartjs-polar-area"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-
 </div>
 @endsection
 @section('javascript')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Line chart
-        new Chart(document.getElementById("chartjs-line"), {
-            type: "line",
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar0"), {
+            type: "bar",
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ["Sarah", "Mike", "Erondu"],
                 datasets: [{
-                    label: "Sales ($)",
-                    fill: true,
-                    backgroundColor: "transparent",
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
-                    data: [2115, 1562, 1584, 1892, 1487, 2223, 2966, 2448, 2905, 3838, 2917, 3327]
-                }, {
-                    label: "Orders",
-                    fill: true,
-                    backgroundColor: "transparent",
-                    borderColor: window.theme.tertiary,
-                    borderDash: [4, 4],
-                    data: [958, 724, 629, 883, 915, 1214, 1476, 1212, 1554, 2128, 1466, 1827]
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [72, 67, 58],
+                    barPercentage: .75,
+                    categoryPercentage: .5
                 }]
             },
             options: {
@@ -132,33 +190,20 @@
                 legend: {
                     display: false
                 },
-                tooltips: {
-                    intersect: false
-                },
-                hover: {
-                    intersect: true
-                },
-                plugins: {
-                    filler: {
-                        propagate: false
-                    }
-                },
                 scales: {
-                    xAxes: [{
-                        reverse: true,
+                    yAxes: [{
                         gridLines: {
-                            color: "rgba(0,0,0,0.05)"
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
                         }
                     }],
-                    yAxes: [{
-                        ticks: {
-                            stepSize: 500
-                        },
-                        display: true,
-                        borderDash: [5, 5],
+                    xAxes: [{
+                        stacked: false,
                         gridLines: {
-                            color: "rgba(0,0,0,0)",
-                            fontColor: "#fff"
+                            color: "transparent"
                         }
                     }]
                 }
@@ -169,7 +214,51 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Bar chart
-        new Chart(document.getElementById("chartjs-bar"), {
+        new Chart(document.getElementById("chartjs-bar1"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar"],
+                datasets: [{
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: true
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar2"), {
             type: "bar",
             data: {
                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -221,27 +310,317 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Doughnut chart
-        new Chart(document.getElementById("chartjs-doughnut"), {
-            type: "doughnut",
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar3"), {
+            type: "bar",
             data: {
-                labels: ["Social", "Search Engines", "Direct", "Other"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    data: [260, 125, 54, 146],
-                    backgroundColor: [
-                        window.theme.primary,
-                        window.theme.success,
-                        window.theme.warning,
-                        "#E8EAED"
-                    ],
-                    borderColor: "transparent"
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }, {
+                    label: "This year",
+                    backgroundColor: "#E8EAED",
+                    borderColor: "#E8EAED",
+                    hoverBackgroundColor: "#E8EAED",
+                    hoverBorderColor: "#E8EAED",
+                    data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                    barPercentage: .75,
+                    categoryPercentage: .5
                 }]
             },
             options: {
                 maintainAspectRatio: false,
-                cutoutPercentage: 65,
                 legend: {
                     display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar4"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }, {
+                    label: "This year",
+                    backgroundColor: "#E8EAED",
+                    borderColor: "#E8EAED",
+                    hoverBackgroundColor: "#E8EAED",
+                    hoverBorderColor: "#E8EAED",
+                    data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar5"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }, {
+                    label: "This year",
+                    backgroundColor: "#E8EAED",
+                    borderColor: "#E8EAED",
+                    hoverBackgroundColor: "#E8EAED",
+                    hoverBorderColor: "#E8EAED",
+                    data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar6"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }, {
+                    label: "This year",
+                    backgroundColor: "#E8EAED",
+                    borderColor: "#E8EAED",
+                    hoverBackgroundColor: "#E8EAED",
+                    hoverBorderColor: "#E8EAED",
+                    data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar7"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }, {
+                    label: "This year",
+                    backgroundColor: "#E8EAED",
+                    borderColor: "#E8EAED",
+                    hoverBackgroundColor: "#E8EAED",
+                    hoverBorderColor: "#E8EAED",
+                    data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar8"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Last year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }, {
+                    label: "This year",
+                    backgroundColor: "#E8EAED",
+                    borderColor: "#E8EAED",
+                    hoverBackgroundColor: "#E8EAED",
+                    hoverBorderColor: "#E8EAED",
+                    data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
                 }
             }
         });
@@ -267,9 +646,10 @@
                 }]
             },
             options: {
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 legend: {
                     display: true,
+                    position:'right',
                     labels: {
                     fontColor: "white",
                 },
@@ -278,64 +658,4 @@
         });
     });
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Radar chart
-        new Chart(document.getElementById("chartjs-radar"), {
-            type: "radar",
-            data: {
-                labels: ["Speed", "Reliability", "Comfort", "Safety", "Efficiency"],
-                datasets: [{
-                    label: "Model X",
-                    backgroundColor: "rgba(0, 123, 255, 0.2)",
-                    borderColor: window.theme.primary,
-                    pointBackgroundColor: window.theme.primary,
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: window.theme.primary,
-                    data: [70, 53, 82, 60, 33]
-                }, {
-                    label: "Model S",
-                    backgroundColor: "rgba(220, 53, 69, 0.2)",
-                    borderColor: window.theme.danger,
-                    pointBackgroundColor: window.theme.danger,
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: window.theme.danger,
-                    data: [35, 38, 65, 85, 84]
-                }]
-            },
-            options: {
-                maintainAspectRatio: false
-            }
-        });
-    });
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Polar Area chart
-        new Chart(document.getElementById("chartjs-polar-area"), {
-            type: "polarArea",
-            data: {
-                labels: ["Speed", "Reliability", "Comfort", "Safety", "Efficiency"],
-                datasets: [{
-                    label: "Model S",
-                    data: [35, 38, 65, 70, 24],
-                    backgroundColor: [
-                        window.theme.primary,
-                        window.theme.success,
-                        window.theme.danger,
-                        window.theme.warning,
-                        window.theme.info
-                    ]
-                }]
-            },
-            options: {
-                maintainAspectRatio: false
-            }
-        });
-    });
-</script>
-
 @endsection

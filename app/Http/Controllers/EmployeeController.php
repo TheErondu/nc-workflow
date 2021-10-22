@@ -135,7 +135,8 @@ class EmployeeController extends Controller
         $email = $employee->email;
         $details = [
             'title' => 'Your password has been reset!',
-            'body' => 'Your password has been reset! your new password is : ' .$request->input('reset_password'). '',
+            'body' => 'Your password has been reset! your new password is : ' .$request->input('reset_password'). '
+            You can now access your account.',
         ];
         Mail::to($email)->send( new \App\Mail\ResetPass($details));
         $employee->password = Hash::make($request->input('reset_password'));
