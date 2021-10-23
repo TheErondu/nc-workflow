@@ -30,7 +30,7 @@ class StoreController extends Controller
      */
     public function RequestIndex()
     {
-        $user_department = Auth::user()->department;
+        $user_department = Auth::user()->department->name;
         $user = auth()->user();
         $available_items = Store::all()->where('assigned_department', $user_department);
         $all_requested = StoreRequest::all()->where('status', "!=",'pending');
