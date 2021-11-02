@@ -186,7 +186,7 @@
                             <td>{{ $result->id }}</td>
                             <td>{{ $result->name }}</td>
                             <td>{{ $result->time }}</td>
-                            <td>{{ $result->date}}</td>
+                            <td>{{ \Carbon\Carbon::parse($result->date)->format('d-M-Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
