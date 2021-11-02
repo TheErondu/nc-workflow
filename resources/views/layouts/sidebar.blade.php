@@ -39,9 +39,9 @@
                 </a>
                 <ul id="issues" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link"
-                            href="{{ route('tickets.index') }}">Helpdesk</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('tickets.index') }}">My
-                            Tickets</a></li>
+                            href="{{ route('issues.index') }}">Raised Issues</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('issues.index') }}">My
+                            All Issues</a></li>
                 </ul>
             </li>
             <li class="sidebar-item">
@@ -74,6 +74,9 @@
                     <li @if (Route::is('transmission.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('transmission.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Transmission
                                 Logs</span></a></li>
+                                <li @if (Route::is('cot.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('cot.index') }}"> <i
+                                    class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Certificate of Broadcast
+                                    </span></a></li>
 
                 </ul>
             </li>
@@ -115,7 +118,7 @@
             </li>
             <li class="sidebar-item ">
                 <a data-bs-target="#" href="{{ route('analytics.index') }}" class="sidebar-link">
-                    <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analysis</span>
+                    <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analytics</span>
                 </a>
             </li>
             <li class="sidebar-item">

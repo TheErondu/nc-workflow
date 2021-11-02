@@ -1,0 +1,14 @@
+body {
+    visibility:hidden;
+}
+.print{
+visibility: visible;
+}
+.remove{
+    visibility: hidden;
+    }
+.pagination{
+    visibility: hidden;
+}
+
+

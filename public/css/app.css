@@ -32037,3 +32037,8 @@ sidebar-link .fab, .sidebar-link .fal, .sidebar-link .far, .sidebar-link .fas, .
 .dataTable > thead > tr > th[class*=sort]:after {
   content: "" !important;
 }
+
+.theader {
+  position: sticky;
+  top: 0;
+}

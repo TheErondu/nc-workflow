@@ -154,7 +154,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Users by Department</h5>
-                    <h6 class="card-subtitle text-muted">Shows the staff size</h6>
+                    <h6 class="card-subtitle text-muted">Shows the staff size by Departments</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart chart-xs">

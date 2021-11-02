@@ -51,6 +51,7 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::resource('logs/editors', 'App\Http\Controllers\EditorLogsController');
         Route::resource('logs/prompter', 'App\Http\Controllers\PrompterLogsController');
         Route::resource('logs/transmission', 'App\Http\Controllers\TransmissionReportController');
+        Route::resource('logs/cot', 'App\Http\Controllers\COTController');
         Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
         Route::get('store-requests/create/{id}', 'App\Http\Controllers\StoreController@createRequest')->name('store-requests.create');
         Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
@@ -60,8 +61,10 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::put('store-requests/reject/{id}', 'App\Http\Controllers\StoreController@Reject')->name('store-requests.reject');
         Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');
+        Route::resource('issues', 'App\Http\Controllers\IssueController');
         Route::get('animation', 'App\Http\Controllers\LottieController@index');
         Route::resource('facility', App\Http\Controllers\FacilityController::class);
+        Route::resource('cots', App\Http\Controllers\COTController::class);
         Route::resource('facility_type', App\Http\Controllers\FacilityTypeController::class);
         Route::resource('booking', App\Http\Controllers\BookingController::class);
         Route::resource('employees', App\Http\Controllers\EmployeeController::class);
