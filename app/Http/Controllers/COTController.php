@@ -13,8 +13,8 @@ class COTController extends Controller
         $reports = COT::where('id', '>=','1')->orderby('date', 'DESC')->paginate(50);
         $name = request()->query('name');
         $stump = ' 00:00:00';
-        $start = request()->query('start_date') . $stump;
-        $end = request()->query('end_date') . $stump;
+        $start = request()->query('start_date');
+        $end = request()->query('end_date');
         $results = DB::select("SELECT * FROM `c_o_t_s`
         WHERE name LIKE '%$name%'
         AND date >= '$start' AND date <= '$end';");
