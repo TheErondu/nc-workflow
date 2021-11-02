@@ -15,9 +15,14 @@ class COTController extends Controller
         $stump = ' 00:00:00';
         $start = request()->query('start_date');
         $end = request()->query('end_date');
+        if (null !== request()->query('name')){
         $results = DB::select("SELECT * FROM `c_o_t_s`
         WHERE name LIKE '%$name%'
         AND date >= '$start' AND date <= '$end';");
+        }
+        else{
+            $results = null;
+        }
 
         return view('dashboard.reports.cots.index',compact('reports','results'))->with('no', 1);
     }

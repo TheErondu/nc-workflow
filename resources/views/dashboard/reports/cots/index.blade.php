@@ -70,11 +70,11 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 @if (null !== request()->query('name'))
-                    @if (count($results) > 0)
+                    @isset($results)
                         <strong> Showing search results for {{ request()->query('name') }}, from :
                             {{ request()->query('start_date') }}, to
                             {{ request()->query('end_date') }} .</strong>
-                    @endif
+                    @endisset
                     <div class="row justify-content-center">
                         <button class="btn btn-primary"><a style="color:white;" href="{{ route('cot.index') }}">Search
                                 Again</a></button>
@@ -136,7 +136,7 @@
         <div class="print">
             <div>
                 @if (null !== request()->query('name'))
-                    @if (count($results) > 0)
+                    @isset($results)
                         <table class="table table-bordered search-results">
                             <thead>
                                 <tr>
@@ -159,9 +159,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    @endif
+                    @endisset
             </div>
-            @if (count($results) < 1)
+            @if (empty($results))
                 <div class="row justify-content-center">
                     <div class="card">
                         <div class="card-body">
