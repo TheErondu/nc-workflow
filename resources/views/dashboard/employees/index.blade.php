@@ -46,7 +46,7 @@
                     </div>
                     @if (count($employees) > 0)
 
-
+                    <div style="overflow-y: auto; height:400px; ">
                         <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
@@ -72,6 +72,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
                         <div class="modal fade" id="smallModal" role="dialog" aria-labelledby="smallModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">

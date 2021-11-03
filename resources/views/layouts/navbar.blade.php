@@ -1,5 +1,5 @@
 @auth
-<nav class="navbar sticky-top navbar-expand navbar-theme">
+<nav class="navbar navbar-expand navbar-theme">
     <a class="sidebar-toggle d-flex me-2">
         <i class="hamburger align-self-center"></i>
     </a>

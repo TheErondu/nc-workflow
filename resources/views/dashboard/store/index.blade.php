@@ -58,6 +58,7 @@
                                                     <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
+                                                        <div style="overflow-y: auto; height:400px; ">
                                                         <table class="table table-bordered display nowrap" width="100%">
                                                             <thead>
                                                                 <tr>
@@ -87,6 +88,7 @@
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
