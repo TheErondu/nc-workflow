@@ -47,7 +47,7 @@
                     @if (count($employees) > 0)
 
                     <div style="overflow-y: auto; height:400px; ">
-                        <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+                        <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -55,7 +55,6 @@
                                     <th>Email</th>
                                     <th>Department</th>
                                     <th>Created At</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,47 +107,17 @@
     </div>
 @endsection
 @section('javascript')
-    <script>
-        // display a modal (small modal)
-        $(document).on('click', '#smallButton', function(event) {
-            event.preventDefault();
-            let href = $(this).attr('data-attr');
-            $.ajax({
-                url: href,
-                beforeSend: function() {
-                    $('#loader').show();
-                },
-                // return the result
-                success: function(result) {
-                    $('#smallModal').modal("show");
-                    $('#smallBody').html(result).show();
-                },
-                complete: function() {
-                    $('#modal-body').trigger('click');
-                },
-                error: function(jqXHR, testStatus, error) {
-                    console.log(error);
-                    alert("Page " + href + " cannot open. Error:" + error);
-                    $('#loader').remove();
-                },
-                timeout: 8000
-            })
-        });
-    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
-            $('.table').DataTable({
-                responsive: false,
-                "sAutoWidth": true,
-                "bDestroy": true,
-                "sPaginationType": "bootstrap", // full_numbers
-                "iDisplayStart ": 10,
-                "iDisplayLength": 10,
-                "bPaginate": false, //hide pagination
-                "bFilter": true, //hide Search bar
-                "bInfo": tru,
-            });
+			// Datatables with Buttons
+			var datatablesButtons = $("#datatables-buttons").DataTable({
+				responsive: true,
+                fixedHeader:true,
+                paginate:false,
+				buttons: ["copy", "print"]
+			});
+            datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
             /* =========================================================================================== */
             /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {

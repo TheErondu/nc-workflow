@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form action="{{ route('employees.reset', $employee->id) }}" id="reset_password" method="POST">
+                        <form action="{{ route('employees.reset', $employee->id) }}" id="reset_password_form" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="row justify-content-between">
@@ -97,7 +97,7 @@
                                 <input name="reset_password" type="password" class="form-control" id="reset_password"  required placeholder="">
                                 <br>
                                 <div class="mb-3 col-md-4">
-                                    <button form="reset_password" style="background-color: red !important;" type="submit"
+                                    <button form="reset_password_form" style="background-color: red !important;" type="submit"
                                     class="btn btn-primary">reset</button>
                             </div>
                             </div>
