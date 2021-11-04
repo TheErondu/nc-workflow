@@ -17,7 +17,8 @@
     <link href="{{ asset('css/summernote.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet">
     <link href="{{ asset('css/Jost.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/hind-vadodara.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Jost.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.dataTables.min.css" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicon/apple-icon-72x72.png') }}">

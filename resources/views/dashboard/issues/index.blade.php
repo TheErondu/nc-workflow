@@ -46,9 +46,8 @@
                     </div>
                     @if (count($issues) > 0)
 
-                        <div class="table-responsive">
                             <div style="overflow-y: auto; height:400px; ">
-                        <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+                        <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -88,7 +87,6 @@
                             </tbody>
                         </table>
                             </div>
-                        </div>
                         <div class="modal fade" id="smallModal" role="dialog" aria-labelledby="smallModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
@@ -152,19 +150,15 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
-            $('.table').DataTable({
-                responsive: false,
-                "sAutoWidth": true,
-                "bDestroy": true,
-                "sPaginationType": "bootstrap", // full_numbers
-                "iDisplayStart ": 10,
-                "iDisplayLength": 10,
-                "bPaginate": false, //hide pagination
-                "bFilter": true, //hide Search bar
-                "bInfo": false,
-            });
+       document.addEventListener("DOMContentLoaded", function() {
+			// Datatables with Buttons
+			var datatablesButtons = $("#datatables-buttons").DataTable({
+				responsive: true,
+                fixedHeader:true,
+                paginate:true,
+				buttons: ["copy", "print"]
+			});
+            datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
             /* =========================================================================================== */
             /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -172,6 +166,5 @@
             });
         });
     </script>
-
 
 @endsection

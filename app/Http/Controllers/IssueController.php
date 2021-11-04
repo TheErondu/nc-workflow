@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\Issue;
 use Illuminate\Http\Request;
 use App\Events\SendMail;
+use App\Models\Department;
 use App\Models\Users;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Auth;
 
 class IssueController extends Controller
 {
@@ -27,7 +29,8 @@ class IssueController extends Controller
      */
     public function create()
     {
-        return view('dashboard.issues.create');
+        $departments = Department::all();
+        return view('dashboard.issues.create',compact('departments'));
     }
 
     /**
@@ -39,14 +42,15 @@ class IssueController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name'                 => 'required'
+            'item_name'                 => 'required'
         ]);
+        $raisedby = Auth::user()->name;
         $issue = new Issue();
         $issue->item_name	 = $request->input('item_name');
-        $issue->description = $request->description('description');
+        $issue->description = $request->input('description');
         $issue->date = $request->input('date');
         $issue->location = $request->input('location');
-        $issue->raised_by = $request->input('raised_by');
+        $issue->raised_by = $raisedby;
         $issue->department = $request->input('department');
         $issue->status = $request->input('status');
         $issue->fixed_by = $request->input('fixed_by');

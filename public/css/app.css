@@ -13163,6 +13163,11 @@ textarea.form-control-lg {
   }
 }
 @media print {
+  .table {
+    border-color: #000000 !important;
+    color: black !important;
+  }
+
   .d-print-inline {
     display: inline !important;
   }
@@ -13181,6 +13186,7 @@ textarea.form-control-lg {
 
   .d-print-table {
     display: table !important;
+    background-color: #eee !important;
   }
 
   .d-print-table-row {
@@ -14229,7 +14235,7 @@ a.card {
 }
 
 .modal-primary .h1, .modal-primary .h2, .modal-primary .h3, .modal-primary .h4, .modal-primary .h5, .modal-primary .h6, .modal-primary h1, .modal-primary h2, .modal-primary h3, .modal-primary h4, .modal-primary h5, .modal-primary h6 {
-  color: #fff;
+  color: green;
 }
 
 .modal-secondary .modal-content {
@@ -14287,8 +14293,8 @@ a.card {
 }
 
 .modal-light .modal-content {
-  background: #e9ecef;
-  color: color-yiq(#e9ecef);
+  background: #0f0f10;
+  color: color-yiq(#129961);
 }
 
 .modal-light .h1, .modal-light .h2, .modal-light .h3, .modal-light .h4, .modal-light .h5, .modal-light .h6, .modal-light h1, .modal-light h2, .modal-light h3, .modal-light h4, .modal-light h5, .modal-light h6 {
@@ -14301,7 +14307,7 @@ a.card {
 }
 
 .modal-dark .h1, .modal-dark .h2, .modal-dark .h3, .modal-dark .h4, .modal-dark .h5, .modal-dark .h6, .modal-dark h1, .modal-dark h2, .modal-dark h3, .modal-dark h4, .modal-dark h5, .modal-dark h6 {
-  color: #fff;
+  color: green;
 }
 
 .modal-colored .modal-footer, .modal-colored .modal-header {
@@ -16780,7 +16786,7 @@ div.dt-button-info {
 }
 
 div.dt-button-info .h2, div.dt-button-info h2 {
-  background-color: #f3f3f3;
+  background-color: #161515;
   border-bottom: 1px solid #ddd;
   font-weight: 400;
   margin: 0;
