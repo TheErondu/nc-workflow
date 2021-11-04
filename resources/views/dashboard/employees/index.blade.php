@@ -147,7 +147,7 @@
                 "iDisplayLength": 10,
                 "bPaginate": false, //hide pagination
                 "bFilter": true, //hide Search bar
-                "bInfo": false,
+                "bInfo": tru,
             });
             /* =========================================================================================== */
             /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
