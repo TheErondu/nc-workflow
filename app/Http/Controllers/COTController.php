@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Mail;
 
 use App\Models\COT;
 use Illuminate\Http\Request;
@@ -54,33 +55,51 @@ class COTController extends Controller
 
 
     public function DumpLogs(Request $request)
-    {   $reports = COT::all();
-        $ext = '.txt';
-        $name = $request->input('date');
-        $date = $name;
-        $message = 'Successfully dumped log for the date: '.$name;
-        $lines = file('C:/Program Files/Indytek/Insta log/'.$name .$ext);
-        foreach ($lines as $line){
-            $parts = preg_split('/\s{4,}/', $line);
-             $start_time = ($parts[0]);
-             $end_time = ($parts[1]);
-             $duration = ($parts[2]);
-             $file_name = ($parts[3]);
-             $remarks = ($parts[4]);
-             $created = $date;
-             $reports = new COT();
-        $reports->start_time = $start_time;
-        $reports->end_time = $end_time;
-        $reports->duration = $duration;
-        $reports->file_name = $file_name;
-        $reports->remarks = $remarks;
-        $reports->created_at = $created;
-        $reports->save();
-   }
-        $request->session()->flash('message', $message);
+    {
+
+        $row = 1;
+if (($handle = fopen("C:/logs/Asrun.csv", "r")) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $num = count($data);
+        echo "<p> $num fields in line $row: <br /></p>\n";
+        $row++;
+        for ($c=0; $c < $num; $c++) {
+            echo $data[$c] . "<br />\n";
+        }
+    }
+    fclose($handle);
+}
+//         $ext = '.csv';
+//         $name = 'Asrun';
+//         $date = date('d-m-Y');
+//         $message = 'Successfully dumped log for the date: '.$date;
+//         $lines = file('C:/logs/'.$name .$ext);
+
+//         foreach ($lines as $line){
+
+//             $parts = explode("," , "$line");
+//             dd($parts);
+//         //      $date = ($parts[0]);
+//         //      $duration = ($parts[1]);
+//         //      $name = ($parts[2]);
+//         //      $c_o_t_s = new COT();
+//         //  $c_o_t_s->name = $name;
+//         //  $c_o_t_s->duration = $duration;
+//         //  $c_o_t_s->date = $date;
+//         //  $c_o_t_s->save();
+//    }
 
 
-        return redirect()->route('reports.create');
+//    $date = date('d-m-Y');
+//    $email = "erone007@gmail.com";
+//    $details = [
+//     'title' => 'Mail from MCR Logs Exporter',
+//     'body' => 'The MCR logs for today : '.$date. ' has been sucessfully exported to the database'
+// ];
+//    Mail::to($email)->send( new \App\Mail\SentLogs($details));
+//    $this->info('Weekly report has been sent successfully');
+//    $request->session()->flash('message', 'Successfully added Issue');
+//    return redirect()->route('cots.index');
 
     }
 }

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Store extends Model
 {
     use HasFactory;
+    public function store_requests()
+    {
+        return $this->hasMany('App\Models\StoreRequest');
+    }
 
     public function getCreatedAtAttribute($date)
 {

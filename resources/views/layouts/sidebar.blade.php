@@ -44,9 +44,14 @@
                             All Issues</a></li>
                 </ul>
             </li>
+            <li class="sidebar-item ">
+                <a data-bs-target="#" href="{{ route('cot.index') }}" class="sidebar-link">
+                    <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Certificate of Broadcast</span>
+                </a>
+            </li>
             <li class="sidebar-item">
                 <a data-bs-target="#reports" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2 fas fa-chart-bar"></i> <span class="align-middle">Reports</span>
+                    <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Reports</span>
                 </a>
                 <ul id="reports" @if (Route::is('reports.*','mcr.*','editors.*','oblogs.*','production.*','engineers.*','prompter.*','transmission.*')) class="sidebar-dropdown list-unstyled " @else class="sidebar-dropdown list-unstyled collapse" @endif data-bs-parent="#sidebar">
 
@@ -74,9 +79,6 @@
                     <li @if (Route::is('transmission.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('transmission.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Transmission
                                 Logs</span></a></li>
-                                <li @if (Route::is('cot.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('cot.index') }}"> <i
-                                    class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Certificate of Broadcast
-                                    </span></a></li>
 
                 </ul>
             </li>

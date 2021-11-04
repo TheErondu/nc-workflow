@@ -130,6 +130,11 @@
                                                                         colspan="1" style="width: 207px;"
                                                                         aria-label="Office: activate to sort column ascending">
                                                                         Requested Item</th>
+                                                                        <th class="___class_+?32___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 207px;"
+                                                                        aria-label="Office: activate to sort column ascending">
+                                                                        Serial No</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -142,6 +147,8 @@
                                                                         <td>{{ \Carbon\Carbon::parse($request->created_at)->format('d-M-Y') }}</td>
                                                                         <td class="dtr-control" tabindex="0">
                                                                             {{ $request->item }}</td>
+                                                                            <td class="dtr-control" tabindex="0">
+                                                                                {{ $request->store->serial_no }}</td>
 
                                                                     </tr>
                                                                 @endforeach
@@ -165,6 +172,7 @@
                                                                     <th style="white-space:nowrap;">Return By</th>
                                                                     <th style="white-space:nowrap;">Borrower</th>
                                                                     <th style="white-space:nowrap;">Item</th>
+                                                                    <th style="white-space:nowrap;">Serial No</th>
 
                                                                 </tr>
                                                             </thead>
@@ -176,6 +184,7 @@
                                                                         <td>{{ $item->return_date }}</td>
                                                                         <td>{{ $item->user->name }}</td>
                                                                         <td>{{ $item->item }}</td>
+                                                                        <td>{{ $item->store->serial_no }}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>

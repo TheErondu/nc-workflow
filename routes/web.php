@@ -52,6 +52,7 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::clas
         Route::resource('logs/prompter', 'App\Http\Controllers\PrompterLogsController');
         Route::resource('logs/transmission', 'App\Http\Controllers\TransmissionReportController');
         Route::resource('logs/cot', 'App\Http\Controllers\COTController');
+        Route::get('dumplogs', 'App\Http\Controllers\COTController@DumpLogs');
         Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
         Route::get('store-requests/create/{id}', 'App\Http\Controllers\StoreController@createRequest')->name('store-requests.create');
         Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
