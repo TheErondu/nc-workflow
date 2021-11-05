@@ -19,7 +19,7 @@ class COTController extends Controller
         $end = request()->query('end_date') . $stump;
         $results = DB::select("SELECT * FROM `c_o_t_s`
         WHERE name LIKE '%$name%'
-        AND date >= '%$start%' AND date <= '%$end%';");
+        AND date >= '$start' AND date <= '$end';");
 
         return view('dashboard.reports.cots.index', compact('reports', 'results'))->with('no', 1);
     }
@@ -53,7 +53,7 @@ class COTController extends Controller
     public function DumpLogs(Request $request)
     {
         $row = 0;
-        if (($file     =   fopen("C:/logs/Asrun-new.csv", "r")) !== FALSE) {
+        if (($file     =   fopen("C:/xampp/htdocs/brave/public/Asrun-new.csv", "r")) !== FALSE) {
             while (($line = fgetcsv($file, 1000, ",")) !== FALSE) {
                 $num = count($line);
 
@@ -86,7 +86,7 @@ class COTController extends Controller
             $yesterday = date('d.m.Y',strtotime("-1 days"));
             $email = "erone007@gmail.com";
             $details = [
-                'title' => 'Mail from MCR Logs Exporter',
+                'title' => 'Mail from NTV Logs Exporter',
                 'body' => 'The MCR logs for today : ' . $yesterday . ' has been sucessfully exported to the database'
             ];
             Mail::to($email)->send(new \App\Mail\SentLogs($details));
