@@ -1,31 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Mail;
 
 use App\Models\COT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use PhpParser\Node\Expr\Print_;
 
 class COTController extends Controller
 {
     public function index()
     {
-        $reports = COT::where('id', '>=','1')->orderby('date', 'DESC')->paginate(50);
+        $reports = COT::where('id', '>=', '1')->orderby('date', 'DESC')->paginate(50);
         $name = request()->query('name');
         $stump = ' 00:00:00';
-        $start = request()->query('start_date');
-        $end = request()->query('end_date');
-        if (null !== request()->query('name')){
+        $start = request()->query('start_date') . $stump;
+        $end = request()->query('end_date') . $stump;
         $results = DB::select("SELECT * FROM `c_o_t_s`
         WHERE name LIKE '%$name%'
-        AND date >= '$start' AND date <= '$end';");
-        }
-        else{
-            $results = null;
-        }
+        AND date >= '%$start%' AND date <= '%$end%';");
 
-        return view('dashboard.reports.cots.index',compact('reports','results'))->with('no', 1);
+        return view('dashboard.reports.cots.index', compact('reports', 'results'))->with('no', 1);
     }
 
     // public function download () {
@@ -56,50 +52,46 @@ class COTController extends Controller
 
     public function DumpLogs(Request $request)
     {
+        $row = 0;
+        if (($file     =   fopen("C:/logs/Asrun-new.csv", "r")) !== FALSE) {
+            while (($line = fgetcsv($file, 1000, ",")) !== FALSE) {
+                $num = count($line);
 
-        $row = 1;
-if (($handle = fopen("C:/logs/Asrun.csv", "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $num = count($data);
-        echo "<p> $num fields in line $row: <br /></p>\n";
-        $row++;
-        for ($c=0; $c < $num; $c++) {
-            echo $data[$c] . "<br />\n";
+                //$line is an array of the csv elements
+                if ($row == 0) {
+                    $row++;
+                    continue;
+                }   // continue is used for skip row 1
+
+                for ($c = 0; $c < $num; $c++) {
+                    $importData_arr[$row][] = $line[$c];
+                }
+                $row++;
+            }
         }
-    }
-    fclose($handle);
-}
-//         $ext = '.csv';
-//         $name = 'Asrun';
-//         $date = date('d-m-Y');
-//         $message = 'Successfully dumped log for the date: '.$date;
-//         $lines = file('C:/logs/'.$name .$ext);
+        fclose($file);
+        // print_r($importData_arr);
+        array_pop($importData_arr);
 
-//         foreach ($lines as $line){
+        // Insert to MySQL database
+        foreach ($importData_arr as $importData) {
 
-//             $parts = explode("," , "$line");
-//             dd($parts);
-//         //      $date = ($parts[0]);
-//         //      $duration = ($parts[1]);
-//         //      $name = ($parts[2]);
-//         //      $c_o_t_s = new COT();
-//         //  $c_o_t_s->name = $name;
-//         //  $c_o_t_s->duration = $duration;
-//         //  $c_o_t_s->date = $date;
-//         //  $c_o_t_s->save();
-//    }
+            $insertData = array(
+                "name" => $importData[3],
+                "time" => $importData[1],
+                "date" => $importData[0]
+            );
+            COT::insert($insertData);
+        }
+            $yesterday = date('d.m.Y',strtotime("-1 days"));
+            $email = "erone007@gmail.com";
+            $details = [
+                'title' => 'Mail from MCR Logs Exporter',
+                'body' => 'The MCR logs for today : ' . $yesterday . ' has been sucessfully exported to the database'
+            ];
+            Mail::to($email)->send(new \App\Mail\SentLogs($details));
+            $request->session()->flash('message', 'Successfully added logs');
+            return redirect()->route('cots.index');
+        }
 
-
-//    $date = date('d-m-Y');
-//    $email = "erone007@gmail.com";
-//    $details = [
-//     'title' => 'Mail from MCR Logs Exporter',
-//     'body' => 'The MCR logs for today : '.$date. ' has been sucessfully exported to the database'
-// ];
-//    Mail::to($email)->send( new \App\Mail\SentLogs($details));
-//    $this->info('Weekly report has been sent successfully');
-//    $request->session()->flash('message', 'Successfully added Issue');
-//    return redirect()->route('cots.index');
-
-    }
 }

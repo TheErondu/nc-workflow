@@ -135,8 +135,8 @@
         <br>
         <div class="print">
             <div>
-                @if (null !== request()->query('name'))
-                    @isset($results)
+                @if (!empty($results))
+
                         <table class="table table-bordered search-results">
                             <thead>
                                 <tr>
@@ -152,16 +152,46 @@
 
                                         <td>{{ $result->id}}</td>
                                         <td>{{ $result->name}}</td>
-                                        <td>{{ $result->time }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($result->date)->format('d-M-Y') }}</td>
+                                        <td>{{ $result->time}}</td>
+                                        <td>{{ $result->date}}</td>
                                     </tr>
 
                                 @endforeach
                             </tbody>
                         </table>
-                    @endisset
+                        <div class="row d-flex remove justify-content-center"
+                        style="float: right;padding-right: 180px; padding-top: 50px;">
+                        <input type="button" value="Print Report" onclick="window.print();return false;" />
+                    </div>
+                        <div class="row justify-content-center">
+                            <br>
+                            <div class="col-8">
+                                <p style="width: 100%;">This is to certify that the above matter/advertisement was Broadcast
+                                    over the transmitter of NTV Kenya on the date shown in accordance
+                                    with the terms of your contract except as noted </p>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <br>
+
+                        <footer>
+                            <div class="print">
+                                <div class="row justify-content-center">
+                                    <div class="col-6" style="margin-left: 0px">
+                                        <p>Prepared By :_________________</p>
+                                        <br>
+                                        <br>
+                                        <p>Signature:_________________</p>
+                                        <br>
+                                        <p>Date:_________________</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </footer>
             </div>
-            @if (empty($results))
+            @elseif (null !== request()->query('name'))
                 <div class="row justify-content-center">
                     <div class="card">
                         <div class="card-body">
@@ -169,69 +199,25 @@
                         </div>
                     </div>
                 </div>
-            @endif
         @else
-            <table class="table table-bordered yajra-datatable" style="width: 1000px;">
-                <thead>
-                    <tr>
-                                     <th width=5%>S/N</th>
-                                    <th width=15%>Name</th>
-                                    <th width=15%>Time</th>
-                                    <th width=15%>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($reports as $result)
-                        <tr>
-                            <td>{{ $result->id }}</td>
-                            <td>{{ $result->name }}</td>
-                            <td>{{ $result->time }}</td>
-                            <td>{{ \Carbon\Carbon::parse($result->date)->format('d-M-Y') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{ $reports->links('dashboard.reports.cots.paginate') }}
-            @endif
-            <div class="row d-flex remove justify-content-center"
-                style="float: right;padding-right: 180px; padding-top: 50px;">
-                <input type="button" value="Print Report" onclick="window.print();return false;" />
-            </div>
+           <div style="margin-bottom: 30px" class="card">
+               <div class="card-header">
+                   <h5>Enter AD name to Search</h5>
+               </div>
+               <div class="card-body">
+                   <p> Type in a unique keyword or phrase from the AD video file and select the <strong> Date range </strong> to get all records macthing your search criteria</p>
+               </div>
+           </div>
+           @endif
             {{-- <div class="row d-flex remove justify-content-center" style="float: right;padding-right: 180px; padding-top: 50px;">
                <a href="{{route('reports.download')}}">Export PDF</a>
             </div> --}}
-            <div class="row justify-content-center">
-                <br>
-                <div class="col-8">
-                    <p style="width: 100%;">This is to certify that the above matter/advertisement was Broadcast
-                        over the transmitter of NTV Kenya on the date shown in accordance
-                        with the terms of your contract except as noted </p>
-                </div>
-                <br>
-                <br>
-            </div>
-            <br>
 
-            <footer>
-                <div class="print">
-                    <div class="row justify-content-center">
-                        <div class="col-6" style="margin-left: 0px">
-                            <p>Prepared By :_________________</p>
-                            <br>
-                            <br>
-                            <p>Signature:_________________</p>
-                            <br>
-                            <p>Date:_________________</p>
-                        </div>
-
-                    </div>
-                </div>
-            </footer>
         @endsection
         @section('javascript')
             <script>
                 $('.datepicker').datepicker({
-                    format: "yyyy-mm-dd",
+                    format: "yyyy/mm/dd",
                     // startView: "months",
                     // minViewMode: "months"
                 });
