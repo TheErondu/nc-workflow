@@ -79,7 +79,7 @@ class COTController extends Controller
             $insertData = array(
                 "name" => $importData[3],
                 "time" => $importData[1],
-                "date" => $importData[0]
+                "date" =>  \Carbon\Carbon::createFromFormat("Y/m/d", $importData[0])->format('Y-m-d'),
             );
             COT::insert($insertData);
         }
