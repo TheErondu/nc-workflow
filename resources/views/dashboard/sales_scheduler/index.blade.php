@@ -38,7 +38,7 @@
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div style="overflow-y: auto; height:480px; ">
+                    <div style="overflow-y: auto; height:30rem; ">
                     <div class="card-body">
                         <div class="col-12">
                             <div class="tab">
