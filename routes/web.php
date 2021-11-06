@@ -26,13 +26,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('messages', 'App\Http\Controllers\MessageController');
         Route::get('messages/{id}/download', 'App\Http\Controllers\MessageController@download')->name('file.download');
         Route::resource('content', 'App\Http\Controllers\ContentController');
+        Route::resource('sales-production', 'App\Http\Controllers\SalesScheduleController');
         Route::resource('documents', 'App\Http\Controllers\DocumentController');
         Route::resource('dutylog', 'App\Http\Controllers\DutyloggerController');
         Route::resource('reports', 'App\Http\Controllers\ReportsController');
         Route::resource('oblogs', 'App\Http\Controllers\OBlogsController');
         Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
         Route::get('calendar-event', [App\Http\Controllers\ScheduleController::class, 'index']);
-Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::class, 'calendarEvents']);
+        Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::class, 'calendarEvents']);
         Route::resource('documents', 'App\Http\Controllers\DocumentController');
         Route::resource('awards', 'App\Http\Controllers\AwardsController');
         Route::get('show-of-the-week/new', 'App\Http\Controllers\AwardsController@CreateShow');

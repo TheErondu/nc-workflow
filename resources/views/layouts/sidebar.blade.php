@@ -49,6 +49,11 @@
                     <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Certificate of Broadcast</span>
                 </a>
             </li>
+            <li class="sidebar-item ">
+                <a data-bs-target="#" href="{{ route('sales-production.index') }}" class="sidebar-link">
+                    <i class="align-middle me-2 fas fa-fw fa-calendar"></i><span class="align-middle">Sales Production Scheduler</span>
+                </a>
+            </li>
             <li class="sidebar-item">
                 <a data-bs-target="#reports" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Reports</span>
