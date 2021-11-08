@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Edit Logs</h5>
+                        <h5 class="card-title" style="color: white;">Report Tech Problem</h5>
 
                     </div>
                     <div class="row">
@@ -43,58 +43,95 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('editors.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('issues.store') }}">
                             @csrf
+                            {{-- Engineers only --}}
+                            @can('fix-issues')
                             <div class="row justify-content-between">
-                                <div class="mb-3 col-md-3">
-                                    <span>My Daily Log: <br> <strong>{{Auth::user()->name }}</strong></span>
+                                <div class="mb-3 col-md-4">
+                                    <label for="item_name">Equipment / Issue</label>
+                                    <h2>{{$issue->item_name}}</h2>
                                 </div>
-                                <div class="mb-3 col-md-3">
-                                    <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
+                                <div class="mb-3 col-md-4">
+                                    <label for="fixed_by">Who Fixed it?</label>
+                                   <h2>{{Auth::user()->name}}</h2>
                                 </div>
                             </div>
-                            <div class="row justify-content-around">
-                                <div class="mb-3 col-md-4">
-                                    <label for="first_interval">1PM Stories</label>
-                                    <textarea name="first_interval" type="text" class="form-control" id="first_interval"
-                                    value="" required placeholder="">{{ $editors_logs->first_interval }}</textarea>                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="second_interval">7PM Stories</label>
-                                    <textarea name="second_interval" type="text" class="form-control" id="second_interval"
-                                    value="" required placeholder="">{{ $editors_logs->second_interval }}</textarea>
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="third_interval">9PM Stories</label>
-                                    <textarea name="third_interval" type="text" class="form-control" id="third_interval"
-                                    value="" required placeholder="">{{ $editors_logs->third_interval }}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="row justify-content-around">
-                                <div class="mb-3 col-md-4">
-                                    <label for="closed_at">Closed Suite At</label>
-                                    <input name="closed_at" type="text" class="form-control" id="closed_at"
-                                    value="{{ $editors_logs->closed_at }}" required placeholder="">
-                                </div>
-                            </div>
-
-
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <button form="delete-form" style="background-color: red !important;" type="submit"
-                                    class="btn btn-primary">Delete</button>
+                                    <label for="cause_of_breakdown">Cause of Break Down</label>
+                                    <textarea name="cause_of_breakdown" type="text" class="form-control" id="cause_of_breakdown"
+                                    value="" required placeholder="">{{$issue->cause_of_breakdown}}</textarea>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="action_taken">Action Taken</label>
+                                    <textarea name="action_taken" type="text" class="form-control" id="action_taken"
+                                    value="" required placeholder="">{{$issue->action_taken}}</textarea>
+                                </div>
                             </div>
-                            <div class="mb-3 col-md-1">
-                                <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
-                                    class="btn btn-primary">Submit</button>
+                            <div class="row justify-content-left">
+                                <div class="mb-3 col-md-12">
+                                    <label for="engineers_comment">Engineers Comment</label>
+                                    <textarea name="engineers_comment" type="text" class="form-control" id="engineers_comment"
+                                    value="" required placeholder="">{{$issue->engineers_comment}}</textarea>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                    <form action="{{ route('production.destroy', $editors_logs->id) }}" id="delete-form" method="POST">
-                        @method('DELETE')
-                        @csrf
+                            <div class="row justify-content-center">
+                                <div class="mb-3 col-md-4">
+                                    <label for="status">Status</label>
+                                    <select class="form-control select2" name="status" id="status">
+                                        @foreach($issue_status as $status)
+                                        <option value="{{ $status}}" @if($status === $issue->status) selected='selected' @endif>{{ $status }}</option>
+                                    @endforeach
+                                        </select>
+                                </div>
+                            </div>
 
-                    </form>
+                            @else
+
+                            {{-- Normal Users --}}
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="item_name">Equipment</label>
+                                    <input name="item_name" type="text" class="form-control" id="item_name"
+                                    value="{{$issue->item_name}}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="department">Department</label>
+                                    <select class="form-control select2" name="department_id" id="department_id" data-placeholder=" Select Department">
+                                        <option value="" selected>select</option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->name}}" @if($issue->department === $department->name) selected='selected' @endif>{{ $department->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="location">Location</label>
+                                    <input name="location" type="text" class="form-control" id="location"
+                                    value="{{ $issue->location}}" required placeholder="">
+                                </div>
+                            </div>
+                            <div class="row justify-content-left">
+                                <div class="mb-3 col-md-12">
+                                    <label for="description">Fault Description</label>
+                                    <textarea name="description" type="text" class="form-control" id="description"
+                                    value="" required placeholder="">{{$issue->description}}</textarea>
+                                </div>
+                            </div>
+                            @endcan
+
+                            <div class="row justify-content-between">
+                                    <div class="mb-3 col-md-6">
+                                        <a href="{{ route('issues.index') }}"
+                                            style="background-color: rgb(53, 54, 55) !important;"
+                                            class="btn btn-primary">Cancel</a>
+                                    </div>
+                                    <div class="mb-3 col-md-1">
+                                        <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
+                                            class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>

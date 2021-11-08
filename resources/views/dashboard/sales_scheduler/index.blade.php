@@ -38,7 +38,6 @@
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div style="overflow-y: auto; height:30rem; ">
                     <div class="card-body">
                         <div class="col-12">
                             <div class="tab">
@@ -49,16 +48,14 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab-1" role="tabpanel">
                                         <div class="card-body">
+                                            <div style="overflow-y: auto; height:30rem; ">
                                             <div id="fullcalendar"></div>
+                                            </div>
                                             <a href="{{ route('sales-production.create') }}" class="btn btn-primary">Add Sales Production Schedule <i
                                                     class="fa fa-plus"></i></a>
-
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                                                </div>
+                                             </div>
+                                         </div>
                             </div>
                         </div>
 
@@ -98,7 +95,7 @@
                             title: 'name',
                             start: 'start_time',
                             end: 'endtime',
-                            backgroundColor: 'red'
+                            backgroundColor: 'green'
                         }
 
                         // any other sources...
@@ -108,7 +105,7 @@
                         window.location = "/sales-production/" + info.event.id + "/edit";
 
                         // change the border color just for fun
-                        info.el.style.borderColor = 'red';
+                        info.el.style.borderColor = 'green';
                     },
                     eventMouseEnter: function(info, element) {
                         $(element).popover({

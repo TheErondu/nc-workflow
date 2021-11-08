@@ -5,10 +5,9 @@
             <div class="col-12">
                 <div class="card table-card">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
-                        <span>Issues </span>
-                        {{-- <a href="{{ route('employees.create') }}" style="background-color: rgb(0, 0, 0) !important;"
-                            type="submit" class="btn btn-primary create-button">Add New Employee <i
-                                class="fas fa-plus"></i></a> --}}
+                        <span>Roles </span> &nbsp; &nbsp;
+                        <a href="{{route('roles.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                    class="btn btn-primary">Add New &nbsp;<i class="fas fa-plus"></i></a>
                     </div>
                     <div class="row">
                         @if (Session::has('message'))
@@ -44,49 +43,38 @@
                             </div>
                         @endif
                     </div>
-                    @if (!isset($issues))
+                    @if (count($roles) > 0)
 
-                            <div style="overflow-y: auto; height:400px; ">
-                        <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+
+                        <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No</th>
                                     <th>Name</th>
-                                    <th width=40%>Description</th>
-                                    <th>Date</th>
-                                    <th>Location</th>
-                                    <th>Raised By</th>
-                                    <th>Department</th>
-                                    <th>Status</th>
-                                    <th>Fixed by</th>
-                                    <th>Action Taken</th>
-                                    <th>Cause of Breakdown</th>
-                                    <th>Engineers Comment</th>
-                                    <th>Resolved Date</th>
+                                    <th width="280px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($issues as $issue)
-                                    <tr>
-                                        <td><a href="{{ route('issues.edit', $issue->id) }}"><i
-                                                    class="far fa-edit"></i></a></td>
-                                        <td>{{ $issue->item_name }}</td>
-                                        <td>{{ $issue->description }}</td>
-                                        <td>{{ $issue->date }}</td>
-                                        <td>{{ $issue->location }}</td>
-                                        <td>{{ $issue->raised_by }}</td>
-                                        <td>{{ $issue->department }}</td>
-                                        <td>{{ $issue->status }}</td>
-                                        <td>{{ $issue->fixed_by }}</td>
-                                        <td>{{ $issue->action_taken }}</td>
-                                        <td>{{ $issue->cause_of_breakdown }}</td>
-                                        <td>{{ $issue->engineers_comment }}</td>
-                                        <td>{{ $issue->resolved_date }}</td>
-                                    </tr>
+                                @foreach ($roles as $key => $role)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $role->name }}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+                                        @can('role-edit')
+                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                                        @endcan
+                                        @can('role-delete')
+                                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                            {!! Form::close() !!}
+                                        @endcan
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                            </div>
+                        {!! $roles->render() !!}
                         <div class="modal fade" id="smallModal" role="dialog" aria-labelledby="smallModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
@@ -104,20 +92,18 @@
                         </div>
 
                     @else
-
-                    <div class="card">
-                        <div class="card-body card-black">
-                            <p>You Have not Raised any issues yet!, Click <a href="{{ route('issues.create') }}"
-                                    data-toggle="tooltip" title="" data-original-title="Add Vehicles">Here</a> to Raise
-                                a Issue
-                            <p>
-                            <p><a class="btn btn-primary" href="{{ route('employees.create') }}">Report Tech Problem</a>
-                            </p>
+                        <div class="card">
+                            <div class="card-body card-black">
+                                <p>No Roles Have Been Added yet, Click <a href="{{ route('department.create') }}"
+                                        data-toggle="tooltip" title="" data-original-title="Add Roles">Here</a> to add
+                                    Roles
+                                <p>
+                                <p><a class="btn btn-primary" href="{{ route('roles.create') }}">Add Roles</a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-
                     @endif
-
+                </div>
             </div>
         </div>
 
@@ -152,15 +138,19 @@
         });
     </script>
     <script>
-       document.addEventListener("DOMContentLoaded", function() {
-			// Datatables with Buttons
-			var datatablesButtons = $("#datatables-buttons").DataTable({
-				responsive: true,
-                fixedHeader:true,
-                paginate:true,
-				buttons: ["copy", "print"]
-			});
-            datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
+        document.addEventListener("DOMContentLoaded", function() {
+            /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
+            $('.table').DataTable({
+                responsive: false,
+                "sAutoWidth": true,
+                "bDestroy": true,
+                "sPaginationType": "bootstrap", // full_numbers
+                "iDisplayStart ": 10,
+                "iDisplayLength": 10,
+                "bPaginate": false, //hide pagination
+                "bFilter": true, //hide Search bar
+                "bInfo": false,
+            });
             /* =========================================================================================== */
             /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -168,5 +158,6 @@
             });
         });
     </script>
+
 
 @endsection
