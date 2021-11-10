@@ -75,13 +75,18 @@
                             </div>
 
 
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-6">
+                            <div class="row justify-content-around">
+
+                                <div class="mb-3 col-md-4">
+                                    <a href="{{ url()->previous() }}" style="background-color: rgb(39, 41, 40) !important;"
+                                        class="btn btn-primary">Back</a>
+                                </div>
+                                <div class="mb-3 col-md-4">
                                     <button form="delete-form" style="background-color: red !important;" type="submit"
                                     class="btn btn-primary">Delete</button>
                             </div>
-                            <div class="mb-3 col-md-1">
-                                <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
+                            <div class="mb-3 col-md-4">
+                                <button style="background-color: rgb(11, 208, 126) !important;" type="submit"
                                     class="btn btn-primary">Submit</button>
                             </div>
                         </div>
