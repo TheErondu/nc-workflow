@@ -68,7 +68,7 @@
                             <div class="row">
                                 <div class="mb-3 col-md-4">
                                     <label for="mail_group">Group Email</label>
-                                    <input name="mail_group" type="text" class="form-control" id="mail_group" required placeholder="">
+                                    <input name="mail_group" type="text" class="form-control" id="mail_group"  placeholder="">
                                 </div>
                             </div>
 
