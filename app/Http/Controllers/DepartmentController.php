@@ -28,7 +28,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('dashboard.departments.create');
+        $users = Users::all();
+        return view('dashboard.departments.create',compact('users'));
     }
 
     /**
