@@ -40,8 +40,10 @@
                 <ul id="issues" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link"
                             href="{{ route('issues.index') }}">Raised Issues</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('issues.index') }}">My
+                            @can('fix-issues')
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('issues.index') }}">
                             All Issues</a></li>
+                            @endcan
                 </ul>
             </li>
             <li class="sidebar-item ">
@@ -81,9 +83,9 @@
                     <li @if (Route::is('prompter.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('prompter.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Prompter
                                 Logs</span></a></li>
-                    <li @if (Route::is('transmission.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('transmission.index') }}"> <i
+                    {{-- <li @if (Route::is('transmission.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('transmission.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Transmission
-                                Logs</span></a></li>
+                                Logs</span></a></li> --}}
 
                 </ul>
             </li>
@@ -121,6 +123,11 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('employees.index') }}"><i
                                 class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage User
                                 Accounts</span></a></li>
+                                @can('role-create')
+                                <li class="sidebar-item"><a class="sidebar-link" href="{{ route('roles.index') }}"><i
+                                    class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage Roles
+                                </span></a></li>
+                                    @endcan
                 </ul>
             </li>
             <li class="sidebar-item ">

@@ -217,7 +217,7 @@
         @section('javascript')
             <script>
                 $('.datepicker').datepicker({
-                    format: "yyyy/mm/dd",
+                    format: "yyyy-mm-dd",
                     // startView: "months",
                     // minViewMode: "months"
                 });

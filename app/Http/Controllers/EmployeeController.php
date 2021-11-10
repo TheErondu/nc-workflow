@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -30,10 +32,11 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = Department::all();
+        $roles = Role::pluck('name','name')->all();
         $status = array(
             'inactive','active',
         );
-        return view('dashboard.employees.create',compact('departments','status'));
+        return view('dashboard.employees.create',compact('departments','status','roles'));
     }
 
     /**
@@ -49,7 +52,8 @@ class EmployeeController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:5', 'confirmed'],
             'department_id'           => 'required',
-            'status'           => 'required'
+            'status'           => 'required',
+            'role'           => 'required'
         ]);
 
         $employee = new User();
@@ -58,6 +62,8 @@ class EmployeeController extends Controller
         $employee->department_id = $request->input('department_id');
         $employee->password = Hash::make($request->input('password'));
         $employee->status = $request->input('status');
+        $employee->role = $request->input('roles');
+        $employee->assignRole($request->input('roles'));
         $employee->save();
         $request->session()->flash('message', 'Successfully added User');
 
@@ -67,12 +73,14 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
+    * @param int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Employee $employee)
+    public function show($id)
     {
-        //
+        $employee  = User::find($id);
+
+        return view('dashboard.employees.show',compact('employee'));
     }
 
     /**
@@ -84,11 +92,12 @@ class EmployeeController extends Controller
     public function edit( $id)
     {
         $employee  = Employee::find($id);
+        $roles = Role::pluck('name','name')->all();
         $departments = Department::all();
         $status = array(
             'Inactive','Active',
         );
-        return view('dashboard.employees.edit',compact('employee','departments','status'));
+        return view('dashboard.employees.edit',compact('employee','departments','status','roles'));
     }
 
     /**
@@ -108,8 +117,11 @@ class EmployeeController extends Controller
         ]);
 
         $employee = User::find($id);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $employee->assignRole($request->input('roles'));
         $employee->name     = $request->input('name');
         $employee->email = $request->input('email');
+        $employee->role = $request->input('roles');
         $employee->department_id = $request->input('department_id');
         $employee->status = $request->input('status');
         $employee->save();

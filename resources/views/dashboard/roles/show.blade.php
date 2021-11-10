@@ -43,54 +43,34 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('departments.update', $department->id) }}">
-                            @method('PUT')
-                            @csrf
 
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-4">
-                                    <label for="name">Name</label>
-                                    <input name="name" value="{{ $department->name }}" type="text" class="form-control" id="name" required placeholder="">
-                                </div>
-                            <div class="mb-3 col-md-4">
-                                <label for="director">Head of Department </label>
-                                <select class="form-control select2" name="hod" id="hod" data-placeholder=" select Head of Department">
-                                    <option value="" selected>select</option>
-                                    @foreach($users as $user)
-                                    <option value="{{ $user->id }}" @if($department->hod->id === $user->id) selected='selected' @endif>{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="name">Color</label>
-                                    <input type="color" id="color" name="color" value="{{$department->color}}"><br><br>
-                                </div>
-                            </div>
 
+
+                            {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
                             <div class="row">
-                                <div class="mb-3 col-md-4">
-                                    <label for="mail_group">Group Email</label>
-                                    <input value="{{ $department->mail_group }}" name="mail_group" type="text" class="form-control" id="mail_group" required placeholder="">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Name:</strong>
+                                        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Permission:</strong>
+                                        <br/>
+                                        @foreach($permission as $value)
+                                            <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                                            {{ $value->name }}</label>
+                                        <br/>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
+                            {!! Form::close() !!}
 
-
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-6">
-                                    <button form="delete-form" style="background-color: red !important;" type="submit"
-                                    class="btn btn-primary">Delete</button>
-                            </div>
-                            <div class="mb-3 col-md-1">
-                                <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
-                                    class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                    <form action="{{ route('departments.destroy', $department->id) }}" id="delete-form" method="POST">
-                        @method('DELETE')
-                        @csrf
-
-                    </form>
                     </div>
                 </div>
             </div>
@@ -101,6 +81,15 @@
 @section('javascript')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+             // Select2
+             $(".select2").each(function() {
+                $(this)
+                    .wrap("<div class=\"position-relative\"></div>")
+                    .select2({
+                        placeholder: "Select value",
+                        dropdownParent: $(this).parent()
+                    });
+            })
             // Datetimepicker
             $('#datetimepicker-minimum').datetimepicker({
                 format:'YYYY-MM-DD HH:mm:ss'

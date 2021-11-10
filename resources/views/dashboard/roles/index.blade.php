@@ -5,8 +5,8 @@
             <div class="col-12">
                 <div class="card table-card">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
-                        <span>Departments </span> &nbsp; &nbsp;
-                        <a href="{{route('departments.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                        <span>Roles </span> &nbsp; &nbsp;
+                        <a href="{{route('roles.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
                     class="btn btn-primary">Add New &nbsp;<i class="fas fa-plus"></i></a>
                     </div>
                     <div class="row">
@@ -43,35 +43,38 @@
                             </div>
                         @endif
                     </div>
-                    @if (count($departments) > 0)
+                    @if (count($roles) > 0)
 
 
                         <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Name </th>
-                                    <th>H.O.D </th>
-                                    <th>Group Mail</th>
-                                    <th>Created at</th>
-                                    <th>Updated at</th>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th width="280px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($departments as $department)
-                                    <tr>
-                                        <td><a href="{{ route('departments.edit', $department->id) }}"><i
-                                                    class="far fa-edit"></i></a></td>
-                                        <td>{{ $department->name }}</td>
-                                        <td>{{ $department->hod->name }}</td>
-                                        <td>{{ $department->mail_group }}</td>
-                                        <td>{{ $department->created_at }}</td>
-                                        <td>{{ $department->updated_at }}</td>
-
-                                    </tr>
+                                @foreach ($roles as $key => $role)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $role->name }}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+                                        @can('role-edit')
+                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                                        @endcan
+                                        @can('role-delete')
+                                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                            {!! Form::close() !!}
+                                        @endcan
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        {!! $roles->render() !!}
                         <div class="modal fade" id="smallModal" role="dialog" aria-labelledby="smallModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
@@ -91,11 +94,11 @@
                     @else
                         <div class="card">
                             <div class="card-body card-black">
-                                <p>No Department Have Been Added yet, Click <a href="{{ route('department.create') }}"
-                                        data-toggle="tooltip" title="" data-original-title="Add Departments">Here</a> to add
-                                    Departments
+                                <p>No Roles Have Been Added yet, Click <a href="{{ route('department.create') }}"
+                                        data-toggle="tooltip" title="" data-original-title="Add Roles">Here</a> to add
+                                    Roles
                                 <p>
-                                <p><a class="btn btn-primary" href="{{ route('department.create') }}">Add Department</a>
+                                <p><a class="btn btn-primary" href="{{ route('roles.create') }}">Add Roles</a>
                                 </p>
                             </div>
                         </div>

@@ -46,6 +46,7 @@ class DepartmentController extends Controller
         $department->name = $request->input('name');
         $department->hod = $request->input('hod');
         $department->color = $request->input('color');
+        $department->mail_group = $request->input('mail_group');
         $department->save();
         $request->session()->flash('message', 'Successfully added Department');
         return redirect()->route('departments.index');
@@ -91,6 +92,7 @@ class DepartmentController extends Controller
         $department->name = $request->input('name');
         $department->user_id = $request->input('hod');
         $department->color = $request->input('color');
+        $department->mail_group = $request->input('mail_group');
         $department->save();
         Event::dispatch(new SendMail($department->hod->id));
         $request->session()->flash('message', 'Successfully Edited Department');

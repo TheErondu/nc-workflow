@@ -38,7 +38,7 @@
                     <i class="align-middle fas fa-user"></i>&nbsp;<span>  {{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1 fas fa-fw fa-user"></i>
+                    <a class="dropdown-item" href="{{ route('employees.show', Auth::user()->id ) }}"><i class="align-middle me-1 fas fa-fw fa-user"></i>
                         Profile</a>
                     <a class="dropdown-item" href="#"><i
                             class="align-middle me-1 fas fa-fw fa-keyboard"></i> Change Password</a>
