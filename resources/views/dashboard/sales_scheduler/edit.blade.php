@@ -147,7 +147,7 @@
 
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <a href="{{ route('schedule.index') }}" style="background-color: rgb(53, 54, 55) !important;"
+                                    <a href="{{ route('sales-production.index') }}" style="background-color: rgb(53, 54, 55) !important;"
                                         class="btn btn-primary">Cancel</a>
                                 </div>
                                 <div class="mb-3 col-md-1">

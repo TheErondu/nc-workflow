@@ -38,7 +38,6 @@
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div style="overflow-y: auto; height:30rem; ">
                     <div class="card-body">
                         <div class="col-12">
                             <div class="tab">
@@ -63,7 +62,7 @@
                         </div>
 
                     </div>
-                </div>
+               
                 </div>
             </div>
 
