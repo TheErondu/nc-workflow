@@ -123,21 +123,23 @@
                                 <label for="production_period"> Production Period</label>
                                 <input name="production_period" type="text" class="form-control" id="production_period" placeholder="production_period ">
                             </div>
-
+                            <div class="mb-3 col-md-4">
+                                <label for="product">Product</label>
+                                <input name="product" type="text" class="form-control" id="product" placeholder="product ">
+                            </div>
+                            @role('MANAGER')
                             <div class="mb-3 col-md-4">
                                 <label for="status">Status</label>
                                 <select class="form-control select2" name="status" id="status" data-placeholder="Select Status">
-                                    <option value="" selected>Select Client Type</option>
+                                    <option value="" selected>status</option>
                                     @foreach($schedule_status as $type)
                                         <option value="{{ $type }}">{{ $type }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="mb-3 col-md-4">
-                                <label for="product">Product</label>
-                                <input name="product" type="text" class="form-control" id="product" placeholder="product ">
+                            @endrole
                             </div>
-                            </div>
+                            @role('MANAGER')
                             <div class="row">
                                 <div class="mb-3 col-md-12">
                                     <label>Approval Comments</label>
@@ -145,6 +147,7 @@
                                         placeholder="Enter Approval Comments Details ...."></textarea>
                                 </div>
                             </div>
+                            @endrole
 
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
