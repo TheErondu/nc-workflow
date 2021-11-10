@@ -52,6 +52,7 @@
                                     <th>#</th>
                                     <th>Name </th>
                                     <th>H.O.D </th>
+                                    <th>Group Mail</th>
                                     <th>Created at</th>
                                     <th>Updated at</th>
                                 </tr>
@@ -63,6 +64,7 @@
                                                     class="far fa-edit"></i></a></td>
                                         <td>{{ $department->name }}</td>
                                         <td>{{ $department->hod->name }}</td>
+                                        <td>{{ $department->mail_group }}</td>
                                         <td>{{ $department->created_at }}</td>
                                         <td>{{ $department->updated_at }}</td>
 

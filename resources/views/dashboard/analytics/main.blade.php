@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Most Active Engineer</h5>
-                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                    <h6 class="card-subtitle text-muted">Top Three Engineers who have the highest number of resolved issues</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Least Active Engineer</h5>
-                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                    <h6 class="card-subtitle text-muted">Least Three Engineers who have the Lowest number of resolved issues</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -49,7 +49,7 @@
 
         </div>
     </div>
-    <div class="header">
+    {{-- <div class="header">
         <h1 class="header-title">
           Production Analytics
         </h1>
@@ -148,7 +148,7 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -173,16 +173,16 @@
         new Chart(document.getElementById("chartjs-bar0"), {
             type: "bar",
             data: {
-                labels: ["Sarah", "Mike", "Erondu"],
+                labels: {!! $active_engineers !!},
                 datasets: [{
-                    label: "Last year",
+                    label: "Fixed Issues",
                     backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
                     hoverBackgroundColor: window.theme.primary,
                     hoverBorderColor: window.theme.primary,
-                    data: [72, 67, 58],
-                    barPercentage: .75,
-                    categoryPercentage: .5
+                    data: {!! $active_engineers_stats !!},
+                    barPercentage: .55,
+                    categoryPercentage: .8
                 }]
             },
             options: {
@@ -217,22 +217,22 @@
         new Chart(document.getElementById("chartjs-bar1"), {
             type: "bar",
             data: {
-                labels: ["Jan", "Feb", "Mar"],
+                labels: {!! $inactive_engineers !!},
                 datasets: [{
-                    label: "Last year",
+                    label: "Fixed Issues",
                     backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
                     hoverBackgroundColor: window.theme.primary,
                     hoverBorderColor: window.theme.primary,
-                    data: [54, 67, 41],
-                    barPercentage: .75,
-                    categoryPercentage: .5
+                    data: {!! $inactive_engineers_stats !!},
+                    barPercentage: .55,
+                    categoryPercentage: .8
                 }]
             },
             options: {
                 maintainAspectRatio: false,
                 legend: {
-                    display: true
+                    display: false,
                 },
                 scales: {
                     yAxes: [{
@@ -261,23 +261,14 @@
         new Chart(document.getElementById("chartjs-bar2"), {
             type: "bar",
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: {!! $most_borrowers !!},
                 datasets: [{
-                    label: "Last year",
+                    label: "Store Requests",
                     backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
                     hoverBackgroundColor: window.theme.primary,
                     hoverBorderColor: window.theme.primary,
-                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }, {
-                    label: "This year",
-                    backgroundColor: "#E8EAED",
-                    borderColor: "#E8EAED",
-                    hoverBackgroundColor: "#E8EAED",
-                    hoverBorderColor: "#E8EAED",
-                    data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
+                    data: {!! $most_borrowers_stats !!},
                     barPercentage: .75,
                     categoryPercentage: .5
                 }]

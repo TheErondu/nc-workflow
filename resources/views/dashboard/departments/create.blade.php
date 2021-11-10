@@ -51,7 +51,7 @@
                                     <label for="name">Name</label>
                                     <input name="name" type="text" class="form-control" id="name" required placeholder="">
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
                                     <label for="hod">Head of Department  </label>
                                     <select class="form-control select2" name="hod" id="hod" data-placeholder=" select Head of Department">
                                         <option value="" selected>select</option>
@@ -63,6 +63,12 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="name">Color</label>
                                     <input type="color" id="color" name="color" value="#ff0000"><br><br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-4">
+                                    <label for="mail_group">Group Email</label>
+                                    <input name="mail_group" type="text" class="form-control" id="mail_group" required placeholder="">
                                 </div>
                             </div>
 
