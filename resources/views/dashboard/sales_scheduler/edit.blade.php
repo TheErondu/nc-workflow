@@ -122,7 +122,7 @@
                                 <label for="production_period"> Production Period</label>
                                 <input name="production_period"  value="{{$sales_schedule->production_period}}" type="text" class="form-control" id="production_period" placeholder="production_period ">
                             </div>
-                        @role('MANAGER')
+                        @can('is-manager')
                             <div class="mb-3 col-md-4">
                                 <label for="status">Status</label>
                                 <select class="form-control select2" name="status" id="status" data-placeholder="Select Status">
@@ -132,13 +132,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @endrole
+                            @endcan
                             <div class="mb-3 col-md-4">
                                 <label for="product">Product</label>
                                 <input name="product" value="{{$sales_schedule->product}}" type="text" class="form-control" id="product" placeholder="product ">
                             </div>
                             </div>
-                            @role('MANAGER')
+                            @can('is-manager')
                             <div class="row">
                                 <div class="mb-3 col-md-12">
                                     <label>Approval Comments</label>
@@ -146,7 +146,7 @@
                                         placeholder="Enter Approval Comments Details ....">{{$sales_schedule->approval_comments}}</textarea>
                                 </div>
                             </div>
-                            @endrole
+                            @endcan
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
                                     <a href="{{ route('schedule.index') }}" style="background-color: rgb(53, 54, 55) !important;"

@@ -127,7 +127,7 @@
                                 <label for="product">Product</label>
                                 <input name="product" type="text" class="form-control" id="product" placeholder="product ">
                             </div>
-                            @role('MANAGER')
+                            @can('is-manager')
                             <div class="mb-3 col-md-4">
                                 <label for="status">Status</label>
                                 <select class="form-control select2" name="status" id="status" data-placeholder="Select Status">
@@ -137,9 +137,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @endrole
+                            @endcan
                             </div>
-                            @role('MANAGER')
+                            @can('is-manager')
                             <div class="row">
                                 <div class="mb-3 col-md-12">
                                     <label>Approval Comments</label>
@@ -147,7 +147,7 @@
                                         placeholder="Enter Approval Comments Details ...."></textarea>
                                 </div>
                             </div>
-                            @endrole
+                            @endcan
 
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
