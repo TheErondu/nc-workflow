@@ -36,7 +36,7 @@ class AnalysisController extends Controller
          $inactive_engineers_stats = collect($least_active)->pluck('stats');
          $inactive_engineers = collect($least_active)->pluck('name');
 
-        $most_borrower_query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        $most_borrower_query =  DB::select("SELECT username as 'users', COUNT(*) as 'stats'
         FROM store_requests
 
         JOIN users
