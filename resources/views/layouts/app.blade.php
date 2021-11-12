@@ -64,10 +64,6 @@
 
             <main class="content">
                 @yield('content')
-                <div class="pull-right">
-                    <!--<a href="#" class="btn btn-primary">Download Your Code</a>-->
-                    <a href="#" class="btn btn-primary download-pdf">Download PDF</a>
-                </div>
                 @yield("javascript")
             </main>
 
