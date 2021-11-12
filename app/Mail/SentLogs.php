@@ -31,6 +31,6 @@ class SentLogs extends Mailable
     public function build()
     {
         return $this->subject('Logs Exported Successfully')
-                    ->view('mail.SentLogs');
+                    ->markdown('mail.SentLogs');
     }
 }

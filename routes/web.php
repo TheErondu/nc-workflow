@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\UserLoggedIn;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,6 +75,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('employees', App\Http\Controllers\EmployeeController::class);
         Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
         Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
+
+        Route::get('/event-test', function() {
+            event( new UserLoggedIn('erone007@gmail.com') );
+
+            return '<h1>Funy Page</h1>';
+        });
 
 
 

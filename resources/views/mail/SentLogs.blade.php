@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>News Central</title>
-</head>
-<body>
-    <h1>{{ $details['title'] }}</h1>
-    <p>{{ $details['body'] }}</p>
+@component('mail::message')
+# {{ $details['title'] }}
 
-    <p>Thank you</p>
-</body>
-</html>
+{{ $details['body'] }}
+
+
+@component('mail::button', ['url' => 'https://brave-new.herokuapp.com/logs/cot'])
+Check Logs
+@endcomponent
+
+Thanks,<br>
+Brave Media Workflow
+@endcomponent

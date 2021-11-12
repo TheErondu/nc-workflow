@@ -18,6 +18,7 @@
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet">
     <link href="{{ asset('css/Jost.css') }}" rel="stylesheet">
     <link href="{{ asset('css/Jost.css') }}" rel="stylesheet">
+
     <link href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.dataTables.min.css" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-icon-60x60.png') }}">
@@ -45,7 +46,9 @@
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/settings.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/pdf.js') }}"></script>
     <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
 </head>
 
@@ -61,6 +64,10 @@
 
             <main class="content">
                 @yield('content')
+                <div class="pull-right">
+                    <!--<a href="#" class="btn btn-primary">Download Your Code</a>-->
+                    <a href="#" class="btn btn-primary download-pdf">Download PDF</a>
+                </div>
                 @yield("javascript")
             </main>
 

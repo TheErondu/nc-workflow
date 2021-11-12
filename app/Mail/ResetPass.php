@@ -11,16 +11,16 @@ class ResetPass extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $newpassword;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($newpassword)
     {
-        $this->details = $details;
+        $this->newpassword = $newpassword;
     }
 
     /**
@@ -31,6 +31,6 @@ class ResetPass extends Mailable
     public function build()
     {
         return $this->subject('Your Password has been reset!')
-                    ->view('dashboard.mail.resetpass');
+                    ->markdown('mail.resetpass');
     }
 }
