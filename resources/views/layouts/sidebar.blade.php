@@ -39,7 +39,7 @@
                 </a>
                 <ul id="issues" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link"
-                            href="{{ route('issues.index') }}">Raised Issues</a></li>
+                            href="{{ route('issues.index',['type' => 'raised']) }}">Raised Issues</a></li>
                             @can('fix-issues')
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('issues.index') }}">
                             All Issues</a></li>

@@ -43,19 +43,28 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('issues.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('issues.update',$issue->id) }}">
                             @csrf
+                            @method('PUT
+                            ')
                             {{-- Engineers only --}}
                             @can('fix-issues')
                             <div class="row justify-content-between">
+                                <input name="item_name" type="text"value="{{$issue->item_name}}" hidden>
+                                <input name="description" type="text"value="{{$issue->description}}" hidden>
+                                <input name="date" type="text"value="{{$issue->date}}" hidden>
+                                <input name="location" type="text"value="{{$issue->location}}" hidden>
+                                <input name="raised_by" type="text"value="{{$issue->raised_by}}" hidden>
+                                <input name="department" type="text"value="{{$issue->department}}" hidden>
                                 <div class="mb-3 col-md-4">
                                     <label for="item_name">Equipment / Issue</label>
                                     <h2>{{$issue->item_name}}</h2>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="fixed_by">Who Fixed it?</label>
-                                   <h2>{{Auth::user()->name}}</h2>
+                                   <h2>{{$issue->fixed_by}}</h2>
                                 </div>
+
                             </div>
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">

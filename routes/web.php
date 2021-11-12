@@ -1,6 +1,10 @@
 <?php
 
+use App\Events\TicketCreatedEvent;
+use App\Events\TicketUpdatedEvent;
 use App\Events\UserLoggedIn;
+use App\Mail\TicketCreated;
+use App\Mail\TicketUpdated;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,13 +21,14 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::Routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('dumplogs', 'App\Http\Controllers\COTController@DumpLogs');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', function () {
-        return view('home');
-    });
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route::get('/', function () {
+    //     return view('home');
+    // });
         Route::resource('messages', 'App\Http\Controllers\MessageController');
         Route::get('messages/{id}/download', 'App\Http\Controllers\MessageController@download')->name('file.download');
         Route::resource('content', 'App\Http\Controllers\ContentController');
@@ -77,7 +82,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
 
         Route::get('/event-test', function() {
-            event( new UserLoggedIn('erone007@gmail.com') );
+            event( new TicketUpdatedEvent('erone007@gmail.com') );
 
             return '<h1>Funy Page</h1>';
         });

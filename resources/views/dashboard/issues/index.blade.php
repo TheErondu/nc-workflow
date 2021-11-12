@@ -44,7 +44,7 @@
                             </div>
                         @endif
                     </div>
-                    @if (!isset($issues))
+                    @if (count($issues) > 0)
 
                             <div style="overflow-y: auto; height:400px; ">
                         <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
@@ -111,7 +111,7 @@
                                     data-toggle="tooltip" title="" data-original-title="Add Vehicles">Here</a> to Raise
                                 a Issue
                             <p>
-                            <p><a class="btn btn-primary" href="{{ route('employees.create') }}">Report Tech Problem</a>
+                            <p><a class="btn btn-primary" href="{{ route('issues.create') }}">Report Tech Problem</a>
                             </p>
                         </div>
                     </div>

@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\TicketCreatedEvent;
+use App\Events\TicketUpdatedEvent;
 use App\Events\UserLoggedIn;
+use App\Listeners\TicketCreatedListener;
+use App\Listeners\TicketUpdatedListener;
 use App\Listeners\UserLoggedInListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -26,6 +30,13 @@ class EventServiceProvider extends ServiceProvider
         UserLoggedIn::class => [
             UserLoggedInListener::class,
         ],
+        TicketCreatedEvent::class => [
+            TicketCreatedListener::class,
+        ],
+        TicketUpdatedEvent::class => [
+            TicketUpdatedListener::class,
+        ],
+
     ];
 
     /**

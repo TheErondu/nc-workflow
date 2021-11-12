@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Issue;
 use Illuminate\Http\Request;
 use App\Events\SendMail;
+use App\Events\TicketCreated;
+use App\Events\TicketCreatedEvent;
+use App\Events\TicketUpdated;
+use App\Events\TicketUpdatedEvent;
 use App\Models\Department;
 use App\Models\Users;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Null_;
 use Spatie\Permission\Traits\HasRoles;
 
 class IssueController extends Controller
@@ -21,12 +26,16 @@ class IssueController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->can('fix-issues')) {
+        $raised_issues = Issue::where('raised_by', Auth::user()->id)->get();
+        if (request()->query('type') === 'raised') {
+
+            $issues = $raised_issues;
+        } elseif (($user->can('fix-issues'))) {
             $issues = Issue::all();
-        }
-        $issues = Issue::where('user_id', Auth::user()->id);
+        } else
+            $issues = $raised_issues;
         $users = Users::all();
-        return view('dashboard.issues.index', compact('issues', 'users'));
+        return view('dashboard.issues.index', compact('issues', 'raised_issues', 'users'));
     }
 
     /**
@@ -66,6 +75,8 @@ class IssueController extends Controller
         $issue->engineers_comment = $request->input('engineers_comment');
         $issue->resolved_date = $request->input('resolved_date');
         $issue->save();
+        $email = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
+        Event::dispatch(new TicketCreatedEvent($email));
         $request->session()->flash('message', 'Successfully added Issue');
         return redirect()->route('issues.index');
     }
@@ -92,7 +103,7 @@ class IssueController extends Controller
         $issue = Issue::all()->find($id);
 
         $issue_status   = array(
-            'OPEN', 'RESOLVING..', 'CLOSED'
+            'OPEN', 'CLOSED'
         );
         $departments = Department::all();
         $users = Users::all();
@@ -108,29 +119,43 @@ class IssueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name'                 => 'required'
-        ]);
+        $validatedData = $request->validate([]);
         $issue = Issue::find($id);
         $user = auth()->user();
-        $fixedBy = auth()->user()->name;
         $issue->item_name     = $request->input('item_name');
-        $issue->description = $request->description('description');
+        $issue->description = $request->input('description');
         $issue->date = $request->input('date');
         $issue->location = $request->input('location');
         $issue->raised_by = $request->input('raised_by');
         $issue->department = $request->input('department');
-        if ($user->hasRole('ENGINEER')) {
+        if ($user->can('fix-issues')) {
+            $fixedBy = auth()->user()->username;
             $issue->status = $request->input('status');
             $issue->fixed_by = $fixedBy;
             $issue->action_taken = $request->input('action_taken');
             $issue->cause_of_breakdown = $request->input('cause_of_breakdown');
             $issue->engineers_comment = $request->input('engineers_comment');
-            $issue->resolved_date = $request->input('resolved_date');
+            $issue->resolved_date = date('d-m-Y H:i:s');
             $issue->status = $request->input('status');
         }
         $issue->save();
-        Event::dispatch(new SendMail($issue->hod->id));
+        $email = Users::where('username', $issue->raised_by)->pluck('email')->implode('');
+        $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
+        $url = route('home');
+        $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
+
+        // dd($link);
+        $details = [
+            'link' => $link,
+            'email' =>  $email,
+            'status' =>  $issue->status,
+            'fixed_by_name' => auth()->user()->name,
+            'item_name' =>  $issue->item_name,
+            'resolved_date' =>  $issue->resolved_date,
+            'engineers_comment' =>  $issue->engineers_comment,
+            'copy' => $copy
+        ];
+        Event::dispatch(new TicketUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Issue');
         return redirect()->route('issues.index');
     }
