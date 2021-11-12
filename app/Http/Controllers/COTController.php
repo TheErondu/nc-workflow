@@ -53,7 +53,7 @@ class COTController extends Controller
     public function DumpLogs(Request $request)
     {
         $row = 0;
-        if (($file     =   fopen("C:/xampp/htdocs/bravetech/public/Asrun-new.csv", "r")) !== FALSE) {
+        if (($file     =   fopen("C:/xampp/htdocs/brave/public/Asrun-new.csv", "r")) !== FALSE) {
             while (($line = fgetcsv($file, 1000, ",")) !== FALSE) {
                 $num = count($line);
 
