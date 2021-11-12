@@ -52,37 +52,37 @@ class COTController extends Controller
 
     public function DumpLogs(Request $request)
     {
-        // $row = 0;
-        // if (($file     =   fopen("C:/xampp/htdocs/bravetech/public/Asrun-new.csv", "r")) !== FALSE) {
-        //     while (($line = fgetcsv($file, 1000, ",")) !== FALSE) {
-        //         $num = count($line);
+        $row = 0;
+        if (($file     =   fopen("C:/xampp/htdocs/bravetech/public/Asrun-new.csv", "r")) !== FALSE) {
+            while (($line = fgetcsv($file, 1000, ",")) !== FALSE) {
+                $num = count($line);
 
-        //         //$line is an array of the csv elements
-        //         if ($row == 0) {
-        //             $row++;
-        //             continue;
-        //         }   // continue is used for skip row 1
+                //$line is an array of the csv elements
+                if ($row == 0) {
+                    $row++;
+                    continue;
+                }   // continue is used for skip row 1
 
-        //         for ($c = 0; $c < $num; $c++) {
-        //             $importData_arr[$row][] = $line[$c];
-        //         }
-        //         $row++;
-        //     }
-        // }
-        // fclose($file);
-        // // print_r($importData_arr);
-        // array_pop($importData_arr);
+                for ($c = 0; $c < $num; $c++) {
+                    $importData_arr[$row][] = $line[$c];
+                }
+                $row++;
+            }
+        }
+        fclose($file);
+        // print_r($importData_arr);
+        array_pop($importData_arr);
 
-        // // Insert to MySQL database
-        // foreach ($importData_arr as $importData) {
+        // Insert to MySQL database
+        foreach ($importData_arr as $importData) {
 
-        //     $insertData = array(
-        //         "name" => $importData[3],
-        //         "time" => $importData[1],
-        //         "date" =>  \Carbon\Carbon::createFromFormat("Y/m/d", $importData[0])->format('Y-m-d'),
-        //     );
-        //     COT::insert($insertData);
-        // }
+            $insertData = array(
+                "name" => $importData[3],
+                "time" => $importData[1],
+                "date" =>  \Carbon\Carbon::createFromFormat("Y/m/d", $importData[0])->format('Y-m-d'),
+            );
+            COT::insert($insertData);
+        }
             $yesterday = date('d-M-Y',strtotime("-1 days"));
             $email = "erone007@gmail.com";
             $details = [
