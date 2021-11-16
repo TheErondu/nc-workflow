@@ -84,7 +84,7 @@ class COTController extends Controller
             COT::insert($insertData);
         }
             $yesterday = date('d-M-Y',strtotime("-1 days"));
-            $email = "erone007@gmail.com";
+            $email = "nbdengineers@ke.nationmedia.com";
             $details = [
                 'title' => 'Mail from NTV Logs Exporter',
                 'body' => 'The MCR logs for yesterday : ' . $yesterday . ' has been sucessfully exported to the database'

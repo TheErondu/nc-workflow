@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Events\RecordCreatedEvent;
 use App\Models\Content;
 use App\Models\Country;
+use Illuminate\Support\Facades\Event;
 
 class ContentController extends Controller
 {
@@ -103,6 +104,14 @@ class ContentController extends Controller
         $content->project_brief = $request->input('project_brief');
         $content->user_id = $user->id;
         $content->save();
+        $details = [
+            'title' => $content->title,
+            'start' =>  $content->start,
+            'status' =>  $content->status,
+            'user' => auth()->user()->name,
+            'description' =>  $content->description,
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Project!');
         return redirect()->route('content.index');
     }
@@ -178,6 +187,14 @@ class ContentController extends Controller
         $content->project_brief = $request->input('project_brief');
         $content->user_id = $user->id;
         $content->save();
+        $details = [
+            'title' => $content->title,
+            'start' =>  $content->start,
+            'status' =>  $content->status,
+            'user' => auth()->user()->name,
+            'description' =>  $content->description,
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Project!');
         return redirect()->route('content.index');
     }

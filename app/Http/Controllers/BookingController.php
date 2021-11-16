@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
 use Illuminate\Http\Request;
-
 use App\Models\Booking;
 use App\Models\Country;
 use App\Models\Facility;
+use Illuminate\Support\Facades\Event;
 
 class BookingController extends Controller
 {
@@ -55,6 +56,14 @@ class BookingController extends Controller
         $booking->description = $request->input('description');
         $booking->user_id = $user->id;
         $booking->save();
+        $details = [
+            'title' => $booking->title,
+            'start' =>  $booking->start,
+            'status' =>  $booking->status,
+            'user' => auth()->user()->name,
+            'description' =>  $booking->description,
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Success!');
         $type = $request->input('type');
         return redirect()->route('booking.index', ['type'=> $type]);

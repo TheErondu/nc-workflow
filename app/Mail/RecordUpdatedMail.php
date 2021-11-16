@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Mail;
-use App\Models\User;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
-class UserLoggedInEmail extends Mailable
+class RecordUpdatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -33,8 +33,8 @@ class UserLoggedInEmail extends Mailable
         $name = Auth::user()->name;
         $from = env('MAIL_FROM_ADDRESS');
         return $this->from($from)
-        ->subject('Login Notification Email')
+        ->subject('Record Updated Email')
         ->cc('nbdengineers@ke.nationmedia.com')
-        ->markdown('mail.UserLoggedInMail', compact('name'));
+        ->markdown('mail.RecordUpdatedMail', compact('name'));
     }
 }

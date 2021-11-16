@@ -78,27 +78,8 @@ class AwardsController extends Controller
         return redirect()->route('awards.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Humans  $humans
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Humans $humans)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Humans  $humans
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Humans $humans)
-    {
 
-    }
 
     /**
      * Update the specified resource in storage.
@@ -107,10 +88,10 @@ class AwardsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Humans $humans)
+    public function update(Request $request, $id)
     {
 
-        $award = Award::find($id);
+        $awards = Awards::find($id);
 
         $awards->show_title     = $request->input('show_title');
         $awards->showing_time = $request->input('showing_time');
@@ -143,8 +124,12 @@ class AwardsController extends Controller
      * @param  \App\Models\Humans  $humans
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Humans $humans)
-    {
-        //
+    public function destroy($id){
+        $awards = Awards::find($id);
+        if($awards){
+            $awards->delete();
+        }
+        return redirect()->route('booking.index')->with('message', 'Booking Deleted');
+
     }
 }

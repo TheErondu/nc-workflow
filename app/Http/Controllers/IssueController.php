@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Issue;
 use Illuminate\Http\Request;
 use App\Events\SendMail;
-use App\Events\TicketCreated;
 use App\Events\TicketCreatedEvent;
-use App\Events\TicketUpdated;
 use App\Events\TicketUpdatedEvent;
+use App\Mail\TicketCreated;
 use App\Models\Department;
 use App\Models\Users;
 use Illuminate\Support\Facades\Event;
@@ -75,8 +74,21 @@ class IssueController extends Controller
         $issue->engineers_comment = $request->input('engineers_comment');
         $issue->resolved_date = $request->input('resolved_date');
         $issue->save();
-        $email = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
-        Event::dispatch(new TicketCreatedEvent($email));
+        $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
+        $email = Users::where('username', $issue->raised_by)->pluck('email')->implode('');
+        $url = route('home');
+        $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
+        $details = [
+            'link' => $link,
+            'email' =>  $email,
+            'status' =>  $issue->status,
+            'fixed_by_name' => auth()->user()->name,
+            'item_name' =>  $issue->item_name,
+            'resolved_date' =>  $issue->resolved_date,
+            'engineers_comment' =>  $issue->engineers_comment,
+            'copy' => $copy
+        ];
+        Event::dispatch(new TicketCreatedEvent($details));
         $request->session()->flash('message', 'Successfully added Issue');
         return redirect()->route('issues.index');
     }
@@ -143,7 +155,7 @@ class IssueController extends Controller
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
-                            
+
         // dd($link);
         $details = [
             'link' => $link,
