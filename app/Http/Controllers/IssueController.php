@@ -143,7 +143,7 @@ class IssueController extends Controller
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
-
+                            
         // dd($link);
         $details = [
             'link' => $link,

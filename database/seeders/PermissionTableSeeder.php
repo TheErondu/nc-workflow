@@ -15,13 +15,7 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-           'fix-issues',
-           'create-users',
-           'cot-admin',
-           'cot-readonly',
-           'supervisor',
-           'is-manager',
-           'is-traffic'
+           'access-logistics',
         ];
 
         foreach ($permissions as $permission) {

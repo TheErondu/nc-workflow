@@ -22,17 +22,20 @@
                         Scheduling</span>
                 </a>
             </li>
+            @can('access-store')
             <li @if (Route::is('store.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#" href="{{ route('store.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-fw fa-shopping-cart"></i> <span class="align-middle">Store
                         Manager</span>
                 </a>
             </li>
+            @endcan
             <li @if (Route::is('documents.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#" href="{{ route('documents.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-fw fa-file"></i> <span class="align-middle">Docs</span>
                 </a>
             </li>
+            @can('fix-issues')
             <li @if (Route::is('tickets.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#issues" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-tools"></i> <span class="align-middle">Issues</span>
@@ -46,16 +49,25 @@
                             @endcan
                 </ul>
             </li>
+            @endcan
+            @can('cot-admin')
+
             <li class="sidebar-item ">
                 <a data-bs-target="#" href="{{ route('cot.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Certificate of Broadcast</span>
                 </a>
             </li>
+
+            @endcan
+
+            @can('access-sales-production')
             <li class="sidebar-item ">
                 <a data-bs-target="#" href="{{ route('sales-production.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-fw fa-calendar"></i><span class="align-middle">Sales Production Scheduler</span>
                 </a>
             </li>
+            @endcan
+
             <li class="sidebar-item">
                 <a data-bs-target="#reports" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Reports</span>
@@ -89,12 +101,16 @@
 
                 </ul>
             </li>
+            @can('add-content-calendar')
             <li @if (Route::is('content.*')) class="sidebar-item active " @else class="sidebar-item" @endif>
                 <a data-bs-target="#" href="{{ route('content.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Content
                         Calendar</span>
                 </a>
             </li>
+            @endcan
+
+            @can('access-logistics')
             <li @if (Route::is('triplogger.*', 'vehicles.*, tracker.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#logistics" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-truck"></i> <span class="align-middle">Logistics</span>
@@ -111,6 +127,8 @@
                                 Tracker</span></a></li>
                 </ul>
             </li>
+            @endcan
+            @can('is-manager')
             <li @if (Route::is('departments.*', 'employees.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-fw fa-cogs"></i> <span
@@ -130,6 +148,7 @@
                                     @endcan
                 </ul>
             </li>
+            @endcan
             <li class="sidebar-item ">
                 <a data-bs-target="#" href="{{ route('analytics.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analytics</span>

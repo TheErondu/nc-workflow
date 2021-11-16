@@ -45,7 +45,7 @@
                     </div>
                     @if (count($roles) > 0)
 
-
+                <div class="row ">
                         <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
@@ -74,27 +74,16 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {!! $roles->render() !!}
-                        <div class="modal fade" id="smallModal" role="dialog" aria-labelledby="smallModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-sm" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body" id="smallBody">
-                                        <div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                </div>
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                        {!! $roles->render('dashboard.roles.paginate') !!}
                         </div>
-
+                        </div>
                     @else
                         <div class="card">
                             <div class="card-body card-black">
-                                <p>No Roles Have Been Added yet, Click <a href="{{ route('department.create') }}"
+                                <p>No Roles Have Been Added yet, Click <a href="{{ route('roles.create') }}"
                                         data-toggle="tooltip" title="" data-original-title="Add Roles">Here</a> to add
                                     Roles
                                 <p>
