@@ -71,6 +71,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\TransmissionReport');
     }
+    public function mcr_logs()
+    {
+        return $this->hasMany('App\Models\McrLogs');
+    }
 
     public function department()
     {

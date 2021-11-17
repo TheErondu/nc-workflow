@@ -43,7 +43,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('reports.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('mcr.store') }}">
                             @csrf
 
                             <div class=" row justify-content-between">
@@ -60,7 +60,7 @@
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
-                                    <label for="dts_in">timings</label>
+                                    <label for="timing">timings</label>
                                     <input name="timing" type="text" class="form-control" id="timing"
                                     value="{{ old('programmes') }}"
                                       required placeholder="">
@@ -84,9 +84,18 @@
                                         value="{{ old('squeezbacks') }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="variance2">TC</label>
-                                    <input name="variance2" type="text" class="form-control" id="variance2"
-                                        value="{{ old('variance2') }}" required placeholder="">
+                                    <label for="tc">TC</label>
+                                    <input name="tc" type="text" class="form-control" id="tc"
+                                        value="{{ old('tc') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="handed_over_to">STO </label>
+                                    <select class="form-control select2" name="handed_over_to" id="handed_over_to" data-placeholder=" select Hand over">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="row justify-content-between">

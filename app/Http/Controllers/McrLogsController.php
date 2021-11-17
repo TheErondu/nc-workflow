@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\McrLogs;
 use Illuminate\Http\Request;
+use App\Events\RecordCreatedEvent;
+Use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\Event;
+
 
 class McrLogsController extends Controller
 {
@@ -44,10 +48,10 @@ class McrLogsController extends Controller
             'timing'             => 'required',
             'programmes'           => 'required',
             'remarks'           => 'required',
-            'squeezebacks'           => 'required',
+            'squeezbacks'           => 'required',
             'tc'           => 'required',
             'traffic'         => 'required',
-            'hande_over_to'         => 'required',
+            'handed_over_to'         => 'required',
         ]);
 
         $user = auth()->user();
@@ -56,14 +60,23 @@ class McrLogsController extends Controller
         $mcr_logs->timing = $request->input('timing');
         $mcr_logs->programmes = $request->input('programmes');
         $mcr_logs->remarks = $request->input('remarks');
-        $mcr_logs->squeezebacks = $request->input('squeezebacks');
+        $mcr_logs->squeezbacks = $request->input('squeezbacks');
         $mcr_logs->tc = $request->input('tc');
         $mcr_logs->traffic = $request->input('traffic');
         $mcr_logs->handed_over_to = $request->input('handed_over_to');
         $mcr_logs->user_id = $user->id;
         $mcr_logs->save();
         $request->session()->flash('message', 'Successfully created Report');
-        return redirect()->route('mcrlogs.index');
+        return redirect()->route('mcr.index');
+        $details = [
+            'title' => $mcr_logs->remarks,
+            'status' =>  $mcr_logs->handed_over_to,
+            'body' =>  $mcr_logs->deescription,
+            'model' =>  'MCR Logs',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
     }
 
     /**
@@ -86,7 +99,8 @@ class McrLogsController extends Controller
     public function edit($id)
     {
         $mcr_logs = McrLogs::all()->find($id);
-        return view('dashboard.reports.mcrlogs.edit', compact('mcr_logs'));
+        $users = User::all();
+        return view('dashboard.reports.mcrlogs.edit', compact('mcr_logs','users'));
     }
 
     /**
@@ -103,10 +117,10 @@ class McrLogsController extends Controller
             'timing'             => 'required',
             'programmes'           => 'required',
             'remarks'           => 'required',
-            'squeezebacks'           => 'required',
+            'squeezbacks'           => 'required',
             'tc'           => 'required',
             'traffic'         => 'required',
-            'hande_over_to'         => 'required',
+            'handed_over_to'         => 'required',
         ]);
         $user = auth()->user();
         $mcr_logs = McrLogs::find($id);
@@ -114,14 +128,27 @@ class McrLogsController extends Controller
         $mcr_logs->timing = $request->input('timing');
         $mcr_logs->programmes = $request->input('programmes');
         $mcr_logs->remarks = $request->input('remarks');
-        $mcr_logs->squeezebacks = $request->input('squeezebacks');
+        $mcr_logs->squeezbacks = $request->input('squeezbacks');
         $mcr_logs->tc = $request->input('tc');
         $mcr_logs->traffic = $request->input('traffic');
         $mcr_logs->handed_over_to = $request->input('handed_over_to');
         $mcr_logs->user_id = $user->id;
+
         $mcr_logs->save();
+        $details = [
+            'email' => $mcr_logs->user->email,
+            'title' => $mcr_logs->remarks,
+            'status' =>  $mcr_logs->handed_over_to,
+            'body' =>  $mcr_logs->description,
+            'model' =>  'MCR Logs',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Log');
-        return redirect()->route('mcrlogs.index');
+
+        return redirect()->route('mcr.index');
+
     }
 
    /**

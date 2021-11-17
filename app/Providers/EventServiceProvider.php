@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Events\TicketCreatedEvent;
 use App\Events\TicketUpdatedEvent;
 use App\Events\UserLoggedIn;
+use App\Listeners\RecordCreatedEventListener;
+use App\Listeners\RecordUpdatedEventListener;
 use App\Listeners\TicketCreatedListener;
 use App\Listeners\TicketUpdatedListener;
 use App\Listeners\UserLoggedInListener;
@@ -27,8 +31,14 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SendMail' => [
             'App\Listeners\SendMailFired',
         ],
-        UserLoggedIn::class => [
+        'Illuminate\Auth\Events\Login' => [
             UserLoggedInListener::class,
+        ],
+        RecordCreatedEvent::class => [
+            RecordCreatedEventListener::class,
+        ],
+        RecordUpdatedEvent::class => [
+            RecordUpdatedEventListener::class,
         ],
         TicketCreatedEvent::class => [
             TicketCreatedListener::class,

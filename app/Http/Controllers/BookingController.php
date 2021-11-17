@@ -58,10 +58,11 @@ class BookingController extends Controller
         $booking->save();
         $details = [
             'title' => $booking->title,
-            'start' =>  $booking->start,
             'status' =>  $booking->status,
+            'body' =>  $booking->deescription,
+            'model' =>  'Booking',
             'user' => auth()->user()->name,
-            'description' =>  $booking->description,
+            'time' => date('d-m-Y')
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Success!');
@@ -133,6 +134,15 @@ class BookingController extends Controller
         $booking->description = $request->input('description');
         $booking->save();
         $request->session()->flash('message', 'Success!');
+        $details = [
+            'title' => $booking->title,
+            'status' =>  $booking->status,
+            'body' =>  $booking->deescription,
+            'model' =>  'Booking',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $type = $request->input('type');
         return redirect()->route('booking.index', ['type'=> $type]);
     }

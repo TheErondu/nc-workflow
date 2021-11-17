@@ -161,7 +161,7 @@
                         </table>
                         <div class="row d-flex remove justify-content-center"
                         style="float: right;padding-right: 180px; padding-top: 50px;">
-                        <input type="button" value="Print Report" onclick="window.print();return false;" />
+                        <input type="button" value="Print Report" onclick="sendEmail(); window.print();" />
                     </div>
                         <div class="row justify-content-center">
                             <br>
@@ -215,6 +215,8 @@
 
         @endsection
         @section('javascript')
+        <script src="{{asset('js/smtp.js')}}">
+        </script>
             <script>
                 $('.datepicker').datepicker({
                     format: "yyyy-mm-dd",
@@ -222,4 +224,19 @@
                     // minViewMode: "months"
                 });
             </script>
+            <script>
+    function sendEmail() {
+
+        Email.send({
+    Host : "smtp.mailtrap.io",
+    Port:"2525",
+    Username : "99bc973fc3bca4",
+    Password : "3e44e06e47226f",
+    To : 'nbdengineers@ke.nationmedia.com',
+    From : "no-reply@bravetech.media",
+    Subject : "A Certificate of Broadcast was Printed",
+    Body : "<html><body><h1>{{ Auth::User()->name}} has printed a Certificate of Broadcast!</h1><p> Showing Search results for {{ request()->query('name') }} from the period:</p><p>{{ request()->query('start_date') }} to {{ request()->query('end_date')}} </p></body></html>"
+})
+    }
+</script>
         @endsection

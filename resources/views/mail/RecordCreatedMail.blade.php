@@ -1,18 +1,18 @@
 @component('mail::message')
 
-# {{ $details['fixed_by_name'] }} has changed the status of the Ticket raised for the {{ $details['item_name'] }} to "{{ $details['status'] }}" .
+#  {{ $details['user'] }} has posted to {{ $details['model'] }}!
 
-Resolution date : {{ $details['resolved_date'] }}
+# Title: {{ $details['title'] }}
 
-Engineers Comment:
+Details : {{ $details['body'] }}
 
-"{{ $details['engineers_comment'] }}"
+Time: {{ $details['time'] }}
 
 ## Review the Ticket by clicking this button
-
+{{-- 
 @component('mail::button', ['url' => $details['link']])
-View Ticket Details
-@endcomponent
+View in Dashboard
+@endcomponent --}}
 
 Thanks,<br>
 Brave Media Workflow

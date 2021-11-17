@@ -189,10 +189,11 @@ class ContentController extends Controller
         $content->save();
         $details = [
             'title' => $content->title,
-            'start' =>  $content->start,
             'status' =>  $content->status,
+            'body' =>  $content->deescription,
+            'model' =>  'Content Calendar',
             'user' => auth()->user()->name,
-            'description' =>  $content->description,
+            'time' => date('d-m-Y')
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Project!');

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\EditorLogs;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 
 class EditorLogsController extends Controller
 {
@@ -54,20 +57,29 @@ class EditorLogsController extends Controller
         $editors_logs->closed_at = $request->input('closed_at');
         $editors_logs->user_id = $user->id;
         $editors_logs->save();
+        $details = [
+            'title' => $editors_logs->title,
+            'status' =>  $editors_logs->status,
+            'body' =>  $editors_logs->deescription,
+            'model' =>  'Editor Logs',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Report');
         return redirect()->route('editors.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Reports  $reports
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reports $reports)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\Reports  $reports
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(Reports $reports)
+    // {
+    //     //
+    // }
 
      /**
      * Show the form for editing the specified resource.
@@ -106,6 +118,15 @@ class EditorLogsController extends Controller
         $editors_logs->save();
         $request->session()->flash('message', 'Successfully Edited Log');
         return redirect()->route('editors.index');
+        $details = [
+            'title' => $editors_logs->title,
+            'status' =>  $editors_logs->status,
+            'body' =>  $editors_logs->deescription,
+            'model' =>  'Editor Logs',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
     }
 
    /**

@@ -5,6 +5,7 @@ namespace App\Listeners;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use App\Mail\UserLoggedInEmail;
 
 class UserLoggedInListener implements ShouldQueue
@@ -26,7 +27,7 @@ class UserLoggedInListener implements ShouldQueue
      * @return void
      */
      public function handle($event)
-     {
-         Mail::to($event->email)->send(new UserLoggedInEmail());
+     {  $email = Auth::User()->email;
+         Mail::to($email)->send(new UserLoggedInEmail());
      }
 }
