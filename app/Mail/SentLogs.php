@@ -30,7 +30,10 @@ class SentLogs extends Mailable
      */
     public function build()
     {
+        $engineer_mails = \App\Models\User::where('department_id', '11')->pluck('email');
+        //    dd($engineer_mails);
         return $this->subject('Logs Exported Successfully')
+                    ->cc($engineer_mails)
                     ->markdown('mail.SentLogs');
     }
 }

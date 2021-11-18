@@ -7,6 +7,7 @@ use App\Mail\TicketCreated;
 use App\Mail\TicketUpdated;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,9 +83,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
 
         Route::get('/event-test', function() {
-            event( new TicketUpdatedEvent('erone007@gmail.com') );
-
-            return '<h1>Funy Page</h1>';
+            $details = [
+                'title' => 'Mail from NTV Logs Exporter',
+                'body' => 'The MCR logs for yesterday has been sucessfully exported to the database'
+            ];
+            Mail::to('erone007@gmail.com')->send(new \App\Mail\SentLogs($details));
         });
 
 

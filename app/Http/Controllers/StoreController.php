@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Models\Store;
 use App\Models\Department;
 use App\Models\StoreRequest;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Event;
 
 class StoreController extends Controller
 {
@@ -30,7 +33,7 @@ class StoreController extends Controller
      */
     public function RequestIndex()
     {
-        $user_department = Auth::user()->department->name;
+        $user_department = FacadesAuth::user()->department->name;
         $user = auth()->user();
         $available_items = Store::all()->where('assigned_department', $user_department);
         $all_requested = StoreRequest::all()->where('status', "!=",'pending');
@@ -82,6 +85,16 @@ class StoreController extends Controller
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
         $store_item->save();
+        $details = [
+            'email' => $store_item->user->email,
+            'title' => $store_item->item_name,
+            'status' =>  $store_item->state,
+            'body' =>  $store_item->assigned_department,
+            'model' =>  'Store Item',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully added Item to the store!');
         return redirect()->route('store.index');
     }
@@ -104,6 +117,16 @@ class StoreController extends Controller
         $store_requests->item = $requested_item->item_name;
         $store_requests->return_date = $request->input('return_date');
         $store_requests->save();
+        $details = [
+            'email' => $store_requests->user->email,
+            'title' => $store_requests->item_name,
+            'status' =>  $store_requests->return_date,
+            'body' =>  $store_requests->assigned_department,
+            'model' =>  'Store Requests',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Item successfully requested from store!');
         return redirect()->route('store-requests.index');
     }
@@ -165,6 +188,16 @@ class StoreController extends Controller
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
         $store_item->save();
+        $details = [
+            'email' => $store_item->user->email,
+            'title' => $store_item->item_name,
+            'status' =>  $store_item->state,
+            'body' =>  $store_item->assigned_department,
+            'model' =>  'Store Item',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Updated Item!');
         return redirect()->route('store.index');
     }
@@ -181,6 +214,16 @@ class StoreController extends Controller
         $store_request = StoreRequest::all()->find($id);
         $store_request->status = "Approved";
         $store_request->save();
+        $details = [
+            'email' => $store_request->user->email,
+            'title' => $store_request->item_name,
+            'status' =>  $store_request->status,
+            'body' =>  $store_request->assigned_department,
+            'model' =>  'Store Requests',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Request Approved !');
         return redirect()->route('store.index');
 
@@ -197,6 +240,16 @@ class StoreController extends Controller
         $store_request = StoreRequest::all()->find($id);
         $store_request->status = "Rejected";
         $store_request->save();
+        $details = [
+            'email' => $store_request->user->email,
+            'title' => $store_request->item_name,
+            'status' =>  $store_request->status,
+            'body' =>  $store_request->assigned_department,
+            'model' =>  'Store Requests',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Request Rejected !');
         return redirect()->route('store.index');
 
@@ -213,6 +266,16 @@ class StoreController extends Controller
         $store_request = StoreRequest::all()->find($id);
         $store_request->status = "Returned";
         $store_request->save();
+        $details = [
+            'email' => $store_request->user->email,
+            'title' => $store_request->item_name,
+            'status' =>  $store_request->status,
+            'body' =>  $store_request->assigned_department,
+            'model' =>  'Store Requests',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Requested Item has been marked as Returned !');
         return redirect()->route('store.index');
 
@@ -240,7 +303,7 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        $store_item = Reports::find($id);
+        $store_item = Store::find($id);
         if($store_item){
             $store_item->delete();
         }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Events\SendMail;
+use App\Models\Users;
+use Illuminate\Support\Facades\Event;
 
 class DepartmentController extends Controller
 {
@@ -13,8 +16,9 @@ class DepartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('dashboard.departments.index');
+    {   $departments = Department::all();
+        $users = Users::all();
+        return view('dashboard.departments.index', compact('departments','users'));
     }
 
     /**
@@ -24,7 +28,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        $users = Users::all();
+        return view('dashboard.departments.create',compact('users'));
     }
 
     /**
@@ -35,7 +40,17 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name'                 => 'required'
+        ]);
+        $department = new Department();
+        $department->name = $request->input('name');
+        $department->hod = $request->input('hod');
+        $department->color = $request->input('color');
+        $department->mail_group = $request->input('mail_group');
+        $department->save();
+        $request->session()->flash('message', 'Successfully added Department');
+        return redirect()->route('departments.index');
     }
 
     /**
@@ -52,34 +67,51 @@ class DepartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Department  $department
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department)
+    public function edit($id)
     {
-        //
+        $department = Department::all()->find($id);
+        $users = Users::all();
+        return view('dashboard.departments.edit',compact('department','users'));
     }
 
-    /**
+     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Department  $department
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name'                 => 'required'
+        ]);
+        $department = Department::find($id);
+        $department->name = $request->input('name');
+        $department->user_id = $request->input('hod');
+        $department->color = $request->input('color');
+        $department->mail_group = $request->input('mail_group');
+        $department->save();
+        Event::dispatch(new SendMail($department->hod->id));
+        $request->session()->flash('message', 'Successfully Edited Department');
+        return redirect()->route('departments.index');
     }
 
-    /**
+      /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Department  $department
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
-    {
-        //
+    public function destroy($id){
+        $department = Department::find($id);
+        if($department){
+            $department->delete();
+        }
+        return redirect()->route('departments.index')->with('message', 'Successfully Deleted Department');
+
     }
 }

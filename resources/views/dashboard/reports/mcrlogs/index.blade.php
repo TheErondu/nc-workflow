@@ -50,24 +50,15 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="white-space:nowrap;">Bulletin 1</th>
-                                <th style="white-space:nowrap;">DTS In</th>
-                                <th style="white-space:nowrap;">Actual In</th>
-                                <th style="white-space:nowrap;">Variance</th>
-                                <th style="white-space:nowrap;">DTS Out</th>
-                                <th style="white-space:nowrap;">Actual Out</th>
-                                <th style="white-space:nowrap;">Variance</th>
-                                <th style="white-space:nowrap;">Comment</th>
-                                <th style="white-space:nowrap;">Bulletin 2</th>
-                                <th style="white-space:nowrap;">DTS In</th>
-                                <th style="white-space:nowrap;">Actual In</th>
-                                <th style="white-space:nowrap;">Variance</th>
-                                <th style="white-space:nowrap;">DTS Out</th>
-                                <th style="white-space:nowrap;">Actual Out</th>
-                                <th style="white-space:nowrap;">Variance</th>
-                                <th style="white-space:nowrap;">Comment</th>
+                                <th style="white-space:nowrap;">STO</th>
+                                <th style="white-space:nowrap;">TIMING</th>
+                                <th style="white-space:nowrap;">PROGRAMMES</th>
+                                <th style="white-space:nowrap;">REMARKS</th>
+                                <th style="white-space:nowrap;">SQUEEZBACKS</th>
+                                <th style="white-space:nowrap;">TC</th>
+                                <th style="white-space:nowrap;">TRAFFIC</th>
+                                <th style="white-space:nowrap;">HANDOVER TO</th>
                                 <th style="white-space:nowrap;">Uploaded By</th>
-                                <th style="white-space:nowrap;">Time of Upload</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,7 +71,7 @@
                                     <td>{{ $log->timing }}</td>
                                     <td>{{ $log->programmes }}</td>
                                     <td>{{ $log->remarks }}</td>
-                                    <td>{{ $log->squeezebacks }}</td>
+                                    <td>{{ $log->squeezbacks }}</td>
                                     <td>{{ $log->tc }}</td>
                                     <td>{{ $log->traffic }}</td>
                                     <td>{{ $log->handed_over_to }}</td>

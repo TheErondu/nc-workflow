@@ -31,8 +31,10 @@ class TicketCreated extends Mailable
     {
         $name = Auth::user()->name;
         $from = env('MAIL_FROM_ADDRESS');
+        $engineer_mails = \App\Models\User::where('department_id', '11')->pluck('email');
         return $this->from($from)
-        ->subject('Login Notification Email')
+        ->subject('New Issue Reported!')
+        ->cc($engineer_mails)
         ->markdown('mail.TicketCreatedMail', compact('name'));
     }
 }

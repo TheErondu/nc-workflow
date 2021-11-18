@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Models\Tracker;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 
 class TrackerController extends Controller
 {
@@ -77,6 +80,16 @@ class TrackerController extends Controller
         // $tracker->cost_per_km =$request->input('fuel_cost') / $tracker->kilometres;
         $tracker->user_id = $user->id;
         $tracker->save();
+        $details = [
+            'email' => $tracker->user->email,
+            'title' => $tracker->vehicle->name,
+            'status' =>  $tracker->status,
+            'body' =>  $tracker->refuel_date,
+            'model' =>  'Mileage Trackers ',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Mileage Tracker added Successfully!');
         return redirect()->route('tracker.index');
     }
@@ -151,6 +164,16 @@ class TrackerController extends Controller
         $tracker->fuel_cost = $request->input('fuel_cost');
         $tracker->user_id = $user->id;
         $tracker->save();
+        $details = [
+            'email' => $tracker->user->email,
+            'title' => $tracker->vehicle->name,
+            'status' =>  $tracker->status,
+            'body' =>  $tracker->refuel_date,
+            'model' =>  'Mileage Trackers ',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Tracker Updated!');
         return redirect()->route('tracker.index');
     }

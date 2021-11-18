@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use Illuminate\Http\Request;
 
 use App\Models\Schedule;
+use Illuminate\Support\Facades\Event;
 
 class ScheduleController extends Controller
 {
@@ -101,6 +104,16 @@ class ScheduleController extends Controller
         $schedule->type = $request->input('type');
         $schedule->user_id = $user->id;
         $schedule->save();
+        $details = [
+            'email' => $schedule->user->email,
+            'title' => $schedule->title,
+            'status' =>  $schedule->status,
+            'body' =>  $schedule->description,
+            'model' =>  'Schedule',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created schedule');
         return redirect()->route('schedule.create');
     }
@@ -173,6 +186,16 @@ class ScheduleController extends Controller
         $schedule->description = $request->input('description');
         $schedule->type = $request->input('type');
         $schedule->save();
+        $details = [
+            'email' => $schedule->user->email,
+            'title' => $schedule->title,
+            'status' =>  $schedule->status,
+            'body' =>  $schedule->description,
+            'model' =>  'Schedule',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully created schedule');
         return redirect()->route('schedule.edit',$schedule->id);
     }

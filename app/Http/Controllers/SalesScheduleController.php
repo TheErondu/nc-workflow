@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use Illuminate\Http\Request;
 
 use App\Models\SalesSchedule;
 use App\Models\Country;
+use Illuminate\Support\Facades\Event;
 
 class SalesScheduleController extends Controller
 {
@@ -120,6 +123,16 @@ class SalesScheduleController extends Controller
         $content->resolved_date = $request->input('resolved_date');
         $content->user_id = $user->id;
         $content->save();
+        $details = [
+            'email' => $content->user->email,
+            'title' => $content->title,
+            'status' =>  $content->status,
+            'body' =>  $content->production_requirements,
+            'model' =>  'Sales Production Schedule',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Sales Schedule!');
         return redirect()->route('sales-production.index');
     }
@@ -212,6 +225,16 @@ class SalesScheduleController extends Controller
         $content->resolved_date = $request->input('resolved_date');
         $content->user_id = $user->id;
         $content->save();
+        $details = [
+            'email' => $content->user->email,
+            'title' => $content->title,
+            'status' =>  $content->status,
+            'body' =>  $content->production_requirements,
+            'model' =>  'Sales Production Schedule',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Updated Sales Schedule!');
 
         return redirect()->route('sales-production.index');
