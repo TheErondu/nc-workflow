@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\TransmissionReport;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class TransmissionReportController extends Controller
+class TransmissionReportController extends ApiController
 {
     /**
      * Display a listing of the resource.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
@@ -8,7 +8,7 @@ use App\Models\Reports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 
-class ReportsController extends Controller
+class ReportsController extends ApiController
 {
     /**
      * Display a listing of the resource.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Analysis;
 use App\Models\Department;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class AnalysisController extends Controller
+class AnalysisController extends ApiController
 {
     /**
      * Display a listing of the resource.

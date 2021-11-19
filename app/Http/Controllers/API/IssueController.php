@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Issue;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
 use Spatie\Permission\Traits\HasRoles;
 
-class IssueController extends Controller
+class IssueController extends ApiController
 {
     /**
      * Display a listing of the resource.

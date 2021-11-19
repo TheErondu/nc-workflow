@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\PrompterLogs;
 use App\Models\User;
@@ -9,7 +9,7 @@ use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use Illuminate\Support\Facades\Event;
 
-class PrompterLogsController extends Controller
+class PrompterLogsController extends ApiController
 {
     /**
      * Display a listing of the resource.

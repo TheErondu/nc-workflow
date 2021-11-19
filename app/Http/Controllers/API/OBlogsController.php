@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\OBlogs;
 use App\Models\User;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Event;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 
-class OBlogsController extends Controller
+class OBlogsController extends ApiController
 {
     /**
      * Display a listing of the resource.

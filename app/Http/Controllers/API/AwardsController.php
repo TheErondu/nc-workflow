@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Awards;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class AwardsController extends Controller
+class AwardsController extends ApiController
 {
     /**
      * Display a listing of the resource.

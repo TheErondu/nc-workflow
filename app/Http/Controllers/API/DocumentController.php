@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
 
-class DocumentController extends Controller
+class DocumentController extends ApiController
 {
     /**
      * Display a listing of the resource.

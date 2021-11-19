@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Event;
 
-class StoreController extends Controller
+class StoreController extends ApiController
 {
     /**
      * Display a listing of the resource.

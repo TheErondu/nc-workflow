@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\FacilityType;
 use Illuminate\Http\Request;
 
-class FacilityTypeController extends Controller
+class FacilityTypeController extends ApiController
 {
     /**
      * Display a listing of the resource.

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\EngineerLogs;
 use Illuminate\Http\Request;
 
-class EngineerLogsController extends Controller
+class EngineerLogsController extends ApiController
 {
     /**
      * Display a listing of the resource.

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Dutylogger;
 use Illuminate\Http\Request;
 
-class DutyloggerController extends Controller
+class DutyloggerController extends ApiController
 {
     /**
      * Display a listing of the resource.
