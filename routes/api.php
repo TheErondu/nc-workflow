@@ -29,7 +29,7 @@ Route::get('sales-production', [App\Http\Controllers\API\SalesScheduleController
 Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('api');
     // Route::get('/', function () {
     //     return view('home');
     // });
