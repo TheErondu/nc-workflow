@@ -33,8 +33,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::get('v1//', function () {
     //     return view('home');
     // });
-        Route::resource('v1/messages', 'App\Http\Controllers\API\MessageController');
-        Route::get('v1/messages/{id}/download', 'App\Http\Controllers\API\MessageController@download');
+        // Route::resource('v1/messages', 'App\Http\Controllers\API\MessageController');
+        // Route::get('v1/messages/{id}/download', 'App\Http\Controllers\API\MessageController@download');
         Route::resource('v1/content', 'App\Http\Controllers\API\ContentController');
         Route::resource('v1/documents', 'App\Http\Controllers\API\DocumentController');
         Route::resource('v1/dutylog', 'App\Http\Controllers\API\DutyloggerController');
