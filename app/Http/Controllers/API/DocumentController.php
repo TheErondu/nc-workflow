@@ -14,7 +14,7 @@ class DocumentController extends ApiController
      */
     public function index()
     {   $documents = Document::all();
-        return view('dashboard.documents.index',compact('documents'));
+        return response()->json(compact('documents'));
     }
 
     /**

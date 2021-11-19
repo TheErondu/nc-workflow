@@ -19,7 +19,7 @@ class PrompterLogsController extends ApiController
     public function index()
     {
         $prompter_logs = PrompterLogs::all();
-        return view('dashboard.reports.prompter.index', compact('prompter_logs'));
+        return response()->json( compact('prompter_logs'));
     }
 
     /**

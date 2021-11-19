@@ -34,7 +34,7 @@ class IssueController extends ApiController
         } else
             $issues = $raised_issues;
         $users = Users::all();
-        return view('dashboard.issues.index', compact('issues', 'raised_issues', 'users'));
+        return response()->json(compact('issues', 'raised_issues', 'users'));
     }
 
     /**

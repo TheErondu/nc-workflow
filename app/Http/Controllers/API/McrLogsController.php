@@ -19,7 +19,7 @@ class McrLogsController extends ApiController
     public function index()
     {
         $mcr_logs = McrLogs::all();
-        return view('dashboard.reports.mcrlogs.index', compact('mcr_logs'));
+        return response()->json(compact('mcr_logs'));
     }
 
 

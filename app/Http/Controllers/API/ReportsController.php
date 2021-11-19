@@ -18,7 +18,7 @@ class ReportsController extends ApiController
     public function index()
     {
         $directors_report = Reports::all();
-        return view('dashboard.reports.directors.index', compact('directors_report'));
+        return response()->json(  compact('directors_report'));
     }
 
     /**

@@ -21,7 +21,7 @@ class COTController extends ApiController
         WHERE name LIKE '%$name%'
         AND date >= '$start' AND date <= '$end';");
 
-        return view('dashboard.reports.cots.index', compact('reports', 'results'))->with('no', 1);
+        return response()->json(compact('reports', 'results'));
     }
 
     // public function download () {
@@ -83,15 +83,14 @@ class COTController extends ApiController
             );
             COT::insert($insertData);
         }
-            $yesterday = date('d-M-Y',strtotime("-1 days"));
-            $email = "nbdengineers@ke.nationmedia.com";
-            $details = [
-                'title' => 'Mail from NTV Logs Exporter',
-                'body' => 'The MCR logs for yesterday : ' . $yesterday . ' has been sucessfully exported to the database'
-            ];
-            Mail::to($email)->send(new \App\Mail\SentLogs($details));
-            $request->session()->flash('message', 'Successfully added logs');
-            return redirect()->route('cots.index');
-        }
-
+        $yesterday = date('d-M-Y', strtotime("-1 days"));
+        $email = "nbdengineers@ke.nationmedia.com";
+        $details = [
+            'title' => 'Mail from NTV Logs Exporter',
+            'body' => 'The MCR logs for yesterday : ' . $yesterday . ' has been sucessfully exported to the database'
+        ];
+        Mail::to($email)->send(new \App\Mail\SentLogs($details));
+        $request->session()->flash('message', 'Successfully added logs');
+        return redirect()->route('cots.index');
+    }
 }

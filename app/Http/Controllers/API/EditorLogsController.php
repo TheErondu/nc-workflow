@@ -19,7 +19,7 @@ class EditorLogsController extends ApiController
     public function index()
     {
         $editors_logs = EditorLogs::all();
-        return view('dashboard.reports.editors.index', compact('editors_logs'));
+        return response()->json( compact('editors_logs'));
     }
 
     /**

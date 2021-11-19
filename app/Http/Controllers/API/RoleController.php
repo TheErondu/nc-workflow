@@ -33,8 +33,7 @@ class RoleController extends ApiController
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(10);
-        return view('dashboard.roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return response()->json(compact('roles'));
     }
 
     /**
@@ -80,7 +79,7 @@ class RoleController extends ApiController
             ->where("role_has_permissions.role_id",$id)
             ->get();
 
-        return view('dashboard.roles.show',compact('role','rolePermissions'));
+            return response()->json(compact('role','rolePermissions'));
     }
 
     /**

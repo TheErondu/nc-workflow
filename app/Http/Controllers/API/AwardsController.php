@@ -19,7 +19,7 @@ class AwardsController extends ApiController
         $awards = Awards::all()->where('type','award');
         $shows = Awards::all()->where('type','show');
         $teams = Awards::all()->where('type','team');
-        return view('dashboard.awards.index', compact('awards','shows','teams'));
+        return response()->json(  compact('awards','shows','teams'));
     }
 
     /**
@@ -30,17 +30,17 @@ class AwardsController extends ApiController
     public function createShow()
     {
         $awards = Awards::all();
-        return view('dashboard.awards.create.show',[ 'awards' => $awards ]);
+        return response()->json( [ 'awards' => $awards ]);
     }
     public function createAward()
     {
         $awards = Awards::all();
-        return view('dashboard.awards.create.award',[ 'awards' => $awards ]);
+        return response()->json( [ 'awards' => $awards ]);
     }
     public function createTeam()
     {
         $awards = Awards::all();
-        return view('dashboard.awards.create.team',[ 'awards' => $awards ]);
+        return response()->json( [ 'awards' => $awards ]);
     }
 
     /**

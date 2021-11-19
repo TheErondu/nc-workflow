@@ -21,7 +21,7 @@ class TripLoggerController extends ApiController
         $drivers = User::all()->where('department_id',11);
         $vehicles = Vehicle::all();
         $triploggers = Triplogger::all();
-        return view('dashboard.logistics.triplogger.index',compact('vehicles','triploggers', 'drivers'));
+        return response()->json(compact('vehicles','triploggers', 'drivers'));
     }
 
     /**

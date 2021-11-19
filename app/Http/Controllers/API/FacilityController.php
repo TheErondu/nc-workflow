@@ -16,7 +16,7 @@ class FacilityController extends ApiController
     public function index()
     {
         $facilities = Facility::all();
-        return view('dashboard.facility.index', compact('facilities'));
+        return response()->json(compact('facilities'));
     }
 
     /**

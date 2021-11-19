@@ -28,7 +28,7 @@ class MessageController extends ApiController
     {
         $welcome_message = Message::all()->where('type','message')->sortByDesc('id', 0)->first();
         $notifications = Message::all()->where('type','notification');
-        return view('dashboard.messages.index',compact('welcome_message','notifications'));
+        return response()->json(compact('welcome_message','notifications'));
     }
 
     /**

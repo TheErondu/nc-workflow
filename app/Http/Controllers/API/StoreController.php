@@ -23,7 +23,7 @@ class StoreController extends ApiController
         $store_items = Store::all();
         $store_requests = StoreRequest::all()->where('status','pending');
         $approved_items =StoreRequest::all()->where('status','Approved');
-        return view('dashboard.store.index', compact('store_items','store_requests','approved_items'));
+        return response()->json( compact('store_items','store_requests','approved_items'));
     }
 
      /**
@@ -39,7 +39,7 @@ class StoreController extends ApiController
         $all_requested = StoreRequest::all()->where('status', "!=",'pending');
         $requested_items = StoreRequest::all()->where('status', 'pending')->where('user_id',$user->id);
         $store_requests = StoreRequest::all();
-        return view('dashboard.store.requests.index', compact('available_items','store_requests','requested_items','all_requested'));
+        return response()->json(compact('available_items','store_requests','requested_items','all_requested'));
     }
 
     /**

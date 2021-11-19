@@ -25,7 +25,7 @@ class TrackerController extends ApiController
         $vehicles = Vehicle::all();
 
         $last_odometer_reading = DB::table('trackers')->orderBy('id', 'DESC')->first('odometer_reading');
-        return view('dashboard.logistics.tracker.index', compact('vehicles','last_odometer_reading'));
+        return response()->json(compact('vehicles','last_odometer_reading'));
     }
 
     /**
@@ -135,7 +135,7 @@ class TrackerController extends ApiController
         $cost_per_litre = Tracker::where('vehicle_id',$vehicle->id)->pluck('cost_per_litre');
         $mileage =  Tracker::where('vehicle_id',$vehicle->id)->pluck('mileage');
 
-        return view('dashboard.logistics.tracker.track',compact('vehicle','vehicles','tracker','mileage_trackers','dates','mileage','cost_per_km','cost_per_litre'));
+        return response()->json(compact('vehicle','vehicles','tracker','mileage_trackers','dates','mileage','cost_per_km','cost_per_litre'));
     }
 
      /**

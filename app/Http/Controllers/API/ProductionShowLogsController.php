@@ -18,7 +18,7 @@ class ProductionShowLogsController extends ApiController
     public function index()
     {
         $production_logs = ProductionShowLogs::all();
-        return view('dashboard.reports.production_logs.index', compact('production_logs'));
+        return response()->json(compact('production_logs'));
     }
 
 

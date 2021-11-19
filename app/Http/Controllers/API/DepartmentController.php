@@ -18,7 +18,7 @@ class DepartmentController extends ApiController
     public function index()
     {   $departments = Department::all();
         $users = Users::all();
-        return view('dashboard.departments.index', compact('departments','users'));
+        return response()->json( compact('departments','users'));
     }
 
     /**

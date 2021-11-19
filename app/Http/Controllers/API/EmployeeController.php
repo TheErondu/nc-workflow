@@ -21,7 +21,7 @@ class EmployeeController extends ApiController
     public function index()
     {
         $employees = User::all();
-        return view('dashboard.employees.index',compact('employees'));
+        return response()->json(compact('employees'));
     }
 
     /**
