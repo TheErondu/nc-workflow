@@ -73,7 +73,9 @@
                                     <select class="form-control select2" name="director" id="director" data-placeholder=" select director">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
+                                            @if ($user->department_id === 13)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -82,7 +84,9 @@
                                     <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select anchor">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
+                                            @if ($user->department_id === 15)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,7 +99,9 @@
                                     <select class="form-control select2" name="graphics" id="graphics" data-placeholder=" select graphics">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
+                                            @if ($user->department_id === 17)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -104,7 +110,9 @@
                                     <select class="form-control select2" name="producer" id="producer" data-placeholder=" select producer">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
+                                            @if ($user->department_id === 7)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -124,7 +132,9 @@
                                     <select class="form-control select2" name="engineer" id="engineer" data-placeholder=" select engineer ">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
+                                            @if ($user->department_id === 11)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

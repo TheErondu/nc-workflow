@@ -8,6 +8,7 @@ use App\Models\Vehicle;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class VehicleController extends Controller
@@ -19,7 +20,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $drivers = User::all()->where('department_id', 11);
+        $drivers = DB::select('SELECT * FROM `users` WHERE department_id = 21');
         $vehicles = Vehicle::all();
         return view('dashboard.logistics.vehicles.index', compact('vehicles', 'drivers'));
     }
@@ -31,7 +32,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        $drivers = User::all()->where('department_id', 11);
+        $drivers = User::all()->where('department_id', 21);
         return view('dashboard.logistics.vehicles.create', compact('drivers'));
     }
 

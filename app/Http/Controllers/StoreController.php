@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class StoreController extends Controller
@@ -36,7 +37,7 @@ class StoreController extends Controller
         $user_department = FacadesAuth::user()->department->name;
         $user = auth()->user();
         $available_items = Store::all()->where('assigned_department', $user_department);
-        $all_requested = StoreRequest::all()->where('status', "!=",'pending');
+        $all_requested = DB::select("SELECT * FROM `store_requests` WHERE status != 'Pending' AND user_id = $user->id");
         $requested_items = StoreRequest::all()->where('status', 'pending')->where('user_id',$user->id);
         $store_requests = StoreRequest::all();
         return view('dashboard.store.requests.index', compact('available_items','store_requests','requested_items','all_requested'));
