@@ -26,7 +26,7 @@ Auth::Routes();
 Route::get('dumplogs', 'App\Http\Controllers\COTController@DumpLogs');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('default');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // Route::get('/', function () {
     //     return view('home');
     // });

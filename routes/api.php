@@ -29,12 +29,12 @@ Route::get('sales-production', [App\Http\Controllers\API\SalesScheduleController
 Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
     // Route::get('/', function () {
     //     return view('home');
     // });
         Route::resource('messages', 'App\Http\Controllers\API\MessageController');
-        Route::get('messages/{id}/download', 'App\Http\Controllers\API\MessageController@download')->name('file.download');
+        Route::get('messages/{id}/download', 'App\Http\Controllers\API\MessageController@download');
         Route::resource('content', 'App\Http\Controllers\API\ContentController');
         Route::resource('documents', 'App\Http\Controllers\API\DocumentController');
         Route::resource('dutylog', 'App\Http\Controllers\API\DutyloggerController');
@@ -50,9 +50,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('awardee/new', 'App\Http\Controllers\API\AwardsController@CreateAward');
         Route::get('team-of-month/new', 'App\Http\Controllers\API\AwardsController@CreateTeam');
         Route::resource('vehicles', 'App\Http\Controllers\API\VehicleController');
-        Route::get('vehicles/delete/{id}', [App\Http\Controllers\API\VehicleController::class, 'delete'])->name('delete');
+        Route::get('vehicles/delete/{id}', [App\Http\Controllers\API\VehicleController::class, 'delete']);
         Route::resource('tracker', 'App\Http\Controllers\API\TrackerController');
-        Route::get('mileage/track/{id}', [App\Http\Controllers\API\TrackerController::class, 'track'])->name('tracker.track');
+        Route::get('mileage/track/{id}', [App\Http\Controllers\API\TrackerController::class, 'track']);
         Route::resource('triplogger', 'App\Http\Controllers\API\TripLoggerController');
         Route::resource('departments', 'App\Http\Controllers\API\DepartmentController');
 
@@ -65,14 +65,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::resource('logs/transmission', 'App\Http\Controllers\API\TransmissionReportController');
         Route::resource('logs/cot', 'App\Http\Controllers\API\COTController');
 
-        Route::get('store-requests', 'App\Http\Controllers\API\StoreController@RequestIndex')->name('store-requests.index');
-        Route::get('store-requests/create/{id}', 'App\Http\Controllers\API\StoreController@createRequest')->name('store-requests.create');
-        Route::get('store-requests', 'App\Http\Controllers\API\StoreController@RequestIndex')->name('store-requests.index');
-        Route::post('store-requests/{id}', 'App\Http\Controllers\API\StoreController@storeRequest')->name('store-requests.store');
-        Route::get('store-requests/{id}', 'App\Http\Controllers\API\StoreController@editRequest')->name('store-requests.edit');
-        Route::put('store-requests/approve/{id}', 'App\Http\Controllers\API\StoreController@Approve')->name('store-requests.approve');
-        Route::put('store-requests/reject/{id}', 'App\Http\Controllers\API\StoreController@Reject')->name('store-requests.reject');
-        Route::put('store-requests/return/{id}', 'App\Http\Controllers\API\StoreController@Return')->name('store-requests.return');
+        Route::get('store-requests', 'App\Http\Controllers\API\StoreController@RequestIndex');
+        Route::get('store-requests/create/{id}', 'App\Http\Controllers\API\StoreController@createRequest');
+        Route::get('store-requests', 'App\Http\Controllers\API\StoreController@RequestIndex');
+        Route::post('store-requests/{id}', 'App\Http\Controllers\API\StoreController@storeRequest');
+        Route::get('store-requests/{id}', 'App\Http\Controllers\API\StoreController@editRequest');
+        Route::put('store-requests/approve/{id}', 'App\Http\Controllers\API\StoreController@Approve');
+        Route::put('store-requests/reject/{id}', 'App\Http\Controllers\API\StoreController@Reject');
+        Route::put('store-requests/return/{id}', 'App\Http\Controllers\API\StoreController@Return');
         Route::resource('employees', 'App\Http\Controllers\API\EmployeeController');
         Route::resource('issues', 'App\Http\Controllers\API\IssueController');
         Route::get('animation', 'App\Http\Controllers\API\LottieController@index');
@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::resource('facility_type', App\Http\Controllers\API\FacilityTypeController::class);
         Route::resource('booking', App\Http\Controllers\API\BookingController::class);
         Route::resource('employees', App\Http\Controllers\API\EmployeeController::class);
-        Route::put('employees/password/reset/{id}', [App\Http\Controllers\API\EmployeeController::class, 'resetpass'])->name('employees.reset');
+        Route::put('employees/password/reset/{id}', [App\Http\Controllers\API\EmployeeController::class, 'resetpass']);
         Route::resource('analytics', App\Http\Controllers\API\AnalysisController::class);
 
 
