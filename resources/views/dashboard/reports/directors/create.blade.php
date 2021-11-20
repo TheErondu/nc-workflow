@@ -135,7 +135,7 @@
                                     <select class="form-control select2" name="tx" id="tx" data-placeholder=" select TX">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            @if ($user->department_id === 6)
+                                            @if ($user->department_id === 10)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
                                             @endif
                                         @endforeach
