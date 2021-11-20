@@ -57,16 +57,16 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="first_interval">1PM Stories</label>
                                     <textarea name="first_interval" type="text" class="form-control" id="first_interval"
-                                    value="" required placeholder="">{{ old('first_interval') }}</textarea>                                </div>
+                                    value=""  placeholder="">{{ old('first_interval') }}</textarea>                                </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="second_interval">7PM Stories</label>
                                     <textarea name="second_interval" type="text" class="form-control" id="second_interval"
-                                    value="" required placeholder="">{{ old('second_interval') }}</textarea>
+                                    value=""  placeholder="">{{ old('second_interval') }}</textarea>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="third_interval">9PM Stories</label>
                                     <textarea name="third_interval" type="text" class="form-control" id="third_interval"
-                                    value="" required placeholder="">{{ old('third_interval') }}</textarea>
+                                    value=""  placeholder="">{{ old('third_interval') }}</textarea>
                                 </div>
                             </div>
 
@@ -74,7 +74,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="closed_at">Closed Suite At</label>
                                     <input name="closed_at" type="text" class="form-control" id="closed_at"
-                                    value="{{old('closed_at')}}" required placeholder="">
+                                    value="{{old('closed_at')}}"  placeholder="">
                                 </div>
                             </div>
 

@@ -65,17 +65,17 @@
                                     <label for="timing">timings</label>
                                     <input name="timing" type="text" class="form-control" id="timing"
                                     value="{{ old('programmes') }}"
-                                      required placeholder="">
+                                       placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="programmes">Programmes</label>
                                     <input name="programmes" type="text" class="form-control" id="programmes"
-                                        value="{{ old('programmes') }}" required placeholder="">
+                                        value="{{ old('programmes') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="traffic">Traffic</label>
                                     <input name="traffic" type="text" class="form-control" id="traffic"
-                                        value="{{ old('traffic') }}" required placeholder="">
+                                        value="{{ old('traffic') }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -83,12 +83,12 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="squeezbacks">Squeeze Backs</label>
                                     <input name="squeezbacks" type="text" class="form-control" id="squeezbacks"
-                                        value="{{ old('squeezbacks') }}" required placeholder="">
+                                        value="{{ old('squeezbacks') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tc">TC</label>
                                     <input name="tc" type="text" class="form-control" id="tc"
-                                        value="{{ old('tc') }}" required placeholder="">
+                                        value="{{ old('tc') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="handed_over_to">STO </label>
@@ -106,7 +106,7 @@
                                 <div class="mb-3 col-12">
                                     <label for="remarks">Remarks</label>
                                     <textarea name="remarks" type="text" class="form-control"
-                                        id="remarks" required
+                                        id="remarks"
                                         placeholder="">{{ old('remarks') }}</textarea>
                                 </div>
                             </div>

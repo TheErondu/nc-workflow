@@ -63,12 +63,12 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="producer">Producer </label>
                                     <input name="producer" type="text" class="form-control" id="producer"
-                                    value="{{$reports->producer}}" required placeholder="">
+                                    value="{{$reports->producer}}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor">Anchor </label>
                                     <input name="anchor" type="text" class="form-control" id="anchor"
-                                    value="{{$reports->anchor}}" required placeholder="">
+                                    value="{{$reports->anchor}}"  placeholder="">
                                 </div>
                             </div>
 
@@ -135,7 +135,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
                                     <input name="graphics" type="text" class="form-control" id="graphics"
-                                    value="{{$reports->graphics}}" required placeholder="">
+                                    value="{{$reports->graphics}}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tx"> TX</label>
@@ -154,7 +154,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label for="bulletin">Bulletin </label>
                                     <input name="bulletin" type="text" class="form-control" id="bulletin"
-                                        value="{{ $reports->bulletin }}" required placeholder="">
+                                        value="{{ $reports->bulletin }}"  placeholder="">
                                 </div>
 
                             </div>
@@ -162,17 +162,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="dts_in">DTS In time </label>
                                     <input name="dts_in" type="text" class="form-control" id="dts_in"
-                                        value="{{ $reports->dts_in }}" required placeholder="">
+                                        value="{{ $reports->dts_in }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="actual_in">Actual In Time</label>
                                     <input name="actual_in" type="text" class="form-control" id="actual_in"
-                                        value="{{ $reports->actual_in }}" required placeholder="">
+                                        value="{{ $reports->actual_in }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="variance1">Variance</label>
                                     <input name="variance1" type="text" class="form-control" id="variance1"
-                                        value="{{ $reports->variance1 }}" required placeholder="">
+                                        value="{{ $reports->variance1 }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -180,23 +180,23 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="dts_out">DTS Out time </label>
                                     <input name="dts_out" type="text" class="form-control" id="dts_out"
-                                        value="{{ $reports->dts_out }}" required placeholder="">
+                                        value="{{ $reports->dts_out }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="actual_out">Actual Out Time</label>
                                     <input name="actual_out" type="text" class="form-control" id="actual_out"
-                                        value="{{ $reports->actual_out }}" required placeholder="">
+                                        value="{{ $reports->actual_out }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="variance2">Variance</label>
                                     <input name="variance2" type="text" class="form-control" id="variance2"
-                                        value="{{ $reports->variance2 }}" required placeholder="">
+                                        value="{{ $reports->variance2 }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-12">
                                     <label for="comment">Comment</label>
-                                    <textarea name="comment" type="text" class="form-control" id="comment" required
+                                    <textarea name="comment" type="text" class="form-control" id="comment"
                                         placeholder="">{{ $reports->comment }}</textarea>
                                 </div>
                             </div>
@@ -205,7 +205,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label for="b2bulletin">Bulletin </label>
                                     <input name="b2bulletin" type="text" class="form-control" id="b2bulletin"
-                                        value="{{ $reports->b2bulletin }}" required placeholder="">
+                                        value="{{ $reports->b2bulletin }}"  placeholder="">
                                 </div>
 
                             </div>
@@ -213,17 +213,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="b2dts_in">DTS In time </label>
                                     <input name="b2dts_in" type="text" class="form-control" id="b2dts_in"
-                                        value="{{ $reports->b2dts_in }}" required placeholder="">
+                                        value="{{ $reports->b2dts_in }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="b2actual_in">Actual In Time</label>
                                     <input name="b2actual_in" type="text" class="form-control" id="b2actual_in"
-                                        value="{{ $reports->b2actual_in }}" required placeholder="">
+                                        value="{{ $reports->b2actual_in }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="b2variance1">Variance</label>
                                     <input name="b2variance1" type="text" class="form-control" id="b2variance1"
-                                        value="{{ $reports->b2variance1 }}" required placeholder="">
+                                        value="{{ $reports->b2variance1 }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -231,23 +231,23 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="b2dts_out">DTS Out time </label>
                                     <input name="b2dts_out" type="text" class="form-control" id="b2dts_out"
-                                        value="{{ $reports->b2dts_out }}" required placeholder="">
+                                        value="{{ $reports->b2dts_out }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="b2actual_out">Actual Out Time</label>
                                     <input name="b2actual_out" type="text" class="form-control" id="b2actual_out"
-                                        value="{{ $reports->b2actual_out }}" required placeholder="">
+                                        value="{{ $reports->b2actual_out }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="b2variance2">Variance</label>
                                     <input name="b2variance2" type="text" class="form-control" id="b2variance2"
-                                        value="{{ $reports->b2variance2 }}" required placeholder="">
+                                        value="{{ $reports->b2variance2 }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-12">
                                     <label for="b2comment">Comment</label>
-                                    <textarea name="b2comment" type="text" class="form-control" id="b2comment" required
+                                    <textarea name="b2comment" type="text" class="form-control" id="b2comment"
                                         placeholder="">{{ $reports->b2comment }}</textarea>
                                 </div>
                             </div>

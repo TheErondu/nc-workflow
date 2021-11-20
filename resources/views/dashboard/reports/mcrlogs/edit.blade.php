@@ -64,17 +64,17 @@
                                     <label for="timing">timings</label>
                                     <input name="timing" type="text" class="form-control" id="timing"
                                     value="{{ $mcr_logs->timing }}"
-                                      required placeholder="">
+                                       placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="programmes">Programmes</label>
                                     <input name="programmes" type="text" class="form-control" id="programmes"
-                                        value="{{ $mcr_logs->programmes }}" required placeholder="">
+                                        value="{{ $mcr_logs->programmes }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="traffic">Traffic</label>
                                     <input name="traffic" type="text" class="form-control" id="traffic"
-                                        value="{{ $mcr_logs->traffic }}" required placeholder="">
+                                        value="{{ $mcr_logs->traffic }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -82,12 +82,12 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="squeezbacks">Squeeze Backs</label>
                                     <input name="squeezbacks" type="text" class="form-control" id="squeezbacks"
-                                        value="{{ $mcr_logs->squeezbacks }}" required placeholder="">
+                                        value="{{ $mcr_logs->squeezbacks }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tc">TC</label>
                                     <input name="tc" type="text" class="form-control" id="tc"
-                                        value="{{ $mcr_logs->tc }}" required placeholder="">
+                                        value="{{ $mcr_logs->tc }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="handed_over_to">STO </label>
@@ -104,7 +104,7 @@
                                 <div class="mb-3 col-12">
                                     <label for="remarks">Remarks</label>
                                     <textarea name="remarks" type="text" class="form-control"
-                                        id="remarks" required
+                                        id="remarks"
                                         placeholder="">{{ $mcr_logs->remarks }}</textarea>
                                 </div>
                             </div>
