@@ -126,7 +126,6 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
-                                    <label for="graphics">Anchor</label>
                                     <input name="graphics" type="text" class="form-control" id="graphics"
                                     value="{{ old('graphics') }}" required placeholder="">
                                 </div>
