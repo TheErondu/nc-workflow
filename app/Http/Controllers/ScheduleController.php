@@ -7,6 +7,7 @@ use App\Events\RecordUpdatedEvent;
 use Illuminate\Http\Request;
 
 use App\Models\Schedule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class ScheduleController extends Controller
@@ -104,7 +105,9 @@ class ScheduleController extends Controller
         $schedule->type = $request->input('type');
         $schedule->user_id = $user->id;
         $schedule->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $schedule->user->email,
             'title' => $schedule->title,
             'status' =>  $schedule->status,
@@ -186,7 +189,9 @@ class ScheduleController extends Controller
         $schedule->description = $request->input('description');
         $schedule->type = $request->input('type');
         $schedule->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $schedule->user->email,
             'title' => $schedule->title,
             'status' =>  $schedule->status,

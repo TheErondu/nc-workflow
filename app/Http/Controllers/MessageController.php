@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use \Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
+
 class MessageController extends Controller
 {
     /**
@@ -72,7 +77,7 @@ class MessageController extends Controller
             'message'           => '',
             'type'           => 'required',
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $message = new Message();
         $message->title     = $request->input('title');
         if($request->file('file')){
@@ -83,6 +88,18 @@ class MessageController extends Controller
         $message->type = $request->input('type');
         $message->user_id = $user->id;
         $message->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
+            'title' => $message->name,
+            'status' =>  $message->type,
+            'body' =>  $message->location,
+            'model' =>  'Employees',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created message');
         return redirect()->route('messages.create');
     }

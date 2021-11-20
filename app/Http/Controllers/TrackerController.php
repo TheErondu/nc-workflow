@@ -80,7 +80,9 @@ class TrackerController extends Controller
         // $tracker->cost_per_km =$request->input('fuel_cost') / $tracker->kilometres;
         $tracker->user_id = $user->id;
         $tracker->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $tracker->user->email,
             'title' => $tracker->vehicle->name,
             'status' =>  $tracker->status,
@@ -164,7 +166,9 @@ class TrackerController extends Controller
         $tracker->fuel_cost = $request->input('fuel_cost');
         $tracker->user_id = $user->id;
         $tracker->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $tracker->user->email,
             'title' => $tracker->vehicle->name,
             'status' =>  $tracker->status,

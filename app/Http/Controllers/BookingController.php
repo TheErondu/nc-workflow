@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Country;
 use App\Models\Facility;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class BookingController extends Controller
@@ -56,10 +57,13 @@ class BookingController extends Controller
         $booking->description = $request->input('description');
         $booking->user_id = $user->id;
         $booking->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
             'title' => $booking->title,
             'status' =>  $booking->status,
-            'body' =>  $booking->deescription,
+            'body' =>  $booking->description,
             'model' =>  'Booking',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y')
@@ -134,7 +138,9 @@ class BookingController extends Controller
         $booking->description = $request->input('description');
         $booking->save();
         $request->session()->flash('message', 'Success!');
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'title' => $booking->title,
             'status' =>  $booking->status,
             'body' =>  $booking->deescription,

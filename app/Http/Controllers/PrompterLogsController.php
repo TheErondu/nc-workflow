@@ -146,14 +146,14 @@ class PrompterLogsController extends Controller
         $prompter_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $prompter_logs->user->email,
             'title' => $prompter_logs->segment,
             'status' =>  $prompter_logs->segment,
             'body' =>  $prompter_logs->challenges,
             'model' =>  'Prompter Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y'),
-            'cc_emails' => $cc_emails
+            'time' => date('d-m-Y')
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Log');

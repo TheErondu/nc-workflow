@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Events\SendMail;
 use App\Models\Users;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class DepartmentController extends Controller
@@ -49,6 +53,19 @@ class DepartmentController extends Controller
         $department->color = $request->input('color');
         $department->mail_group = $request->input('mail_group');
         $department->save();
+        $user = Auth::user();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
+            'title' => $department->name,
+            'status' =>  $department->status,
+            'body' =>  $department->mail_group,
+            'model' =>  'Departments',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully added Department');
         return redirect()->route('departments.index');
     }
@@ -95,7 +112,19 @@ class DepartmentController extends Controller
         $department->color = $request->input('color');
         $department->mail_group = $request->input('mail_group');
         $department->save();
-        Event::dispatch(new SendMail($department->hod->id));
+        $user = Auth::user();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
+            'title' => $department->name,
+            'status' =>  $department->status,
+            'body' =>  $department->mail_group,
+            'model' =>  'Departments',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Department');
         return redirect()->route('departments.index');
     }

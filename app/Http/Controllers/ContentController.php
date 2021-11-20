@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Models\Content;
 use App\Models\Country;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class ContentController extends Controller
@@ -104,10 +106,13 @@ class ContentController extends Controller
         $content->project_brief = $request->input('project_brief');
         $content->user_id = $user->id;
         $content->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'title' => $content->title,
             'start' =>  $content->start,
             'status' =>  $content->status,
+            'model' =>  'Content Calendar',
             'user' => auth()->user()->name,
             'description' =>  $content->description,
         ];
@@ -187,7 +192,9 @@ class ContentController extends Controller
         $content->project_brief = $request->input('project_brief');
         $content->user_id = $user->id;
         $content->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'title' => $content->title,
             'status' =>  $content->status,
             'body' =>  $content->deescription,
@@ -195,7 +202,7 @@ class ContentController extends Controller
             'user' => auth()->user()->name,
             'time' => date('d-m-Y')
         ];
-        Event::dispatch(new RecordCreatedEvent($details));
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully created Project!');
         return redirect()->route('content.index');
     }

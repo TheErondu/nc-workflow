@@ -59,7 +59,9 @@ class VehicleController extends Controller
         $vehicle->vehicle_colour = $request->input('vehicle_colour');
         $vehicle->assigned_driver = $request->input('assigned_driver');
         $vehicle->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => Auth::user()->email,
             'title' => $vehicle->number_plate,
             'status' =>  $vehicle->vehicle_make,
@@ -121,7 +123,9 @@ class VehicleController extends Controller
         $vehicle->vehicle_colour = $request->input('vehicle_colour');
         $vehicle->assigned_driver = $request->input('assigned_driver');
         $vehicle->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => Auth::user()->email,
             'title' => $vehicle->number_plate,
             'status' =>  $vehicle->vehicle_make,

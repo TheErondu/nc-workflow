@@ -1,15 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 
 class EmployeeController extends Controller
 {
@@ -65,6 +70,19 @@ class EmployeeController extends Controller
         $employee->role = $request->input('roles');
         $employee->assignRole($request->input('roles'));
         $employee->save();
+        $user = Auth::user();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
+            'title' => $employee->name,
+            'status' =>  $employee->email,
+            'body' =>  $employee->department,
+            'model' =>  'Employees',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully added User');
 
         return redirect()->route('employees.index');
@@ -125,6 +143,19 @@ class EmployeeController extends Controller
         $employee->department_id = $request->input('department_id');
         $employee->status = $request->input('status');
         $employee->save();
+        $user = Auth::user();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
+            'title' => $employee->name,
+            'status' =>  $employee->email,
+            'body' =>  $employee->department,
+            'model' =>  'Employees',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Updated User info');
 
         return redirect()->route('employees.index');

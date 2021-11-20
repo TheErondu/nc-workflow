@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Models\Facility;
 use App\Models\FacilityType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 
 class FacilityController extends Controller
 {
@@ -47,8 +52,21 @@ class FacilityController extends Controller
         $facility = new Facility();
         $facility->name = $request->input('name');
         $facility->type = $request->input('type');
-        $facility->type = $request->input('loaction');
+        $facility->location = $request->input('location');
         $facility->save();
+        $user = Auth::user();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
+            'title' => $facility->name,
+            'status' =>  $facility->type,
+            'body' =>  $facility->location,
+            'model' =>  'Employees',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Facility Added!');
         return redirect()->route('facility.index');
     }
@@ -96,6 +114,19 @@ class FacilityController extends Controller
         $facility->type = $request->input('type');
         $facility->location = $request->input('location');
         $facility->save();
+        $user = Auth::user();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $user->email,
+            'title' => $facility->name,
+            'status' =>  $facility->type,
+            'body' =>  $facility->location,
+            'model' =>  'Employees',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message','Succesfully Updated Facility!');
         return redirect()->route('facility.index');
     }

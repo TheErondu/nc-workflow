@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\SalesSchedule;
 use App\Models\Country;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class SalesScheduleController extends Controller
@@ -123,7 +124,9 @@ class SalesScheduleController extends Controller
         $content->resolved_date = $request->input('resolved_date');
         $content->user_id = $user->id;
         $content->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $content->user->email,
             'title' => $content->title,
             'status' =>  $content->status,
@@ -225,7 +228,9 @@ class SalesScheduleController extends Controller
         $content->resolved_date = $request->input('resolved_date');
         $content->user_id = $user->id;
         $content->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $content->user->email,
             'title' => $content->title,
             'status' =>  $content->status,

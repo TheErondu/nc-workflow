@@ -7,6 +7,7 @@ use App\Models\TripLogger;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class TripLoggerController extends Controller
@@ -67,7 +68,9 @@ class TripLoggerController extends Controller
         $triplogger->trip_distance = $request->input('trip_distance');
         $triplogger->fuel_station = $request->input('fuel_station');
         $triplogger->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $triplogger->user->email,
             'title' => $triplogger->production_name,
             'status' =>  $triplogger->status,
@@ -137,7 +140,9 @@ class TripLoggerController extends Controller
     $triplogger->trip_distance = $request->input('trip_distance');
     $triplogger->fuel_station = $request->input('fuel_station');
     $triplogger->save();
-    $details = [
+    $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $details = [
+            'cc_emails' => $cc_emails,
         'email' => $triplogger->user->email,
         'title' => $triplogger->production_name,
         'status' =>  $triplogger->status,

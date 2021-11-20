@@ -86,7 +86,9 @@ class StoreController extends Controller
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
         $store_item->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $store_item->user->email,
             'title' => $store_item->item_name,
             'status' =>  $store_item->state,
@@ -118,7 +120,9 @@ class StoreController extends Controller
         $store_requests->item = $requested_item->item_name;
         $store_requests->return_date = $request->input('return_date');
         $store_requests->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $store_requests->user->email,
             'title' => $store_requests->item_name,
             'status' =>  $store_requests->return_date,
@@ -189,7 +193,9 @@ class StoreController extends Controller
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
         $store_item->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $store_item->user->email,
             'title' => $store_item->item_name,
             'status' =>  $store_item->state,
