@@ -80,7 +80,7 @@ class OBlogsController extends Controller
             'status' =>  $oblogs->event_date,
             'body' =>  $oblogs->comment,
             'model' =>  'OB Logs',
-            'user' => auth()->user()->name,
+            'user' => $oblogs->user->name,
             'time' => date('d-m-Y')
         ];
         Event::dispatch(new RecordCreatedEvent($details));
