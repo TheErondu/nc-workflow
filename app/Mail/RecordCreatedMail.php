@@ -33,10 +33,10 @@ class RecordCreatedMail extends Mailable
     {
         $name = Auth::user()->name;
         $from = env('MAIL_FROM_ADDRESS');
-        $engineer_mails = \App\Models\User::where('department_id', '11')->pluck('email');
+        $cc = $this->details['cc_emails'];
         return $this->from($from)
         ->subject('Record Created Email')
-        ->cc($engineer_mails)
+        ->cc($cc)
         ->markdown('mail.RecordCreatedMail', compact('name'));
     }
 }
