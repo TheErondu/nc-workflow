@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 
-class RoleController extends Controller
+class RoleController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -33,8 +33,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(10);
-        return view('dashboard.roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return response()->json(compact('roles'));
     }
 
     /**
@@ -80,7 +79,7 @@ class RoleController extends Controller
             ->where("role_has_permissions.role_id",$id)
             ->get();
 
-        return view('dashboard.roles.show',compact('role','rolePermissions'));
+            return response()->json(compact('role','rolePermissions'));
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 use App\Models\User;
 use App\Models\ProductionShowLogs;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Event;
 use App\Events\RecordUpdatedEvent;
 use App\Events\RecordCreatedEvent;
 
-class ProductionShowLogsController extends Controller
+class ProductionShowLogsController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class ProductionShowLogsController extends Controller
     public function index()
     {
         $production_logs = ProductionShowLogs::all();
-        return view('dashboard.reports.production_logs.index', compact('production_logs'));
+        return response()->json(compact('production_logs'));
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
-class TrackerController extends Controller
+class TrackerController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class TrackerController extends Controller
         $vehicles = Vehicle::all();
 
         $last_odometer_reading = DB::table('trackers')->orderBy('id', 'DESC')->first('odometer_reading');
-        return view('dashboard.logistics.tracker.index', compact('vehicles','last_odometer_reading'));
+        return response()->json(compact('vehicles','last_odometer_reading'));
     }
 
     /**
@@ -135,7 +135,7 @@ class TrackerController extends Controller
         $cost_per_litre = Tracker::where('vehicle_id',$vehicle->id)->pluck('cost_per_litre');
         $mileage =  Tracker::where('vehicle_id',$vehicle->id)->pluck('mileage');
 
-        return view('dashboard.logistics.tracker.track',compact('vehicle','vehicles','tracker','mileage_trackers','dates','mileage','cost_per_km','cost_per_litre'));
+        return response()->json(compact('vehicle','vehicles','tracker','mileage_trackers','dates','mileage','cost_per_km','cost_per_litre'));
     }
 
      /**

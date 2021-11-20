@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 
 use \Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 
-class LottieController extends Controller
+class LottieController extends ApiController
 {
     public function index(Response $request)
 

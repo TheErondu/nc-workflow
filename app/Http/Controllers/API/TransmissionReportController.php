@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\TransmissionReport;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class TransmissionReportController extends Controller
+class TransmissionReportController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class TransmissionReportController extends Controller
     public function index()
     {
         $tx_reports = TransmissionReport::all();
-        return view('dashboard.reports.transmission.index', compact('tx_reports'));
+        return response()->json(compact('tx_reports'));
     }
 
     /**
@@ -61,16 +61,16 @@ class TransmissionReportController extends Controller
         return redirect()->route('transmission.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Reports  $reports
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reports $reports)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\Reports  $reports
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(Reports $reports)
+    // {
+    //     //
+    // }
 
      /**
      * Show the form for editing the specified resource.

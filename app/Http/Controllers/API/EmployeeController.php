@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\User;
@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 
-class EmployeeController extends Controller
+class EmployeeController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = User::all();
-        return view('dashboard.employees.index',compact('employees'));
+        return response()->json(compact('employees'));
     }
 
     /**

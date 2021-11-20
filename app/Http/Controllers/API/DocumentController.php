@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
 
-class DocumentController extends Controller
+class DocumentController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class DocumentController extends Controller
      */
     public function index()
     {   $documents = Document::all();
-        return view('dashboard.documents.index',compact('documents'));
+        return response()->json(compact('documents'));
     }
 
     /**

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use \Illuminate\Http\Response;
-class MessageController extends Controller
+class MessageController extends ApiController
 {
     /**
      * Create a new controller instance.
@@ -28,7 +28,7 @@ class MessageController extends Controller
     {
         $welcome_message = Message::all()->where('type','message')->sortByDesc('id', 0)->first();
         $notifications = Message::all()->where('type','notification');
-        return view('dashboard.messages.index',compact('welcome_message','notifications'));
+        return response()->json(compact('welcome_message','notifications'));
     }
 
     /**

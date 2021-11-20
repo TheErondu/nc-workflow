@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Issue;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
 use Spatie\Permission\Traits\HasRoles;
 
-class IssueController extends Controller
+class IssueController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class IssueController extends Controller
         } else
             $issues = $raised_issues;
         $users = Users::all();
-        return view('dashboard.issues.index', compact('issues', 'raised_issues', 'users'));
+        return response()->json(compact('issues', 'raised_issues', 'users'));
     }
 
     /**

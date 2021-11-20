@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Analysis;
 use App\Models\Department;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class AnalysisController extends Controller
+class AnalysisController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -49,8 +49,7 @@ class AnalysisController extends Controller
             $most_borrowers = collect($most_borrower_query)->pluck('users');
 
         $all_departments = Department::all();
-        return view('dashboard.analytics.main',
-        compact('departments','all_departments',
+        return response()->json(  compact('departments','all_departments',
         'active_engineers_stats','active_engineers',
         'inactive_engineers_stats','inactive_engineers',
         'most_borrowers_stats','most_borrowers'));

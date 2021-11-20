@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Events\SendMail;
 use App\Models\Users;
 use Illuminate\Support\Facades\Event;
 
-class DepartmentController extends Controller
+class DepartmentController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class DepartmentController extends Controller
     public function index()
     {   $departments = Department::all();
         $users = Users::all();
-        return view('dashboard.departments.index', compact('departments','users'));
+        return response()->json( compact('departments','users'));
     }
 
     /**

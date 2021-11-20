@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 use App\Models\User;
 use App\Models\McrLogs;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ Use App\Events\RecordUpdatedEvent;
 use Illuminate\Support\Facades\Event;
 
 
-class McrLogsController extends Controller
+class McrLogsController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class McrLogsController extends Controller
     public function index()
     {
         $mcr_logs = McrLogs::all();
-        return view('dashboard.reports.mcrlogs.index', compact('mcr_logs'));
+        return response()->json(compact('mcr_logs'));
     }
 
 

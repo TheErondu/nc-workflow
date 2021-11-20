@@ -28,7 +28,10 @@ Route::get('content', [App\Http\Controllers\API\ContentController::class, 'index
 Route::get('sales-production', [App\Http\Controllers\API\SalesScheduleController::class, 'index']);
 Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum'],[]], function () {
+
+
+    Route::name('api.')->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
     // Route::get('/', function () {
     //     return view('home');
@@ -62,9 +65,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::apiResource('cots', App\Http\Controllers\API\COTController::class);
         Route::apiResource('facility_type', App\Http\Controllers\API\FacilityTypeController::class);
         Route::apiResource('booking', App\Http\Controllers\API\BookingController::class);
+        Route::get('store-requests', 'App\Http\Controllers\API\StoreController@RequestIndex')->name('store-requests.index');
+        Route::get('store-requests/create/{id}', 'App\Http\Controllers\API\StoreController@createRequest')->name('store-requests.create');
+        Route::get('store-requests', 'App\Http\Controllers\API\StoreController@RequestIndex')->name('store-requests.index');
+        Route::post('store-requests/{id}', 'App\Http\Controllers\API\StoreController@storeRequest')->name('store-requests.store');
+        Route::get('store-requests/{id}', 'App\Http\Controllers\API\StoreController@editRequest')->name('store-requests.edit');
+        Route::put('store-requests/approve/{id}', 'App\Http\Controllers\API\StoreController@Approve')->name('store-requests.approve');
+        Route::put('store-requests/reject/{id}', 'App\Http\Controllers\API\StoreController@Reject')->name('store-requests.reject');
+        Route::put('store-requests/return/{id}', 'App\Http\Controllers\API\StoreController@Return')->name('store-requests.return');
         Route::apiResource('employees', App\Http\Controllers\API\EmployeeController::class);
         Route::apiResource('analytics', App\Http\Controllers\API\AnalysisController::class);
-
+    });
 
 });
 

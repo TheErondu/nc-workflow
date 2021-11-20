@@ -10,7 +10,7 @@ use Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
     public function register(Request $request)
     {

@@ -12,14 +12,4 @@ class OBlogs extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
-
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-Y');
-    }
-
-    public function getUpdatedAtAttribute($date)
-    {
-        return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-Y');
-    }
 }

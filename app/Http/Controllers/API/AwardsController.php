@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Awards;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class AwardsController extends Controller
+class AwardsController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class AwardsController extends Controller
         $awards = Awards::all()->where('type','award');
         $shows = Awards::all()->where('type','show');
         $teams = Awards::all()->where('type','team');
-        return view('dashboard.awards.index', compact('awards','shows','teams'));
+        return response()->json(  compact('awards','shows','teams'));
     }
 
     /**
@@ -30,17 +30,17 @@ class AwardsController extends Controller
     public function createShow()
     {
         $awards = Awards::all();
-        return view('dashboard.awards.create.show',[ 'awards' => $awards ]);
+        return response()->json( [ 'awards' => $awards ]);
     }
     public function createAward()
     {
         $awards = Awards::all();
-        return view('dashboard.awards.create.award',[ 'awards' => $awards ]);
+        return response()->json( [ 'awards' => $awards ]);
     }
     public function createTeam()
     {
         $awards = Awards::all();
-        return view('dashboard.awards.create.team',[ 'awards' => $awards ]);
+        return response()->json( [ 'awards' => $awards ]);
     }
 
     /**

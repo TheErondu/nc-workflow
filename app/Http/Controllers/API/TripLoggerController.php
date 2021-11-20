@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Events\RecordCreatedEvent;
 use App\Models\TripLogger;
@@ -9,7 +9,7 @@ use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 
-class TripLoggerController extends Controller
+class TripLoggerController extends ApiController
 {
    /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class TripLoggerController extends Controller
         $drivers = User::all()->where('department_id',11);
         $vehicles = Vehicle::all();
         $triploggers = Triplogger::all();
-        return view('dashboard.logistics.triplogger.index',compact('vehicles','triploggers', 'drivers'));
+        return response()->json(compact('vehicles','triploggers', 'drivers'));
     }
 
     /**
