@@ -43,6 +43,7 @@ class ReportsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+
             'bulletin'             => 'required',
             'dts_in'             => 'required',
             'actual_in'           => 'required',
@@ -50,15 +51,16 @@ class ReportsController extends Controller
             'dts_out'           => 'required',
             'actual_out'           => 'required',
             'variance2'         => 'required',
-            'comment'         => 'required',
-            'b2bulletin'             => 'required',
-            'b2dts_in'             => 'required',
-            'b2actual_in'           => 'required',
-            'b2variance1'           => 'required',
-            'b2dts_out'           => 'required',
-            'b2actual_out'           => 'required',
-            'b2variance2'         => 'required',
-            'b2comment'         => 'required',
+            'comment'         => 'required'
+
+            // 'b2bulletin'             => 'required',
+            // 'b2dts_in'             => 'required',
+            // 'b2actual_in'           => 'required',
+            // 'b2variance1'           => 'required',
+            // 'b2dts_out'           => 'required',
+            // 'b2actual_out'           => 'required',
+            // 'b2variance2'         => 'required',
+            // 'b2comment'         => 'required',
         ]);
 
         $user = auth()->user();
@@ -87,10 +89,10 @@ class ReportsController extends Controller
             'title' => $reports->bulletin,
             'status' =>  $reports->dts_in,
             'body' =>  $reports->comment,
-            'model' =>  'Prompter Logs',
+            'model' =>  'Director Reports',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y'),
-            'cc_email' => $cc_emails
+            'cc_emails' => $cc_emails
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Report');
@@ -173,10 +175,10 @@ class ReportsController extends Controller
             'title' => $reports->bulletin,
             'status' =>  $reports->dts_in,
             'body' =>  $reports->comment,
-            'model' =>  'Prompter Logs',
+            'model' =>  'Directors Report',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y'),
-            'cc_email' => $cc_emails
+            'cc_emails' => $cc_emails
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Report');
