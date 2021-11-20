@@ -43,7 +43,7 @@
                             <div class="tab">
                                 <ul class="nav nav-tabs justify-content-between" id="myTabs" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab"
-                                            role="tab"><span>NC Store</span></a></li>
+                                            role="tab"><span>Store Items</span></a></li>
                                     <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab"
                                             role="tab"><span>All requested Items</span></a></li>
                                     <li class="nav-item"><a class="nav-link" href="#tab-3" data-bs-toggle="tab"

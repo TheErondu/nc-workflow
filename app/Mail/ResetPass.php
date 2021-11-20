@@ -32,7 +32,6 @@ class ResetPass extends Mailable
     {
         $engineer_mails = \App\Models\User::where('department_id', '11')->pluck('email');
         return $this->subject('Your Password has been reset!')
-                    ->cc($engineer_mails)
                     ->markdown('mail.resetpass');
     }
 }
