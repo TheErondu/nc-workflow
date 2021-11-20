@@ -66,6 +66,16 @@ class ReportsController extends Controller
 
         $user = auth()->user();
         $reports = new Reports();
+        $reports->producer = $request->input('producer');
+        $reports->director = $request->input('director');
+        $reports->anchor = $request->input('anchor');
+        $reports->vision_mixer = $request->input('vision_mixer');
+        $reports->engineer = $request->input('engineer');
+        $reports->sound_technician = $request->input('sound_technician');
+        $reports->camera_operator = $request->input('camera_operator');
+        $reports->autocue = $request->input('autocue');
+        $reports->graphics = $request->input('graphics');
+        $reports->tx = $request->input('tx');
         $reports->bulletin = $request->input('bulletin');
         $reports->dts_in = $request->input('dts_in');
         $reports->actual_in = $request->input('actual_in');

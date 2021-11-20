@@ -48,6 +48,11 @@
 
                             <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-6">
+                                    <label for="show_name">Production Name</label>
+                                    <input name="show_name" type="text" class="form-control" id="show_name"
+                                    value="{{ old('show_name') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label for="date">Date </label>
                                     <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
                                         <input name="date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum" />

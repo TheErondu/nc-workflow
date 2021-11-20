@@ -63,6 +63,7 @@ class ProductionShowLogsController extends Controller
 
         $user = auth()->user();
         $production_logs = new ProductionShowLogs();
+        $production_logs->show_name = $request->input('show_name');
         $production_logs->date = $request->input('date');
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');
@@ -150,6 +151,7 @@ class ProductionShowLogsController extends Controller
         ]);
         $user = auth()->user();
         $production_logs = ProductionShowLogs::find($id);
+        $production_logs->show_name = $request->input('show_name');
         $production_logs->date = $request->input('date');
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');

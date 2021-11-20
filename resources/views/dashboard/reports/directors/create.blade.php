@@ -47,26 +47,14 @@
                             @csrf
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
-                                    <label for="producer1">Producer </label>
-                                    <select class="form-control select2" name="producer" id="producer" data-placeholder=" select Producer">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 7)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <label for="producer">Producer </label>
+                                    <input name="producer" type="text" class="form-control" id="producer"
+                                    value="{{ old('producer') }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor">Anchor</label>
-                                    <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select Anchor">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 7)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="anchor" type="text" class="form-control" id="anchor"
+                                    value="{{ old('anchor') }}" required placeholder="">
                                 </div>
                             </div>
 
@@ -138,14 +126,9 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
-                                    <select class="form-control select2" name="graphics" id="graphics" data-placeholder=" select graphics ">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 4)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <label for="graphics">Anchor</label>
+                                    <input name="graphics" type="text" class="form-control" id="graphics"
+                                    value="{{ old('graphics') }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tx">TX </label>

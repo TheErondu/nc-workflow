@@ -62,21 +62,13 @@
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="producer">Producer </label>
-                                    <select class="form-control select2" name="producer" id="producer" data-placeholder=" select Producer">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                        <option value="{{ $user->name }}" @if($reports->producer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="producer" type="text" class="form-control" id="producer"
+                                    value="{{$reports->producer}}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="producer2">Anchor </label>
-                                    <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select Anchor">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                        <option value="{{ $user->name }}" @if($reports->anchor === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="anchor">Anchor </label>
+                                    <input name="anchor" type="text" class="form-control" id="anchor"
+                                    value="{{$reports->anchor}}" required placeholder="">
                                 </div>
                             </div>
 
@@ -142,12 +134,8 @@
                             <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
-                                    <select class="form-control select2" name="graphics" id="graphics" data-placeholder=" select graphics ">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                        <option value="{{ $user->name }}" @if($reports->graphics === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="graphics" type="text" class="form-control" id="graphics"
+                                    value="{{$reports->graphics}}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tx"> TX</label>
