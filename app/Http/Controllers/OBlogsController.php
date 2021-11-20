@@ -76,7 +76,6 @@ class OBlogsController extends Controller
         $oblogs->comment = $request->input('comment');
         $oblogs->user_id = $user->id;
         $oblogs->save();
-
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $oblogs->user->email,
@@ -84,8 +83,9 @@ class OBlogsController extends Controller
             'status' =>  $oblogs->event_date,
             'body' =>  $oblogs->comment,
             'model' =>  'OB Logs',
-            'user' => $oblogs->user->name,
-            'time' => date('d-m-Y')
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y'),
+            'cc_emails' =>  $cc_emails
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Log added Successfully!');
