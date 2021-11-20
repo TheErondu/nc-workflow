@@ -57,7 +57,6 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="department_id">Department</label>
                                     <select class="form-control select2" name="department_id" id="department_id">
-                                    <option value="not Assigned">Select Department </option>
                                         @foreach($departments as $department)
                                             <option value="{{ $department->id }}">{{ $department->name }}</option>
                                         @endforeach
