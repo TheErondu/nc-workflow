@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\DB;
 
 class OBlogsController extends Controller
 {
@@ -19,6 +20,7 @@ class OBlogsController extends Controller
     public function index()
 
     {   $oblogs = OBlogs::all();
+
         return view('dashboard.reports.oblogs.index', compact('oblogs'));
     }
 
@@ -74,6 +76,8 @@ class OBlogsController extends Controller
         $oblogs->comment = $request->input('comment');
         $oblogs->user_id = $user->id;
         $oblogs->save();
+
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $oblogs->user->email,
             'title' => $oblogs->event_name,
@@ -153,6 +157,7 @@ class OBlogsController extends Controller
         $oblogs->comment = $request->input('comment');
         $oblogs->user_id = $user->id;
         $oblogs->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $oblogs->user->email,
             'title' => $oblogs->event_name,
@@ -160,7 +165,8 @@ class OBlogsController extends Controller
             'body' =>  $oblogs->comment,
             'model' =>  'OB Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' =>  $cc_emails
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Log added Successfully!');

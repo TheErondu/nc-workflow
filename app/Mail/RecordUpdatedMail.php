@@ -32,10 +32,10 @@ class RecordUpdatedMail extends Mailable
     {
         $from = env('MAIL_FROM_ADDRESS');
         $model = $this->details['model'];
-        $engineer_mails = \App\Models\User::where('department_id', '11')->pluck('email');
+        $cc = $this->details['cc_emails'];
         return $this->from($from)
         ->subject('An entry from '.$model.' has been modified!')
-        ->cc($engineer_mails)
+        ->cc($cc)
         ->markdown('mail.RecordUpdatedMail');
     }
 }

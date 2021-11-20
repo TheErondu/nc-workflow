@@ -43,7 +43,8 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('editors.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('editors.update', $editors_logs->id) }}">
+                            @method('PUT')
                             @csrf
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-3">

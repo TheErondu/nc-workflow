@@ -6,6 +6,7 @@ use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Models\Reports;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class ReportsController extends Controller
@@ -80,6 +81,7 @@ class ReportsController extends Controller
         $reports->b2comment = $request->input('b2comment');
         $reports->user_id = $user->id;
         $reports->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $reports->user->email,
             'title' => $reports->bulletin,
@@ -87,7 +89,8 @@ class ReportsController extends Controller
             'body' =>  $reports->comment,
             'model' =>  'Prompter Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_email' => $cc_emails
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Report');
@@ -164,14 +167,16 @@ class ReportsController extends Controller
         $reports->b2comment = $request->input('b2comment');
         $reports->user_id = $user->id;
         $reports->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $reports->user->email,
             'title' => $reports->bulletin,
             'status' =>  $reports->dts_in,
             'body' =>  $reports->comment,
-            'model' =>  'Director Reports',
+            'model' =>  'Prompter Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_email' => $cc_emails
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Report');

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\DB;
 
 class EditorLogsController extends Controller
 {
@@ -57,13 +58,16 @@ class EditorLogsController extends Controller
         $editors_logs->closed_at = $request->input('closed_at');
         $editors_logs->user_id = $user->id;
         $editors_logs->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 3');
         $details = [
+            'email' => $editors_logs->user->email,
             'title' => $editors_logs->title,
             'status' =>  $editors_logs->status,
             'body' =>  $editors_logs->deescription,
             'model' =>  'Editor Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Report');
@@ -116,17 +120,21 @@ class EditorLogsController extends Controller
         $editors_logs->closed_at = $request->input('closed_at');
         $editors_logs->user_id = $user->id;
         $editors_logs->save();
-        $request->session()->flash('message', 'Successfully Edited Log');
-        return redirect()->route('editors.index');
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 3');
         $details = [
-            'title' => $editors_logs->title,
-            'status' =>  $editors_logs->status,
+            'email' => $editors_logs->user->email,
+            'title' => $editors_logs->first_interval,
+            'status' =>  $editors_logs->closed_at,
             'body' =>  $editors_logs->deescription,
             'model' =>  'Editor Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
         ];
-        Event::dispatch(new RecordCreatedEvent($details));
+        Event::dispatch(new RecordUpdatedEvent($details));
+        $request->session()->flash('message', 'Successfully Edited Log');
+        return redirect()->route('editors.index');
+
     }
 
    /**

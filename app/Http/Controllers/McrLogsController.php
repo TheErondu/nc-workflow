@@ -6,6 +6,7 @@ use App\Models\McrLogs;
 use Illuminate\Http\Request;
 use App\Events\RecordCreatedEvent;
 Use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 
@@ -66,17 +67,21 @@ class McrLogsController extends Controller
         $mcr_logs->handed_over_to = $request->input('handed_over_to');
         $mcr_logs->user_id = $user->id;
         $mcr_logs->save();
-        $request->session()->flash('message', 'Successfully created Report');
-        return redirect()->route('mcr.index');
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 3');
         $details = [
+            'email' => $user->email,
             'title' => $mcr_logs->remarks,
             'status' =>  $mcr_logs->handed_over_to,
             'body' =>  $mcr_logs->deescription,
             'model' =>  'MCR Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
+
         ];
         Event::dispatch(new RecordCreatedEvent($details));
+        $request->session()->flash('message', 'Successfully created Report');
+        return redirect()->route('mcr.index');
     }
 
     /**
@@ -135,14 +140,17 @@ class McrLogsController extends Controller
         $mcr_logs->user_id = $user->id;
 
         $mcr_logs->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 3');
         $details = [
-            'email' => $mcr_logs->user->email,
+            'email' => $user->email,
             'title' => $mcr_logs->remarks,
             'status' =>  $mcr_logs->handed_over_to,
-            'body' =>  $mcr_logs->description,
+            'body' =>  $mcr_logs->deescription,
             'model' =>  'MCR Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
+
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Log');

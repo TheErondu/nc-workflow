@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordUpdatedEvent;
 use App\Events\RecordCreatedEvent;
+use Illuminate\Support\Facades\DB;
 
 class ProductionShowLogsController extends Controller
 {
@@ -79,6 +80,8 @@ class ProductionShowLogsController extends Controller
         $production_logs->transmission_time = $request->input('transmission_time');
         $production_logs->user_id = $user->id;
         $production_logs->save();
+
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $production_logs->user->email,
             'title' => $production_logs->date,
@@ -86,7 +89,8 @@ class ProductionShowLogsController extends Controller
             'body' =>  $production_logs->location,
             'model' =>  'Production Show Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Report');
@@ -161,6 +165,7 @@ class ProductionShowLogsController extends Controller
         $production_logs->transmission_time = $request->input('transmission_time');
         $production_logs->user_id = $user->id;
         $production_logs->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $production_logs->user->email,
             'title' => $production_logs->date,
@@ -168,7 +173,8 @@ class ProductionShowLogsController extends Controller
             'body' =>  $production_logs->location,
             'model' =>  'Production Show Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Log');

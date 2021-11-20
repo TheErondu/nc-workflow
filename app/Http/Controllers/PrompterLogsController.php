@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class PrompterLogsController extends Controller
@@ -69,6 +70,7 @@ class PrompterLogsController extends Controller
         $prompter_logs->challenges = $request->input('challenges');
         $prompter_logs->user_id = $user->id;
         $prompter_logs->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $prompter_logs->user->email,
             'title' => $prompter_logs->segment,
@@ -76,7 +78,8 @@ class PrompterLogsController extends Controller
             'body' =>  $prompter_logs->challenges,
             'model' =>  'Prompter Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Log');
@@ -141,6 +144,7 @@ class PrompterLogsController extends Controller
         $prompter_logs->challenges = $request->input('challenges');
         $prompter_logs->user_id = $user->id;
         $prompter_logs->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $prompter_logs->user->email,
             'title' => $prompter_logs->segment,
@@ -148,7 +152,8 @@ class PrompterLogsController extends Controller
             'body' =>  $prompter_logs->challenges,
             'model' =>  'Prompter Logs',
             'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
+            'time' => date('d-m-Y'),
+            'cc_emails' => $cc_emails
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Log');
