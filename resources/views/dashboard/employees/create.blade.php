@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add  Vehicle</h5>
+                        <h5 class="card-title" style="color: white;">Add  Employee</h5>
 
                     </div>
                     <div class="row">
@@ -70,6 +70,14 @@
                                     <select class="form-control select2" name="status" id="status">
                                             @foreach($status as $status)
                                                 <option value="{{ $status}}">{{ $status }}</option>
+                                            @endforeach
+                                        </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="show_title">Role</label>
+                                    <select class="form-control select2" name="roles" id="roles">
+                                            @foreach($roles as $role)
+                                                <option value="{{ $role}}" @if($role === $employee->role) selected='selected' @endif>{{ $role }}</option>
                                             @endforeach
                                         </select>
                                 </div>
