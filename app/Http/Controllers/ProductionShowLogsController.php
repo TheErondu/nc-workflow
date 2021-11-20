@@ -44,21 +44,21 @@ class ProductionShowLogsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'date'             => 'required',
-            'location'             => 'required',
-            'producer1'           => 'required',
-            'producer2'           => 'required',
-            'director'           => 'required',
-            'vision_mixer'           => 'required',
-            'engineer'         => 'required',
-            'sound_technician'         => 'required',
-            'camera_operator1'           => 'required',
-            'camera_operator2'           => 'required',
-            'host'           => 'required',
-            'graphics'         => 'required',
-            'digital'         => 'required',
-            'transmission'           => 'required',
-            'transmission_time'           => 'required'
+            // 'date'             => 'required',
+            // 'location'             => 'required',
+            // 'producer1'           => 'required',
+            // 'producer2'           => 'required',
+            // 'director'           => 'required',
+            // 'vision_mixer'           => 'required',
+            // 'engineer'         => 'required',
+            // 'sound_technician'         => 'required',
+            // 'camera_operator1'           => 'required',
+            // 'camera_operator2'           => 'required',
+            // 'host'           => 'required',
+            // 'graphics'         => 'required',
+            // 'digital'         => 'required',
+            // 'transmission'           => 'required',
+            // 'transmission_time'           => 'required'
         ]);
 
         $user = auth()->user();
