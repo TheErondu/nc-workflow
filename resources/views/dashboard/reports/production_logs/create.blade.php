@@ -139,7 +139,7 @@
                                     <select class="form-control select2" name="camera_operator1" id="camera_operator1" data-placeholder=" select Camera Operator">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            @if ($user->department_id === 9)
+                                            @if ($user->department_id === 9 or $user->department_id === 10)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
                                             @endif
                                         @endforeach
@@ -150,7 +150,7 @@
                                     <select class="form-control select2" name="camera_operator2" id="camera_operator2" data-placeholder=" select Camera operator">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            @if ($user->department_id === 9)
+                                            @if ($user->department_id === 9 or $user->department_id === 10)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
                                             @endif
                                         @endforeach
@@ -161,12 +161,8 @@
                             <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="host"> Host</label>
-                                    <select class="form-control select2" name="host" id="host" data-placeholder=" select Host">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="host" type="text" class="form-control" id="host"
+                                    value="{{ old('host') }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
@@ -211,6 +207,15 @@
                                 </div>
 
                             </div>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-12">
+                                    <label for="comment">Comment/Challenges</label>
+                                    <textarea name="comment" type="text" class="form-control"
+                                        id="comment" required
+                                        placeholder="">{{ old('comment') }}</textarea>
+                                </div>
+                            </div>
+
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-3">
                                     <span>Uploaded by: <br> {{Auth::user()->name }}</span>

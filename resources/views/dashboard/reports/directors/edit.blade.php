@@ -58,6 +58,110 @@
                         <form method="POST" enctype="multipart/form-data" action="{{ route('reports.update', $reports->id) }}">
                             @csrf
                             @method('PUT')
+
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer">Producer </label>
+                                    <select class="form-control select2" name="producer" id="producer" data-placeholder=" select Producer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->producer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer2">Anchor </label>
+                                    <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select Anchor">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->anchor === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="director">Director </label>
+                                    <select class="form-control select2" name="director" id="director" data-placeholder=" select director">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->director === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="vision_mixer">Vision Mixer</label>
+                                    <select class="form-control select2" name="vision_mixer" id="vision_mixer" data-placeholder=" select vision mixer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->vision_mixer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="engineer">Engineer</label>
+                                    <select class="form-control select2" name="engineer" id="engineer" data-placeholder=" select engineer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->engineer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="sound_technician">Sound Technician </label>
+                                    <select class="form-control select2" name="sound_technician" id="sound_technician" data-placeholder=" select Sound Technician ">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->sound_technician === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="camera_operator1">Camera Operator</label>
+                                    <select class="form-control select2" name="camera_operator" id="camera_operator" data-placeholder=" select Camera Operator">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->camera_operator === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="camera_operator2">AutoCue</label>
+                                    <select class="form-control select2" name="autocue" id="autocue" data-placeholder=" select AutoCue">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->autocue === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class=" row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="graphics">Graphics</label>
+                                    <select class="form-control select2" name="graphics" id="graphics" data-placeholder=" select graphics ">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->graphics === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="tx"> TX</label>
+                                    <select class="form-control select2" name="tx" id="tx" data-placeholder=" select TX operator">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->transmission === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+
+                            </div>
                             <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-6">
                                     <label for="bulletin">Bulletin </label>

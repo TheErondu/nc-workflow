@@ -145,12 +145,8 @@
                             <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="host"> Host</label>
-                                    <select class="form-control select2" name="host" id="host" data-placeholder=" select Host">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                        <option value="{{ $user->name }}" @if($production_logs->host === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="host" type="text" class="form-control" id="host"
+                                    value="{{$production_logs->host}}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
@@ -180,6 +176,7 @@
                                         @foreach($users as $user)
                                         <option value="{{ $user->name }}" @if($production_logs->transmission === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
+
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
@@ -188,6 +185,14 @@
                                         value="{{ $production_logs->transmission_time }}" required placeholder="">
                                 </div>
 
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-12">
+                                    <label for="comment">Comment/Challenges</label>
+                                    <textarea name="comment" type="text" class="form-control"
+                                        id="comment" required
+                                        placeholder="">{{$production_logs->comment}}</textarea>
+                                </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-3">

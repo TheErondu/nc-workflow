@@ -45,7 +45,119 @@
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data" action="{{ route('reports.store') }}">
                             @csrf
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer1">Producer </label>
+                                    <select class="form-control select2" name="producer" id="producer" data-placeholder=" select Producer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 7)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="anchor">Anchor</label>
+                                    <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select Anchor">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 7)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="director">Director </label>
+                                    <select class="form-control select2" name="director" id="director" data-placeholder=" select director">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 13)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="vision_mixer">Vision Mixer</label>
+                                    <select class="form-control select2" name="vision_mixer" id="vision_mixer" data-placeholder=" select vision mixer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="engineer">Engineer</label>
+                                    <select class="form-control select2" name="engineer" id="engineer" data-placeholder=" select engineer">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 11)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="sound_technician">Sound Technician </label>
+                                    <select class="form-control select2" name="sound_technician" id="sound_technician" data-placeholder=" select Sound Technician ">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="camera_operator1">Camera Operator</label>
+                                    <select class="form-control select2" name="camera_operator" id="camera_operator" data-placeholder=" select Camera Operator">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 9 or $user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class=" row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="autocue"> AutoCUE</label>
+                                    <input name="autocue" type="text" class="form-control" id="autocue"
+                                    value="{{ old('autocue') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="graphics">Graphics</label>
+                                    <select class="form-control select2" name="graphics" id="graphics" data-placeholder=" select graphics ">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 4)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="tx">TX </label>
+                                    <select class="form-control select2" name="tx" id="tx" data-placeholder=" select TX">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 6)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-6">
                                     <label for="bulletin">Bulletin </label>

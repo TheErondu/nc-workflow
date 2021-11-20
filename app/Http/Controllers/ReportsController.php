@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Models\Reports;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
@@ -30,8 +31,8 @@ class ReportsController extends Controller
     public function create()
     {
 
-
-        return view('dashboard.reports.directors.create');
+        $users = User::all();
+        return view('dashboard.reports.directors.create',compact('users'));
     }
 
     /**
@@ -44,14 +45,14 @@ class ReportsController extends Controller
     {
         $validatedData = $request->validate([
 
-            'bulletin'             => 'required',
-            'dts_in'             => 'required',
-            'actual_in'           => 'required',
-            'variance1'           => 'required',
-            'dts_out'           => 'required',
-            'actual_out'           => 'required',
-            'variance2'         => 'required',
-            'comment'         => 'required'
+            // 'bulletin'             => 'required',
+            // 'dts_in'             => 'required',
+            // 'actual_in'           => 'required',
+            // 'variance1'           => 'required',
+            // 'dts_out'           => 'required',
+            // 'actual_out'           => 'required',
+            // 'variance2'         => 'required',
+            // 'comment'         => 'required'
 
             // 'b2bulletin'             => 'required',
             // 'b2dts_in'             => 'required',
@@ -119,7 +120,8 @@ class ReportsController extends Controller
     public function edit($id)
     {
         $reports = Reports::all()->find($id);
-        return view('dashboard.reports.directors.edit', compact('reports'));
+        $users = User::all();
+        return view('dashboard.reports.directors.edit', compact('reports','users'));
     }
 
     /**
@@ -132,25 +134,35 @@ class ReportsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'bulletin'             => 'required',
-            'dts_in'             => 'required',
-            'actual_in'           => 'required',
-            'variance1'           => 'required',
-            'dts_out'           => 'required',
-            'actual_out'           => 'required',
-            'variance2'         => 'required',
-            'comment'         => 'required',
-            'b2bulletin'             => 'required',
-            'b2dts_in'             => 'required',
-            'b2actual_in'           => 'required',
-            'b2variance1'           => 'required',
-            'b2dts_out'           => 'required',
-            'b2actual_out'           => 'required',
-            'b2variance2'         => 'required',
-            'b2comment'         => 'required',
+            // 'bulletin'             => 'required',
+            // 'dts_in'             => 'required',
+            // 'actual_in'           => 'required',
+            // 'variance1'           => 'required',
+            // 'dts_out'           => 'required',
+            // 'actual_out'           => 'required',
+            // 'variance2'         => 'required',
+            // 'comment'         => 'required',
+            // 'b2bulletin'             => 'required',
+            // 'b2dts_in'             => 'required',
+            // 'b2actual_in'           => 'required',
+            // 'b2variance1'           => 'required',
+            // 'b2dts_out'           => 'required',
+            // 'b2actual_out'           => 'required',
+            // 'b2variance2'         => 'required',
+            // 'b2comment'         => 'required',
         ]);
         $user = auth()->user();
         $reports = Reports::find($id);
+        $reports->producer = $request->input('producer');
+        $reports->director = $request->input('director');
+        $reports->anchor = $request->input('anchor');
+        $reports->vision_mixer = $request->input('vision_mixer');
+        $reports->engineer = $request->input('engineer');
+        $reports->sound_technician = $request->input('sound_technician');
+        $reports->camera_operator = $request->input('camera_operator');
+        $reports->autocue = $request->input('autocue');
+        $reports->graphics = $request->input('graphics');
+        $reports->tx = $request->input('tx');
         $reports->bulletin = $request->input('bulletin');
         $reports->dts_in = $request->input('dts_in');
         $reports->actual_in = $request->input('actual_in');

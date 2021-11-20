@@ -78,6 +78,7 @@ class ProductionShowLogsController extends Controller
         $production_logs->digital = $request->input('digital');
         $production_logs->transmission = $request->input('transmission');
         $production_logs->transmission_time = $request->input('transmission_time');
+        $production_logs->comment = $request->input('comment');
         $production_logs->user_id = $user->id;
         $production_logs->save();
 
@@ -133,19 +134,19 @@ class ProductionShowLogsController extends Controller
         $validatedData = $request->validate([
             'date'             => 'required',
             'location'             => 'required',
-            'producer1'           => 'required',
-            'producer2'           => 'required',
-            'director'           => 'required',
-            'vision_mixer'           => 'required',
-            'engineer'         => 'required',
-            'sound_technician'         => 'required',
-            'camera_operator1'           => 'required',
-            'camera_operator2'           => 'required',
-            'host'           => 'required',
-            'graphics'         => 'required',
-            'digital'         => 'required',
-            'transmission'           => 'required',
-            'transmission_time'           => 'required'
+            // 'producer1'           => 'required',
+            // 'producer2'           => 'required',
+            // 'director'           => 'required',
+            // 'vision_mixer'           => 'required',
+            // 'engineer'         => 'required',
+            // 'sound_technician'         => 'required',
+            // 'camera_operator1'           => 'required',
+            // 'camera_operator2'           => 'required',
+            // 'host'           => 'required',
+            // 'graphics'         => 'required',
+            // 'digital'         => 'required',
+            // 'transmission'           => 'required',
+            // 'transmission_time'           => 'required'
         ]);
         $user = auth()->user();
         $production_logs = ProductionShowLogs::find($id);
@@ -153,6 +154,7 @@ class ProductionShowLogsController extends Controller
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');
         $production_logs->producer2 = $request->input('producer2');
+        $production_logs->director = $request->input('director');
         $production_logs->vision_mixer = $request->input('vision_mixer');
         $production_logs->engineer = $request->input('engineer');
         $production_logs->sound_technician = $request->input('sound_technician');
@@ -163,6 +165,7 @@ class ProductionShowLogsController extends Controller
         $production_logs->digital = $request->input('digital');
         $production_logs->transmission = $request->input('transmission');
         $production_logs->transmission_time = $request->input('transmission_time');
+        $production_logs->comment = $request->input('comment');
         $production_logs->user_id = $user->id;
         $production_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
