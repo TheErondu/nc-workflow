@@ -86,7 +86,7 @@ class ProductionShowLogsController extends Controller
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $production_logs->user->email,
-            'title' => $production_logs->date,
+            'title' => $production_logs->show_name,
             'status' =>  $production_logs->producer1,
             'body' =>  $production_logs->location,
             'model' =>  'Production Show Logs',
