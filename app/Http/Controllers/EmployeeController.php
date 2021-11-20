@@ -53,7 +53,7 @@ class EmployeeController extends Controller
             'password' => ['required', 'string', 'min:5', 'confirmed'],
             'department_id'           => 'required',
             'status'           => 'required',
-            'role'           => 'required'
+            'roles'           => 'required'
         ]);
 
         $employee = new User();
