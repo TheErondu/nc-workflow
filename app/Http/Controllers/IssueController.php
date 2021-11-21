@@ -150,6 +150,7 @@ class IssueController extends Controller
             'supervisor' => $supervisor,
             'department' => $issue->department,
             'status' =>  $issue->status,
+            'assigned_engineer' =>  $issue->assigned_engineer,
             'description' => $issue->description,
             'item_name' =>  $issue->item_name,
             'copy' => $copy,
