@@ -59,6 +59,14 @@
                                     <input name="closed_at" type="text" class="form-control" id="closed_at"
                                     value="{{old('closed_at')}}"  placeholder="">
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">Date of Report</label>
+                                    <div class="input-group date" id="datetimepicker-minimum2" data-target-input="nearest">
+                                        <input name="date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum2" />
+                                        <div class="input-group-text" data-target="#datetimepicker-minimum2" data-toggle="datetimepicker"><i
+                                                class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row justify-content-around">
