@@ -44,15 +44,15 @@ class PrompterLogsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'segment'             => 'required',
-            'rundown_in'             => 'required',
-            'script_in'             => 'required',
-            'director'           => 'required',
-            'graphics'           => 'required',
-            'producer'         => 'required',
-            'engineer'         => 'required',
-            'pa'             => 'required',
-            'challenges'             => 'required'
+            // 'segment'             => 'required',
+            // 'rundown_in'             => 'required',
+            // 'script_in'             => 'required',
+            // 'director'           => 'required',
+            // 'graphics'           => 'required',
+            // 'producer'         => 'required',
+            // 'engineer'         => 'required',
+            // 'pa'             => 'required',
+            // 'challenges'             => 'required'
         ]);
 
         $user = auth()->user();
@@ -119,15 +119,15 @@ class PrompterLogsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'segment'             => 'required',
-            'rundown_in'             => 'required',
-            'script_in'             => 'required',
-            'director'           => 'required',
-            'graphics'           => 'required',
-            'producer'         => 'required',
-            'engineer'         => 'required',
-            'pa'             => 'required',
-            'challenges'             => 'required'
+            // 'segment'             => 'required',
+            // 'rundown_in'             => 'required',
+            // 'script_in'             => 'required',
+            // 'director'           => 'required',
+            // 'graphics'           => 'required',
+            // 'producer'         => 'required',
+            // 'engineer'         => 'required',
+            // 'pa'             => 'required',
+            // 'challenges'             => 'required'
         ]);
         $user = auth()->user();
         $prompter_logs = PrompterLogs::find($id);

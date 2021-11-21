@@ -109,10 +109,10 @@ class EditorLogsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'first_interval'             => 'required',
-            'second_interval'             => 'required',
-            'third_interval'           => 'required',
-            'closed_at'           => 'required'
+            // 'first_interval'             => 'required',
+            // 'second_interval'             => 'required',
+            // 'third_interval'           => 'required',
+            // 'closed_at'           => 'required'
         ]);
         $user = auth()->user();
         $editors_logs = EditorLogs::find($id);
