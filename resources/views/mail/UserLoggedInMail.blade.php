@@ -6,7 +6,7 @@ You logged in to Brave on {{ \Carbon\Carbon::now()->format('d-M-Y, H:i a')}}
 ## Not You?
 Contact IT Department Immediately
 
-@component('mail::button', ['url' => 'https://brave-new.herokuapp.com/home'])
+@component('mail::button', ['url' => 'https://nbd.bravetech.media/home'])
 My Dashboard
 @endcomponent
 

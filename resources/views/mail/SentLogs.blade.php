@@ -4,7 +4,7 @@
 {{ $details['body'] }}
 
 
-@component('mail::button', ['url' => 'https://brave-new.herokuapp.com/logs/cot'])
+@component('mail::button', ['url' => 'https://nbd.bravetech.media/logs/cot'])
 Check Logs
 @endcomponent
 

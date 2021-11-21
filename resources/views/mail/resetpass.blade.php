@@ -6,7 +6,7 @@
 
 You can now login to your dashboard using this password.
 
-@component('mail::button', ['url' => 'https://brave-new.herokuapp.com/login'])
+@component('mail::button', ['url' => 'https://nbd.bravetech.media/login'])
 Login to your Account
 @endcomponent
 
