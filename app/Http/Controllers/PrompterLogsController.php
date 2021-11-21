@@ -56,7 +56,7 @@ class PrompterLogsController extends Controller
         ]);
 
         $user = auth()->user();
-        $prompter_logs = new PrompterLogsController();
+        $prompter_logs = new PrompterLogs();
         $prompter_logs->segment = $request->input('segment');
         $prompter_logs->rundown_in = $request->input('rundown_in');
         $prompter_logs->script_in = $request->input('script_in');
