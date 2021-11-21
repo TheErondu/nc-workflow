@@ -54,7 +54,7 @@
                                     <select class="form-control select2" name="assigned_engineer" id="assigned_engineer" data-placeholder=" Choose Engineer...">
                                         <option value="" selected>select</option>
                                         @foreach($engineers as $engineer)
-                                            <option value="{{ $engineer->username }}" @if($issue->assigned_engineer === $engineer->username) selected='selected' @endif>{{$engineer->username}}</option>
+                                            <option value="{{ $engineer->name }}" @if($issue->assigned_engineer === $engineer->name) selected='selected' @endif>{{$engineer->name}}</option>
                                         @endforeach
                                     </select>
                                         </div>

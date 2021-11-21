@@ -118,7 +118,7 @@ class IssueController extends Controller
     public function edit($id)
     {
         $issue = Issue::all()->find($id);
-        $engineers = DB::table('users')->where('department_id',11)->get('username');
+        $engineers = DB::table('users')->where('department_id',11)->get('name');
 
         $issue_status   = array(
             'OPEN', 'CLOSED'
