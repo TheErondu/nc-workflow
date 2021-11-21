@@ -1,6 +1,8 @@
 @component('mail::message')
 
-# {{ $details['supervisor'] }} has assigned You to the ticket raised for Equipment / Item : {{ $details['item_name'] }} with description:
+# {{ $details['supervisor'] }} has assigned You to the ticket raised for Equipment / Item :
+
+{{ $details['item_name'] }} with fault description:
 
 "{{ $details['description'] }}"
 

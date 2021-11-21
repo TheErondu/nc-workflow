@@ -83,6 +83,12 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="item_name">Equipment / Issue</label>
                                     <h2>{{$issue->item_name}}</h2>
+                                    <p> (Department: {{$issue->department}})</p>
+                                    <p> (Location: {{$issue->location}})</p>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="description">Fault Description</label>
+                                    <h2>{{$issue->description}}</h2>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="fixed_by">Who Fixed it?</label>

@@ -145,8 +145,6 @@ class IssueController extends Controller
         $copy = User::where('username', $issue->assigned_engineer)->pluck('email');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
-
-        // dd($link);
         $details = [
             'link' => $link,
             'supervisor' => $supervisor,
