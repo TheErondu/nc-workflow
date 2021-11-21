@@ -140,7 +140,7 @@ class IssueController extends Controller
         $issue = Issue::find($id);
         $issue->assigned_engineer = $request->input('assigned_engineer');
         $issue->save();
-        $email = Auth::user()->email;
+        $email = User::where('name', $issue->raised_by)->pluck('email');
         $supervisor = Auth::user()->username;
         $copy = User::where('username', $issue->assigned_engineer)->pluck('email');
         $url = route('home');
