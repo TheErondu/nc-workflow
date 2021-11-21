@@ -67,7 +67,7 @@ class IssueController extends Controller
         $issue->location = $request->input('location');
         $issue->raised_by = $raisedby;
         $issue->department = $request->input('department');
-        $issue->status = $request->input('status');
+        $issue->status = 'OPEN';
         $issue->fixed_by = $request->input('fixed_by');
         $issue->action_taken = $request->input('action_taken');
         $issue->cause_of_breakdown = $request->input('cause_of_breakdown');
@@ -81,6 +81,7 @@ class IssueController extends Controller
         $details = [
             'link' => $link,
             'email' =>  $email,
+            'description' =>  $issue->description,
             'status' =>  $issue->status,
             'fixed_by_name' => auth()->user()->name,
             'item_name' =>  $issue->item_name,

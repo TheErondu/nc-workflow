@@ -1,13 +1,14 @@
 @component('mail::message')
-# Welcome back! {{$name}},
 
-You logged in to Brave on {{ \Carbon\Carbon::now()->format('d-M-Y, H:i a')}}
+# {{ $details['raised_by'] }}has raised a ticket for {{ $details['item_name'] }} with description:
 
-## Not You?
-Contact IT Department Immediately
+"{{ $details['description'] }}" .
 
-@component('mail::button', ['url' => 'https://nbd.bravetech.media/home'])
-My Dashboard
+
+## Review the Ticket by clicking this button
+
+@component('mail::button', ['url' => $details['link']])
+View Ticket Details
 @endcomponent
 
 Thanks,<br>
