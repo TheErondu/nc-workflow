@@ -158,6 +158,7 @@
 				responsive: true,
                 fixedHeader:true,
                 paginate:true,
+                "order": [[ 0, "desc" ]],
 				buttons: ["copy", "print"]
 			});
             datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");

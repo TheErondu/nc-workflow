@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="department">Department</label>
-                                    <select class="form-control select2" name="sto" id="sto" data-placeholder=" Select Department">
+                                    <select class="form-control select2" name="department" id="department" data-placeholder=" Select Department">
                                         <option value="" selected>select</option>
                                         @foreach($departments as $department)
                                             <option value="{{ $department->name }}">{{ $department->name }}</option>

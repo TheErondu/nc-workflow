@@ -12,6 +12,7 @@ use App\Models\Department;
 use App\Models\Users;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Null_;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -30,7 +31,7 @@ class IssueController extends Controller
 
             $issues = $raised_issues;
         } elseif (($user->can('fix-issues'))) {
-            $issues = Issue::all();
+            $issues = DB::table('issues')->orderBy('id','DESC')->get();
         } else
             $issues = $raised_issues;
         $users = Users::all();
@@ -63,7 +64,7 @@ class IssueController extends Controller
         $issue = new Issue();
         $issue->item_name     = $request->input('item_name');
         $issue->description = $request->input('description');
-        $issue->date = $request->input('date');
+        $issue->date = \Carbon\Carbon::now();
         $issue->location = $request->input('location');
         $issue->raised_by = $raisedby;
         $issue->department = $request->input('department');
@@ -80,6 +81,7 @@ class IssueController extends Controller
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
         $details = [
             'link' => $link,
+           'department' => $issue->department,
             'email' =>  $email,
             'raised_by' => Auth::user()->name,
             'description' =>  $issue->description,
