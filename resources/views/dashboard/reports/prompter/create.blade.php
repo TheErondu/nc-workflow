@@ -48,6 +48,11 @@
 
                             <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-4">
+                                    <label for="segment">Segment</label>
+                                    <input name="segment" type="text" class="form-control" id="segment"
+                                    value="{{ old('segment') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
                                     <label for="rundown_in">Run Down In</label>
                                     <input name="rundown_in" type="text" class="form-control" id="rundown_in"
                                     value="{{ old('rundown_in') }}" required placeholder="">
