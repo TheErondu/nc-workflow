@@ -81,6 +81,7 @@ class IssueController extends Controller
         $details = [
             'link' => $link,
             'email' =>  $email,
+            'raised_by' => Auth::user()->name,
             'description' =>  $issue->description,
             'status' =>  $issue->status,
             'fixed_by_name' => auth()->user()->name,

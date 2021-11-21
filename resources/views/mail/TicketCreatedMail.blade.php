@@ -1,6 +1,6 @@
 @component('mail::message')
 
-# {{ $details['raised_by'] }}has raised a ticket for {{ $details['item_name'] }} with description:
+# {{ $details['raised_by'] }} has raised a ticket for Equipment / Item : {{ $details['item_name'] }} with description:
 
 "{{ $details['description'] }}" .
 
