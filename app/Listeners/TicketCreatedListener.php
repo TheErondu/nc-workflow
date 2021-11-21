@@ -27,6 +27,7 @@ class TicketCreatedListener
      */
     public function handle($event)
     {
-        Mail::to($event->email)->send(new TicketCreated());
+        $email = $event->details['email'];
+        Mail::to($email)->send(new TicketCreated($event->details));
     }
 }

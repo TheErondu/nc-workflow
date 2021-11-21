@@ -23,7 +23,7 @@
                                         <div class="tab-pane active" id="tab-1" role="tabpanel">
                                             <div class="card-body">
                                                 <div id="fullcalendar"></div>
-                                                <a href="{{ route('schedule.create') }}" class="btn btn-primary">Create <i
+                                                <a href="{{ route('schedule.create',['type' => 'preproduction']) }}" class="btn btn-primary">Create <i
                                                         class="fa fa-plus"></i></a>
 
 
@@ -34,7 +34,7 @@
 
                                             <div class="card-body">
                                                 <div id="fullcalendar1"></div>
-                                                <a href="{{ route('schedule.create') }}" class="btn btn-primary">Create <i
+                                                <a href="{{ route('schedule.create',['type' => 'editors']) }}" class="btn btn-primary">Create <i
                                                         class="fa fa-plus"></i></a>
 
                                             </div>
@@ -43,7 +43,7 @@
 
                                             <div class="card-body">
                                                 <div id="fullcalendar2"></div>
-                                                <a href="{{ route('schedule.create') }}" class="btn btn-primary">Create <i
+                                                <a href="{{ route('schedule.create',['type' => 'graphics']) }}" class="btn btn-primary">Create <i
                                                         class="fa fa-plus"></i></a>
 
                                             </div>
@@ -52,7 +52,7 @@
 
                                             <div class="card-body">
                                                 <div id="fullcalendar3"></div>
-                                                <a href="{{ route('schedule.create') }}" class="btn btn-primary">Create <i
+                                                <a href="{{ route('schedule.create',['type' => 'digital']) }}" class="btn btn-primary">Create <i
                                                         class="fa fa-plus"></i></a>
 
 

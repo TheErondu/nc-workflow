@@ -46,9 +46,18 @@
                         <form method="POST" enctype="multipart/form-data" action="{{ route('schedule.store') }}">
                             @csrf
                             <div class="row">
-                                <div class="mb-3">
+                                <div class="mb-3  col-md-8">
                                     <label for="title">Title of shoot</label>
                                     <input name="title" type="text" class="form-control" id="title" placeholder="title">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label>Status</label>
+                                    <select name="status" class="form-control" required>
+                                        <option value="">Select...</option>
+                                        <option value="normal">normal</option>
+                                        <option value="important">important</option>
+                                        <option value="critical">critical</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row justify-content-between">
@@ -69,17 +78,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="mb-3 col-md-2">
-                                    <label>Status</label>
-                                    <select name="status" class="form-control mb-3" required>
-                                        <option value="">Select...</option>
-                                        <option value="normal">normal</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @if((request()->query("type") === 'preproduction' ))
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Producer 1</label>
@@ -134,7 +133,6 @@
                                         <option value="critical">critical</option>
                                     </select>
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="mb-3 col-md-12">
@@ -143,6 +141,76 @@
                                         placeholder="Enter short description of shoot ...."></textarea>
                                 </div>
                             </div>
+                                @elseif (request()->query("type") === 'editors' )
+                                <div class="row justify-content-center">
+                                    <div class="mb-3 col-md-5">
+                                        <label>Video Editor</label>
+                                        <select name="dop3" class="form-control mb-3" required>
+                                            <option value="">Select...</option>
+                                            <option value="important">important</option>
+                                            <option value="critical">critical</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label>others</label>
+                                        <textarea name="others" class="form-control" rows="2"
+                                            placeholder="Enter other details  ...."></textarea>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label>Description</label>
+                                        <textarea name="description" class="form-control" rows="2"
+                                            placeholder="Enter short description of shoot ...."></textarea>
+                                    </div>
+                                </div>
+                             @elseif (request()->query("type") === 'graphics' )
+                             <div class="row justify-content-between">
+                                <div class="mb-3 col-md-5">
+                                    <label>Graphic Editor</label>
+                                    <select name="dop3" class="form-control mb-3" required>
+                                        <option value="">Select...</option>
+                                        <option value="important">important</option>
+                                        <option value="critical">critical</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label>others</label>
+                                    <textarea name="others" class="form-control" rows="2"
+                                        placeholder="Enter other details  ...."></textarea>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label>Description</label>
+                                    <textarea name="description" class="form-control" rows="2"
+                                        placeholder="Enter short description of shoot ...."></textarea>
+                                </div>
+                            </div>
+                            @elseif (request()->query("type") === 'digital' )
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-5">
+                                    <label>Digital Editor</label>
+                                    <select name="dop3" class="form-control mb-3" required>
+                                        <option value="">Select...</option>
+                                        <option value="important">important</option>
+                                        <option value="critical">critical</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label>others</label>
+                                    <textarea name="others" class="form-control" rows="2"
+                                        placeholder="Enter other details  ...."></textarea>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label>Description</label>
+                                    <textarea name="description" class="form-control" rows="2"
+                                        placeholder="Enter short description of shoot ...."></textarea>
+                                </div>
+                            </div>
+                            @endif
 
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">

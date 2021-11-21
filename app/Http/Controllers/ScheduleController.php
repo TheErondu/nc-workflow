@@ -7,6 +7,7 @@ use App\Events\RecordUpdatedEvent;
 use Illuminate\Http\Request;
 
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -64,7 +65,8 @@ class ScheduleController extends Controller
     public function create()
     {
         $schedules = Schedule::all();
-        return view('dashboard.schedule.create',[ 'schedules' => $schedules ]);
+        $users = User::all();
+        return view('dashboard.schedule.create',compact('schedules','users'));
     }
 
     /**
@@ -76,17 +78,17 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title'             => 'required',
-            'start'           => 'required',
-            'end'           => 'required',
-            'start'           => 'required',
-            'status'           => 'required',
-            'producer1'           => 'required',
-            'producer2'           => 'required',
-            'dop1'           => 'required',
-            'dop2'           => 'required',
-            'dop3'           => 'required',
-            'dop4'           => 'required',
+            // 'title'             => 'required',
+            // 'start'           => 'required',
+            // 'end'           => 'required',
+            // 'start'           => 'required',
+            // 'status'           => 'required',
+            // 'producer1'           => 'required',
+            // 'producer2'           => 'required',
+            // 'dop1'           => 'required',
+            // 'dop2'           => 'required',
+            // 'dop3'           => 'required',
+            // 'dop4'           => 'required',
 
         ]);
         $user = auth()->user();
@@ -97,6 +99,10 @@ class ScheduleController extends Controller
         $schedule->status = $request->input('status');
         $schedule->producer1 = $request->input('producer1');
         $schedule->producer2 = $request->input('producer2');
+        $schedule->video_editor = $request->input('video_editor');
+        $schedule->digital_editor = $request->input('digital_editor');
+        $schedule->graphics_editor = $request->input('graphic_editor');
+        $schedule->others = $request->input('others');
         $schedule->dop1 = $request->input('dop1');
         $schedule->dop2 = $request->input('dop2');
         $schedule->dop3 = $request->input('dop3');
@@ -130,8 +136,9 @@ class ScheduleController extends Controller
     public function show($id){
 
         $schedule = Schedule::all()->find($id);
+        $users = User::all();
 
-        return view('dashboard.schedule.show', [ 'schedule' => $schedule ]);
+        return view('dashboard.schedule.show', compact('schedule','users'));
 
 
 
@@ -147,7 +154,8 @@ class ScheduleController extends Controller
     public function edit($id)
     {
         $schedule = Schedule::all()->find($id);
-        return view('dashboard.schedule.edit', [ 'schedule' => $schedule,]);
+        $users = User::all();
+        return view('dashboard.schedule.edit', compact('schedule','users'));
     }
 
        /**
@@ -162,17 +170,17 @@ class ScheduleController extends Controller
         //var_dump('bazinga');
         //die();
         $validatedData = $request->validate([
-            'title'             => 'required',
-            'start'           => 'required',
-            'end'           => 'required',
-            'start'           => 'required',
-            'status'           => 'required',
-            'producer1'           => 'required',
-            'producer2'           => 'required',
-            'dop1'           => 'required',
-            'dop2'           => 'required',
-            'dop3'           => 'required',
-            'dop4'           => 'required',
+            // 'title'             => 'required',
+            // 'start'           => 'required',
+            // 'end'           => 'required',
+            // 'start'           => 'required',
+            // 'status'           => 'required',
+            // 'producer1'           => 'required',
+            // 'producer2'           => 'required',
+            // 'dop1'           => 'required',
+            // 'dop2'           => 'required',
+            // 'dop3'           => 'required',
+            // 'dop4'           => 'required',
 
         ]);
         $schedule = Schedule::find($id);
@@ -182,6 +190,10 @@ class ScheduleController extends Controller
         $schedule->status = $request->input('status');
         $schedule->producer1 = $request->input('producer1');
         $schedule->producer2 = $request->input('producer2');
+        $schedule->video_editor = $request->input('video_editor');
+        $schedule->digital_editor = $request->input('digital_editor');
+        $schedule->graphics_editor = $request->input('graphic_editor');
+        $schedule->others = $request->input('others');
         $schedule->dop1 = $request->input('dop1');
         $schedule->dop2 = $request->input('dop2');
         $schedule->dop3 = $request->input('dop3');

@@ -75,7 +75,7 @@ class IssueController extends Controller
         $issue->resolved_date = $request->input('resolved_date');
         $issue->save();
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
-        $email = Users::where('username', $issue->raised_by)->pluck('email')->implode('');
+        $email = Auth::user()->email;
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
         $details = [
