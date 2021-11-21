@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('booking', App\Http\Controllers\BookingController::class);
         Route::resource('employees', App\Http\Controllers\EmployeeController::class);
         Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
+        Route::put('issues/assign-engineer/{id}', [App\Http\Controllers\IssueController::class, 'AssignEngineer'])->name('issues.assign');
         Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
 
         Route::get('/event-test', function() {

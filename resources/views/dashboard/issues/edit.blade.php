@@ -43,6 +43,30 @@
                         @endif
                     </div>
                     <div class="card-body">
+                        <form action="{{ route('issues.assign', $issue->id) }}" id="assigned_engineer_form" method="POST">
+                            @method('PUT')
+                            @csrf
+                            @can('is-manager')
+                            <div class="row justify-content-center">
+                                <div class="mb-3 col-md-6">
+                                        <div>
+                                    <label for="assigned_engineer">Assign Engineer to Ticket</label>
+                                    <select class="form-control select2" name="assigned_engineer" id="assigned_engineer" data-placeholder=" Choose Engineer...">
+                                        <option value="" selected>select</option>
+                                        @foreach($engineers as $engineer)
+                                            <option value="{{ $engineer->username }}" @if($issue->assigned_engineer === $engineer->username) selected='selected' @endif>{{$engineer->username}}</option>
+                                        @endforeach
+                                    </select>
+                                        </div>
+                                    <br>
+                                    <div class="mb-3 col-md-6">
+                                        <button form="assigned_engineer_form" style="background-color: green !important;" type="submit"
+                                        class="btn btn-primary">Submit</button>
+                                </div>
+                        </div>
+                    </div>
+                    @endcan
+                        </form>
                         <form method="POST" enctype="multipart/form-data" action="{{ route('issues.update',$issue->id) }}">
                             @csrf
                             @method('PUT
@@ -94,6 +118,7 @@
                                     @endforeach
                                         </select>
                                 </div>
+
                             </div>
 
                             @else

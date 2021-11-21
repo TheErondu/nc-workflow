@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\EngineerAssignedEvent;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Events\TicketCreatedEvent;
 use App\Events\TicketUpdatedEvent;
 use App\Events\UserLoggedIn;
+use App\Listeners\EngineerAssignedEventListener;
 use App\Listeners\RecordCreatedEventListener;
 use App\Listeners\RecordUpdatedEventListener;
 use App\Listeners\TicketCreatedListener;
@@ -45,6 +47,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         TicketUpdatedEvent::class => [
             TicketUpdatedListener::class,
+        ],
+
+        EngineerAssignedEvent::class => [
+            EngineerAssignedEventListener::class,
         ],
 
     ];

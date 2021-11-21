@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EngineerAssignedEvent;
 use App\Models\Issue;
 use Illuminate\Http\Request;
 use App\Events\SendMail;
@@ -9,7 +10,7 @@ use App\Events\TicketCreatedEvent;
 use App\Events\TicketUpdatedEvent;
 use App\Mail\TicketCreated;
 use App\Models\Department;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@ class IssueController extends Controller
             $issues = DB::table('issues')->orderBy('id','DESC')->get();
         } else
             $issues = $raised_issues;
-        $users = Users::all();
+        $users = User::all();
         return view('dashboard.issues.index', compact('issues', 'raised_issues', 'users'));
     }
 
@@ -117,13 +118,50 @@ class IssueController extends Controller
     public function edit($id)
     {
         $issue = Issue::all()->find($id);
+        $engineers = DB::table('users')->where('department_id',11)->get('username');
 
         $issue_status   = array(
             'OPEN', 'CLOSED'
         );
         $departments = Department::all();
-        $users = Users::all();
-        return view('dashboard.issues.edit', compact('issue', 'users', 'departments', 'issue_status'));
+        $users = User::all();
+        return view('dashboard.issues.edit', compact('issue','engineers', 'users', 'departments', 'issue_status'));
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function AssignEngineer(Request $request, $id)
+    {
+        $issue = Issue::find($id);
+        $issue->assigned_engineer = $request->input('assigned_engineer');
+        $issue->save();
+        $email = Auth::user()->email;
+        $supervisor = Auth::user()->username;
+        $copy = User::where('username', $issue->assigned_engineer)->pluck('email');
+        $url = route('home');
+        $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
+
+        // dd($link);
+        $details = [
+            'link' => $link,
+            'supervisor' => $supervisor,
+            'department' => $issue->department,
+            'status' =>  $issue->status,
+            'description' => $issue->description,
+            'item_name' =>  $issue->item_name,
+            'copy' => $copy,
+            'email' => $email
+        ];
+        Event::dispatch(new EngineerAssignedEvent($details));
+        $request->session()->flash('message', 'Engineer Assigned to Ticket!');
+        return redirect()->route('issues.edit',$issue->id);
+
+
     }
 
     /**
@@ -155,7 +193,7 @@ class IssueController extends Controller
             $issue->status = $request->input('status');
         }
         $issue->save();
-        $email = Users::where('username', $issue->raised_by)->pluck('email')->implode('');
+        $email = User::where('username', $issue->raised_by)->pluck('email')->implode('');
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
