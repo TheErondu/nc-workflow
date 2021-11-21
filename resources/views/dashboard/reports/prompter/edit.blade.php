@@ -43,37 +43,33 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('prompter.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('prompter.update',$prompter_logs->id) }}">
                             @csrf
-
+                            @method('PUT')
                             <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-4">
                                     <label for="rundown_in">Run Down In</label>
                                     <input name="rundown_in" type="text" class="form-control" id="rundown_in"
-                                    value="{{ old('rundown_in') }}" required placeholder="">
+                                    value="{{ $prompter_logs->rundown_in }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="script_in">Script In</label>
                                     <input name="script_in" type="text" class="form-control" id="script_in"
-                                    value="{{ old('script_in') }}" required placeholder="">
+                                    value="{{ $prompter_logs->script_in }}" required placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host">Host </label>
-                                    <select class="form-control select2" name="host" id="host" data-placeholder=" select host">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="host" type="text" class="form-control" id="host"
+                                    value="{{ $prompter_logs->host }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director">Director </label>
                                     <select class="form-control select2" name="director" id="director" data-placeholder=" select director">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->name }}" @if($prompter_logs->director === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -82,7 +78,7 @@
                                     <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select anchor">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->name }}" @if($prompter_logs->anchor === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -92,30 +88,18 @@
 
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
-                                    <select class="form-control select2" name="graphics" id="graphics" data-placeholder=" select graphics">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="graphics" type="text" class="form-control" id="graphics"
+                                    value="{{ $prompter_logs->graphics }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer">Producer</label>
-                                    <select class="form-control select2" name="producer" id="producer" data-placeholder=" select producer">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="producer" type="text" class="form-control" id="producer"
+                                    value="{{ $prompter_logs->producer }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa">PA </label>
-                                    <select class="form-control select2" name="pa" id="pa" data-placeholder=" select PA ">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="pa" type="text" class="form-control" id="pa"
+                                    value="{{ $prompter_logs->pa }}" required placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -124,14 +108,14 @@
                                     <select class="form-control select2" name="engineer" id="engineer" data-placeholder=" select engineer ">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->name }}" @if($prompter_logs->engineer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-8">
                                     <label for="challenges">Challenges</label>
                                     <textarea name="challenges" type="text" class="form-control" id="challenges"
-                                    value="" required placeholder="">{{ old('challenges') }}</textarea>
+                                    value="" required placeholder="">{{ $prompter_logs->challenges }}</textarea>
                                 </div>
                             </div>
                             <div class="row justify-content-around">

@@ -61,12 +61,8 @@
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host">Host </label>
-                                    <select class="form-control select2" name="host" id="host" data-placeholder=" select host">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="host" type="text" class="form-control" id="host"
+                                    value="{{ old('host') }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director">Director </label>
@@ -96,34 +92,18 @@
 
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
-                                    <select class="form-control select2" name="graphics" id="graphics" data-placeholder=" select graphics">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 17)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="graphics" type="text" class="form-control" id="graphics"
+                                    value="{{ old('graphics') }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer">Producer</label>
-                                    <select class="form-control select2" name="producer" id="producer" data-placeholder=" select producer">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 7)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="producer" type="text" class="form-control" id="producer"
+                                    value="{{ old('producer') }}" required placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa">PA </label>
-                                    <select class="form-control select2" name="pa" id="pa" data-placeholder=" select PA ">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="pa" type="text" class="form-control" id="pa"
+                                    value="{{ old('pa') }}" required placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">

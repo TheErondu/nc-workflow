@@ -44,14 +44,16 @@ class EditorLogsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'first_interval'             => 'required',
-            'second_interval'             => 'required',
-            'third_interval'           => 'required',
-            'closed_at'           => 'required'
+            // 'first_interval'             => 'required',
+            // 'second_interval'             => 'required',
+            // 'third_interval'           => 'required',
+            // 'closed_at'           => 'required'
         ]);
 
         $user = auth()->user();
         $editors_logs = new EditorLogs();
+        $editors_logs->name_of_suite = $request->input('name_of_suite');
+        $editors_logs->date = $request->input('date');
         $editors_logs->first_interval = $request->input('first_interval');
         $editors_logs->second_interval = $request->input('second_interval');
         $editors_logs->third_interval = $request->input('third_interval');
@@ -114,6 +116,8 @@ class EditorLogsController extends Controller
         ]);
         $user = auth()->user();
         $editors_logs = EditorLogs::find($id);
+        $editors_logs->name_of_suite = $request->input('name_of_suite');
+        $editors_logs->date = $request->input('date');
         $editors_logs->first_interval = $request->input('first_interval');
         $editors_logs->second_interval = $request->input('second_interval');
         $editors_logs->third_interval = $request->input('third_interval');

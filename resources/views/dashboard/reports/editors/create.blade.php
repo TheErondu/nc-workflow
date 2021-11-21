@@ -55,6 +55,14 @@
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
+                                    <label for="closed_at">Name of Suite</label>
+                                    <input name="closed_at" type="text" class="form-control" id="closed_at"
+                                    value="{{old('closed_at')}}"  placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
                                     <label for="first_interval">1PM Stories</label>
                                     <textarea name="first_interval" type="text" class="form-control" id="first_interval"
                                     value=""  placeholder="">{{ old('first_interval') }}</textarea>                                </div>

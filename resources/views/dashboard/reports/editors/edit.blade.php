@@ -56,6 +56,13 @@
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
+                                    <label for="name_of_suite">Name of Suite</label>
+                                    <input name="name_of_suite" type="text" class="form-control" id="name_of_suite"
+                                    value="{{ $editors_logs->name_of_suite }}"  placeholder="">
+                                </div>
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
                                     <label for="first_interval">1PM Stories</label>
                                     <textarea name="first_interval" type="text" class="form-control" id="first_interval"
                                     value=""  placeholder="">{{ $editors_logs->first_interval }}</textarea>                                </div>
