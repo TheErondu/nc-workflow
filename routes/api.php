@@ -20,7 +20,7 @@ Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'regis
 Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login']);
 
 Route::get('schedule/preproduction', [App\Http\Controllers\API\ScheduleController::class, 'index']);
-Route::get('schedule/video', [App\Http\Controllers\API\ScheduleController::class, 'GetVideoEditorsEvents']);
+Route::get('schedule/editors', [App\Http\Controllers\API\ScheduleController::class, 'GetVideoEditorsEvents']);
 Route::get('schedule/graphics', [App\Http\Controllers\API\ScheduleController::class, 'GetGraphicEditorsEvents']);
 Route::get('schedule/digital', [App\Http\Controllers\API\ScheduleController::class, 'GetDigitalEvents']);
 Route::post('calendar-crud-ajax', [App\Http\Controllers\API\ScheduleController::class, 'calendarEvents']);

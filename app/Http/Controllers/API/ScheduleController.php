@@ -11,9 +11,9 @@ class ScheduleController extends ApiController
 
     public function index(Request $request)
     {
-            $data = Schedule::whereDate('start', '>=', $request->start)
-                ->whereDate('end',   '<=', $request->end)
-                ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
+        $data = Schedule::where('type','preproduction')->whereDate('start', '>=', $request->start)
+        ->whereDate('end',   '<=', $request->end)
+        ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
 
             return response()->json($data);
 
@@ -22,7 +22,7 @@ class ScheduleController extends ApiController
 
     public function GetVideoEditorsEvents(Request $request)
     {
-            $data = Schedule::where('type','video')->whereDate('start', '>=', $request->start)
+            $data = Schedule::where('type','editors')->whereDate('start', '>=', $request->start)
                 ->whereDate('end',   '<=', $request->end)
                 ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
 

@@ -43,7 +43,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('schedule.update',$scheduler->id) }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('schedule.update',$schedule->id) }}">
                             @csrf
                             <div class="row">
                                 <div class="mb-3  col-md-8">
@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if((request()->query("type") === 'preproduction' ))
+                            @if($schedule->type === 'preproduction' ))
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="producer1">Producer 1 </label>
@@ -158,7 +158,7 @@
                                         placeholder="Enter short description of shoot ...."></textarea>
                                 </div>
                             </div>
-                                @elseif (request()->query("type") === 'editors' )
+                                @elseif ($schedule->type === 'editors' )
                                 <div class="row justify-content-center">
                                     <div class="mb-3 col-md-5">
                                         <label>Video Editor</label>
@@ -182,17 +182,15 @@
                                             placeholder="Enter short description of shoot ...."></textarea>
                                     </div>
                                 </div>
-                             @elseif (request()->query("type") === 'graphics' )
-                             <div class="row justify-content-between">
-                                <div class="mb-3 col-md-5">
+                             @elseif ($schedule->type === 'graphics' )
+                             <div class="row justify-content-center">
+                                <div class="mb-3 col-md-4">
                                     <label>Graphic Editor</label>
                                     <select class="form-control select2" name="graphic_editor" id="graphic_editor" data-placeholder=" Graphic Editor">
                                         <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 4 OR $user->department_id === 19)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 4 OR department_id = 19') as $user)
+                                        <option value="{{ $user->name }}" @if($schedule->video_editor === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                    @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -208,17 +206,15 @@
                                         placeholder="Enter short description of shoot ...."></textarea>
                                 </div>
                             </div>
-                            @elseif (request()->query("type") === 'digital' )
+                            @elseif ($schedule->type === 'digital' )
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Digital Editor</label>
                                     <select class="form-control select2" name="digital_editor" id="digital_editor" data-placeholder=" Digital Editor">
                                         <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 6 )
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 6') as $user)
+                                        <option value="{{ $user->name }}" @if($schedule->video_editor === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                    @endforeach
                                     </select>
                                 </div>
                             </div>

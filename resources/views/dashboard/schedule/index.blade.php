@@ -12,7 +12,7 @@
                                         <li class="nav-item"><a class="nav-link active" href="#tab-1"
                                                 data-bs-toggle="tab" role="tab">Pre-Productions Scheduler</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#tab-2"
-                                                data-bs-toggle="tab" role="tab">Video Editors scheduler</a></li>
+                                                data-bs-toggle="tab" role="tab">Video Editors Features scheduler</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#tab-3"
                                                 data-bs-toggle="tab" role="tab">Graphics Editors scheduler</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#tab-4"
@@ -145,7 +145,7 @@
 
                         // your event source
                         {
-                            url: '/api/schedule/video',
+                            url: '/api/schedule/editors',
                             method: 'GET',
                             id: 'id',
                             title: 'name',
