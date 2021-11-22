@@ -101,7 +101,7 @@ class ScheduleController extends Controller
         $schedule->producer2 = $request->input('producer2');
         $schedule->video_editor = $request->input('video_editor');
         $schedule->digital_editor = $request->input('digital_editor');
-        $schedule->graphics_editor = $request->input('graphic_editor');
+        $schedule->graphic_editor = $request->input('graphic_editor');
         $schedule->others = $request->input('others');
         $schedule->dop1 = $request->input('dop1');
         $schedule->dop2 = $request->input('dop2');
