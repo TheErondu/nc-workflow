@@ -47,8 +47,8 @@
                             @csrf
                             <div class="row">
                                 <div class="mb-3  col-md-8">
-                                    <label for="title">Title of shoot</label>
-                                    <input name="title" type="text" class="form-control" id="title" placeholder="title">
+                                    <label for="title">Name</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Name">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label>Status</label>
@@ -79,6 +79,7 @@
                                 </div>
                             </div>
                             @if((request()->query("type") === 'preproduction' ))
+                            <input value="preproduction" name="type" type="text" class="form-control" id="type" hidden readonly>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="producer1">Producer 1 </label>
@@ -158,6 +159,7 @@
                                 </div>
                             </div>
                                 @elseif (request()->query("type") === 'editors' )
+                                <input value="editors" name="type" type="text" class="form-control" id="type" hidden readonly>
                                 <div class="row justify-content-center">
                                     <div class="mb-3 col-md-5">
                                         <label>Video Editor</label>
@@ -184,13 +186,14 @@
                                     </div>
                                 </div>
                              @elseif (request()->query("type") === 'graphics' )
+                             <input value="graphics" name="type" type="text" class="form-control" id="type" hidden readonly>
                              <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Graphic Editor</label>
-                                    <select class="form-control select2" name="dop4" id="dop4" data-placeholder=" select Director of Photography 4">
+                                    <select class="form-control select2" name="graphic_editor" id="graphic_editor" data-placeholder=" Graphic Editor">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            @if ($user->department_id === 9)
+                                            @if ($user->department_id === 4 OR $user->department_id === 19)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
                                             @endif
                                         @endforeach
@@ -210,13 +213,17 @@
                                 </div>
                             </div>
                             @elseif (request()->query("type") === 'digital' )
+                            <input value="digital" name="type" type="text" class="form-control" id="type" hidden readonly>
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Digital Editor</label>
-                                    <select name="dop3" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
+                                    <select class="form-control select2" name="digital_editor" id="digital_editor" data-placeholder=" Digital Editor">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 6 )
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -255,6 +262,18 @@
 @section('javascript')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+
+
+             // Select2
+             $(".select2").each(function() {
+                $(this)
+                    .wrap("<div class=\"position-relative\"></div>")
+                    .select2({
+                        placeholder: "Select value",
+                        dropdownParent: $(this).parent()
+                    });
+            });
+
             // Datetimepicker
             $('#datetimepicker-minimum').datetimepicker({
                 format:'YYYY-MM-DD HH:mm:ss'
