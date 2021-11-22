@@ -52,11 +52,11 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label>Status</label>
-                                    <select name="status" class="form-control" >
-                                        <option value="">Select...</option>
-                                        <option value="normal">normal</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
+                                    <select class="form-control select2" name="status" id="status" data-placeholder=" select Status">
+                                        <option value="" selected>select</option>
+                                        @foreach($statuses as $status)
+                                        <option value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="producer1">Producer 1 </label>
-                                    <select class="form-control select2" name="director" id="director" data-placeholder=" select director">
+                                    <select class="form-control select2" name="producer1" id="producer1" data-placeholder=" select producer">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
                                             @if ($user->department_id === 13)
@@ -163,7 +163,7 @@
                                 <div class="row justify-content-center">
                                     <div class="mb-3 col-md-5">
                                         <label>Video Editor</label>
-                                        <select class="form-control select2" name="dop4" id="dop4" data-placeholder=" select Director of Photography 4">
+                                        <select class="form-control select2" name="video_editor" id="video_editor" data-placeholder=" select Video Editor">
                                             <option value="" selected>select</option>
                                             @foreach($users as $user)
                                                 @if ($user->department_id === 3)

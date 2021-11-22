@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Schedule;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -66,7 +67,10 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::all();
         $users = User::all();
-        return view('dashboard.schedule.create',compact('schedules','users'));
+        $statuses = array(
+            'Normal','Important','Urgent','Critical',
+        );
+        return view('dashboard.schedule.create',compact('schedules','users','statuses'));
     }
 
     /**
@@ -111,10 +115,11 @@ class ScheduleController extends Controller
         $schedule->type = $request->input('type');
         $schedule->user_id = $user->id;
         $schedule->save();
+        $email =  Auth::user()->email;
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => $schedule->user->email,
+            'email' => $email,
             'title' => $schedule->title,
             'status' =>  $schedule->status,
             'body' =>  $schedule->description,
@@ -124,7 +129,7 @@ class ScheduleController extends Controller
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created schedule');
-        return redirect()->route('schedule.create');
+        return redirect()->route('schedule.index');
     }
 
    /**
@@ -155,7 +160,10 @@ class ScheduleController extends Controller
     {
         $schedule = Schedule::all()->find($id);
         $users = User::all();
-        return view('dashboard.schedule.edit', compact('schedule','users'));
+        $statuses = array(
+            'Normal','Important','Urgent','Critical',
+        );
+        return view('dashboard.schedule.edit', compact('schedule','users','statuses'));
     }
 
        /**
@@ -192,7 +200,7 @@ class ScheduleController extends Controller
         $schedule->producer2 = $request->input('producer2');
         $schedule->video_editor = $request->input('video_editor');
         $schedule->digital_editor = $request->input('digital_editor');
-        $schedule->graphics_editor = $request->input('graphic_editor');
+        $schedule->graphic_editor = $request->input('graphic_editor');
         $schedule->others = $request->input('others');
         $schedule->dop1 = $request->input('dop1');
         $schedule->dop2 = $request->input('dop2');
@@ -201,10 +209,11 @@ class ScheduleController extends Controller
         $schedule->description = $request->input('description');
         $schedule->type = $request->input('type');
         $schedule->save();
+        $email =  Auth::user()->email;
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => $schedule->user->email,
+            'email' => $email,
             'title' => $schedule->title,
             'status' =>  $schedule->status,
             'body' =>  $schedule->description,
@@ -213,8 +222,8 @@ class ScheduleController extends Controller
             'time' => date('d-m-Y')
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
-        $request->session()->flash('message', 'Successfully created schedule');
-        return redirect()->route('schedule.edit',$schedule->id);
+        $request->session()->flash('message', 'Successfully Updated schedule');
+        return redirect()->route('schedule.index');
     }
     /**
      * Remove the specified resource from storage.
