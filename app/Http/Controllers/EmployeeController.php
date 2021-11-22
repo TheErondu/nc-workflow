@@ -77,7 +77,7 @@ class EmployeeController extends Controller
             'email' => $user->email,
             'title' => $employee->name,
             'status' =>  $employee->email,
-            'body' =>  $employee->department,
+            'body' =>  $employee->department->name,
             'model' =>  'Employees',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y')

@@ -79,61 +79,77 @@
                                 </div>
                             </div>
                             @if((request()->query("type") === 'preproduction' ))
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-5">
-                                    <label>Producer 1</label>
-                                    <select name="producer1" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer1">Producer 1 </label>
+                                    <select class="form-control select2" name="director" id="director" data-placeholder=" select director">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 13)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3 col-md-5">
-                                    <label>Producer 2</label>
-                                    <select name="producer2" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer2">Producer 2 </label>
+                                    <select class="form-control select2" name="producer2" id="producer2" data-placeholder=" select producer2">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 13)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="dop1">Director of Photography 1</label>
+                                    <select class="form-control select2" name="dop1" id="dop1" data-placeholder=" select Director of Photography 1">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-5">
-                                    <label>Director of Photography 1</label>
-                                    <select name="dop1" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
+                                <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="dop2">Director of Photography 2</label>
+                                    <select class="form-control select2" name="dop2" id="dop2" data-placeholder=" select Director of Photography 2">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3 col-md-5">
-                                    <label>Director of Photography 2</label>
-                                    <select name="dop2" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
+                                <div class="mb-3 col-md-4">
+                                    <label for="dop3">Director of Photography 3</label>
+                                    <select class="form-control select2" name="dop3" id="dop3" data-placeholder=" select Director of Photography 3">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="dop4">Director of Photography 4</label>
+                                    <select class="form-control select2" name="dop4" id="dop4" data-placeholder=" select Director of Photography 4">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                                 </div>
 
-                            </div>
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-5">
-                                    <label>Director of Photography 3</label>
-                                    <select name="dop3" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-5">
-                                    <label>Director of Photography 4</label>
-                                    <select name="dop4" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="mb-3 col-md-12">
                                     <label>Description</label>
@@ -145,10 +161,13 @@
                                 <div class="row justify-content-center">
                                     <div class="mb-3 col-md-5">
                                         <label>Video Editor</label>
-                                        <select name="dop3" class="form-control mb-3" >
-                                            <option value="">Select...</option>
-                                            <option value="important">important</option>
-                                            <option value="critical">critical</option>
+                                        <select class="form-control select2" name="dop4" id="dop4" data-placeholder=" select Director of Photography 4">
+                                            <option value="" selected>select</option>
+                                            @foreach($users as $user)
+                                                @if ($user->department_id === 3)
+                                                <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -168,10 +187,13 @@
                              <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Graphic Editor</label>
-                                    <select name="dop3" class="form-control mb-3" >
-                                        <option value="">Select...</option>
-                                        <option value="important">important</option>
-                                        <option value="critical">critical</option>
+                                    <select class="form-control select2" name="dop4" id="dop4" data-placeholder=" select Director of Photography 4">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 9)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
