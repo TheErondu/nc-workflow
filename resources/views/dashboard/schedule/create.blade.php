@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label>Status</label>
-                                    <select name="status" class="form-control" required>
+                                    <select name="status" class="form-control" >
                                         <option value="">Select...</option>
                                         <option value="normal">normal</option>
                                         <option value="important">important</option>
@@ -82,7 +82,7 @@
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Producer 1</label>
-                                    <select name="producer1" class="form-control mb-3" required>
+                                    <select name="producer1" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="mb-3 col-md-5">
                                     <label>Producer 2</label>
-                                    <select name="producer2" class="form-control mb-3" required>
+                                    <select name="producer2" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
@@ -100,7 +100,7 @@
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Director of Photography 1</label>
-                                    <select name="dop1" class="form-control mb-3" required>
+                                    <select name="dop1" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="mb-3 col-md-5">
                                     <label>Director of Photography 2</label>
-                                    <select name="dop2" class="form-control mb-3" required>
+                                    <select name="dop2" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
@@ -119,7 +119,7 @@
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Director of Photography 3</label>
-                                    <select name="dop3" class="form-control mb-3" required>
+                                    <select name="dop3" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="mb-3 col-md-5">
                                     <label>Director of Photography 4</label>
-                                    <select name="dop4" class="form-control mb-3" required>
+                                    <select name="dop4" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
@@ -145,7 +145,7 @@
                                 <div class="row justify-content-center">
                                     <div class="mb-3 col-md-5">
                                         <label>Video Editor</label>
-                                        <select name="dop3" class="form-control mb-3" required>
+                                        <select name="dop3" class="form-control mb-3" >
                                             <option value="">Select...</option>
                                             <option value="important">important</option>
                                             <option value="critical">critical</option>
@@ -168,7 +168,7 @@
                              <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Graphic Editor</label>
-                                    <select name="dop3" class="form-control mb-3" required>
+                                    <select name="dop3" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
@@ -191,7 +191,7 @@
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-5">
                                     <label>Digital Editor</label>
-                                    <select name="dop3" class="form-control mb-3" required>
+                                    <select name="dop3" class="form-control mb-3" >
                                         <option value="">Select...</option>
                                         <option value="important">important</option>
                                         <option value="critical">critical</option>
