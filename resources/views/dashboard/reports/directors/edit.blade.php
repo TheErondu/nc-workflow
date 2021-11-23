@@ -265,13 +265,25 @@
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
 
-                                    <button form="delete-form" style="background-color: red !important;" type="submit"
-                                        class="btn btn-primary">Delete</button>
+                                    @can('delete-reports'){{ Form::open(['route' => ['reports.destroy', $reports->id], 'method' => 'delete']) }}
+                                           <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                        {{ Form::close() }}
+
+                                        @endcan
                                 </div>
+                                @can('access-dir_reports')
                                 <div class="mb-3 col-md-1">
                                     <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
                                         class="btn btn-primary">Submit</button>
                                 </div>
+                                @endcan
+                                @can('access-dir_reports-readonly')
+                                <div class="mb-3 col-md-6">
+                                    <a href="{{ route('reports.index') }}"
+                                        style="background-color: rgb(53, 54, 55) !important;"
+                                        class="btn btn-primary">Go Back</a>
+                                </div>
+                                @endcan
                             </div>
                         </form>
                         <form action="{{ route('reports.destroy', $reports->id) }}" id="delete-form" method="POST">

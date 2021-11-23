@@ -89,8 +89,11 @@
 
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <button form="delete-form" style="background-color: red !important;" type="submit"
-                                    class="btn btn-primary">Delete</button>
+                                    @can('delete-reports'){{ Form::open(['route' => ['editor.destroy', $editors_logs->id], 'method' => 'delete']) }}
+                                    <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                 {{ Form::close() }}
+
+                                 @endcan
                             </div>
                             <div class="mb-3 col-md-1">
                                 <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
