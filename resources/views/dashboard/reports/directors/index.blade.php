@@ -94,7 +94,6 @@
                                     <td>{{ $report->b2comment }}</td>
                                     <td>{{ $report->user->name }}</td>
                                     <td>{{ $report->created_at }}</td>
-
                                 </tr>
                             @endforeach
                         </tbody>

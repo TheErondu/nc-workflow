@@ -212,6 +212,89 @@
                                     value="" required placeholder="">{{ old('challenges2') }}</textarea>
                                 </div>
                             </div>
+                                                        <div class=" row justify-content-center">
+                                <div class="mb-3 col-md-4">
+                                    <label for="segment3">Segment</label>
+                                    <input name="segment3" type="text" class="form-control" id="segment3"
+                                    value="{{ old('segment') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="rundown_in3">Run Down In</label>
+                                    <input name="rundown_in3" type="text" class="form-control" id="rundown_in3"
+                                    value="{{ old('rundown_in3') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="script_in3">Script In</label>
+                                    <input name="script_in3" type="text" class="form-control" id="script_in3"
+                                    value="{{ old('script_in3') }}" required placeholder="">
+                                </div>
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="host3">Host </label>
+                                    <input name="host3" type="text" class="form-control" id="host3"
+                                    value="{{ old('host2') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="director3">Director </label>
+                                    <select class="form-control select2" name="director3" id="director3" data-placeholder=" select director">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 13)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="anchor3">Anchor </label>
+                                    <select class="form-control select2" name="anchor3" id="anchor3" data-placeholder=" select anchor3">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 15)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-around">
+
+                                <div class="mb-3 col-md-4">
+                                    <label for="graphics3">Graphics</label>
+                                    <input name="graphics3" type="text" class="form-control" id="graphics3"
+                                    value="{{ old('graphics3') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer3">Producer</label>
+                                    <input name="producer3" type="text" class="form-control" id="producer3"
+                                    value="{{ old('producer3') }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="pa3">PA </label>
+                                    <input name="pa3" type="text" class="form-control" id="pa3"
+                                    value="{{ old('pa2') }}" required placeholder="">
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="mb-3 col-md-4">
+                                    <label for="engineer3">Engineer </label>
+                                    <select class="form-control select2" name="engineer3" id="engineer3" data-placeholder=" select engineer ">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 11)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-8">
+                                    <label for="challenges3">Challenges</label>
+                                    <textarea name="challenges3" type="text" class="form-control" id="challenges3"
+                                    value="" required placeholder="">{{ old('challenges3') }}</textarea>
+                                </div>
+                            </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-3">
                                     <span>Uploaded by: <br> {{Auth::user()->name }}</span>

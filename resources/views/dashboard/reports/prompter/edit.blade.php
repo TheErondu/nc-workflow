@@ -200,6 +200,83 @@
                                     value="" required placeholder="">{{ $prompter_logs->challenges2 }}</textarea>
                                 </div>
                             </div>
+                            <div class=" row justify-content-center">
+                                <div class="mb-3 col-md-4">
+                                    <label for="segment3">Segment</label>
+                                    <input name="segment3" type="text" class="form-control" id="segment3"
+                                    value="{{ $prompter_logs->segment3 }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="rundown_in3">Run Down In</label>
+                                    <input name="rundown_in3" type="text" class="form-control" id="rundown_in3"
+                                    value="{{ $prompter_logs->rundown_in3 }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="script_in3">Script In</label>
+                                    <input name="script_in3" type="text" class="form-control" id="script_in3"
+                                    value="{{ $prompter_logs->script_in3 }}" required placeholder="">
+                                </div>
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="host3">Host </label>
+                                    <input name="host3" type="text" class="form-control" id="host3"
+                                    value="{{ $prompter_logs->host3 }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="director3">Director </label>
+                                    <select class="form-control select2" name="director3" id="director3" data-placeholder=" select director">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->name }}" @if($prompter_logs->director3 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="anchor3">Anchor </label>
+                                    <select class="form-control select2" name="anchor3" id="anchor3" data-placeholder=" select anchor">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->name }}" @if($prompter_logs->anchor3 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-around">
+
+                                <div class="mb-3 col-md-4">
+                                    <label for="graphics3">Graphics</label>
+                                    <input name="graphics3" type="text" class="form-control" id="graphics3"
+                                    value="{{ $prompter_logs->graphics3 }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer3">Producer</label>
+                                    <input name="producer3" type="text" class="form-control" id="producer3"
+                                    value="{{ $prompter_logs->producer3 }}" required placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="pa3">PA </label>
+                                    <input name="pa3" type="text" class="form-control" id="pa3"
+                                    value="{{ $prompter_logs->pa3 }}" required placeholder="">
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="mb-3 col-md-4">
+                                    <label for="engineer3">Engineer </label>
+                                    <select class="form-control select2" name="engineer3" id="engineer3" data-placeholder=" select engineer ">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->name }}" @if($prompter_logs->engineer3 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-8">
+                                    <label for="challenges3">Challenges</label>
+                                    <textarea name="challenges3" type="text" class="form-control" id="challenges3"
+                                    value="" required placeholder="">{{ $prompter_logs->challenges3 }}</textarea>
+                                </div>
+                            </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-3">
                                     <span>Uploaded by: <br> {{Auth::user()->name }}</span>
