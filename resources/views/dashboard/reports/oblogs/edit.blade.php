@@ -78,7 +78,7 @@
                                     <select class="form-control select2" name="producer" id="producer" data-placeholder=" select Producer">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                        <option value="{{ $user->name }}" @if($oblogs->producer === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        <option value="{{ $user->username }}" @if($oblogs->producer === $user->username) selected='selected' @endif>{{ $user->username }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -183,17 +183,29 @@
                                     <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
                                 </div>
                             </div>
-
-
                                 <div class="row justify-content-between">
-                                    <div class="mb-3 col-md-6">
-                                        <button form="delete-form" style="background-color: red !important;" type="submit"
-                                        class="btn btn-primary">Delete</button>
+                                    @can('access-ob_logs-readonly')
+
+                                    <div class="mb-3 col-md-4">
+                                        <a href="{{ route('oblogs.index') }}"
+                                            style="background-color: rgb(53, 54, 55) !important;"
+                                            class="btn btn-primary">Cancel</a>
                                     </div>
-                                    <div class="mb-3 col-md-1">
+
+                                    @endcan
+                                    @can('delete-reports')
+                                    <div class="mb-3 col-md-4">
+
+                                        <button form="delete-form" type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </div>
+                                    @endcan
+                                    @can('access-ob_logs')
+                                    <div class="mb-3 col-md-4">
                                         <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
                                             class="btn btn-primary">Submit</button>
                                     </div>
+                                    @endcan
+
                                 </div>
                         </form>
                         <form action="{{ route('oblogs.destroy', $oblogs->id) }}" id="delete-form" method="POST">

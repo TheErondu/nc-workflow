@@ -285,18 +285,30 @@
                                     <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
                                 </div>
                             </div>
-
-
                             <div class="row justify-content-between">
-                                <div class="mb-3 col-md-6">
-                                    <button form="delete-form" style="background-color: red !important;" type="submit"
-                                    class="btn btn-primary">Delete</button>
+                                @can('access-prompter_logs-readonly')
+
+                                <div class="mb-3 col-md-4">
+                                    <a href="{{ route('prompter.index') }}"
+                                        style="background-color: rgb(53, 54, 55) !important;"
+                                        class="btn btn-primary">Cancel</a>
+                                </div>
+
+                                @endcan
+                                @can('delete-reports')
+                                <div class="mb-3 col-md-4">
+
+                                    <button form="delete-form" type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </div>
+                                @endcan
+                                @can('access-prompter_logs')
+                                <div class="mb-3 col-md-4">
+                                    <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
+                                        class="btn btn-primary">Submit</button>
+                                </div>
+                                @endcan
+
                             </div>
-                            <div class="mb-3 col-md-1">
-                                <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
-                                    class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
                     </form>
                     <form action="{{ route('prompter.destroy', $prompter_logs->id) }}" id="delete-form" method="POST">
                         @method('DELETE')

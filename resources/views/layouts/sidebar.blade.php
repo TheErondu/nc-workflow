@@ -73,28 +73,40 @@
                     <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Reports</span>
                 </a>
                 <ul id="reports" @if (Route::is('reports.*','mcr.*','editors.*','oblogs.*','production.*','engineers.*','prompter.*','transmission.*')) class="sidebar-dropdown list-unstyled " @else class="sidebar-dropdown list-unstyled collapse" @endif data-bs-parent="#sidebar">
-
+                    @canany(['access-dir_reports', 'access-dir_reports-readonly'])
                     <li @if (Route::is('reports.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('reports.index') }}"> <i
                                 class="align-middle me-2 fas fa-clipboard-check"></i> <span
                                 class="align-middle">Director's Report</span></a></li>
+                                @endcanany
+
+                                @canany(['access-editor_logs', 'access-editor_logs-readonly'])
                     <li @if (Route::is('editors.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('editors.index') }}"> <i
                                 class="align-middle me-2 fas fa-video"></i> <span class="align-middle">Video Editors
                                 Reports</span></a></li>
+                                @endcanany
+                                @canany(['access-ob_logs', 'access-ob_logs-readonly'])
                     <li @if (Route::is('oblogs.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('oblogs.index') }}"> <i
                                 class="align-middle me-2 fas fa-shipping-fast"></i> <span class="align-middle">OB
                                 Logs</span></a></li>
+                                @endcanany
+                                @canany(['access-mcr_logs', 'access-mcr_logs-readonly'])
                     <li @if (Route::is('mcr.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('mcr.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-video"></i> <span class="align-middle">MCR
                                 Logs</span></a></li>
+                                @endcanany
+                                @canany(['access-production_show_logs', 'access-production_show_logs-readonly'])
                     <li @if (Route::is('production.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('production.index') }}"> <i
                                 class="align-middle me-2 fas fa-tag"></i> <span class="align-middle">Production Show
                                 Logs</span></a></li>
+                                @endcanany
                     {{-- <li @if (Route::is('engineer.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('engineers.index') }}"> <i
                                 class="align-middle me-2 fas fa-wrench"></i> <span class="align-middle">Engineer
                                 Logs</span></a></li> --}}
+                                @canany(['access-prompter_logs', 'access-prompter_logs-readonly'])
                     <li @if (Route::is('prompter.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('prompter.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Prompter
                                 Logs</span></a></li>
+                                @endcanany
                     {{-- <li @if (Route::is('transmission.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('transmission.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Transmission
                                 Logs</span></a></li> --}}

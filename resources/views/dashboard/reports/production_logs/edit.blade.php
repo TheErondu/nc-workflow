@@ -207,17 +207,29 @@
                                     <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
                                 </div>
                             </div>
+                            <div class="row justify-content-between">
+                                @can('access-production_show_logs-readonly')
 
-
-                                <div class="row justify-content-between">
-                                    <div class="mb-3 col-md-6">
-                                        <button form="delete-form" style="background-color: red !important;" type="submit"
-                                        class="btn btn-primary">Delete</button>
+                                <div class="mb-3 col-md-4">
+                                    <a href="{{ route('production.index') }}"
+                                        style="background-color: rgb(53, 54, 55) !important;"
+                                        class="btn btn-primary">Cancel</a>
                                 </div>
-                                <div class="mb-3 col-md-1">
+
+                                @endcan
+                                @can('delete-reports')
+                                <div class="mb-3 col-md-4">
+
+                                    <button form="delete-form" type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </div>
+                                @endcan
+                                @can('access-production_show_logs')
+                                <div class="mb-3 col-md-4">
                                     <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
                                         class="btn btn-primary">Submit</button>
                                 </div>
+                                @endcan
+
                             </div>
                         </form>
                         <form action="{{ route('production.destroy', $production_logs->id) }}" id="delete-form" method="POST">
