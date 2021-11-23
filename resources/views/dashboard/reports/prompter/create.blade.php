@@ -50,24 +50,24 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="segment">Segment</label>
                                     <input name="segment" type="text" class="form-control" id="segment"
-                                    value="{{ old('segment') }}" required placeholder="">
+                                    value="{{ old('segment') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="rundown_in">Run Down In</label>
                                     <input name="rundown_in" type="text" class="form-control" id="rundown_in"
-                                    value="{{ old('rundown_in') }}" required placeholder="">
+                                    value="{{ old('rundown_in') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="script_in">Script In</label>
                                     <input name="script_in" type="text" class="form-control" id="script_in"
-                                    value="{{ old('script_in') }}" required placeholder="">
+                                    value="{{ old('script_in') }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host">Host </label>
                                     <input name="host" type="text" class="form-control" id="host"
-                                    value="{{ old('host') }}" required placeholder="">
+                                    value="{{ old('host') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director">Director </label>
@@ -98,17 +98,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
                                     <input name="graphics" type="text" class="form-control" id="graphics"
-                                    value="{{ old('graphics') }}" required placeholder="">
+                                    value="{{ old('graphics') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer">Producer</label>
                                     <input name="producer" type="text" class="form-control" id="producer"
-                                    value="{{ old('producer') }}" required placeholder="">
+                                    value="{{ old('producer') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa">PA </label>
                                     <input name="pa" type="text" class="form-control" id="pa"
-                                    value="{{ old('pa') }}" required placeholder="">
+                                    value="{{ old('pa') }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -126,31 +126,31 @@
                                 <div class="mb-3 col-md-8">
                                     <label for="challenges">Challenges</label>
                                     <textarea name="challenges" type="text" class="form-control" id="challenges"
-                                    value="" required placeholder="">{{ old('challenges') }}</textarea>
+                                    value=""  placeholder="">{{ old('challenges') }}</textarea>
                                 </div>
                             </div>
                             <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-4">
                                     <label for="segment2">Segment</label>
                                     <input name="segment2" type="text" class="form-control" id="segment2"
-                                    value="{{ old('segment') }}" required placeholder="">
+                                    value="{{ old('segment') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="rundown_in2">Run Down In</label>
                                     <input name="rundown_in2" type="text" class="form-control" id="rundown_in2"
-                                    value="{{ old('rundown_in2') }}" required placeholder="">
+                                    value="{{ old('rundown_in2') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="script_in2">Script In</label>
                                     <input name="script_in2" type="text" class="form-control" id="script_in2"
-                                    value="{{ old('script_in2') }}" required placeholder="">
+                                    value="{{ old('script_in2') }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host2">Host </label>
                                     <input name="host2" type="text" class="form-control" id="host2"
-                                    value="{{ old('host2') }}" required placeholder="">
+                                    value="{{ old('host2') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director2">Director </label>
@@ -181,17 +181,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics2">Graphics</label>
                                     <input name="graphics2" type="text" class="form-control" id="graphics2"
-                                    value="{{ old('graphics2') }}" required placeholder="">
+                                    value="{{ old('graphics2') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer2">Producer</label>
                                     <input name="producer2" type="text" class="form-control" id="producer2"
-                                    value="{{ old('producer2') }}" required placeholder="">
+                                    value="{{ old('producer2') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa2">PA </label>
                                     <input name="pa2" type="text" class="form-control" id="pa2"
-                                    value="{{ old('pa2') }}" required placeholder="">
+                                    value="{{ old('pa2') }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -209,31 +209,31 @@
                                 <div class="mb-3 col-md-8">
                                     <label for="challenges2">Challenges</label>
                                     <textarea name="challenges2" type="text" class="form-control" id="challenges2"
-                                    value="" required placeholder="">{{ old('challenges2') }}</textarea>
+                                    value=""  placeholder="">{{ old('challenges2') }}</textarea>
                                 </div>
                             </div>
                                                         <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-4">
                                     <label for="segment3">Segment</label>
                                     <input name="segment3" type="text" class="form-control" id="segment3"
-                                    value="{{ old('segment') }}" required placeholder="">
+                                    value="{{ old('segment') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="rundown_in3">Run Down In</label>
                                     <input name="rundown_in3" type="text" class="form-control" id="rundown_in3"
-                                    value="{{ old('rundown_in3') }}" required placeholder="">
+                                    value="{{ old('rundown_in3') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="script_in3">Script In</label>
                                     <input name="script_in3" type="text" class="form-control" id="script_in3"
-                                    value="{{ old('script_in3') }}" required placeholder="">
+                                    value="{{ old('script_in3') }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host3">Host </label>
                                     <input name="host3" type="text" class="form-control" id="host3"
-                                    value="{{ old('host2') }}" required placeholder="">
+                                    value="{{ old('host2') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director3">Director </label>
@@ -264,17 +264,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics3">Graphics</label>
                                     <input name="graphics3" type="text" class="form-control" id="graphics3"
-                                    value="{{ old('graphics3') }}" required placeholder="">
+                                    value="{{ old('graphics3') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer3">Producer</label>
                                     <input name="producer3" type="text" class="form-control" id="producer3"
-                                    value="{{ old('producer3') }}" required placeholder="">
+                                    value="{{ old('producer3') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa3">PA </label>
                                     <input name="pa3" type="text" class="form-control" id="pa3"
-                                    value="{{ old('pa2') }}" required placeholder="">
+                                    value="{{ old('pa2') }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -292,7 +292,7 @@
                                 <div class="mb-3 col-md-8">
                                     <label for="challenges3">Challenges</label>
                                     <textarea name="challenges3" type="text" class="form-control" id="challenges3"
-                                    value="" required placeholder="">{{ old('challenges3') }}</textarea>
+                                    value=""  placeholder="">{{ old('challenges3') }}</textarea>
                                 </div>
                             </div>
                             <div class="row justify-content-around">

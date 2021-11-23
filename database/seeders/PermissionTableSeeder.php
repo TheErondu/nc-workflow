@@ -15,8 +15,9 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-        'delete-reports',
-        'delete-data',
+        'manage-departments',
+        'manage-roles',
+        'manage-users'
         ];
 
         foreach ($permissions as $permission) {
