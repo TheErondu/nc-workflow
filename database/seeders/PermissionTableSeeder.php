@@ -15,8 +15,8 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-         'access-editor_logs',
-         'access-editor_logs-readonly'
+        'delete-reports',
+        'delete-data',
         ];
 
         foreach ($permissions as $permission) {
