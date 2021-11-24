@@ -125,7 +125,7 @@ class StoreController extends Controller
         $details = [
             'cc_emails' => $cc_emails,
             'email' => FacadesAuth::user()->email,
-            'title' => $store_requests->item_name,
+            'title' => $store_requests->item,
             'status' =>  $store_requests->return_date,
             'body' =>  $store_requests->assigned_department,
             'model' =>  'Store Requests',
@@ -222,7 +222,9 @@ class StoreController extends Controller
         $store_request = StoreRequest::all()->find($id);
         $store_request->status = "Approved";
         $store_request->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $store_request->user->email,
             'title' => $store_request->item_name,
             'status' =>  $store_request->status,
@@ -248,7 +250,9 @@ class StoreController extends Controller
         $store_request = StoreRequest::all()->find($id);
         $store_request->status = "Rejected";
         $store_request->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $store_request->user->email,
             'title' => $store_request->item_name,
             'status' =>  $store_request->status,
@@ -274,7 +278,9 @@ class StoreController extends Controller
         $store_request = StoreRequest::all()->find($id);
         $store_request->status = "Returned";
         $store_request->save();
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'cc_emails' => $cc_emails,
             'email' => $store_request->user->email,
             'title' => $store_request->item_name,
             'status' =>  $store_request->status,
@@ -315,6 +321,6 @@ class StoreController extends Controller
         if($store_item){
             $store_item->delete();
         }
-        return redirect()->route('store.index')->with('message', 'Successfully Deleted Report');
+        return redirect()->route('store.index')->with('message', 'Successfully Deleted Request');
     }
 }

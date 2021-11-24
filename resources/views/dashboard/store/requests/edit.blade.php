@@ -79,7 +79,7 @@
 
                             @else
                             <div class="mb-3 col-md-4">
-                                <h5 class="highlight-black" for="borrower">Borrower : {{ Auth::user()->name }}</h5>
+                                <h5 class="highlight-black" for="borrower">Borrower : {{ $store_request->user->name }}</h5>
                             </div>
                             <div class="mb-3 col-md-4">
                                     <h5 class="highlight-black" for="borrower">Item : {{ $store_request->item }}</h5>
