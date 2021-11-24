@@ -89,7 +89,7 @@ class StoreController extends Controller
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => $store_item->user->email,
+            'email' => FacadesAuth::user()->user->email,
             'title' => $store_item->item_name,
             'status' =>  $store_item->state,
             'body' =>  $store_item->assigned_department,
@@ -124,7 +124,7 @@ class StoreController extends Controller
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => $store_requests->user->email,
+            'email' => FacadesAuth::user()->email,
             'title' => $store_requests->item_name,
             'status' =>  $store_requests->return_date,
             'body' =>  $store_requests->assigned_department,
@@ -197,7 +197,7 @@ class StoreController extends Controller
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => $store_item->user->email,
+            'email' => FacadesAuth::user()->email,
             'title' => $store_item->item_name,
             'status' =>  $store_item->state,
             'body' =>  $store_item->assigned_department,

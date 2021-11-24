@@ -140,30 +140,34 @@
                 </ul>
             </li>
             @endcan
-            @can('is-manager')
+            @canany(['is-manager'])
             <li @if (Route::is('departments.*', 'employees.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-fw fa-cogs"></i> <span
                         class="align-middle">Administration</span>
                 </a>
                 <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    @can('manage-departments')
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('departments.index') }}"><i
                                 class="align-middle me-2 fas fa-id-card"></i> <span class="align-middle">Manage
                                 Departments</span></a></li>
+                                @endcan
 
-
+                                @can('manage-users')
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('employees.index') }}"><i
                                 class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage User
                                 Accounts</span></a></li>
 
-
+                                    @endcan
+                                    @can('role-create')
                                 <li class="sidebar-item"><a class="sidebar-link" href="{{ route('roles.index') }}"><i
                                     class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage Roles
                                 </span></a></li>
+                                @endcan
 
                 </ul>
             </li>
-                     @endcan
+                     @endcanany
             <li class="sidebar-item ">
                 <a data-bs-target="#" href="{{ route('analytics.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analytics</span>
