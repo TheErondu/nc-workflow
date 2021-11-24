@@ -114,10 +114,11 @@ class StoreController extends Controller
             'return_date'           => 'required',
         ]);
         $user = auth()->user();
-        $requested_item = $requested_item = Store::all()->find($id);
+        $requested_item = Store::all()->find($id);
         $store_requests = new storeRequest();
         $store_requests->user_id = $user->id;
         $store_requests->item = $requested_item->item_name;
+        $store_requests->store_id = $requested_item->id;
         $store_requests->return_date = $request->input('return_date');
         $store_requests->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
