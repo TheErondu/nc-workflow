@@ -15,10 +15,13 @@ class ReportsController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $directors_report = Reports::all();
-        return response()->json(  compact('directors_report'));
+        $data = reports::whereDate('created_at', '>=', $request->start)
+        ->whereDate('created_at',   '<=', $request->end)
+        ->get(['id', 'bulletin', 'created_at']);
+
+        return response()->json($data);
     }
 
     /**

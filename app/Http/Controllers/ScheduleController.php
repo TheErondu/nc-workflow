@@ -23,6 +23,7 @@ class ScheduleController extends Controller
                 ->get(['id', 'name', 'start_date', 'end_date', 'type']);
             return response()->json($data);
         }
+        else
         return view('dashboard.schedule.index');
     }
 

@@ -27,6 +27,7 @@ Route::post('calendar-crud-ajax', [App\Http\Controllers\API\ScheduleController::
 Route::get('content', [App\Http\Controllers\API\ContentController::class, 'index']);
 Route::get('sales-production', [App\Http\Controllers\API\SalesScheduleController::class, 'index']);
 Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);
+Route::apiResource('reports', 'App\Http\Controllers\API\ReportsController');
 
 Route::group(['middleware' => ['auth:sanctum'],[]], function () {
 
@@ -40,7 +41,6 @@ Route::group(['middleware' => ['auth:sanctum'],[]], function () {
         Route::apiResource('content', 'App\Http\Controllers\API\ContentController');
         Route::apiResource('documents', 'App\Http\Controllers\API\DocumentController');
         Route::apiResource('dutylog', 'App\Http\Controllers\API\DutyloggerController');
-        Route::apiResource('reports', 'App\Http\Controllers\API\ReportsController');
         Route::apiResource('oblogs', 'App\Http\Controllers\API\OBlogsController');
         Route::apiResource('schedule', 'App\Http\Controllers\API\ScheduleController');
         Route::apiResource('roles', 'App\Http\Controllers\API\RoleController');

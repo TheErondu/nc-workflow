@@ -60,7 +60,7 @@
                         </div>
 
                     </div>
-               
+
                 </div>
             </div>
 
@@ -93,8 +93,8 @@
                             method: 'GET',
                             id: 'id',
                             title: 'name',
-                            start: 'start_time',
-                            end: 'endtime',
+                            start: 'start',
+                            end: 'end',
                             backgroundColor: 'green'
                         }
 
