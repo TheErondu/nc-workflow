@@ -15,9 +15,8 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-        'manage-departments',
-        'manage-roles',
-        'manage-users'
+            'access-graphics_logs',
+            'access-graphics_logs-readonly'
         ];
 
         foreach ($permissions as $permission) {

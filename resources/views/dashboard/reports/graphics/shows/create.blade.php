@@ -43,7 +43,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('prompter.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('graphics-shows.store') }}">
                             @csrf
 
                             <div class=" row justify-content-center">
@@ -82,14 +82,8 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor">Anchor </label>
-                                    <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select anchor">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 15)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="anchor" type="text" class="form-control" id="anchor"
+                                    value="{{ old('anchor') }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -165,14 +159,8 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor2">Anchor </label>
-                                    <select class="form-control select2" name="anchor2" id="anchor2" data-placeholder=" select anchor2">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 15)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="anchor2" type="text" class="form-control" id="anchor2"
+                                    value="{{ old('anchor2') }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -233,7 +221,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="host3">Host </label>
                                     <input name="host3" type="text" class="form-control" id="host3"
-                                    value="{{ old('host2') }}"  placeholder="">
+                                    value="{{ old('host3') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director3">Director </label>
@@ -248,14 +236,8 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor3">Anchor </label>
-                                    <select class="form-control select2" name="anchor3" id="anchor3" data-placeholder=" select anchor3">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 15)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="anchor3" type="text" class="form-control" id="anchor3"
+                                    value="{{ old('anchor3') }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -274,7 +256,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="pa3">PA </label>
                                     <input name="pa3" type="text" class="form-control" id="pa3"
-                                    value="{{ old('pa2') }}"  placeholder="">
+                                    value="{{ old('pa3') }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -307,7 +289,7 @@
 
                                 <div class="row justify-content-between">
                                     <div class="mb-3 col-md-6">
-                                        <a href="{{ route('reports.index') }}"
+                                        <a href="{{ route('graphics-news.index') }}"
                                             style="background-color: rgb(53, 54, 55) !important;"
                                             class="btn btn-primary">Cancel</a>
                                     </div>

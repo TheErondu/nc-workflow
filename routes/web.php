@@ -59,7 +59,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('logs/production', 'App\Http\Controllers\ProductionShowLogsController');
         Route::resource('logs/engineers', 'App\Http\Controllers\EngineerLogsController');
         Route::resource('logs/editors', 'App\Http\Controllers\EditorLogsController');
-        Route::resource('logs/prompter', 'App\Http\Controllers\PrompterLogsController');
+        Route::resource('logs/prompter-news', 'App\Http\Controllers\PrompterLogsController');
+        Route::resource('logs/prompter-shows', 'App\Http\Controllers\PrompterLogShowsController');
+        Route::resource('logs/graphics-news', 'App\Http\Controllers\GraphicsLogsController');
+        Route::resource('logs/graphics-shows', 'App\Http\Controllers\GraphicsLogShowsController');
         Route::resource('logs/transmission', 'App\Http\Controllers\TransmissionReportController');
         Route::resource('logs/cot', 'App\Http\Controllers\COTController');
 

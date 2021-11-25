@@ -20,7 +20,7 @@ class PrompterLogsController extends Controller
     public function index()
     {
         $prompter_logs = PrompterLogs::all();
-        return view('dashboard.reports.prompter.index', compact('prompter_logs'));
+        return view('dashboard.reports.prompter.news.index', compact('prompter_logs'));
     }
 
     /**
@@ -32,7 +32,7 @@ class PrompterLogsController extends Controller
     {
 
         $users = User::all();
-        return view('dashboard.reports.prompter.create',compact('users'));
+        return view('dashboard.reports.prompter.news.create',compact('users'));
     }
 
     /**
@@ -79,6 +79,17 @@ class PrompterLogsController extends Controller
         $prompter_logs->engineer2 = $request->input('engineer2');
         $prompter_logs->pa2 = $request->input('pa2');
         $prompter_logs->challenges2 = $request->input('challenges2');
+        $prompter_logs->segment3 = $request->input('segment3');
+        $prompter_logs->rundown_in3 = $request->input('rundown_in3');
+        $prompter_logs->script_in3 = $request->input('script_in3');
+        $prompter_logs->anchor3 = $request->input('anchor3');
+        $prompter_logs->director3 = $request->input('director3');
+        $prompter_logs->host3 = $request->input('host3');
+        $prompter_logs->graphics3 = $request->input('graphics3');
+        $prompter_logs->producer3 = $request->input('producer3');
+        $prompter_logs->engineer3 = $request->input('engineer3');
+        $prompter_logs->pa3 = $request->input('pa3');
+        $prompter_logs->challenges3 = $request->input('challenges3');
         $prompter_logs->user_id = $user->id;
         $prompter_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
@@ -118,7 +129,7 @@ class PrompterLogsController extends Controller
     {
         $prompter_logs = PrompterLogs::all()->find($id);
         $users = User::all();
-        return view('dashboard.reports.prompter.edit', compact('prompter_logs','users'));
+        return view('dashboard.reports.prompter.news.edit', compact('prompter_logs','users'));
     }
 
     /**
@@ -165,6 +176,17 @@ class PrompterLogsController extends Controller
         $prompter_logs->engineer2 = $request->input('engineer2');
         $prompter_logs->pa2 = $request->input('pa2');
         $prompter_logs->challenges2 = $request->input('challenges2');
+        $prompter_logs->segment3 = $request->input('segment3');
+        $prompter_logs->rundown_in3 = $request->input('rundown_in3');
+        $prompter_logs->script_in3 = $request->input('script_in3');
+        $prompter_logs->anchor3 = $request->input('anchor3');
+        $prompter_logs->director3 = $request->input('director3');
+        $prompter_logs->host3 = $request->input('host3');
+        $prompter_logs->graphics3 = $request->input('graphics3');
+        $prompter_logs->producer3 = $request->input('producer3');
+        $prompter_logs->engineer3 = $request->input('engineer3');
+        $prompter_logs->pa3 = $request->input('pa3');
+        $prompter_logs->challenges3 = $request->input('challenges3');
         $prompter_logs->user_id = $user->id;
         $prompter_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');

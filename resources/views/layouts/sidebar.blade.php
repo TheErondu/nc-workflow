@@ -99,13 +99,20 @@
                                 class="align-middle me-2 fas fa-tag"></i> <span class="align-middle">Production Show
                                 Logs</span></a></li>
                                 @endcanany
+                                <li @if (Route::is('graphics-news.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('graphics-news.index') }}"> <i
+                                    class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Graphics Logs (News)</span></a></li>
+                                    <li @if (Route::is('graphics.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('graphics-shows.index') }}"> <i
+                                        class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Graphics Logs (Shows)</span></a></li>
                     {{-- <li @if (Route::is('engineer.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('engineers.index') }}"> <i
                                 class="align-middle me-2 fas fa-wrench"></i> <span class="align-middle">Engineer
                                 Logs</span></a></li> --}}
                                 @canany(['access-prompter_logs', 'access-prompter_logs-readonly'])
-                    <li @if (Route::is('prompter.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('prompter.index') }}"> <i
+                                 <li @if (Route::is('prompter-news.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('prompter-news.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Prompter
-                                Logs</span></a></li>
+                                Logs (News)</span></a></li>
+                                <li @if (Route::is('prompter-shows.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('prompter-shows.index') }}"> <i
+                                    class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Prompter
+                                    Logs (Shows)</span></a></li>
                                 @endcanany
                     {{-- <li @if (Route::is('transmission.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('transmission.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Transmission

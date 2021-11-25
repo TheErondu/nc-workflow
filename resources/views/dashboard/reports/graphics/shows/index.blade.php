@@ -5,8 +5,8 @@
         <div class="col-12">
             <div class="card table-card">
                 <div class="card-header" style="margin-bottom: 1.0rem;">
-                    <span>Prompter Logs </span>
-                    <a href="{{route('prompter.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                    <span>Graphics Logs For Shows </span>
+                    <a href="{{route('graphics-shows.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
                     class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>
                 </div>
                 <div class="row">
@@ -43,7 +43,7 @@
                         </div>
                     @endif
                 </div>
-                @if (count($prompter_logs) > 0)
+                @if (count($graphics_log_shows) > 0)
 
                 <div class="table-responsive">
                     <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
@@ -68,9 +68,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($prompter_logs as $log)
+                            @foreach ($graphics_log_shows as $log)
                             <tr>
-                                    <td><a href="{{route('prompter.edit',
+                                    <td><a href="{{route('graphics-news.edit',
                                            $log->id)}}"><i class="far fa-edit"></i></a>
                                     </td>
                                     <td>{{ $log->segment }}</td>
@@ -98,8 +98,8 @@
                 @else
                 <div class="card">
                     <div class="card-body card-black">
-                      <p>No Logs Have Been Added yet, Click  <a href="{{ route('production.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add Logs<p>
-                    <p><a class="btn btn-primary" href="{{ route('prompter.create') }}">Add a Log</a>
+                      <p>No Logs Have Been Added yet, Click  <a href="{{ route('graphics-shows.create') }}" data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add Logs<p>
+                    <p><a class="btn btn-primary" href="{{ route('graphics-shows.create') }}">Add a Log</a>
                     </p>
                 </div>
                     </div>
