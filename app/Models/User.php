@@ -96,4 +96,8 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Department');
     }
+    public function maintenance_schedule()
+    {
+        return $this->hasOne('App\Models\MaintenanceScheduler');
+    }
 }

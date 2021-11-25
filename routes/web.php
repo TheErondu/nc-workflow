@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('messages/{id}/download', 'App\Http\Controllers\MessageController@download')->name('file.download');
         Route::resource('content', 'App\Http\Controllers\ContentController');
         Route::resource('sales-production', 'App\Http\Controllers\SalesScheduleController');
+        Route::resource('maintenance-schedule', 'App\Http\Controllers\MaintenanceSchedulerController');
         Route::resource('documents', 'App\Http\Controllers\DocumentController');
         Route::resource('dutylog', 'App\Http\Controllers\DutyloggerController');
         Route::resource('reports', 'App\Http\Controllers\ReportsController');

@@ -26,6 +26,7 @@ Route::get('schedule/digital', [App\Http\Controllers\API\ScheduleController::cla
 Route::post('calendar-crud-ajax', [App\Http\Controllers\API\ScheduleController::class, 'calendarEvents']);
 Route::get('content', [App\Http\Controllers\API\ContentController::class, 'index']);
 Route::get('sales-production', [App\Http\Controllers\API\SalesScheduleController::class, 'index']);
+Route::get('maintenance-schedule', [App\Http\Controllers\API\MaintenanceSchedulerController::class, 'index']);
 Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);
 Route::apiResource('reports', 'App\Http\Controllers\API\ReportsController');
 
