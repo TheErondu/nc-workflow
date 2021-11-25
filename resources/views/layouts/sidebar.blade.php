@@ -158,6 +158,9 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('departments.index') }}"><i
                                 class="align-middle me-2 fas fa-id-card"></i> <span class="align-middle">Manage
                                 Departments</span></a></li>
+                                <li class="sidebar-item"><a class="sidebar-link" href="{{ route('facility.index') }}"><i
+                                    class="align-middle me-2 fas fa-building"></i> <span class="align-middle">Manage
+                                    Facility</span></a></li>
                                 @endcan
 
                                 @can('manage-users')
