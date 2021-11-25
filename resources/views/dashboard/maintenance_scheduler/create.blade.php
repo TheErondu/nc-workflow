@@ -47,8 +47,8 @@
                             @csrf
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
-                                    <label for="title">Title</label>
-                                    <input name="title" type="text" class="form-control" id="title" placeholder="Title">
+                                    <label for="title">Task</label>
+                                    <input name="title" type="text" class="form-control" id="title" placeholder="Maintenance Task">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label">Start Date</label>

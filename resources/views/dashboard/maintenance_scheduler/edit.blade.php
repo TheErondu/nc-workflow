@@ -48,7 +48,7 @@
                             @method('PUT')
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
-                                    <label for="title">Title</label>
+                                    <label for="title">Task</label>
                                     <input value="{{$schedule->title}}" name="title" type="text" class="form-control" id="title" placeholder="Title">
                                 </div>
                                 <div class="mb-3 col-md-4">

@@ -161,17 +161,30 @@
                             @endcan
 
                             <div class="row justify-content-between">
-                                    <div class="mb-3 col-md-6">
-                                        <a href="{{ route('issues.index') }}"
-                                            style="background-color: rgb(53, 54, 55) !important;"
-                                            class="btn btn-primary">Cancel</a>
-                                    </div>
-                                    <div class="mb-3 col-md-1">
-                                        <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
-                                            class="btn btn-primary">Submit</button>
-                                    </div>
+
+                                <div class="mb-3 col-md-4">
+                                    <a href="{{ route('issues.index') }}"
+                                        style="background-color: rgb(53, 54, 55) !important;"
+                                        class="btn btn-primary">Cancel</a>
                                 </div>
-                        </form>
+                                @can('delete-data')
+                                <div class="mb-3 col-md-4">
+
+                                    <button form="delete-form" type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </div>
+                                @endcan
+                                <div class="mb-3 col-md-4">
+                                    <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
+                                        class="btn btn-primary">Submit</button>
+                                </div>
+
+                            </div>
+                    </form>
+                    <form action="{{ route('issues.destroy', $issue->id) }}" id="delete-form" method="POST">
+                        @method('DELETE')
+                        @csrf
+
+                    </form>
                     </div>
                 </div>
             </div>
