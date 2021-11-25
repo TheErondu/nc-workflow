@@ -83,7 +83,6 @@
                                     <select class="form-control select2" name="priority" id="priority" data-placeholder="Select priority">
                                         <option value="" selected>Select Status</option>
                                         @foreach($priorities as $priority)
-                                            <option value="{{ $priority }}">{{ $priority }}</option>
                                             <option value="{{ $priority}}" @if($priority === $schedule->priority) selected='selected' @endif>{{ $priority }}</option>
                                         @endforeach
                                     </select>

@@ -18,7 +18,7 @@ class MaintenanceSchedulerController extends ApiController
                 $data = QueryBuilder::for(MaintenanceScheduler::class)
                 ->allowedFilters('status')->whereDate('start', '>=', $request->start)
                 ->whereDate('end',   '<=', $request->end)
-                    ->get(['id', 'title','start', 'notes','end']);
+                    ->get(['id', 'title','start', 'notes','end','color','status']);
 
             return response()->json($data);
 

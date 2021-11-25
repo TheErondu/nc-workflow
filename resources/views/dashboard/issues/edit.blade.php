@@ -160,7 +160,7 @@
                             </div>
                             @endcan
 
-                            <div class="row justify-content-between">
+                            <div class="row justify-content-around">
 
                                 <div class="mb-3 col-md-4">
                                     <a href="{{ route('issues.index') }}"

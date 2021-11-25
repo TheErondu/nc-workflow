@@ -54,6 +54,20 @@ class MaintenanceSchedulerController extends Controller
         $schedule->end = $request->input('end');
         $schedule->status = $request->input('status');
         $schedule->priority = $request->input('priority');
+        if($request->input('priority') === 'Routine')
+        {
+            $schedule->color = '#028336';
+        }
+        elseif($request->input('priority') === 'Urgent')
+        {
+            $schedule->color = '#b1a514';
+        }
+        elseif($request->input('priority') === 'Critical')
+        {
+            $schedule->color = '#ad2323';
+        }
+        else
+        $schedule->color = '#212644';
         $schedule->notes = $request->input('notes');
         $schedule->user_id = $user->id;
         $schedule->save();
@@ -63,7 +77,7 @@ class MaintenanceSchedulerController extends Controller
             'email' => $schedule->user->email,
             'title' => $schedule->title,
             'status' =>  $schedule->status,
-            'body' =>  $schedule->priority,
+            'body' =>  $schedule->notes,
             'model' =>  'Maintenance Schedule',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y')
@@ -142,6 +156,20 @@ class MaintenanceSchedulerController extends Controller
         $schedule->end = $request->input('end');
         $schedule->status = $request->input('status');
         $schedule->priority = $request->input('priority');
+        if($request->input('priority') === 'Routine')
+        {
+            $schedule->color = '#028336';
+        }
+        elseif($request->input('priority') === 'Urgent')
+        {
+            $schedule->color = '#b1a514';
+        }
+        elseif($request->input('priority') === 'Critical')
+        {
+            $schedule->color = '#ad2323';
+        }
+        else
+        $schedule->color = '#212644';
         $schedule->user_id = $user->id;
         $schedule->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -150,7 +178,7 @@ class MaintenanceSchedulerController extends Controller
             'email' => $schedule->user->email,
             'title' => $schedule->title,
             'status' =>  $schedule->status,
-            'body' =>  $schedule->priority,
+            'body' =>  $schedule->notes,
             'model' =>  'Maintenance Schedule',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y')

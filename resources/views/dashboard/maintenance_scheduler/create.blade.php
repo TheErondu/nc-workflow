@@ -71,7 +71,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="status">Status</label>
                                     <select class="form-control select2" name="status" id="status" data-placeholder="Select Status">
-                                        <option value="" selected>Select Client Type</option>
+                                        <option value="Pending" selected>Select Client Type</option>
                                         @foreach($schedule_status as $status)
                                             <option value="{{ $status }}">{{ $status }}</option>
                                         @endforeach
