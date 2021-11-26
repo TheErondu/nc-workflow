@@ -41,7 +41,7 @@
                     <div class="card-header" style="margin-bottom: 1.0rem;">
                         <span>Director's Report Detail </span>
                         <a href="{{route('reports.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
-                        class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>&nbsp;&nbsp;<a href="{{route('reports.index')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                        class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>&nbsp;&nbsp;<a href="{{route('reports.index',['view' => 'table'])}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
                         class="btn btn-primary">Switch to Table view <i class="fas fa-cog"></i></a>
                     </div>
                     <div class="card-body">
