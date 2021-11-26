@@ -43,9 +43,9 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('production.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('production.update',$production_logs->id) }}">
                             @csrf
-
+                            @method('PUT')
                             <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-6">
                                     <label for="show_name">Production Name</label>
