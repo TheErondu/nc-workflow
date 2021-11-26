@@ -257,7 +257,7 @@
                                     <span>Uploaded by: <br> {{ Auth::user()->name }}</span>
                                 </div>
                                 <div class="mb-3 col-md-3">
-                                    <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
+                                    <span>Uploaded at: <br> {{  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $reports->created_at)->format('Y-M-d') }}</span>
                                 </div>
                             </div>
 

@@ -6,6 +6,7 @@ use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Models\Reports;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
@@ -20,6 +21,10 @@ class ReportsController extends Controller
     public function index()
     {
         $directors_report = Reports::all();
+        if (request()->query("view") === 'calendar' ){
+            return view('dashboard.reports.directors.calendar', compact('directors_report'));
+        }
+        else
         return view('dashboard.reports.directors.index', compact('directors_report'));
     }
 
@@ -32,7 +37,7 @@ class ReportsController extends Controller
     {
 
         $users = User::all();
-        return view('dashboard.reports.directors.create',compact('users'));
+        return view('dashboard.reports.directors.create', compact('users'));
     }
 
     /**
@@ -66,9 +71,15 @@ class ReportsController extends Controller
 
         $user = auth()->user();
         $reports = new Reports();
+
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
         $reports->anchor = $request->input('anchor');
+        $reports->start = date('Y-m-d');
+        $reports->end = date('Y-m-d');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $reports->color = $rand_background;
         $reports->vision_mixer = $request->input('vision_mixer');
         $reports->engineer = $request->input('engineer');
         $reports->sound_technician = $request->input('sound_technician');
@@ -77,6 +88,7 @@ class ReportsController extends Controller
         $reports->graphics = $request->input('graphics');
         $reports->tx = $request->input('tx');
         $reports->bulletin = $request->input('bulletin');
+        $reports->title = $request->input('bulletin');
         $reports->dts_in = $request->input('dts_in');
         $reports->actual_in = $request->input('actual_in');
         $reports->variance1 = $request->input('variance1');
@@ -121,7 +133,7 @@ class ReportsController extends Controller
         //
     }
 
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -131,7 +143,7 @@ class ReportsController extends Controller
     {
         $reports = Reports::all()->find($id);
         $users = User::all();
-        return view('dashboard.reports.directors.edit', compact('reports','users'));
+        return view('dashboard.reports.directors.edit', compact('reports', 'users'));
     }
 
     /**
@@ -166,6 +178,11 @@ class ReportsController extends Controller
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
         $reports->anchor = $request->input('anchor');
+        $reports->start = Carbon::createFromFormat('Y-m-d H:i:s', $reports->created_at)->format('Y-m-d');
+        $reports->end =  Carbon::createFromFormat('Y-m-d H:i:s', $reports->created_at)->format('Y-m-d');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $reports->color = $rand_background;
         $reports->vision_mixer = $request->input('vision_mixer');
         $reports->engineer = $request->input('engineer');
         $reports->sound_technician = $request->input('sound_technician');
@@ -174,6 +191,7 @@ class ReportsController extends Controller
         $reports->graphics = $request->input('graphics');
         $reports->tx = $request->input('tx');
         $reports->bulletin = $request->input('bulletin');
+        $reports->title = $request->input('bulletin');
         $reports->dts_in = $request->input('dts_in');
         $reports->actual_in = $request->input('actual_in');
         $reports->variance1 = $request->input('variance1');
@@ -207,18 +225,18 @@ class ReportsController extends Controller
         return redirect()->route('reports.index');
     }
 
-   /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         $reports = Reports::find($id);
-        if($reports){
+        if ($reports) {
             $reports->delete();
         }
         return redirect()->route('reports.index')->with('message', 'Successfully Deleted Report');
-
     }
 }
