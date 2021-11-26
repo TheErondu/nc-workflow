@@ -20,11 +20,6 @@ class ProductionShowLogsController extends Controller
      */
     public function index(Request $request)
     {
-
-        if (request()->query("view") === 'table') {
-            $production_logs = ProductionShowLogs::all();
-            return view('dashboard.reports.production_logs.table', compact('production_logs'));
-        } else
             $production_logs = ProductionShowLogs::all();
         return view('dashboard.reports.production_logs.index', compact('production_logs'));
     }

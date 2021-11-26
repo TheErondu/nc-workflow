@@ -39,10 +39,9 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
-                        <span>Director's Report Detail </span>
+                        <span>Production Show Logs </span>
                         <a href="{{route('production.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
-                        class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>&nbsp;&nbsp;<a href="{{route('production.index',['view' => 'table'])}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
-                        class="btn btn-primary">Switch to Table view <i class="fas fa-cog"></i></a>
+                        class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>
                     </div>
                     <div class="card-body">
                         <div style="overflow-y: auto; height:30rem; ">

@@ -21,10 +21,6 @@ class ReportsController extends Controller
     public function index()
     {
         $directors_report = Reports::all();
-        if (request()->query("view") === 'table' ){
-            return view('dashboard.reports.directors.table', compact('directors_report'));
-        }
-        else
         return view('dashboard.reports.directors.index', compact('directors_report'));
     }
 
@@ -75,8 +71,8 @@ class ReportsController extends Controller
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
         $reports->anchor = $request->input('anchor');
-        $reports->start = date('Y-m-d');
-        $reports->end = date('Y-m-d');
+        $reports->start = date('Y-m-d H:i:s');
+        $reports->end = date('Y-m-d H:i:s');
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $reports->color = $rand_background;
@@ -178,8 +174,8 @@ class ReportsController extends Controller
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
         $reports->anchor = $request->input('anchor');
-        $reports->start = Carbon::createFromFormat('Y-m-d H:i:s', $reports->created_at)->format('Y-m-d');
-        $reports->end =  Carbon::createFromFormat('Y-m-d H:i:s', $reports->created_at)->format('Y-m-d');
+        $reports->start =  $reports->created_at;
+        $reports->end =  $reports->created_at;
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $reports->color = $rand_background;
