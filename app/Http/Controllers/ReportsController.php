@@ -21,8 +21,8 @@ class ReportsController extends Controller
     public function index()
     {
         $directors_report = Reports::all();
-        if (request()->query("view") === 'calendar' ){
-            return view('dashboard.reports.directors.calendar', compact('directors_report'));
+        if (request()->query("view") === 'table' ){
+            return view('dashboard.reports.directors.table', compact('directors_report'));
         }
         else
         return view('dashboard.reports.directors.index', compact('directors_report'));

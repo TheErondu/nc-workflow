@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\ProductionShowLogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordUpdatedEvent;
 use App\Events\RecordCreatedEvent;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ProductionShowLogsController extends Controller
@@ -16,9 +18,14 @@ class ProductionShowLogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $production_logs = ProductionShowLogs::all();
+
+        if (request()->query("view") === 'table') {
+            $production_logs = ProductionShowLogs::all();
+            return view('dashboard.reports.production_logs.table', compact('production_logs'));
+        } else
+            $production_logs = ProductionShowLogs::all();
         return view('dashboard.reports.production_logs.index', compact('production_logs'));
     }
 
@@ -32,7 +39,7 @@ class ProductionShowLogsController extends Controller
     {
 
         $users = User::all();
-        return view('dashboard.reports.production_logs.create',compact('users'));
+        return view('dashboard.reports.production_logs.create', compact('users'));
     }
 
     /**
@@ -44,7 +51,7 @@ class ProductionShowLogsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            // 'date'             => 'required',
+            'show_name'             => 'required',
             // 'location'             => 'required',
             // 'producer1'           => 'required',
             // 'producer2'           => 'required',
@@ -64,6 +71,13 @@ class ProductionShowLogsController extends Controller
         $user = auth()->user();
         $production_logs = new ProductionShowLogs();
         $production_logs->show_name = $request->input('show_name');
+        $production_logs->date = $request->input('date');
+        $production_logs->start =  $request->input('date');
+        $production_logs->end = $request->input('date');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $production_logs->color = $rand_background;
+        $production_logs->title = $request->input('show_name');
         $production_logs->date = $request->input('date');
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');
@@ -110,7 +124,7 @@ class ProductionShowLogsController extends Controller
     //     //
     // }
 
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -120,7 +134,7 @@ class ProductionShowLogsController extends Controller
     {
         $users = User::all();
         $production_logs = ProductionShowLogs::all()->find($id);
-        return view('dashboard.reports.production_logs.edit', compact('production_logs','users'));
+        return view('dashboard.reports.production_logs.edit', compact('production_logs', 'users'));
     }
 
     /**
@@ -133,8 +147,7 @@ class ProductionShowLogsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'date'             => 'required',
-            'location'             => 'required',
+            'show_name'             => 'required',
             // 'producer1'           => 'required',
             // 'producer2'           => 'required',
             // 'director'           => 'required',
@@ -153,10 +166,16 @@ class ProductionShowLogsController extends Controller
         $production_logs = ProductionShowLogs::find($id);
         $production_logs->show_name = $request->input('show_name');
         $production_logs->date = $request->input('date');
+        $production_logs->start = $production_logs->date;
+        $production_logs->end = $production_logs->date;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $production_logs->color = $rand_background;
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');
         $production_logs->producer2 = $request->input('producer2');
         $production_logs->director = $request->input('director');
+        $production_logs->title = $request->input('show_name');
         $production_logs->vision_mixer = $request->input('vision_mixer');
         $production_logs->engineer = $request->input('engineer');
         $production_logs->sound_technician = $request->input('sound_technician');
@@ -186,18 +205,18 @@ class ProductionShowLogsController extends Controller
         return redirect()->route('production.index');
     }
 
-   /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         $production_logs = ProductionShowLogs::find($id);
-        if($production_logs){
+        if ($production_logs) {
             $production_logs->delete();
         }
         return redirect()->route('production.index')->with('message', 'Successfully Deleted log');
-
     }
 }

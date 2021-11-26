@@ -50,7 +50,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label for="show_name">Production Name</label>
                                     <input name="show_name" type="text" class="form-control" id="show_name"
-                                    value="{{ old('show_name') }}" required placeholder="">
+                                    value="{{ old('show_name') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="date">Date </label>
@@ -66,7 +66,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="location">Location</label>
                                     <input name="location" type="text" class="form-control" id="location"
-                                    value="{{ old('location') }}" required placeholder="">
+                                    value="{{ old('location') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer1">Producer 1 </label>
@@ -167,7 +167,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="host"> Host</label>
                                     <input name="host" type="text" class="form-control" id="host"
-                                    value="{{ old('host') }}" required placeholder="">
+                                    value="{{ old('host') }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
@@ -208,7 +208,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="transmission_time">Transmission Time</label>
                                     <input name="transmission_time" type="text" class="form-control" id="transmission_time"
-                                        value="{{ old('transmission_time') }}" required placeholder="">
+                                        value="{{ old('transmission_time') }}"  placeholder="">
                                 </div>
 
                             </div>
@@ -216,7 +216,7 @@
                                 <div class="mb-3 col-12">
                                     <label for="comment">Comment/Challenges</label>
                                     <textarea name="comment" type="text" class="form-control"
-                                        id="comment" required
+                                        id="comment"
                                         placeholder="">{{ old('comment') }}</textarea>
                                 </div>
                             </div>

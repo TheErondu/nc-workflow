@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Mail\TicketCreated;
 use Illuminate\Support\Facades\Mail;
 
-class TicketCreatedListener
+class TicketCreatedListener implements ShouldQueue
 {
     /**
      * Create the event listener.

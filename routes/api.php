@@ -28,7 +28,9 @@ Route::get('content', [App\Http\Controllers\API\ContentController::class, 'index
 Route::get('sales-production', [App\Http\Controllers\API\SalesScheduleController::class, 'index']);
 Route::get('maintenance-schedule', [App\Http\Controllers\API\MaintenanceSchedulerController::class, 'index']);
 Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);
+Route::get('production-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'ProductionShowLogs']);
 Route::apiResource('reports', 'App\Http\Controllers\API\ReportsController');
+
 
 Route::group(['middleware' => ['auth:sanctum'],[]], function () {
 

@@ -15,10 +15,13 @@ class ProductionShowLogsController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $production_logs = ProductionShowLogs::all();
-        return response()->json(compact('production_logs'));
+        $data = ProductionShowLogs::whereDate('start', '>=', $request->start)
+        ->whereDate('end',   '<=', $request->end)
+        ->get(['id', 'title', 'start','end','color','comment']);
+
+        return response()->json($data);
     }
 
 
