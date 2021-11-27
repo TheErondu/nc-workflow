@@ -73,7 +73,7 @@
                                     <select class="form-control select2" name="producer1" id="producer1" data-placeholder=" select Producer">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                            @if ($user->department_id === 7 OR $user->department_id === 10)
+                                            @if ($user->department_id === 7 OR $user->department_id === 13)
                                             <option value="{{ $user->name }}">{{ $user->name }}</option>
                                             @endif
                                         @endforeach
