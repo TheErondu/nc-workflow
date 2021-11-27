@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
 //API route for login user
-Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login']);
+Route::post('token', [App\Http\Controllers\API\AuthController::class, 'requestToken']);
 
 Route::get('schedule/preproduction', [App\Http\Controllers\API\ScheduleController::class, 'index']);
 Route::get('schedule/editors', [App\Http\Controllers\API\ScheduleController::class, 'GetVideoEditorsEvents']);
@@ -47,6 +46,7 @@ Route::group(['middleware' => ['auth:sanctum'],[]], function () {
     // Route::get('/', function () {
     //     return view('home');
     // });
+    Route::get('book', [App\Http\Controllers\API\BookController::class, 'index']);
         Route::apiResource('messages', 'App\Http\Controllers\API\MessageController');
         Route::apiResource('content', 'App\Http\Controllers\API\ContentController');
         Route::apiResource('documents', 'App\Http\Controllers\API\DocumentController');

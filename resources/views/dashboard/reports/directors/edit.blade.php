@@ -112,7 +112,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="camera_operator1">Camera Operator</label>
+                                    <label for="camera_operator1">Camera Operator 2</label>
                                     <select class="form-control select2" name="camera_operator" id="camera_operator" data-placeholder=" select Camera Operator">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
@@ -120,6 +120,18 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="camera_operator2">Camera Operator</label>
+                                    <select class="form-control select2" name="camera_operator2" id="camera_operator2" data-placeholder=" select Camera Operator">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($reports->camera_operator2 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="camera_operator2">AutoCue</label>
                                     <select class="form-control select2" name="autocue" id="autocue" data-placeholder=" select AutoCue">
@@ -129,9 +141,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
                                     <input name="graphics" type="text" class="form-control" id="graphics"

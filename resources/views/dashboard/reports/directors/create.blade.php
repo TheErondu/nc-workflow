@@ -106,8 +106,19 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="camera_operator1">Camera Operator</label>
+                                    <label for="camera_operator">Camera Operator</label>
                                     <select class="form-control select2" name="camera_operator" id="camera_operator" data-placeholder=" select Camera Operator">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                            @if ($user->department_id === 9 or $user->department_id === 10)
+                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="camera_operator2">Camera Operator 2</label>
+                                    <select class="form-control select2" name="camera_operator2" id="camera_operator2" data-placeholder=" select Camera Operator">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
                                             @if ($user->department_id === 9 or $user->department_id === 10)

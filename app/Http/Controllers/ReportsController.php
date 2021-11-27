@@ -80,6 +80,7 @@ class ReportsController extends Controller
         $reports->engineer = $request->input('engineer');
         $reports->sound_technician = $request->input('sound_technician');
         $reports->camera_operator = $request->input('camera_operator');
+        $reports->camera_operator2 = $request->input('camera_operator2');
         $reports->autocue = $request->input('autocue');
         $reports->graphics = $request->input('graphics');
         $reports->tx = $request->input('tx');
@@ -183,6 +184,7 @@ class ReportsController extends Controller
         $reports->engineer = $request->input('engineer');
         $reports->sound_technician = $request->input('sound_technician');
         $reports->camera_operator = $request->input('camera_operator');
+        $reports->camera_operator2 = $request->input('camera_operator2');
         $reports->autocue = $request->input('autocue');
         $reports->graphics = $request->input('graphics');
         $reports->tx = $request->input('tx');
