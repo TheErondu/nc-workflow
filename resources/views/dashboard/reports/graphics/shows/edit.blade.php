@@ -50,19 +50,19 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="segment">Segment</label>
                                     <input name="segment" type="text" class="form-control" id="segment"
-                                    value="{{ $graphics_log_shows->segment }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->segment }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tags_in">Tags In</label>
                                     <input name="tags_in" type="text" class="form-control" id="tags_in"
-                                    value="{{ $graphics_log_shows->tags_in }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->tags_in }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host">Host </label>
                                     <input name="host" type="text" class="form-control" id="host"
-                                    value="{{ $graphics_log_shows->host }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->host }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director">Director </label>
@@ -75,12 +75,8 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor">Anchor </label>
-                                    <select class="form-control select2" name="anchor" id="anchor" data-placeholder=" select anchor">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}" @if($graphics_log_shows->anchor === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="anchor" type="text" class="form-control" id="anchor"
+                                    value="{{ $graphics_log_shows->anchor }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -89,17 +85,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
                                     <input name="graphics" type="text" class="form-control" id="graphics"
-                                    value="{{ $graphics_log_shows->graphics }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->graphics }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer">Producer</label>
                                     <input name="producer" type="text" class="form-control" id="producer"
-                                    value="{{ $graphics_log_shows->producer }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->producer }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa">PA </label>
                                     <input name="pa" type="text" class="form-control" id="pa"
-                                    value="{{ $graphics_log_shows->pa }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->pa }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -115,26 +111,26 @@
                                 <div class="mb-3 col-md-8">
                                     <label for="challenges">Challenges</label>
                                     <textarea name="challenges" type="text" class="form-control" id="challenges"
-                                    value="" required placeholder="">{{ $graphics_log_shows->challenges }}</textarea>
+                                    value=""  placeholder="">{{ $graphics_log_shows->challenges }}</textarea>
                                 </div>
                             </div>
                             <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-4">
                                     <label for="segment2">Segment</label>
                                     <input name="segment2" type="text" class="form-control" id="segment2"
-                                    value="{{ $graphics_log_shows->segment2 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->segment2 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tags_in2">Tags In</label>
                                     <input name="tags_in2" type="text" class="form-control" id="tags_in2"
-                                    value="{{ $graphics_log_shows->tags_in2 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->tags_in2 }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host2">Host </label>
                                     <input name="host2" type="text" class="form-control" id="host2"
-                                    value="{{ $graphics_log_shows->host2 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->host2 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director2">Director </label>
@@ -147,12 +143,8 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor2">Anchor </label>
-                                    <select class="form-control select2" name="anchor2" id="anchor2" data-placeholder=" select anchor">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}" @if($graphics_log_shows->anchor2 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="anchor2" type="text" class="form-control" id="anchor2"
+                                    value="{{ $graphics_log_shows->anchor2 }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -161,17 +153,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics2">Graphics</label>
                                     <input name="graphics2" type="text" class="form-control" id="graphics2"
-                                    value="{{ $graphics_log_shows->graphics2 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->graphics2 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer2">Producer</label>
                                     <input name="producer2" type="text" class="form-control" id="producer2"
-                                    value="{{ $graphics_log_shows->producer2 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->producer2 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa2">PA </label>
                                     <input name="pa2" type="text" class="form-control" id="pa2"
-                                    value="{{ $graphics_log_shows->pa2 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->pa2 }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -187,31 +179,31 @@
                                 <div class="mb-3 col-md-8">
                                     <label for="challenges2">Challenges</label>
                                     <textarea name="challenges2" type="text" class="form-control" id="challenges2"
-                                    value="" required placeholder="">{{ $graphics_log_shows->challenges2 }}</textarea>
+                                    value=""  placeholder="">{{ $graphics_log_shows->challenges2 }}</textarea>
                                 </div>
                             </div>
                             <div class=" row justify-content-center">
                                 <div class="mb-3 col-md-4">
                                     <label for="segment3">Segment</label>
                                     <input name="segment3" type="text" class="form-control" id="segment3"
-                                    value="{{ $graphics_log_shows->segment3 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->segment3 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="tags_in3">Tags In</label>
                                     <input name="tags_in3" type="text" class="form-control" id="tags_in3"
-                                    value="{{ $graphics_log_shows->tags_in3 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->tags_in3 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="script_in3">Script In</label>
                                     <input name="script_in3" type="text" class="form-control" id="script_in3"
-                                    value="{{ $graphics_log_shows->script_in3 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->script_in3 }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="host3">Host </label>
                                     <input name="host3" type="text" class="form-control" id="host3"
-                                    value="{{ $graphics_log_shows->host3 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->host3 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="director3">Director </label>
@@ -224,12 +216,8 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="anchor3">Anchor </label>
-                                    <select class="form-control select2" name="anchor3" id="anchor3" data-placeholder=" select anchor">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}" @if($graphics_log_shows->anchor3 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input name="anchor3" type="text" class="form-control" id="anchor3"
+                                    value="{{ $graphics_log_shows->anchor3 }}"  placeholder="">
                                 </div>
                             </div>
 
@@ -238,17 +226,17 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics3">Graphics</label>
                                     <input name="graphics3" type="text" class="form-control" id="graphics3"
-                                    value="{{ $graphics_log_shows->graphics3 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->graphics3 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer3">Producer</label>
                                     <input name="producer3" type="text" class="form-control" id="producer3"
-                                    value="{{ $graphics_log_shows->producer3 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->producer3 }}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="pa3">PA </label>
                                     <input name="pa3" type="text" class="form-control" id="pa3"
-                                    value="{{ $graphics_log_shows->pa3 }}" required placeholder="">
+                                    value="{{ $graphics_log_shows->pa3 }}"  placeholder="">
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -264,7 +252,7 @@
                                 <div class="mb-3 col-md-8">
                                     <label for="challenges3">Challenges</label>
                                     <textarea name="challenges3" type="text" class="form-control" id="challenges3"
-                                    value="" required placeholder="">{{ $graphics_log_shows->challenges3 }}</textarea>
+                                    value=""  placeholder="">{{ $graphics_log_shows->challenges3 }}</textarea>
                                 </div>
                             </div>
                             <div class="row justify-content-around">

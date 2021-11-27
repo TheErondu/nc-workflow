@@ -54,6 +54,12 @@ class EditorLogsController extends Controller
         $editors_logs = new EditorLogs();
         $editors_logs->name_of_suite = $request->input('name_of_suite');
         $editors_logs->date = $request->input('date');
+        $editors_logs->start =  date('Y-m-d H:i:s');
+        $editors_logs->end = date('Y-m-d H:i:s');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $editors_logs->color = $rand_background;
+        $editors_logs->title = $request->input('name_of_suite');
         $editors_logs->first_interval = $request->input('first_interval');
         $editors_logs->second_interval = $request->input('second_interval');
         $editors_logs->third_interval = $request->input('third_interval');
@@ -118,6 +124,12 @@ class EditorLogsController extends Controller
         $editors_logs = EditorLogs::find($id);
         $editors_logs->name_of_suite = $request->input('name_of_suite');
         $editors_logs->date = $request->input('date');
+        $editors_logs->start =  $editors_logs->start;
+        $editors_logs->end =  $editors_logs->end;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $editors_logs->color = $rand_background;
+        $editors_logs->title = $request->input('name_of_suite');
         $editors_logs->first_interval = $request->input('first_interval');
         $editors_logs->second_interval = $request->input('second_interval');
         $editors_logs->third_interval = $request->input('third_interval');

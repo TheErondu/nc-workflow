@@ -58,6 +58,12 @@ class PrompterLogsController extends Controller
         $user = auth()->user();
         $prompter_logs = new PrompterLogs();
         $prompter_logs->segment = $request->input('segment');
+        $prompter_logs->start =  date('Y-m-d H:i:s');
+        $prompter_logs->end = date('Y-m-d H:i:s');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $prompter_logs->color = $rand_background;
+        $prompter_logs->title = $request->input('segment');
         $prompter_logs->rundown_in = $request->input('rundown_in');
         $prompter_logs->script_in = $request->input('script_in');
         $prompter_logs->anchor = $request->input('anchor');
@@ -105,7 +111,7 @@ class PrompterLogsController extends Controller
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Log');
-        return redirect()->route('prompter.index');
+        return redirect()->route('prompter-news.index');
     }
 
     // /**
@@ -155,6 +161,12 @@ class PrompterLogsController extends Controller
         $user = auth()->user();
         $prompter_logs = PrompterLogs::find($id);
         $prompter_logs->segment = $request->input('segment');
+        $prompter_logs->start =  $prompter_logs->start;
+        $prompter_logs->end = $prompter_logs->end;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $prompter_logs->color = $rand_background;
+        $prompter_logs->title = $request->input('segment');
         $prompter_logs->rundown_in = $request->input('rundown_in');
         $prompter_logs->script_in = $request->input('script_in');
         $prompter_logs->anchor = $request->input('anchor');
@@ -202,7 +214,7 @@ class PrompterLogsController extends Controller
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Log');
-        return redirect()->route('prompter.index');
+        return redirect()->route('prompter-news.index');
     }
 
    /**
@@ -216,7 +228,7 @@ class PrompterLogsController extends Controller
         if($prompter_logs){
             $prompter_logs->delete();
         }
-        return redirect()->route('prompter.index')->with('message', 'Successfully Deleted Log');
+        return redirect()->route('prompter-news.index')->with('message', 'Successfully Deleted Log');
 
     }
 }

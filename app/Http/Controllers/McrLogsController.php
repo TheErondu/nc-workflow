@@ -65,6 +65,12 @@ class McrLogsController extends Controller
         $mcr_logs->tc = $request->input('tc');
         $mcr_logs->traffic = $request->input('traffic');
         $mcr_logs->handed_over_to = $request->input('handed_over_to');
+        $mcr_logs->start =  date('Y-m-d H:i:s');
+        $mcr_logs->end = date('Y-m-d H:i:s');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $mcr_logs->color = $rand_background;
+        $mcr_logs->title = $request->input('sto');
         $mcr_logs->user_id = $user->id;
         $mcr_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 3');
@@ -118,14 +124,14 @@ class McrLogsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'sto'             => 'required',
-            'timing'             => 'required',
-            'programmes'           => 'required',
-            'remarks'           => 'required',
-            'squeezbacks'           => 'required',
-            'tc'           => 'required',
-            'traffic'         => 'required',
-            'handed_over_to'         => 'required',
+            // 'sto'             => 'required',
+            // 'timing'             => 'required',
+            // 'programmes'           => 'required',
+            // 'remarks'           => 'required',
+            // 'squeezbacks'           => 'required',
+            // 'tc'           => 'required',
+            // 'traffic'         => 'required',
+            // 'handed_over_to'         => 'required',
         ]);
         $user = auth()->user();
         $mcr_logs = McrLogs::find($id);
@@ -137,6 +143,12 @@ class McrLogsController extends Controller
         $mcr_logs->tc = $request->input('tc');
         $mcr_logs->traffic = $request->input('traffic');
         $mcr_logs->handed_over_to = $request->input('handed_over_to');
+        $mcr_logs->start =   $mcr_logs->start;
+        $mcr_logs->end =  $mcr_logs->start;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $mcr_logs->color = $rand_background;
+        $mcr_logs->title = $request->input('sto');
         $mcr_logs->user_id = $user->id;
 
         $mcr_logs->save();

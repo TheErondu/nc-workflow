@@ -58,6 +58,12 @@ class GraphicsLogsController extends Controller
         $user = auth()->user();
         $graphics_logs = new GraphicsLogs();
         $graphics_logs->segment = $request->input('segment');
+        $graphics_logs->start =  date('Y-m-d H:i:s');
+        $graphics_logs->end = date('Y-m-d H:i:s');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $graphics_logs->color = $rand_background;
+        $graphics_logs->title = $request->input('segment');
         $graphics_logs->tags_in = $request->input('tags_in');
         $graphics_logs->anchor = $request->input('anchor');
         $graphics_logs->director = $request->input('director');
@@ -152,6 +158,12 @@ class GraphicsLogsController extends Controller
         $user = auth()->user();
         $graphics_logs = GraphicsLogs::find($id);
         $graphics_logs->segment = $request->input('segment');
+        $graphics_logs->start =  $graphics_logs->start;
+        $graphics_logs->end = $graphics_logs->end;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $graphics_logs->color = $rand_background;
+        $graphics_logs->title = $request->input('segment');
         $graphics_logs->tags_in = $request->input('tags_in');
         $graphics_logs->anchor = $request->input('anchor');
         $graphics_logs->director = $request->input('director');

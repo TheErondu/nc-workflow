@@ -205,7 +205,7 @@
                    <h5>Enter AD name to Search</h5>
                </div>
                <div class="card-body">
-                   <p> Type in a unique keyword or phrase from the AD video file and select the <strong> Date range </strong> to get all records macthing your search criteria</p>
+                   <p> Type in a unique keyword or phrase from the AD video file and select the <strong> Date range </strong> to get all records matching your search criteria</p>
                </div>
            </div>
            @endif

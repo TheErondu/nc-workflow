@@ -81,7 +81,7 @@
 
                         // your event source
                         {
-                            url: '/api/reports/',
+                            url: '/api/reports-calendar/',
                             method: 'GET',
                             id: 'id',
                             title: 'title',

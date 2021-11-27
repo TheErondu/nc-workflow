@@ -29,7 +29,14 @@ Route::get('sales-production', [App\Http\Controllers\API\SalesScheduleController
 Route::get('maintenance-schedule', [App\Http\Controllers\API\MaintenanceSchedulerController::class, 'index']);
 Route::get('booking', [App\Http\Controllers\API\BookingController::class, 'index']);
 Route::get('production-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'ProductionShowLogs']);
-Route::apiResource('reports', 'App\Http\Controllers\API\ReportsController');
+Route::get('reports-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'DirectorReports']);
+Route::get('editors-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'EditorLogs']);
+Route::get('oblogs-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'ObLogs']);
+Route::get('mcrlogs-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'McrLogs']);
+Route::get('graphics-news-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'GraphicsLogs']);
+Route::get('graphics-shows-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'GraphicsLogShows']);
+Route::get('prompter-news-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'PrompterLogs']);
+Route::get('prompter-shows-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'prompterlogShows']);
 
 
 Route::group(['middleware' => ['auth:sanctum'],[]], function () {
@@ -46,6 +53,7 @@ Route::group(['middleware' => ['auth:sanctum'],[]], function () {
         Route::apiResource('dutylog', 'App\Http\Controllers\API\DutyloggerController');
         Route::apiResource('oblogs', 'App\Http\Controllers\API\OBlogsController');
         Route::apiResource('schedule', 'App\Http\Controllers\API\ScheduleController');
+        Route::apiResource('reports', 'App\Http\Controllers\API\ReportsController');
         Route::apiResource('roles', 'App\Http\Controllers\API\RoleController');
         Route::apiResource('documents', 'App\Http\Controllers\API\DocumentController');
         Route::apiResource('awards', 'App\Http\Controllers\API\AwardsController');

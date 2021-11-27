@@ -43,7 +43,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('prompter.update',$prompter_logs->id) }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('prompter-news.update',$prompter_logs->id) }}">
                             @csrf
                             @method('PUT')
                             <div class=" row justify-content-center">

@@ -58,6 +58,12 @@ class GraphicsLogShowsController extends Controller
         $user = auth()->user();
         $graphics_log_shows = new GraphicsLogShows();
         $graphics_log_shows->segment = $request->input('segment');
+        $graphics_log_shows->start =  date('Y-m-d H:i:s');
+        $graphics_log_shows->end = date('Y-m-d H:i:s');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $graphics_log_shows->color = $rand_background;
+        $graphics_log_shows->title = $request->input('segment');
         $graphics_log_shows->tags_in = $request->input('tags_in');
         $graphics_log_shows->anchor = $request->input('anchor');
         $graphics_log_shows->director = $request->input('director');
@@ -102,7 +108,7 @@ class GraphicsLogShowsController extends Controller
         ];
         Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Log');
-        return redirect()->route('graphics.index');
+        return redirect()->route('graphics-shows.index');
     }
 
     // /**
@@ -126,7 +132,7 @@ class GraphicsLogShowsController extends Controller
     {
         $graphics_log_shows = GraphicsLogShows::all()->find($id);
         $users = User::all();
-        return view('dashboard.reports.graphics.edit', compact('graphics_log_shows','users'));
+        return view('dashboard.reports.graphics.shows.edit', compact('graphics_log_shows','users'));
     }
 
     /**
@@ -152,6 +158,12 @@ class GraphicsLogShowsController extends Controller
         $user = auth()->user();
         $graphics_log_shows = GraphicsLogShows::find($id);
         $graphics_log_shows->segment = $request->input('segment');
+        $graphics_log_shows->start =  $graphics_log_shows->start;
+        $graphics_log_shows->end = $graphics_log_shows->end;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $graphics_log_shows->color = $rand_background;
+        $graphics_log_shows->title = $request->input('segment');
         $graphics_log_shows->tags_in = $request->input('tags_in');
         $graphics_log_shows->anchor = $request->input('anchor');
         $graphics_log_shows->director = $request->input('director');
@@ -196,7 +208,7 @@ class GraphicsLogShowsController extends Controller
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Successfully Edited Log');
-        return redirect()->route('graphics.index');
+        return redirect()->route('graphics-shows.index');
     }
 
    /**
@@ -210,7 +222,7 @@ class GraphicsLogShowsController extends Controller
         if($graphics_log_shows){
             $graphics_log_shows->delete();
         }
-        return redirect()->route('graphics.index')->with('message', 'Successfully Deleted Log');
+        return redirect()->route('graphics-shows.index')->with('message', 'Successfully Deleted Log');
 
     }
 }

@@ -63,6 +63,12 @@ class OBlogsController extends Controller
         $oblogs = new OBlogs();
         $oblogs->event_name = $request->input('event_name');
         $oblogs->event_date = $request->input('event_date');
+        $oblogs->start =  date('Y-m-d H:i:s');
+        $oblogs->end = date('Y-m-d H:i:s');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $oblogs->color = $rand_background;
+        $oblogs->title = $request->input('event_name');
         $oblogs->location = $request->input('location');
         $oblogs->producer = $request->input('producer');
         $oblogs->director = $request->input('director');
@@ -144,6 +150,12 @@ class OBlogsController extends Controller
         $user = auth()->user();
         $oblogs->event_name = $request->input('event_name');
         $oblogs->event_date = $request->input('event_date');
+        $oblogs->start = $oblogs->start;
+        $oblogs->end = $oblogs->start;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $oblogs->color = $rand_background;
+        $oblogs->title = $request->input('event_name');
         $oblogs->location = $request->input('location');
         $oblogs->producer = $request->input('producer');
         $oblogs->director = $request->input('director');

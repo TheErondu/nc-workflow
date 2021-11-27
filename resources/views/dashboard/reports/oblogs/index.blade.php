@@ -1,138 +1,127 @@
-@extends('layouts.app')
+@extends('layouts.app', ['activePage' => 'content', 'titlePage' => __('Dashboard')])
 @section('content')
     <div class="container-fluid">
         <div class="row">
+            <div class="row">
+                @if (Session::has('message'))
+                    <div class="container">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <div class="alert-icon">
+                                <i class="far fa-fw fa-bell"></i>
+                            </div>
+                            <div class="alert-message">
+                                <strong> {{ session('message') }}</strong>
+                            </div>
+
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="container">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            @foreach ($errors->all() as $error)
+                                <div class="alert-icon">
+                                    <i class="far fa-fw fa-bell"></i>
+                                </div>
+                                <div class="alert-message">
+                                    <strong> {{ $error }}</strong>
+                                </div>
+
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            </div>
             <div class="col-12">
-                <div class="card table-card">
+                <div class="card-opaque">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
                         <span>OB Logs </span>
                         <a href="{{route('oblogs.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
-                    class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>
+                        class="btn btn-primary create-button">Add New Log <i class="fas fa-plus"></i></a>
                     </div>
-                    <div class="row">
-                        @if (Session::has('message'))
-                            <div class="container">
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <div class="alert-icon">
-                                        <i class="far fa-fw fa-bell"></i>
-                                    </div>
-                                    <div class="alert-message">
-                                        <strong> {{ session('message') }}</strong>
-                                    </div>
+                    <div class="card-body">
+                        <div style="overflow-y: auto; height:30rem; ">
+                        <div id="fullcalendar"></div>
 
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            </div>
-                        @endif
-                        @if ($errors->any())
-                            <div class="container">
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    @foreach ($errors->all() as $error)
-                                        <div class="alert-icon">
-                                            <i class="far fa-fw fa-bell"></i>
-                                        </div>
-                                        <div class="alert-message">
-                                            <strong> {{ $error }}</strong>
-                                        </div>
-
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                    @if (count($oblogs) > 0)
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th style="white-space:nowrap;">Event NAME</th>
-                                        <th style="white-space:nowrap;">EVENT DATE</th>
-                                        <th style="white-space:nowrap;">LOCATION</th>
-                                        <th style="white-space:nowrap;">PRODUCER</th>
-                                        <th style="white-space:nowrap;">DIRECTOR</th>
-                                        <th style="white-space:nowrap;">VISION MIXER</th>
-                                        <th style="white-space:nowrap;">SOUND</th>
-                                        <th style="white-space:nowrap;">ENGINEER</th>
-                                        <th style="white-space:nowrap;">D.O.P</th>
-                                        <th style="white-space:nowrap;">REPORTER</th>
-                                        <th style="white-space:nowrap;">DIGITAL </th>
-                                        <th style="white-space:nowrap;">TRANSMISSION TIME</th>
-                                        <th style="white-space:nowrap;">COMMENT</th>
-                                        <th style="white-space:nowrap;">UPLOADED BY</th>
-                                        <th style="white-space:nowrap;">Time of Upload</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($oblogs as $logs)
-                                        <tr>
-                                            <td><a
-                                                    href="{{ route('oblogs.edit', $logs->id) }}"><i
-                                                        class="far fa-edit"></i></a>
-                                            </td>
-                                            <td>{{ $logs->event_name }}</td>
-                                            <td>{{ $logs->event_date }}</td>
-                                            <td>{{ $logs->location }}</td>
-                                            <td>{{ $logs->producer }}</td>
-                                            <td>{{ $logs->director }}</td>
-                                            <td>{{ $logs->vision_mixer }}</td>
-                                            <td>{{ $logs->sound }}</td>
-                                            <td>{{ $logs->engineer }}</td>
-                                            <td>{{ $logs->dop }}</td>
-                                            <td>{{ $logs->reporter }}</td>
-                                            <td>{{ $logs->digital }}</td>
-                                            <td>{{ $logs->transmission_time }}</td>
-                                            <td>{{ $logs->comment }}</td>
-                                            <td>{{ $logs->user->name }}</td>
-                                            <td>{{ $logs->created_at }}</td>
-
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <div class="card">
-                            <div class="card-body card-black">
-                                <p>No Reports Have Been Added yet, Click <a href="{{ route('oblogs.create') }}"
-                                        data-toggle="tooltip" title="" data-original-title="Add Report">Here</a> to add
-                                    Reports
-                                <p>
-                                <p><a class="btn btn-primary" href="{{ route('oblogs.create') }}">Add a Report</a>
-                                </p>
-                            </div>
-                        </div>
-                    @endif
                 </div>
+                    </div>
+
+             </div>
             </div>
-        </div>
+    @endsection
+    @section('javascript')
+    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 
-    </div>
-@endsection
-@section('javascript')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
-            $('.table').DataTable({
-                responsive: false,
-                "sAutoWidth": true,
-                "iDisplayStart ": 10,
-                "iDisplayLength": 10,
-                "bPaginate": false, //hide pagination
-                "bFilter": true, //hide Search bar
-                "bInfo": false,
-            });
-            /* =========================================================================================== */
-            /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
-            });
-            /* =========================================================================================== */
-        });
-    </script>
 
-@endsection
+        <script>
+            $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
+                $calendar.render();
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var ProdCal = document.getElementById('fullcalendar');
+
+                var calendar = new FullCalendar.Calendar(ProdCal, {
+                    themeSystem: 'bootstrap',
+                    aspectRatio: 2.2,
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                    },
+
+                    eventSources: [
+
+                        // your event source
+                        {
+                            url: '/api/oblogs-calendar/',
+                            method: 'GET',
+                            id: 'id',
+                            title: 'title',
+                            start: 'start',
+                            end: 'end',
+                            extendedProps: {
+                            comment: 'comment'
+                                            },
+                        }
+
+                        // any other sources...
+
+                    ],
+                    eventClick: function(info) {
+                        window.location = "/oblogs/" + info.event.id + "/edit";
+
+                    },
+                    eventMouseEnter: function(info) {
+                        console.log('eventMouseEnter');
+            var tis=info.el;
+            var tooltip = '<div class="tooltipevent" style="top:'+($(tis).offset().top-5)+'px;left:'+($(tis).offset().left+($(tis).width())/2)+'px"><div>' + info.event.title + '</div><div>' + info.event.extendedProps.comment + '</div></div>';
+            var $tooltip = $(tooltip).appendTo('body');
+
+//            If you want to move the tooltip on mouse movement then you can uncomment it
+//            $(tis).mouseover(function(e) {
+//                $(tis).css('z-index', 10000);
+//                $tooltip.fadeIn('500');
+//                $tooltip.fadeTo('10', 1.9);
+//            }).mousemove(function(e) {
+//                $tooltip.css('top', e.pageY + 10);
+//                $tooltip.css('left', e.pageX + 20);
+//            });
+        },
+        eventMouseLeave: function(info) {
+            console.log('eventMouseLeave');
+            $(info.el).css('z-index', 8);
+            $('.tooltipevent').remove();
+        },
+                });
+                calendar.render();
+            });
+        </script>
+    @endsection

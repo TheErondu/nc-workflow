@@ -58,6 +58,12 @@ class PrompterLogShowsController extends Controller
         $user = auth()->user();
         $prompter_logs_shows = new PrompterLogShows();
         $prompter_logs_shows->segment = $request->input('segment');
+        $prompter_logs_shows->start =  date('Y-m-d H:i:s');
+        $prompter_logs_shows->end = date('Y-m-d H:i:s');
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $prompter_logs_shows->color = $rand_background;
+        $prompter_logs_shows->title = $request->input('segment');
         $prompter_logs_shows->rundown_in = $request->input('rundown_in');
         $prompter_logs_shows->script_in = $request->input('script_in');
         $prompter_logs_shows->anchor = $request->input('anchor');
@@ -144,6 +150,12 @@ class PrompterLogShowsController extends Controller
         $user = auth()->user();
         $prompter_logs_shows = PrompterLogShows::find($id);
         $prompter_logs_shows->segment = $request->input('segment');
+        $prompter_logs_shows->start =  $prompter_logs_shows->start;
+        $prompter_logs_shows->end = $prompter_logs_shows->end;
+        $background_colors = array('#028336', '#ad2323', '#b1a514');
+        $rand_background = $background_colors[array_rand($background_colors)];
+        $prompter_logs_shows->color = $rand_background;
+        $prompter_logs_shows->title = $request->input('segment');
         $prompter_logs_shows->rundown_in = $request->input('rundown_in');
         $prompter_logs_shows->script_in = $request->input('script_in');
         $prompter_logs_shows->anchor = $request->input('anchor');
