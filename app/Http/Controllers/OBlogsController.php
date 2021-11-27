@@ -150,8 +150,8 @@ class OBlogsController extends Controller
         $user = auth()->user();
         $oblogs->event_name = $request->input('event_name');
         $oblogs->event_date = $request->input('event_date');
-        $oblogs->start = $oblogs->start;
-        $oblogs->end = $oblogs->start;
+        $oblogs->start = $request->input('event_date');
+        $oblogs->end = $request->input('event_date');
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $oblogs->color = $rand_background;
