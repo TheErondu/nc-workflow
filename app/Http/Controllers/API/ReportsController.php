@@ -17,9 +17,7 @@ class ReportsController extends ApiController
      */
     public function index(Request $request)
     {
-        $data = reports::whereDate('start', '>=', $request->start)
-        ->whereDate('end',   '<=', $request->end)
-        ->get(['id', 'title', 'start','end','color','comment']);
+        $data = reports::all();
 
         return response()->json($data);
     }
