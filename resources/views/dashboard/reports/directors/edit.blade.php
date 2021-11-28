@@ -61,6 +61,14 @@
 
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
+                                    <label for="date">Date </label>
+                                    <div class="input-group date" id="datetimepicker-minimum" data-target-input="nearest">
+                                        <input name="log_date" value="{{ $reports->log_date }}" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum" />
+                                        <div class="input-group-text" data-target="#datetimepicker-minimum" data-toggle="datetimepicker"><i
+                                                class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-4">
                                     <label for="producer">Producer </label>
                                     <input name="producer" type="text" class="form-control" id="producer"
                                     value="{{$reports->producer}}"  placeholder="">

@@ -4,11 +4,15 @@
     </IfModule>
 
     RewriteEngine On
+<<<<<<< HEAD
 	
 	RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+=======
+    
+>>>>>>> 5eeb0c5e16ce1aa6b8299e4c7adf7d212134a4e7
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

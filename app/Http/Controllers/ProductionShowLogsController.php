@@ -73,7 +73,6 @@ class ProductionShowLogsController extends Controller
         $rand_background = $background_colors[array_rand($background_colors)];
         $production_logs->color = $rand_background;
         $production_logs->title = $request->input('show_name');
-        $production_logs->date = $request->input('date');
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');
         $production_logs->producer2 = $request->input('producer2');
@@ -161,8 +160,8 @@ class ProductionShowLogsController extends Controller
         $production_logs = ProductionShowLogs::find($id);
         $production_logs->show_name = $request->input('show_name');
         $production_logs->date = $request->input('date');
-        $production_logs->start = $production_logs->date;
-        $production_logs->end = $production_logs->date;
+        $production_logs->start = $request->input('date');
+        $production_logs->end = $request->input('date');
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $production_logs->color = $rand_background;
