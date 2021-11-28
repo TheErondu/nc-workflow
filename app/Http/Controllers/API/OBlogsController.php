@@ -18,8 +18,8 @@ class OBlogsController extends ApiController
      */
     public function index()
 
-    {   $oblogs = OBlogs::all();
-        return response()->json( compact('oblogs'));
+    {   $data = OBlogs::all();
+        return response()->json($data);
     }
 
     /**
