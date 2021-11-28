@@ -71,8 +71,9 @@ class ReportsController extends Controller
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
         $reports->anchor = $request->input('anchor');
-        $reports->start = date('Y-m-d H:i:s');
-        $reports->end = date('Y-m-d H:i:s');
+        $reports->log_date = $request->input('log_date');
+        $reports->start = $request->input('log_date');
+        $reports->end = $request->input('log_date');
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $reports->color = $rand_background;
@@ -175,8 +176,9 @@ class ReportsController extends Controller
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
         $reports->anchor = $request->input('anchor');
-        $reports->start =  $reports->created_at;
-        $reports->end =  $reports->created_at;
+        $reports->log_date = $request->input('log_date');
+        $reports->start = $request->input('log_date');
+        $reports->end = $request->input('log_date');
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $reports->color = $rand_background;
