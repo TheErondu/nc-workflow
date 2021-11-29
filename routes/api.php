@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //API route for login user
-Route::post('token', [App\Http\Controllers\API\AuthController::class, 'requestToken']);
+Route::post('login', [App\Http\Controllers\API\AuthController::class, 'login']);
 
 Route::get('schedule/preproduction', [App\Http\Controllers\API\ScheduleController::class, 'index']);
 Route::get('schedule/editors', [App\Http\Controllers\API\ScheduleController::class, 'GetVideoEditorsEvents']);
