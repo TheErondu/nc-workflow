@@ -41,7 +41,7 @@ class AuthController extends ApiController
     {
         if (!FacadesAuth::attempt($request->only('email', 'password'))) {
             return response()
-                ->json(['message' => 'These Credentials do not match our records'], 401);
+                ->json(['error' => 'These Credentials do not match our records!'], 401);
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
@@ -49,7 +49,7 @@ class AuthController extends ApiController
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()
-            ->json(['message' => 'Hi ' . $user->name . ', welcome to home', 'access_token' => $token, 'token_type' => 'Bearer',]);
+            ->json(['message' => 'User Logged in!', 'name' => $user->name, 'email' => $user->email, 'department' => $user->department->name, 'access_token' => $token, 'token_type' => 'Bearer',]);
     }
 
     // method for user logout and delete token
