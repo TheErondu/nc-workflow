@@ -41,7 +41,7 @@ class AuthController extends ApiController
     {
         if (!FacadesAuth::attempt($request->only('email', 'password'))) {
             return response()
-                ->json(['message' => 'Unauthorized'], 401);
+                ->json(['message' => 'These Credentials do not match our records'], 401);
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
