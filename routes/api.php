@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth:sanctum'],[]], function () {
 
 
     Route::name('api.')->group(function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/', [App\Http\Controllers\API\HomeController::class, 'info']);
     // Route::get('/', function () {
     //     return view('home');
     // });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends ApiController
 {
@@ -21,8 +22,12 @@ class HomeController extends ApiController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function info()
     {
-        return view('home');
+        $user = Auth::user();
+        $permissions = $user->getAllPermissions();
+
+
+        return response()->json( compact('user','permissions'));
     }
 }
