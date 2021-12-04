@@ -7,7 +7,8 @@ use App\Events\RecordUpdatedEvent;
 use App\Models\Reports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 class ReportsController extends ApiController
 {
     /**
@@ -17,7 +18,12 @@ class ReportsController extends ApiController
      */
     public function index(Request $request)
     {
-        $data = reports::all();
+        $data = QueryBuilder::for(Reports::class)
+        ->allowedFilters(
+            AllowedFilter::exact('id'),
+        AllowedFilter::exact('user_id'),
+        )
+            ->get();
 
         return response()->json($data);
     }
