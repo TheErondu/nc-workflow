@@ -8,7 +8,8 @@ use App\Models\Reports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
-
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 class ReportsController extends ApiController
 {
     /**
