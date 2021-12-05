@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class PrompterLogsController extends ApiController
@@ -18,8 +19,8 @@ class PrompterLogsController extends ApiController
      */
     public function index()
     {
-        $prompter_logs = PrompterLogs::all();
-        return response()->json( compact('prompter_logs'));
+        $prompter_logs = DB::table('prompter_logs')->orderBy('created_at','desc')->get();
+        return response()->json(compact('prompter_logs'));
     }
 
     /**

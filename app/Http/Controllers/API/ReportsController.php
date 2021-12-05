@@ -6,6 +6,7 @@ use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Models\Reports;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class ReportsController extends ApiController
@@ -17,7 +18,7 @@ class ReportsController extends ApiController
      */
     public function index(Request $request)
     {
-        $data = reports::all();
+        $data = DB::table('reports')->orderBy('created_at','desc')->get();
 
         return response()->json($data);
     }

@@ -6,6 +6,7 @@ use App\Models\McrLogs;
 use Illuminate\Http\Request;
 use App\Events\RecordCreatedEvent;
 Use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 
@@ -18,7 +19,7 @@ class McrLogsController extends ApiController
      */
     public function index()
     {
-        $mcr_logs = McrLogs::all();
+        $mcr_logs = DB::table('mcr_logs')->orderBy('created_at','desc')->get();
         return response()->json(compact('mcr_logs'));
     }
 

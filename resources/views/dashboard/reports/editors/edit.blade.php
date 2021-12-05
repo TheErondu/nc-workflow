@@ -60,6 +60,14 @@
                                     <input name="name_of_suite" type="text" class="form-control" id="name_of_suite"
                                     value="{{ $editors_logs->name_of_suite }}"  placeholder="">
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">Date of Report</label>
+                                    <div class="input-group date" id="datetimepicker-minimum2" data-target-input="nearest">
+                                        <input value="{{ $editors_logs->date }}" name="date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum2" />
+                                        <div class="input-group-text" data-target="#datetimepicker-minimum2" data-toggle="datetimepicker"><i
+                                                class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">

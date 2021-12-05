@@ -9,9 +9,10 @@ use App\Events\TicketCreatedEvent;
 use App\Events\TicketUpdatedEvent;
 use App\Mail\TicketCreated;
 use App\Models\Department;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Null_;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -25,15 +26,15 @@ class IssueController extends ApiController
     public function index()
     {
         $user = Auth::user();
-        $raised_issues = Issue::where('raised_by', Auth::user()->id)->get();
+        $raised_issues = DB::table('issues')->where('raised_by', Auth::user()->id)->orderBy('id','desc')->get();
         if (request()->query('type') === 'raised') {
 
             $issues = $raised_issues;
         } elseif (($user->can('fix-issues'))) {
-            $issues = Issue::all();
+            $issues = DB::table('issues')->orderBy('id','DESC')->get();
         } else
             $issues = $raised_issues;
-        $users = Users::all();
+        $users = User::all();
         return response()->json(compact('issues', 'raised_issues', 'users'));
     }
 
@@ -75,7 +76,7 @@ class IssueController extends ApiController
         $issue->resolved_date = $request->input('resolved_date');
         $issue->save();
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
-        $email = Users::where('username', $issue->raised_by)->pluck('email')->implode('');
+        $email = User::where('username', $issue->raised_by)->pluck('email')->implode('');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
         $details = [
@@ -118,7 +119,7 @@ class IssueController extends ApiController
             'OPEN', 'CLOSED'
         );
         $departments = Department::all();
-        $users = Users::all();
+        $users = User::all();
         return view('dashboard.issues.edit', compact('issue', 'users', 'departments', 'issue_status'));
     }
 
@@ -151,7 +152,7 @@ class IssueController extends ApiController
             $issue->status = $request->input('status');
         }
         $issue->save();
-        $email = Users::where('username', $issue->raised_by)->pluck('email')->implode('');
+        $email = User::where('username', $issue->raised_by)->pluck('email')->implode('');
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
