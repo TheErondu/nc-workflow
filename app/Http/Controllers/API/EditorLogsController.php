@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\DB;
 
 class EditorLogsController extends ApiController
 {
@@ -18,7 +19,7 @@ class EditorLogsController extends ApiController
      */
     public function index()
     {
-        $editors_logs = EditorLogs::all();
+        $editors_logs = DB::table('editor_logs')->orderBy('created_at','desc')->get();
         return response()->json( compact('editors_logs'));
     }
 

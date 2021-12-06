@@ -56,8 +56,8 @@
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="closed_at">Name of Suite</label>
-                                    <input name="closed_at" type="text" class="form-control" id="closed_at"
-                                    value="{{old('closed_at')}}"  placeholder="">
+                                    <input name="name_of_suite" type="text" class="form-control" id="name_of_suite"
+                                    value="{{old('name_of_suite')}}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label">Date of Report</label>

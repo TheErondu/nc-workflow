@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordUpdatedEvent;
 use App\Events\RecordCreatedEvent;
+use Illuminate\Support\Facades\DB;
 
 class ProductionShowLogsController extends ApiController
 {
@@ -17,11 +18,8 @@ class ProductionShowLogsController extends ApiController
      */
     public function index(Request $request)
     {
-        $data = ProductionShowLogs::whereDate('start', '>=', $request->start)
-        ->whereDate('end',   '<=', $request->end)
-        ->get(['id', 'title', 'start','end','color','comment']);
-
-        return response()->json($data);
+         $production_show_logs = DB::table('production_show_logs')->orderBy('created_at','desc')->get();
+        return response()->json(compact('production_show_logs'));
     }
 
 

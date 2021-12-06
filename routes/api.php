@@ -66,10 +66,13 @@ Route::post('logout', [App\Http\Controllers\API\AuthController::class, 'logout']
 
         Route::apiResource('store', 'App\Http\Controllers\API\StoreController');
         Route::apiResource('logs/mcr', 'App\Http\Controllers\API\McrLogsController');
+        Route::apiResource('logs/graphics-news', 'App\Http\Controllers\API\GraphicsLogsController');
+        Route::apiResource('logs/graphics-shows', 'App\Http\Controllers\API\GraphicsLogShowsController');
         Route::apiResource('logs/production', 'App\Http\Controllers\API\ProductionShowLogsController');
         Route::apiResource('logs/engineers', 'App\Http\Controllers\API\EngineerLogsController');
         Route::apiResource('logs/editors', 'App\Http\Controllers\API\EditorLogsController');
-        Route::apiResource('logs/prompter', 'App\Http\Controllers\API\PrompterLogsController');
+        Route::apiResource('logs/prompter-news', 'App\Http\Controllers\API\PrompterLogsController');
+        Route::apiResource('logs/prompter-shows', 'App\Http\Controllers\API\PrompterLogShowsController');
         Route::apiResource('logs/transmission', 'App\Http\Controllers\API\TransmissionReportController');
         Route::apiResource('logs/cot', 'App\Http\Controllers\API\COTController');
         Route::apiResource('employees', 'App\Http\Controllers\API\EmployeeController');
