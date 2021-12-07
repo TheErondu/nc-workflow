@@ -40,6 +40,8 @@ Route::get('prompter-shows-calendar', [App\Http\Controllers\API\CalendarViewCont
 
 Route::group(['middleware' => ['auth:sanctum'],[]], function () {
 
+Route::post('logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+
 
     Route::name('api.')->group(function () {
     Route::get('/', [App\Http\Controllers\API\HomeController::class, 'info']);
