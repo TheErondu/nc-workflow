@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 class StoreController extends ApiController
@@ -20,10 +21,18 @@ class StoreController extends ApiController
      */
     public function index()
     {
-        $store_items = Store::all();
+        $store_items = DB::table('stores')->orderBy('id','desc')->get();
         $store_requests = StoreRequest::all()->where('status','pending');
         $approved_items =StoreRequest::all()->where('status','Approved');
         return response()->json( compact('store_items','store_requests','approved_items'));
+    }
+    public function MyStore()
+    {   $user = FacadesAuth::user();
+        $store_items = Store::all();
+        $store_requests =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Pending' AND user_id = $user->id;");
+        $borrowed_items =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Approved' AND user_id = $user->id;");
+        $returned_items =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Returned' AND user_id = $user->id;");
+        return response()->json( compact('store_requests','borrowed_items','returned_items'));
     }
 
      /**

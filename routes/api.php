@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum'],[]], function () {
         Route::apiResource('departments', 'App\Http\Controllers\API\DepartmentController');
 
         Route::apiResource('store', 'App\Http\Controllers\API\StoreController');
+        Route::get('my-store', [App\Http\Controllers\API\StoreController::class, 'MyStore']);
         Route::apiResource('logs/mcr', 'App\Http\Controllers\API\McrLogsController');
         Route::apiResource('logs/graphics-news', 'App\Http\Controllers\API\GraphicsLogsController');
         Route::apiResource('logs/graphics-shows', 'App\Http\Controllers\API\GraphicsLogShowsController');
