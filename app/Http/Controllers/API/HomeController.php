@@ -28,7 +28,7 @@ class HomeController extends ApiController
     {
         $user = Auth::user();
         $department = Auth::user()->department->name;
-        $message ="authenticated";
+        $message ="Authenticated";
 
         return response()->json( compact('user','message','department'));
     }

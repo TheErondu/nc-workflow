@@ -32,7 +32,7 @@ class StoreController extends ApiController
         $store_requests =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Pending' AND user_id = $user->id;");
         $borrowed_items =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Approved' AND user_id = $user->id;");
         $returned_items =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Returned' AND user_id = $user->id;");
-        return response()->json( compact('store_requests','borrowed_items','returned_items'));
+        return response()->json( compact('store_items','store_requests','borrowed_items','returned_items'));
     }
 
      /**

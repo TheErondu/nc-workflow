@@ -49,7 +49,7 @@ class AuthController extends ApiController
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()
-            ->json(['message' => 'User Logged in!', 'name' => $user->name, 'email' => $user->email, 'department' => $user->department->name, 'access_token' => $token, 'token_type' => 'Bearer',]);
+            ->json(['message' => 'User Logged in!',  'user_id' => $user->id, 'name' => $user->name, 'email' => $user->email, 'department' => $user->department->name, 'department_id' => $user->department_id, 'role' => $user->role, 'access_token' => $token, 'token_type' => 'Bearer',]);
     }
 
     // method for user logout and delete token
