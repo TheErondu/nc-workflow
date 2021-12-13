@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\UserLoggedInEmail;
 
 class UserLoggedInListener
-// implements ShouldQueue
+ implements ShouldQueue
 {
     /**
      * Create the event listener.
