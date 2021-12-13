@@ -33,7 +33,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SendMail' => [
             'App\Listeners\SendMailFired',
         ],
-        'Illuminate\Auth\Events\Login' => [
+        UserLoggedIn::class => [
             UserLoggedInListener::class,
         ],
         RecordCreatedEvent::class => [

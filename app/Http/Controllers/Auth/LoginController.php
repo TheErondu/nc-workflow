@@ -42,7 +42,18 @@ class LoginController extends Controller
     }
     public function redirectTo()
     {
-        $email=Auth::user()->email;
+        $user = auth()->user();
+        $email = [
+            'email' => $user->email,
+            'name' => $user->name,
+            'status' =>  $user->dts_in,
+            'body' =>  $user->comment,
+            'model' =>  'User',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y'),
+            // 'cc_emails' => $cc_emails
+        ];
+
         Event::dispatch(new UserLoggedIn($email));
     }
 }

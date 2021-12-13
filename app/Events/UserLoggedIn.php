@@ -14,16 +14,16 @@ class UserLoggedIn
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $email;
+    public $details;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($details)
     {
-        $this->email = $email;
+        $this->details = $details;
     }
 
 }
