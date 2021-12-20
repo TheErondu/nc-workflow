@@ -173,14 +173,14 @@
         new Chart(document.getElementById("chartjs-bar0"), {
             type: "bar",
             data: {
-                labels: {!! $active_engineers !!},
+                labels: {!! $engineerData['active_engineers'] !!},
                 datasets: [{
                     label: "Fixed Issues",
                     backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
                     hoverBackgroundColor: window.theme.primary,
                     hoverBorderColor: window.theme.primary,
-                    data: {!! $active_engineers_stats !!},
+                    data: {!! $engineerData['active_engineers_stats'] !!},
                     barPercentage: .55,
                     categoryPercentage: .8
                 }]
@@ -217,14 +217,14 @@
         new Chart(document.getElementById("chartjs-bar1"), {
             type: "bar",
             data: {
-                labels: {!! $inactive_engineers !!},
+                labels: {!! $engineerData['inactive_engineers'] !!},
                 datasets: [{
                     label: "Fixed Issues",
                     backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
                     hoverBackgroundColor: window.theme.primary,
                     hoverBorderColor: window.theme.primary,
-                    data: {!! $inactive_engineers_stats !!},
+                    data: {!! $engineerData['inactive_engineers_stats'] !!},
                     barPercentage: .55,
                     categoryPercentage: .8
                 }]
@@ -261,14 +261,14 @@
         new Chart(document.getElementById("chartjs-bar2"), {
             type: "bar",
             data: {
-                labels: {!! $most_borrowers !!},
+                labels: {!! $borrowerData['most_borrowers'] !!},
                 datasets: [{
                     label: "Store Requests",
                     backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
                     hoverBackgroundColor: window.theme.primary,
                     hoverBorderColor: window.theme.primary,
-                    data: {!! $most_borrowers_stats !!},
+                    data: {!! $borrowerData['most_borrowers_stats'] !!},
                     barPercentage: .75,
                     categoryPercentage: .5
                 }]
@@ -623,15 +623,15 @@
         new Chart(document.getElementById("chartjs-pie"), {
             type: "pie",
             data: {
-                labels: {!!$departments !!},
+                labels: {!! $departmentData['departments'] !!},
                 datasets: [{
                     data: [
-                    @foreach ($all_departments as $department)
+                    @foreach ($departmentData['all_departments']  as $department)
                     {{$department->employees->count()}},
                     @endforeach
                     ],
                     backgroundColor: [
-                        @foreach ($all_departments as $department)"{{$department->color}}",@endforeach
+                        @foreach ($departmentData['all_departments'] as $department)"{{$department->color}}",@endforeach
                     ],
                     borderColor: "transparent"
                 }]
