@@ -1,11 +1,11 @@
 #Copy yesterday's log  file from Server to Brave Public Folder
 
-#get-childitem -Path "Y:\" -Recurse |
-#Where-Object {$_.CreationTime -gt (Get-date).AddDays(-1).Date} |
-#copy-item -destination "C:\xampp\htdocs\brave\public\Asrun.csv"
+get-childitem -Path "Y:\" -Recurse |
+Where-Object {$_.CreationTime -gt (Get-date).AddDays(-1).Date} |
+copy-item -destination "C:\xampp\htdocs\brave\public\Asrun.csv"
 
 #wait for xx seconds
-#Start-Sleep -s 15
+Start-Sleep -s 15
 
 
 
@@ -52,7 +52,7 @@ Start-Sleep -s 6
 
 #hit localhost/dumlogs to import the cleaned csv to database
 
-(New-Object System.Net.WebClient).DownloadString("http://127.0.0.1:8001/dumplogs")
+C:/xampp/php/php.exe C:/xampp/htdocs/brave/artisan dump:logs
 
 Start-Sleep -s 6
 #Todo Mail sending

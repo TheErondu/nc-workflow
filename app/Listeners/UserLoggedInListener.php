@@ -28,7 +28,8 @@ class UserLoggedInListener
      * @return void
      */
      public function handle($event)
-     {  $email = Auth::User()->email;
-         Mail::to($email)->send(new UserLoggedInEmail());
+     {  
+	 $email = Auth::User()->email;
+        Mail::to($email)->send(new UserLoggedInEmail());
      }
 }
