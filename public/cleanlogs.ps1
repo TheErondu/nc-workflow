@@ -4,7 +4,7 @@ get-childitem -Path "Y:\" -Recurse |
 Where-Object {$_.CreationTime -gt (Get-date).AddDays(-1).Date} |
 copy-item -destination "C:\xampp\htdocs\brave\public\Asrun.csv"
 
-wait for xx seconds
+#wait for xx seconds
 Start-Sleep -s 15
 
 

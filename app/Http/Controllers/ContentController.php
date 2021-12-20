@@ -190,7 +190,7 @@ class ContentController extends Controller
         $content->status = $request->input('status');
         $content->distribution_platform = $request->input('distribution_platform');
         $content->project_brief = $request->input('project_brief');
-        $content->user_id = $user->id;
+        $content->user_id =  $content->user_id;
         $content->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [

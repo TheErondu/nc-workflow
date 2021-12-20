@@ -181,7 +181,7 @@ class ProductionShowLogsController extends Controller
         $production_logs->transmission = $request->input('transmission');
         $production_logs->transmission_time = $request->input('transmission_time');
         $production_logs->comment = $request->input('comment');
-        $production_logs->user_id = $user->id;
+        $production_logs->user_id =  $production_logs->user_id;
         $production_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [

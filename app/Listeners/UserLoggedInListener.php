@@ -27,6 +27,7 @@ class UserLoggedInListener implements ShouldQueue
      * @return void
      */
      public function handle($event)
+
      {  $email = $event->details['email'];
         Mail::to($email)->send(new UserLoggedInEmail($event->details));
      }
