@@ -271,7 +271,7 @@
 
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-3">
-                                    <span>Uploaded by: <br> {{ Auth::user()->name }}</span>
+                                    <span>Uploaded by: <br> {{ $reports->user->name }}</span>
                                 </div>
                                 <div class="mb-3 col-md-3">
                                     <span>Uploaded at: <br> {{  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $reports->created_at)->format('Y-M-d') }}</span>

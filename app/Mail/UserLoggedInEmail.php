@@ -11,15 +11,16 @@ use Illuminate\Support\Facades\Auth;
 class UserLoggedInEmail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $details;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($details)
     {
-        //
+        $this->details = $details;
     }
 
     /**
@@ -30,12 +31,11 @@ class UserLoggedInEmail extends Mailable
     public function build()
 
     {
-        $name = Auth::user()->name;
         $from = env('MAIL_FROM_ADDRESS');
         $engineer_mails = \App\Models\User::where('department_id', '11')->pluck('email');
         return $this->from($from)
         ->subject('Login Notification Email')
         ->cc($engineer_mails)
-        ->markdown('mail.UserLoggedInMail', compact('name'));
+        ->markdown('mail.UserLoggedInMail');
     }
 }

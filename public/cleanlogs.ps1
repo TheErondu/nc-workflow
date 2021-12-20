@@ -28,29 +28,29 @@ Start-Sleep -s 8
 
 # Return Ecnoded Asrun.json back to Asrun-new.csv
 
-$file = "C:\xampp\htdocs\brave\public\Asrun.json"
-$filename_list = $file.Split(".")[0], "csv"
-$filename_out = $filename_list -join '-new.'
+ $file = "C:\xampp\htdocs\brave\public\Asrun.json"
+ $filename_list = $file.Split(".")[0], "csv"
+ $filename_out = $filename_list -join '-new.'
 
-$data = Get-Content $file -Raw
-$json = $data | Out-String | ConvertFrom-Json
-$csv = $json | ConvertTo-Csv -Delimiter ',' -NoTypeInformation
-$clean = $csv | % { $_ -replace '","', ','} | % { $_ -replace "^`"",''} | % { $_ -replace "`"$",''}
-$clean = $clean | Out-File $filename_out -Encoding "UTF8"
+ $data = Get-Content $file -Raw
+ $json = $data | Out-String | ConvertFrom-Json
+ $csv = $json | ConvertTo-Csv -Delimiter ',' -NoTypeInformation
+ $clean = $csv | % { $_ -replace '","', ','} | % { $_ -replace "^`"",''} | % { $_ -replace "`"$",''}
+ $clean = $clean | Out-File $filename_out -Encoding "UTF8"
 
-Start-Sleep -s 6
+ Start-Sleep -s 6
 
-#Clean up by deleting Uneeded files
+# Clean up by deleting Uneeded files
 
-Remove-Item C:\xampp\htdocs\brave\public\Asrun.json
+ Remove-Item C:\xampp\htdocs\brave\public\Asrun.json
 
-Start-Sleep -s 6
+ Start-Sleep -s 6
 
-Remove-Item C:\xampp\htdocs\brave\public\Asrun.csv
+ Remove-Item C:\xampp\htdocs\brave\public\Asrun.csv
 
-Start-Sleep -s 6
+ Start-Sleep -s 6
 
-#hit localhost/dumlogs to import the cleaned csv to database
+#hit run artisan command to import the cleaned csv to database
 
 C:/xampp/php/php.exe C:/xampp/htdocs/brave/artisan dump:logs
 

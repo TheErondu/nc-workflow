@@ -171,7 +171,6 @@ class ReportsController extends Controller
             // 'b2variance2'         => 'required',
             // 'b2comment'         => 'required',
         ]);
-        $user = auth()->user();
         $reports = Reports::find($id);
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
@@ -207,7 +206,7 @@ class ReportsController extends Controller
         $reports->b2actual_out = $request->input('b2actual_out');
         $reports->b2variance2 = $request->input('b2variance2');
         $reports->b2comment = $request->input('b2comment');
-        $reports->user_id = $user->id;
+        $reports->user_id = $reports->user_id;
         $reports->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [

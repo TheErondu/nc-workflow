@@ -167,7 +167,7 @@ class OBlogsController extends Controller
         $oblogs->digital = $request->input('digital');
         $oblogs->transmission_time = $request->input('transmission_time');
         $oblogs->comment = $request->input('comment');
-        $oblogs->user_id = $user->id;
+        $oblogs->user_id = $oblogs->user_id;
         $oblogs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [

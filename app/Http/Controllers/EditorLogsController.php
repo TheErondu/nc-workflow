@@ -134,7 +134,7 @@ class EditorLogsController extends Controller
         $editors_logs->second_interval = $request->input('second_interval');
         $editors_logs->third_interval = $request->input('third_interval');
         $editors_logs->closed_at = $request->input('closed_at');
-        $editors_logs->user_id = $user->id;
+        $editors_logs->user_id = $editors_logs->user_id;
         $editors_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 3');
         $details = [

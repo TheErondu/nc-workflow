@@ -193,7 +193,7 @@ class GraphicsLogsController extends Controller
         $graphics_logs->engineer3 = $request->input('engineer3');
         $graphics_logs->pa3 = $request->input('pa3');
         $graphics_logs->challenges2 = $request->input('challenges3');
-        $graphics_logs->user_id = $user->id;
+        $graphics_logs->user_id =  $graphics_logs->user_id;
         $graphics_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [

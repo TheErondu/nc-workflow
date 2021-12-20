@@ -149,7 +149,7 @@ class McrLogsController extends Controller
         $rand_background = $background_colors[array_rand($background_colors)];
         $mcr_logs->color = $rand_background;
         $mcr_logs->title = $request->input('sto');
-        $mcr_logs->user_id = $user->id;
+        $mcr_logs->user_id = $mcr_logs->user_id;
 
         $mcr_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 3');

@@ -136,6 +136,7 @@ class BookingController extends Controller
         $booking->type = $request->input('type');
         $booking->facility = $request->input('facility');
         $booking->description = $request->input('description');
+        $booking->user_id = $booking->user_id;
         $booking->save();
         $request->session()->flash('message', 'Success!');
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');

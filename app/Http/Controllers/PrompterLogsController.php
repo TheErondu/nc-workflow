@@ -96,7 +96,7 @@ class PrompterLogsController extends Controller
         $prompter_logs->engineer3 = $request->input('engineer3');
         $prompter_logs->pa3 = $request->input('pa3');
         $prompter_logs->challenges3 = $request->input('challenges3');
-        $prompter_logs->user_id = $user->id;
+        $prompter_logs->user_id = $prompter_logs->user_id;
         $prompter_logs->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [

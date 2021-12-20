@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 class RecordUpdatedEventListener
-//implements ShouldQueue
+implements ShouldQueue
 {
     //
     // public $retries = 5;

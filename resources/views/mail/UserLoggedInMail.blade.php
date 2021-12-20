@@ -1,5 +1,5 @@
 @component('mail::message')
-# Welcome back! {{$name}},
+# Welcome back! {{ $details['user'] }},
 
 You logged in to Brave on {{ \Carbon\Carbon::now()->format('d-M-Y, H:i a')}}
 

@@ -193,7 +193,7 @@ class GraphicsLogShowsController extends Controller
         $graphics_log_shows->engineer3 = $request->input('engineer3');
         $graphics_log_shows->pa3 = $request->input('pa3');
         $graphics_log_shows->challenges2 = $request->input('challenges3');
-        $graphics_log_shows->user_id = $user->id;
+        $graphics_log_shows->user_id = $graphics_log_shows->user_id;
         $graphics_log_shows->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [

@@ -209,6 +209,7 @@ class ScheduleController extends Controller
         $schedule->dop4 = $request->input('dop4');
         $schedule->description = $request->input('description');
         $schedule->type = $request->input('type');
+        $schedule->user_id = $schedule->user_id;
         $schedule->save();
         $email =  Auth::user()->email;
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
