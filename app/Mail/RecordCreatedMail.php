@@ -31,7 +31,6 @@ class RecordCreatedMail extends Mailable
     public function build()
 
     {
-        $name = Auth::user()->name;
         $from = env('MAIL_FROM_ADDRESS');
         $user = $this->details['user'];
         $model = $this->details['model'];
@@ -39,6 +38,6 @@ class RecordCreatedMail extends Mailable
         return $this->from($from)
         ->subject($user.' has added a new entry to '.$model.'!')
         ->cc($cc)
-        ->markdown('mail.RecordCreatedMail', compact('name'));
+        ->markdown('mail.RecordCreatedMail');
     }
 }
