@@ -222,7 +222,7 @@ class GraphicsLogsController extends Controller
         if($graphics_logs){
             $graphics_logs->delete();
         }
-        return redirect()->route('graphics.index')->with('message', 'Successfully Deleted Log');
+        return redirect()->route('graphics-news.index')->with('message', 'Successfully Deleted Log');
 
     }
 }
