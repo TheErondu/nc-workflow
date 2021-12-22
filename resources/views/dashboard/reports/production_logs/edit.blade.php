@@ -201,10 +201,10 @@
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-3">
-                                    <span>Uploaded by: <br> {{Auth::user()->name }}</span>
+                                    <span>Uploaded by: <br> {{$production_logs->user->name }}</span>
                                 </div>
                                 <div class="mb-3 col-md-3">
-                                    <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
+                                    <span>Uploaded at: <br> {{ $production_logs->created_at}}</span>
                                 </div>
                             </div>
                             <div class="row justify-content-between">

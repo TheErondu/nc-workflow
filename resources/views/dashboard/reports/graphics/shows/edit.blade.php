@@ -257,10 +257,10 @@
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-3">
-                                    <span>Uploaded by: <br> {{Auth::user()->name }}</span>
+                                    <span>Uploaded by: <br> {{$graphics_log_shows->user->name }}</span>
                                 </div>
                                 <div class="mb-3 col-md-3">
-                                    <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
+                                    <span>Uploaded at: <br> {{ $graphics_log_shows->created_at}}</span>
                                 </div>
                             </div>
                             <div class="row justify-content-between">
