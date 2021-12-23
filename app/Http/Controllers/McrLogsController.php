@@ -6,6 +6,7 @@ use App\Models\McrLogs;
 use Illuminate\Http\Request;
 use App\Events\RecordCreatedEvent;
 Use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -55,7 +56,7 @@ class McrLogsController extends Controller
             'handed_over_to'         => 'required',
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         $mcr_logs = new McrLogs();
         $mcr_logs->sto = $request->input('sto');
         $mcr_logs->timing = $request->input('timing');
@@ -80,7 +81,7 @@ class McrLogsController extends Controller
             'status' =>  $mcr_logs->handed_over_to,
             'body' =>  $mcr_logs->deescription,
             'model' =>  'MCR Logs',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
 
@@ -133,7 +134,7 @@ class McrLogsController extends Controller
             // 'traffic'         => 'required',
             // 'handed_over_to'         => 'required',
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $mcr_logs = McrLogs::find($id);
         $mcr_logs->sto = $request->input('sto');
         $mcr_logs->timing = $request->input('timing');
@@ -159,7 +160,7 @@ class McrLogsController extends Controller
             'status' =>  $mcr_logs->handed_over_to,
             'body' =>  $mcr_logs->deescription,
             'model' =>  'MCR Logs',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
 

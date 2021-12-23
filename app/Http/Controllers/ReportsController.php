@@ -8,6 +8,7 @@ use App\Models\Reports;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -65,7 +66,7 @@ class ReportsController extends Controller
             // 'b2comment'         => 'required',
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         $reports = new Reports();
 
         $reports->producer = $request->input('producer');
@@ -111,7 +112,7 @@ class ReportsController extends Controller
             'status' =>  $reports->dts_in,
             'body' =>  $reports->comment,
             'model' =>  'Director Reports',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
         ];
@@ -172,6 +173,7 @@ class ReportsController extends Controller
             // 'b2comment'         => 'required',
         ]);
         $reports = Reports::find($id);
+        $user = Auth::user();
         $reports->producer = $request->input('producer');
         $reports->director = $request->input('director');
         $reports->anchor = $request->input('anchor');
@@ -215,7 +217,7 @@ class ReportsController extends Controller
             'status' =>  $reports->dts_in,
             'body' =>  $reports->comment,
             'model' =>  'Directors Report',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
         ];

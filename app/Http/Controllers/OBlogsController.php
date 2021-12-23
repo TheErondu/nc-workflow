@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OBlogsController extends Controller
@@ -59,7 +60,7 @@ class OBlogsController extends Controller
             'comment'           => 'required',
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         $oblogs = new OBlogs();
         $oblogs->event_name = $request->input('event_name');
         $oblogs->event_date = $request->input('event_date');
@@ -147,7 +148,7 @@ class OBlogsController extends Controller
             'comment'           => 'required',
         ]);
         $oblogs = OBlogs::find($id);
-        $user = auth()->user();
+        $user = Auth::user();
         $oblogs->event_name = $request->input('event_name');
         $oblogs->event_date = $request->input('event_date');
         $oblogs->start = $request->input('event_date');
@@ -176,7 +177,7 @@ class OBlogsController extends Controller
             'status' =>  $oblogs->event_date,
             'body' =>  $oblogs->comment,
             'model' =>  'OB Logs',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' =>  $cc_emails
         ];

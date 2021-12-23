@@ -96,7 +96,7 @@ class MessageController extends Controller
             'status' =>  $message->type,
             'body' =>  $message->location,
             'model' =>  'Employees',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y')
         ];
         Event::dispatch(new RecordCreatedEvent($details));
@@ -150,7 +150,7 @@ class MessageController extends Controller
             'type'           => 'required',
         ]);
         $message = Message::find($id);
-        $user = auth()->user();
+        $user = Auth::user();
         $message->title     = $request->input('title');
         if($request->file('file')){
         $message->file   = $request->file('file')->store('public/files');

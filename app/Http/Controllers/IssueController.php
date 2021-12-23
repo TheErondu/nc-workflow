@@ -174,7 +174,7 @@ class IssueController extends Controller
     {
         $validatedData = $request->validate([]);
         $issue = Issue::find($id);
-        $user = auth()->user();
+        $user = Auth::user();
         $issue->item_name     = $request->input('item_name');
         $issue->description = $request->input('description');
         $issue->date = $request->input('date');

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -55,7 +56,7 @@ class GraphicsLogsController extends Controller
             // 'challenges'             => 'required'
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         $graphics_logs = new GraphicsLogs();
         $graphics_logs->segment = $request->input('segment');
         $graphics_logs->start =  date('Y-m-d H:i:s');
@@ -102,7 +103,7 @@ class GraphicsLogsController extends Controller
             'status' =>  $graphics_logs->segment,
             'body' =>  $graphics_logs->challenges,
             'model' =>  'Prompter Logs',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
         ];
@@ -155,7 +156,7 @@ class GraphicsLogsController extends Controller
             // 'pa'             => 'required',
             // 'challenges'             => 'required'
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $graphics_logs = GraphicsLogs::find($id);
         $graphics_logs->segment = $request->input('segment');
         $graphics_logs->start =  $graphics_logs->start;
@@ -203,7 +204,7 @@ class GraphicsLogsController extends Controller
             'status' =>  $graphics_logs->segment,
             'body' =>  $graphics_logs->challenges,
             'model' =>  'Graphics Logs (News)',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y')
         ];
         Event::dispatch(new RecordUpdatedEvent($details));

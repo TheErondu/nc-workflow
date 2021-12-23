@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EditorLogsController extends Controller
@@ -50,7 +51,7 @@ class EditorLogsController extends Controller
             // 'closed_at'           => 'required'
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         $editors_logs = new EditorLogs();
         $editors_logs->name_of_suite = $request->input('name_of_suite');
         $editors_logs->date = $request->input('date');
@@ -120,7 +121,7 @@ class EditorLogsController extends Controller
             // 'third_interval'           => 'required',
             // 'closed_at'           => 'required'
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $editors_logs = EditorLogs::find($id);
         $editors_logs->name_of_suite = $request->input('name_of_suite');
         $editors_logs->date = $request->input('date');
@@ -143,7 +144,7 @@ class EditorLogsController extends Controller
             'status' =>  $editors_logs->closed_at,
             'body' =>  $editors_logs->deescription,
             'model' =>  'Editor Logs',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
         ];

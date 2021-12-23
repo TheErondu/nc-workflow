@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Event;
 use App\Events\RecordUpdatedEvent;
 use App\Events\RecordCreatedEvent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductionShowLogsController extends Controller
@@ -63,7 +64,7 @@ class ProductionShowLogsController extends Controller
             // 'transmission_time'           => 'required'
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
         $production_logs = new ProductionShowLogs();
         $production_logs->show_name = $request->input('show_name');
         $production_logs->date = $request->input('date');
@@ -98,7 +99,7 @@ class ProductionShowLogsController extends Controller
             'status' =>  $production_logs->producer1,
             'body' =>  $production_logs->location,
             'model' =>  'Production Show Logs',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
         ];
@@ -156,7 +157,7 @@ class ProductionShowLogsController extends Controller
             // 'transmission'           => 'required',
             // 'transmission_time'           => 'required'
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $production_logs = ProductionShowLogs::find($id);
         $production_logs->show_name = $request->input('show_name');
         $production_logs->date = $request->input('date');
@@ -190,7 +191,7 @@ class ProductionShowLogsController extends Controller
             'status' =>  $production_logs->producer1,
             'body' =>  $production_logs->location,
             'model' =>  'Production Show Logs',
-            'user' => auth()->user()->name,
+            'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
         ];

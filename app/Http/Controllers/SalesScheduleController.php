@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\SalesSchedule;
 use App\Models\Country;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -104,7 +105,7 @@ class SalesScheduleController extends Controller
             // 'approval_comments'           => 'required',
 
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $content = new SalesSchedule();
         $content->client_type = $request->input('client_type');
         $content->title = $request->input('client_name');
@@ -208,7 +209,7 @@ class SalesScheduleController extends Controller
             // 'approval_comments'           => 'required',
 
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $content = SalesSchedule::find($id);
         $content->client_type = $request->input('client_type');
         $content->title = $request->input('client_name');

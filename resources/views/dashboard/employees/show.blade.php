@@ -48,7 +48,7 @@
 											<i class="align-middle" data-feather="refresh-cw"></i>
 										</a>
 									</div>
-									<h5 class="card-title mb-0">Angelica Ramos</h5>
+									<h5 class="card-title mb-0">{{$employee->name}}</h5>
 								</div>
 								<div class="card-body">
 									<div class="row g-0">
