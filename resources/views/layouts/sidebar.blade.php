@@ -182,6 +182,9 @@
                                 <li class="sidebar-item"><a class="sidebar-link" href="{{ route('roles.index') }}"><i
                                     class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage Roles
                                 </span></a></li>
+                                <li class="sidebar-item"><a class="sidebar-link" href="{{ route('jobs.index') }}"><i
+                                    class="align-middle me-2 fas fa-cogs"></i> <span class="align-middle">Manage Queued jobs
+                                </span></a></li>
                                 @endcan
 
                 </ul>

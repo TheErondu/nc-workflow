@@ -1,10 +1,5 @@
 <?php
 
-use App\Events\TicketCreatedEvent;
-use App\Events\TicketUpdatedEvent;
-use App\Events\UserLoggedIn;
-use App\Mail\TicketCreated;
-use App\Mail\TicketUpdated;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -22,14 +17,13 @@ use Illuminate\Support\Facades\Mail;
 
 Auth::Routes();
 
-
+Route::group(['middleware' => ['role:Admin']], function () {
 Route::get('dumplogs', 'App\Http\Controllers\COTController@DumpLogs');
-
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+});
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    // Route::get('/', function () {
-    //     return view('home');
-    // });
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
         Route::resource('messages', 'App\Http\Controllers\MessageController');
         Route::get('messages/{id}/download', 'App\Http\Controllers\MessageController@download')->name('file.download');
         Route::resource('content', 'App\Http\Controllers\ContentController');
@@ -77,6 +71,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
         Route::resource('employees', 'App\Http\Controllers\EmployeeController');
         Route::resource('issues', 'App\Http\Controllers\IssueController');
+        Route::resource('jobs', 'App\Http\Controllers\QueueJobsController');
+        Route::get('job/retry/{id}', 'App\Http\Controllers\QueueJobsController@Retry')->name('job.retry');
+        Route::get('jobs/retry/all', 'App\Http\Controllers\QueueJobsController@RetryAll')->name('jobs.retry');
         Route::get('animation', 'App\Http\Controllers\LottieController@index');
         Route::resource('facility', App\Http\Controllers\FacilityController::class);
         Route::resource('cots', App\Http\Controllers\COTController::class);
@@ -86,6 +83,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
         Route::put('issues/assign-engineer/{id}', [App\Http\Controllers\IssueController::class, 'AssignEngineer'])->name('issues.assign');
         Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
+
 
         Route::get('/event-test', function() {
             $details = [
