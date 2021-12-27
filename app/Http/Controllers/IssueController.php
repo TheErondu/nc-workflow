@@ -5,17 +5,13 @@ namespace App\Http\Controllers;
 use App\Events\EngineerAssignedEvent;
 use App\Models\Issue;
 use Illuminate\Http\Request;
-use App\Events\SendMail;
 use App\Events\TicketCreatedEvent;
 use App\Events\TicketUpdatedEvent;
-use App\Mail\TicketCreated;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\Null_;
-use Spatie\Permission\Traits\HasRoles;
 
 class IssueController extends Controller
 {
@@ -84,10 +80,10 @@ class IssueController extends Controller
             'link' => $link,
            'department' => $issue->department,
             'email' =>  $email,
-            'raised_by' => Auth::user()->name,
+            'raised_by' => $raisedby,
             'description' =>  $issue->description,
             'status' =>  $issue->status,
-            'fixed_by_name' => auth()->user()->name,
+            'fixed_by_name' =>$issue->fixed_by,
             'item_name' =>  $issue->item_name,
             'resolved_date' =>  $issue->resolved_date,
             'engineers_comment' =>  $issue->engineers_comment,
@@ -202,7 +198,7 @@ class IssueController extends Controller
             'link' => $link,
             'email' =>  $email,
             'status' =>  $issue->status,
-            'fixed_by_name' => auth()->user()->name,
+            'fixed_by_name' => $user->name,
             'item_name' =>  $issue->item_name,
             'resolved_date' =>  $issue->resolved_date,
             'engineers_comment' =>  $issue->engineers_comment,
