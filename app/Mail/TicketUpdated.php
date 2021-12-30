@@ -37,6 +37,6 @@ class TicketUpdated extends Mailable
         return $this->from($from)
         ->subject('Issue  Notification Email')
         ->cc($engineer_mails)
-        ->markdown('mail.TicketUpdatedMail'));
+        ->markdown('mail.TicketUpdatedMail');
     }
 }
