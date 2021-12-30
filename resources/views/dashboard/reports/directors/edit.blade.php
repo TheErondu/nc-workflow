@@ -141,13 +141,9 @@
 
                             <div class=" row justify-content-between">
                                 <div class="mb-3 col-md-4">
-                                    <label for="camera_operator2">AutoCue</label>
-                                    <select class="form-control select2" name="autocue" id="autocue" data-placeholder=" select AutoCue">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                        <option value="{{ $user->name }}" @if($reports->autocue === $user->name) selected='selected' @endif>{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="autocue"> AutoCUE</label>
+                                    <input name="autocue" type="text" class="form-control" id="autocue"
+                                    value="{{ $reports->autocue}}"  placeholder="">
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="graphics">Graphics</label>
