@@ -178,9 +178,8 @@ class IssueController extends Controller
         $issue->raised_by = $request->input('raised_by');
         $issue->department = $request->input('department');
         if ($user->can('fix-issues')) {
-            $fixedBy = auth()->user()->username;
             $issue->status = $request->input('status');
-            $issue->fixed_by = $fixedBy;
+            $issue->fixed_by = $issue->fixed_by;
             $issue->action_taken = $request->input('action_taken');
             $issue->cause_of_breakdown = $request->input('cause_of_breakdown');
             $issue->engineers_comment = $request->input('engineers_comment');
@@ -188,7 +187,7 @@ class IssueController extends Controller
             $issue->status = $request->input('status');
         }
         $issue->save();
-        $email = User::where('username', $issue->raised_by)->pluck('email')->implode('');
+        $email = User::where('name', 'Like', "$issue->raised_by")->pluck('email')->implode('');
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
@@ -198,7 +197,7 @@ class IssueController extends Controller
             'link' => $link,
             'email' =>  $email,
             'status' =>  $issue->status,
-            'fixed_by_name' => $user->name,
+            'fixed_by_name' => $issue->fixed_by,
             'item_name' =>  $issue->item_name,
             'resolved_date' =>  $issue->resolved_date,
             'engineers_comment' =>  $issue->engineers_comment,
