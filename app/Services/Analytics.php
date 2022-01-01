@@ -90,7 +90,7 @@ class Analytics
             'model' => 'App\Models\ProductionShowLogs',
             'relationship_name' => 'user',
             'group_by_field' => 'name',
-            'top_results' => 5,
+            'top_results' => 20,
             'chart_type' => 'bar',
             'chart_color' => '51,136,216'
         ];
