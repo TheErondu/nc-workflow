@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 class ResetPass extends Mailable
+implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

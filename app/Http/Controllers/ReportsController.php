@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
+
 class ReportsController extends Controller
 {
     /**
@@ -22,6 +23,7 @@ class ReportsController extends Controller
     public function index()
     {
         $directors_report = Reports::all();
+
         return view('dashboard.reports.directors.index', compact('directors_report'));
     }
 

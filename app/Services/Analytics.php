@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Session\SessionManager;
 use App\Models\Department;
 use Illuminate\Support\Facades\DB;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class Analytics
 {
@@ -68,6 +69,32 @@ class Analytics
     }
     public function GetProducerStats()
     {
-        
+        $chart_options = [
+            'chart_title' => 'Logs by Producers',
+            'report_type' => 'group_by_relationship',
+            'model' => 'App\Models\ProductionShowLogs',
+            'relationship_name' => 'user',
+            'group_by_field' => 'name',
+            'top_results' => 5,
+            'chart_type' => 'bar',
+            'chart_color' => '51,136,216'
+        ];
+        $chart1 = new LaravelChart($chart_options);
+        return $chart1;
+    }
+    public function GetUserByDept()
+    {
+        $chart_options = [
+            'chart_title' => 'Logs by Producers',
+            'report_type' => 'group_by_relationship',
+            'model' => 'App\Models\ProductionShowLogs',
+            'relationship_name' => 'user',
+            'group_by_field' => 'name',
+            'top_results' => 5,
+            'chart_type' => 'bar',
+            'chart_color' => '51,136,216'
+        ];
+        $chart1 = new LaravelChart($chart_options);
+        return $chart1;
     }
 }

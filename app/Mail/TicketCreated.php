@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
 
 class TicketCreated extends Mailable
+implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $details;

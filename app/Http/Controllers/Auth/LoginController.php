@@ -43,7 +43,7 @@ class LoginController extends Controller
     public function redirectTo()
     {
         $user = auth()->user();
-        $email = [
+        $details = [
             'email' => $user->email,
             'name' => $user->name,
             'status' =>  $user->dts_in,
@@ -54,6 +54,6 @@ class LoginController extends Controller
             // 'cc_emails' => $cc_emails
         ];
 
-        Event::dispatch(new UserLoggedIn($email));
+        Event::dispatch(new UserLoggedIn($details));
     }
 }

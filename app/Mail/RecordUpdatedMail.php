@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
 class RecordUpdatedMail extends Mailable
+implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $details;

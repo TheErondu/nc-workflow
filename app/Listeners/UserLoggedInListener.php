@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\UserLoggedInEmail;
 
-class UserLoggedInListener implements ShouldQueue
+class UserLoggedInListener
+// implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -27,7 +28,7 @@ class UserLoggedInListener implements ShouldQueue
      * @return void
      */
      public function handle($event)
-	 
+
      {  $email = $event->details['email'];
         Mail::to($email)->send(new UserLoggedInEmail($event->details));
      }

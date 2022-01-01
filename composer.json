@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
+        "laraveldaily/laravel-charts": "^0.1.28",
         "orangehill/iseed": "^3.0",
         "rachidlaasri/laravel-installer": "^4.1",
         "rap2hpoutre/laravel-log-viewer": "^2.0",

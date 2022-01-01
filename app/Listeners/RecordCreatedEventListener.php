@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 class RecordCreatedEventListener
-implements ShouldQueue
+//implements ShouldQueue
 {
 
     /**

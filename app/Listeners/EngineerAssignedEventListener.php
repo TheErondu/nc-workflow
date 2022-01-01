@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 class EngineerAssignedEventListener
- implements ShouldQueue
+ //implements ShouldQueue
 {
 
 
