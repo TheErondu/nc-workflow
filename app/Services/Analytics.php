@@ -69,20 +69,33 @@ class Analytics
     }
     public function GetProducerStats()
     {
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        $most_active =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
         FROM production_show_logs
 
         JOIN users
         on production_show_logs.user_id = users.id
         GROUP BY user_id
-        ORDER BY 2 DESC;");
+        ORDER BY 2 DESC LIMIT 5;");
 
-            $producers_count= collect($query)->pluck('stats');
+            $producers_count= collect($most_active)->pluck('stats');
 
-            $producers_list = collect($query)->pluck('users');
+            $producers_list = collect($most_active)->pluck('users');
+         $least_active =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+         FROM production_show_logs
+
+         JOIN users
+         on production_show_logs.user_id = users.id
+         GROUP BY user_id
+         ORDER BY 2 ASC LIMIT 5;");
+          $least_producers_count= collect($least_active)->pluck('stats');
+
+          $least_producers_list = collect($least_active)->pluck('users');
+
             $producer_stats = collect([
                 'producer_stats' => $producers_count,
-                'producers_list' => $producers_list
+                'producers_list' => $producers_list,
+                'least_producers_count' =>$least_producers_count,
+                'least_producers_list' =>$least_producers_list
             ]);
             return $producer_stats;
     }
