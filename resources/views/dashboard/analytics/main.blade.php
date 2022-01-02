@@ -58,8 +58,8 @@
         <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Logs Submitted By Producers</h5>
-                    <h6 class="card-subtitle text-muted">Amount of Logs Submitted by Producers</h6>
+                    <h5 class="card-title">Most Active Producers</h5>
+                    <h6 class="card-subtitle text-muted">Top Three producers who have the highest number of Submitted Logs </h6>
                 </div>
                 <div class="chart">
                     <canvas id="chartjs-bar3"></canvas>
@@ -69,8 +69,8 @@
         <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Logs Submitted By Directors</h5>
-                    <h6 class="card-subtitle text-muted">Amount of Logs Submitted by Producers</h6>
+                    <h5 class="card-title">least Active By Producer</h5>
+                    <h6 class="card-subtitle text-muted">Least Three producers who have the Lowest number of Submitted Logs </h6>
                 </div>
                 <div class="chart">
                     <canvas id="chartjs-bar4"></canvas>
