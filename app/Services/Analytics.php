@@ -75,7 +75,7 @@ class Analytics
         JOIN users
         on production_show_logs.user_id = users.id
         GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 3;");
+        ORDER BY 2 DESC;");
 
             $producers_count= collect($query)->pluck('stats');
 

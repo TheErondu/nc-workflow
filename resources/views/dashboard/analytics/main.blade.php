@@ -66,6 +66,17 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Logs Submitted By Producers</h5>
+                    <h6 class="card-subtitle text-muted">Amount of Logs Submitted by Producers</h6>
+                </div>
+                <div class="chart">
+                    <canvas id="chartjs-bar3"></canvas>
+                </div>
+            </div>
+        </div>
 
         {{--  <div class="col-12 col-lg-6">
             <div class="card">
