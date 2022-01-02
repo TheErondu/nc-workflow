@@ -120,10 +120,50 @@ class Analytics
         on reports.user_id = users.id
         GROUP BY user_id
         ORDER BY 2 ASC LIMIT 3;");
+          $least_directors_count= collect($query)->pluck('stats');
+
+          $least_directors_list = collect($query)->pluck('users');
+
             $director_stats = collect([
                 'directors_count' => $directors_count,
-                'directors_list' => $directors_list
+                'directors_list' => $directors_list,
+                'least_directors_count' => $least_directors_count,
+                'least_directors_list' => $least_directors_list
             ]);
             return $director_stats;
+    }
+    public function GetVideoEditorStats()
+    {
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM reports
+
+        JOIN users
+        on reports.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 DESC LIMIT 3;");
+
+            $editors_count= collect($query)->pluck('stats');
+
+            $editors_list = collect($query)->pluck('users');
+
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM reports
+
+        JOIN users
+        on reports.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 ASC LIMIT 3;");
+
+          $least_editors_count= collect($query)->pluck('stats');
+
+          $least_editors_list = collect($query)->pluck('users');
+
+            $editor_stats = collect([
+                'editors_count' => $editors_count,
+                'editors_list' => $editors_list,
+                'least_editors_count' => $least_editors_count,
+                'least_editors_list' => $least_editors_list
+            ]);
+            return $editor_stats;
     }
 }

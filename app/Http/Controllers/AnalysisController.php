@@ -35,6 +35,7 @@ class AnalysisController extends Controller
        $borrowerData = $this->analytics->GetBorrowerStats();
        $producerData = $this->analytics->GetProducerStats();
        $directorData = $this->analytics->GetDirectorStats();
+       $editorData = $this->analytics->GetVideoEditorStats();
 
 
 
