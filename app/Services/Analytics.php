@@ -75,7 +75,7 @@ class Analytics
         JOIN users
         on production_show_logs.user_id = users.id
         GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 5;");
+        ORDER BY 2 DESC LIMIT 3;");
 
             $producers_count= collect($most_active)->pluck('stats');
 
@@ -86,7 +86,7 @@ class Analytics
          JOIN users
          on production_show_logs.user_id = users.id
          GROUP BY user_id
-         ORDER BY 2 ASC LIMIT 5;");
+         ORDER BY 2 ASC LIMIT 3;");
           $least_producers_count= collect($least_active)->pluck('stats');
 
           $least_producers_list = collect($least_active)->pluck('users');
@@ -112,6 +112,14 @@ class Analytics
             $directors_count= collect($query)->pluck('stats');
 
             $directors_list = collect($query)->pluck('users');
+
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM reports
+
+        JOIN users
+        on reports.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 ASC LIMIT 3;");
             $director_stats = collect([
                 'directors_count' => $directors_count,
                 'directors_list' => $directors_list
