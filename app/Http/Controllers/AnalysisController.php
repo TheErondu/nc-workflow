@@ -33,13 +33,14 @@ class AnalysisController extends Controller
        $departmentData = $this->analytics->GetDepartmentInfo();
        $engineerData = $this->analytics->GetEngineerStats();
        $borrowerData = $this->analytics->GetBorrowerStats();
-       $chart1 = $this->analytics->GetProducerStats();
+       $producerData = $this->analytics->GetProducerStats();
+       $directorData = $this->analytics->GetDirectorStats();
 
 
 
         return view('dashboard.analytics.main',
         compact('departmentData','engineerData',
-        'borrowerData','chart1'));
+        'borrowerData','producerData','directorData'));
     }
 
     /**

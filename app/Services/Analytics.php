@@ -69,32 +69,40 @@ class Analytics
     }
     public function GetProducerStats()
     {
-        $chart_options = [
-            'chart_title' => 'Logs by Producers',
-            'report_type' => 'group_by_relationship',
-            'model' => 'App\Models\ProductionShowLogs',
-            'relationship_name' => 'user',
-            'group_by_field' => 'name',
-            'top_results' => 5,
-            'chart_type' => 'bar',
-            'chart_color' => '51,136,216'
-        ];
-        $chart1 = new LaravelChart($chart_options);
-        return $chart1;
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM production_show_logs
+
+        JOIN users
+        on production_show_logs.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 DESC LIMIT 3;");
+
+            $producers_count= collect($query)->pluck('stats');
+
+            $producers_list = collect($query)->pluck('users');
+            $producer_stats = collect([
+                'producer_stats' => $producers_count,
+                'producers_list' => $producers_list
+            ]);
+            return $producer_stats;
     }
-    public function GetUserByDept()
+    public function GetDirectorStats()
     {
-        $chart_options = [
-            'chart_title' => 'Logs by Producers',
-            'report_type' => 'group_by_relationship',
-            'model' => 'App\Models\ProductionShowLogs',
-            'relationship_name' => 'user',
-            'group_by_field' => 'name',
-            'top_results' => 20,
-            'chart_type' => 'bar',
-            'chart_color' => '51,136,216'
-        ];
-        $chart1 = new LaravelChart($chart_options);
-        return $chart1;
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM reports
+
+        JOIN users
+        on reports.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 DESC LIMIT 3;");
+
+            $directors_count= collect($query)->pluck('stats');
+
+            $directors_list = collect($query)->pluck('users');
+            $director_stats = collect([
+                'directors_count' => $directors_count,
+                'directors_list' => $directors_list
+            ]);
+            return $director_stats;
     }
 }

@@ -58,11 +58,11 @@
         <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">{{ $chart1->options['chart_title'] }}</h5>
-                    <h6 class="card-subtitle text-muted">A bar chart provides a way of showing data values represented as vertical bars.</h6>
+                    <h5 class="card-title">Logs Submitted By Producers</h5>
+                    <h6 class="card-subtitle text-muted">Amount of Logs Submitted by Producers</h6>
                 </div>
-                <div class="card-body">
-                    {!! $chart1->renderHtml() !!}
+                <div class="chart">
+                    <canvas id="chartjs-bar3"></canvas>
                 </div>
             </div>
         </div>
@@ -165,8 +165,6 @@
 </div>
 @endsection
 @section('javascript')
-{!! $chart1->renderChartJsLibrary() !!}
-{!! $chart1->renderJs() !!}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Bar chart
@@ -297,7 +295,52 @@
                 }
             }
         });
-    });</script>
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar3"), {
+            type: "bar",
+            data: {
+                labels: {!! $producerData['producers_list'] !!},
+                datasets: [{
+                    label: "Production Logs",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: {!! $producerData['producer_stats'] !!},
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Pie chart
