@@ -41,7 +41,7 @@ class AnalysisController extends Controller
 
         return view('dashboard.analytics.main',
         compact('departmentData','engineerData',
-        'borrowerData','producerData','directorData'));
+        'borrowerData','producerData','directorData','editorData'));
     }
 
     /**

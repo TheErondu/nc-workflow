@@ -135,10 +135,10 @@ class Analytics
     public function GetVideoEditorStats()
     {
         $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM reports
+        FROM editor_logs
 
         JOIN users
-        on reports.user_id = users.id
+        on editor_logs.user_id = users.id
         GROUP BY user_id
         ORDER BY 2 DESC LIMIT 3;");
 
@@ -147,10 +147,10 @@ class Analytics
             $editors_list = collect($query)->pluck('users');
 
         $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM reports
+        FROM editor_logs
 
         JOIN users
-        on reports.user_id = users.id
+        on editor_logs.user_id = users.id
         GROUP BY user_id
         ORDER BY 2 ASC LIMIT 3;");
 

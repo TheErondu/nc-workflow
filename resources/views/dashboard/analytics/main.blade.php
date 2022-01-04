@@ -77,6 +77,28 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Most Active Editor</h5>
+                    <h6 class="card-subtitle text-muted">Top Three Video Editors who have the highest number of Submitted Logs. </h6>
+                </div>
+                <div class="chart">
+                    <canvas id="chartjs-bar5"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Least Active Editor</h5>
+                    <h6 class="card-subtitle text-muted">Least Three Video Editors who have the lowest number of Submitted Logs. </h6>
+                </div>
+                <div class="chart">
+                    <canvas id="chartjs-bar6"></canvas>
+                </div>
+            </div>
+        </div>
 
         {{--  <div class="col-12 col-lg-6">
             <div class="card">
@@ -176,256 +198,5 @@
 </div>
 @endsection
 @section('javascript')
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-bar0"), {
-            type: "bar",
-            data: {
-                labels: {!! $engineerData['active_engineers'] !!},
-                datasets: [{
-                    label: "Fixed Issues",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: {!! $engineerData['active_engineers_stats'] !!},
-                    barPercentage: .55,
-                    categoryPercentage: .8
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-    </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-bar1"), {
-            type: "bar",
-            data: {
-                labels: {!! $engineerData['inactive_engineers'] !!},
-                datasets: [{
-                    label: "Fixed Issues",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: {!! $engineerData['inactive_engineers_stats'] !!},
-                    barPercentage: .55,
-                    categoryPercentage: .8
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-bar2"), {
-            type: "bar",
-            data: {
-                labels: {!! $borrowerData['most_borrowers'] !!},
-                datasets: [{
-                    label: "Store Requests",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: {!! $borrowerData['most_borrowers_stats'] !!},
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-bar3"), {
-            type: "bar",
-            data: {
-                labels: {!! $producerData['producers_list'] !!},
-                datasets: [{
-                    label: "Production Logs",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: {!! $producerData['producer_stats'] !!},
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-bar4"), {
-            type: "bar",
-            data: {
-                labels: {!! $producerData['least_producers_list'] !!},
-                datasets: [{
-                    label: "Production Logs",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: {!! $producerData['least_producers_count'] !!},
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Pie chart
-        new Chart(document.getElementById("chartjs-pie"), {
-            type: "pie",
-            data: {
-                labels: {!! $departmentData['departments'] !!},
-                datasets: [{
-                    data: [
-                    @foreach ($departmentData['all_departments']  as $department)
-                    {{$department->employees->count()}},
-                    @endforeach
-                    ],
-                    backgroundColor: [
-                        @foreach ($departmentData['all_departments'] as $department)"{{$department->color}}",@endforeach
-                    ],
-                    borderColor: "transparent"
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: true,
-                    position:'right',
-                    labels: {
-                    fontColor: "white",
-                },
-                }
-            }
-        });
-    });
-</script>
+@include('dashboard.analytics.chart-scripts')
 @endsection
