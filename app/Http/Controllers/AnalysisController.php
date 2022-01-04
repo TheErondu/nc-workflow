@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Services\Analytics;
 use App\Models\Analysis;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -36,12 +37,12 @@ class AnalysisController extends Controller
        $producerData = $this->analytics->GetProducerStats();
        $directorData = $this->analytics->GetDirectorStats();
        $editorData = $this->analytics->GetVideoEditorStats();
-
-
+       $oblogsData = $this->analytics->GetOBLogStats();
+       $graphics_logsData = $this->analytics->GetGraphicslogStats();
 
         return view('dashboard.analytics.main',
         compact('departmentData','engineerData',
-        'borrowerData','producerData','directorData','editorData'));
+        'borrowerData','producerData','directorData','editorData','oblogsData','graphics_logsData'));
     }
 
     /**

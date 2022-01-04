@@ -51,7 +51,7 @@
     </div>
    <div class="header">
         <h1 class="header-title">
-          Production Analytics
+          Producers & Directors Statistics
         </h1>
     </div>
     <div class="row">
@@ -99,7 +99,62 @@
                 </div>
             </div>
         </div>
-
+        <div class="header">
+            <h1 class="header-title">
+            OB logs Statistics
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Most Active Users</h5>
+                        <h6 class="card-subtitle text-muted">Top Three Users who have the highest number of Submitted Logs. </h6>
+                    </div>
+                    <div class="chart">
+                        <canvas id="chartjs-bar7"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">least Active Users</h5>
+                        <h6 class="card-subtitle text-muted">Least Three Users who have the Lowest number of Submitted Logs. </h6>
+                    </div>
+                    <div class="chart">
+                        <canvas id="chartjs-bar8"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="header">
+                <h1 class="header-title">
+                Graphics logs Statistics
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Most Active Users</h5>
+                            <h6 class="card-subtitle text-muted">Top Three Users who have the highest number of Submitted Logs. </h6>
+                        </div>
+                        <div class="chart">
+                            <canvas id="chartjs-bar9"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">least Active Users</h5>
+                            <h6 class="card-subtitle text-muted">Least Three Users who have the Lowest number of Submitted Logs. </h6>
+                        </div>
+                        <div class="chart">
+                            <canvas id="chartjs-bar10"></canvas>
+                        </div>
+                    </div>
+                </div>
         {{--  <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-header">
