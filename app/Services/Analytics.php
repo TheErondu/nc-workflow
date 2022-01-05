@@ -235,10 +235,10 @@ class Analytics
               $graphics_logs_list = collect($query)->pluck('users');
 
           $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-          FROM graphics_logs_shows
+          FROM graphics_log_shows
 
           JOIN users
-          on graphics_logs_shows.user_id = users.id
+          on graphics_log_shows.user_id = users.id
           GROUP BY user_id
           ORDER BY 2 ASC LIMIT 3;");
 
