@@ -230,9 +230,9 @@ class Analytics
           GROUP BY user_id
           ORDER BY 2 DESC LIMIT 3;");
 
-              $graphics_logs_count= collect($query)->pluck('stats');
+              $graphics_logs_shows_count= collect($query)->pluck('stats');
 
-              $graphics_logs_list = collect($query)->pluck('users');
+              $graphics_logs_shows_list = collect($query)->pluck('users');
 
           $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
           FROM graphics_log_shows
@@ -242,15 +242,17 @@ class Analytics
           GROUP BY user_id
           ORDER BY 2 ASC LIMIT 3;");
 
-            $least_graphics_logs_count= collect($query)->pluck('stats');
+            $least_graphics_logs_shows_count= collect($query)->pluck('stats');
 
-            $least_graphics_logs_list = collect($query)->pluck('users');
+            $least_graphics_logs_shows_list = collect($query)->pluck('users');
 
             $graphics_logs_show_stats = collect([
                 'graphics_logs_count' => $graphics_logs_count,
                 'graphics_logs_list' => $graphics_logs_list,
                 'least_graphics_logs_count' => $least_graphics_logs_count,
-                'least_graphics_logs_list' => $least_graphics_logs_list
+                'least_graphics_logs_list' => $least_graphics_logs_list,
+                'graphics_logs_shows_count' => $graphics_logs_shows_count,
+                'graphics_logs_shows_list' => $graphics_logs_shows_list
 
             ]);
             return $graphics_logs_show_stats;

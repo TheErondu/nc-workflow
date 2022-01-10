@@ -485,17 +485,17 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Bar chart
-        new Chart(document.getElementById("chartjs-bar10"), {
+        new Chart(document.getElementById("chartjs-bar11"), {
             type: "bar",
             data: {
-                labels: {!! $graphics_logsData['least_graphics_logs_list'] !!},
+                labels: {!! $graphics_logsData['graphics_logs_shows_list'] !!},
                 datasets: [{
                     label: "OB Logs",
                     backgroundColor: window.theme.primary,
                     borderColor: window.theme.primary,
                     hoverBackgroundColor: window.theme.primary,
                     hoverBorderColor: window.theme.primary,
-                    data: {!! $graphics_logsData['least_graphics_logs_count'] !!},
+                    data: {!! $graphics_logsData['graphics_logs_shows_count'] !!},
                     barPercentage: .75,
                     categoryPercentage: .5
                 }]
