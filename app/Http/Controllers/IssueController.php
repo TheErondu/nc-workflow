@@ -57,7 +57,7 @@ class IssueController extends Controller
         $validatedData = $request->validate([
             'item_name'                 => 'required'
         ]);
-        $raisedby = Auth::user()->name;
+        $raisedby = Auth::user()->username;
         $issue = new Issue();
         $issue->item_name     = $request->input('item_name');
         $issue->description = $request->input('description');
@@ -136,7 +136,7 @@ class IssueController extends Controller
         $issue = Issue::find($id);
         $issue->assigned_engineer = $request->input('assigned_engineer');
         $issue->save();
-        $email = User::where('name', $issue->raised_by)->pluck('email');
+        $email = User::where('username', $issue->raised_by)->pluck('email');
         $supervisor = Auth::user()->username;
         $copy = User::where('username', $issue->assigned_engineer)->pluck('email');
         $url = route('home');
@@ -168,7 +168,7 @@ class IssueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([]);
+
         $issue = Issue::find($id);
         $user = Auth::user();
         $issue->item_name     = $request->input('item_name');
@@ -187,7 +187,7 @@ class IssueController extends Controller
             $issue->status = $request->input('status');
         }
         $issue->save();
-        $email = User::where('name', 'Like', "$issue->raised_by")->pluck('email')->implode('');
+        $email = User::where('username', 'Like', "$issue->raised_by")->pluck('email')->implode('');
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
