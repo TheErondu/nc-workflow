@@ -308,6 +308,226 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar7"), {
+            type: "bar",
+            data: {
+                labels: {!! $oblogsData['oblogs_list'] !!},
+                datasets: [{
+                    label: "OB Logs",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: {!! $oblogsData['oblogs_count'] !!},
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar8"), {
+            type: "bar",
+            data: {
+                labels: {!! $oblogsData['least_oblogs_list'] !!},
+                datasets: [{
+                    label: "OB Logs",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: {!! $oblogsData['least_oblogs_count'] !!},
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar9"), {
+            type: "bar",
+            data: {
+                labels: {!! $graphics_logsData['graphics_logs_list'] !!},
+                datasets: [{
+                    label: "OB Logs",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: {!! $graphics_logsData['graphics_logs_count'] !!},
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar10"), {
+            type: "bar",
+            data: {
+                labels: {!! $graphics_logsData['least_graphics_logs_list'] !!},
+                datasets: [{
+                    label: "OB Logs",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: {!! $graphics_logsData['least_graphics_logs_count'] !!},
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Bar chart
+        new Chart(document.getElementById("chartjs-bar11"), {
+            type: "bar",
+            data: {
+                labels: {!! $graphics_logsData['graphics_logs_shows_list'] !!},
+                datasets: [{
+                    label: "OB Logs",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: {!! $graphics_logsData['graphics_logs_shows_count'] !!},
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
         // Pie chart
         new Chart(document.getElementById("chartjs-pie"), {
             type: "pie",

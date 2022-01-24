@@ -1,12 +1,8 @@
 <?php
 
 namespace App\Services;
-
-use Illuminate\Support\Collection;
-use Illuminate\Session\SessionManager;
 use App\Models\Department;
 use Illuminate\Support\Facades\DB;
-use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class Analytics
 {
@@ -165,5 +161,100 @@ class Analytics
                 'least_editors_list' => $least_editors_list
             ]);
             return $editor_stats;
+    }
+    public function GetOBLogStats()
+    {
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM o_blogs
+
+        JOIN users
+        on o_blogs.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 DESC LIMIT 3;");
+
+            $oblogs_count= collect($query)->pluck('stats');
+
+            $oblogs_list = collect($query)->pluck('users');
+
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM o_blogs
+
+        JOIN users
+        on o_blogs.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 ASC LIMIT 3;");
+
+          $least_oblogs_count= collect($query)->pluck('stats');
+
+          $least_oblogs_list = collect($query)->pluck('users');
+
+            $oblogs_stats = collect([
+                'oblogs_count' => $oblogs_count,
+                'oblogs_list' => $oblogs_list,
+                'least_oblogs_count' => $least_oblogs_count,
+                'least_oblogs_list' => $least_oblogs_list
+            ]);
+            return $oblogs_stats;
+    }
+    public function GetGraphicslogStats()
+    {
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM graphics_logs
+
+        JOIN users
+        on graphics_logs.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 DESC LIMIT 3;");
+
+            $graphics_logs_count= collect($query)->pluck('stats');
+
+            $graphics_logs_list = collect($query)->pluck('users');
+
+        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+        FROM graphics_logs
+
+        JOIN users
+        on graphics_logs.user_id = users.id
+        GROUP BY user_id
+        ORDER BY 2 ASC LIMIT 3;");
+
+          $least_graphics_logs_count= collect($query)->pluck('stats');
+
+          $least_graphics_logs_list = collect($query)->pluck('users');
+
+          $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+          FROM graphics_logs
+
+          JOIN users
+          on graphics_logs.user_id = users.id
+          GROUP BY user_id
+          ORDER BY 2 DESC LIMIT 3;");
+
+              $graphics_logs_shows_count= collect($query)->pluck('stats');
+
+              $graphics_logs_shows_list = collect($query)->pluck('users');
+
+          $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
+          FROM graphics_log_shows
+
+          JOIN users
+          on graphics_log_shows.user_id = users.id
+          GROUP BY user_id
+          ORDER BY 2 ASC LIMIT 3;");
+
+            $least_graphics_logs_shows_count= collect($query)->pluck('stats');
+
+            $least_graphics_logs_shows_list = collect($query)->pluck('users');
+
+            $graphics_logs_show_stats = collect([
+                'graphics_logs_count' => $graphics_logs_count,
+                'graphics_logs_list' => $graphics_logs_list,
+                'least_graphics_logs_count' => $least_graphics_logs_count,
+                'least_graphics_logs_list' => $least_graphics_logs_list,
+                'graphics_logs_shows_count' => $graphics_logs_shows_count,
+                'graphics_logs_shows_list' => $graphics_logs_shows_list
+
+            ]);
+            return $graphics_logs_show_stats;
     }
 }
