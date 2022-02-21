@@ -1,4 +1,4 @@
-#Copy yesterday's log  file from Server to Brave Public Folder
+#Copy yesterday's log  file from Server to NC-WORKFLOW Public Folder
 
 get-childitem -Path "Y:\" -Recurse |
 Where-Object {$_.CreationTime -gt (Get-date).AddDays(-1).Date} |

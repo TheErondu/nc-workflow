@@ -1,7 +1,7 @@
 @component('mail::message')
 # Welcome back! {{ $details['user'] }},
 
-You logged in to Brave on {{ \Carbon\Carbon::now()->format('d-M-Y, H:i a')}}
+You logged in to NC-WORKFLOW on {{ \Carbon\Carbon::now()->format('d-M-Y, H:i a')}}
 
 ## Not You?
 Contact IT Department Immediately
@@ -11,5 +11,5 @@ My Dashboard
 @endcomponent
 
 Thanks,<br>
-Brave Media Workflow
+NewsCentral TV
 @endcomponent

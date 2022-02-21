@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar">
     <a class="sidebar-brand" href="/">
-        <img src="/img/brave_logo.jpeg" style="width: 5rem;">
+        <img src="/img/logo.gif" style="width: 10rem;">
     </a>
     <div class="sidebar-content">
 
@@ -52,11 +52,11 @@
             @endcan
             @can('cot-admin')
 
-            <li class="sidebar-item ">
+            {{-- <li class="sidebar-item ">
                 <a data-bs-target="#" href="{{ route('cot.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Certificate of Broadcast</span>
                 </a>
-            </li>
+            </li> --}}
 
             @endcan
 

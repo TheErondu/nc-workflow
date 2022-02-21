@@ -11,5 +11,5 @@ Login to your Account
 @endcomponent
 
 Thanks,<br>
-Brave Media Workflow
+NewsCentral TV
 @endcomponent

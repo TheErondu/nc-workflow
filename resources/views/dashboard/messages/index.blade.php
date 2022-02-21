@@ -9,7 +9,7 @@
                             <div class="tab">
                                 <ul class="nav nav-tabs justify-content-around" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab"
-                                            role="tab">Welcome to Brave</a></li>
+                                            role="tab">Welcome to NC-WORKFLOW</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab"
                                             role="tab">Notifications</a></li>
 

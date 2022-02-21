@@ -15,5 +15,5 @@ View Ticket Details
 @endcomponent
 
 Thanks,<br>
-Brave Media Workflow
+NewsCentral TV
 @endcomponent
