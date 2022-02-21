@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">NOTIFICATIONS DETAIL PAGE</h5>
+                        <h5 class="card-title" style="color: white;">FILL IN REQUIRED FIELDS.</h5>
 
                     </div>
                     <div class="row">

@@ -9,5 +9,5 @@ Check Logs
 @endcomponent
 
 Thanks,<br>
-Brave Media Workflow
+NewsCentral TV
 @endcomponent

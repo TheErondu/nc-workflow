@@ -13,7 +13,7 @@
     <meta name="description" content="Modern, flexible and responsive Bootstrap 5 admin &amp; dashboard template">
     <meta name="author" content="Bootlab">
 
-    <title>Brave-Login to Dashboard</title>
+    <title>{{env('APP_NAME')}}</title>
 
     <!-- PICK ONE OF THE STYLES BELOW -->
     <!-- <link href="css/modern.css" rel="stylesheet"> -->
@@ -68,19 +68,19 @@
         <div class="splash-icon"></div>
     </div>
 
-    <main class="main h-100 w-100" style="background: url(/img/login-bg.jpg);
-    background-size: cover;">
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+    <main class="main h-100 w-100">
+        <div class="container h-100 w100" style="background: url(/img/login-bg.png);
+        background-size: cover;">
+            <div class="row h-100 w-100">
+                <div class="col-8 col-lg-6 mx-auto d-table h-100 w-100">
                     <div class="d-table-cell align-middle">
-
+                        <div class="row" style="float: right;">
                         <div class="card" style="background-color: #0c0c0cd6;">
                             <div class="card-body">
                                 <div class="m-sm-4">
                                     <div class="text-center">
-                                        <img src="/img/brave_logo.jpeg" alt="Linda Miller"
-                                            class="img-fluid rounded-circle" width="132" height="132" />
+                                        <img src="/img/nc-logo.jpg" alt="Linda Miller"
+                                            class="img-fluid rounded-circle" width="80" height="80" />
                                     </div>
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
@@ -115,6 +115,7 @@
                                     </form>
                                 </div>
                             </div>
+                        </div>
                         </div>
 
                     </div>

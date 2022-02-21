@@ -10,7 +10,7 @@
     <meta name="description" content="Modern, flexible and responsive Bootstrap 5 admin &amp; dashboard template">
     <meta name="author" content="Bootlab">
 
-    <title>Brave - Dashboard</title>
+    <title>{{env('APP_NAME')}}</title>
 
     <!-- PICK ONE OF THE STYLES BELOW -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

@@ -15,5 +15,5 @@ View in Dashboard
 @endcomponent --}}
 
 Thanks,<br>
-Brave Media Workflow
+NewsCentral TV
 @endcomponent
