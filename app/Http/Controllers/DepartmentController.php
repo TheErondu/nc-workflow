@@ -49,7 +49,7 @@ class DepartmentController extends Controller
         ]);
         $department = new Department();
         $department->name = $request->input('name');
-        $department->hod = $request->input('hod');
+        $department->user_id = $request->input('hod');
         $department->color = $request->input('color');
         $department->mail_group = $request->input('mail_group');
         $department->save();
