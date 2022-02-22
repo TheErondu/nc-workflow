@@ -95,7 +95,7 @@
                                     <label for="producer2">Producer 2 </label>
                                     <select class="form-control select2" name="producer2" id="producer2" data-placeholder=" select producer2">
                                         <option value="" selected>select</option>
-                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 13') as $user)
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 7') as $user)
                                         <option value="{{ $user->name }}" @if($schedule->producer2 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                     @endforeach
                                     </select>
@@ -104,7 +104,7 @@
                                     <label for="dop1">Director of Photography 1</label>
                                     <select class="form-control select2" name="dop1" id="dop1" data-placeholder=" select Director of Photography 1">
                                         <option value="" selected>select</option>
-                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 10') as $user)
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 9') as $user)
                                         <option value="{{ $user->name }}" @if($schedule->dop1 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                     @endforeach
                                     </select>
@@ -115,7 +115,7 @@
                                     <label for="dop2">Director of Photography 2</label>
                                     <select class="form-control select2" name="dop2" id="dop2" data-placeholder=" select Director of Photography 2">
                                         <option value="" selected>select</option>
-                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 10') as $user)
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 9') as $user)
                                         <option value="{{ $user->name }}" @if($schedule->dop2 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                     @endforeach
                                     </select>
@@ -124,7 +124,7 @@
                                     <label for="dop3">Director of Photography 3</label>
                                     <select class="form-control select2" name="dop3" id="dop3" data-placeholder=" select Director of Photography 3">
                                         <option value="" selected>select</option>
-                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 10') as $user)
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 9') as $user)
                                         <option value="{{ $user->name }}" @if($schedule->dop3 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                     @endforeach
                                     </select>
@@ -133,7 +133,7 @@
                                     <label for="dop4">Director of Photography 4</label>
                                     <select class="form-control select2" name="dop4" id="dop4" data-placeholder=" select Director of Photography 4">
                                         <option value="" selected>select</option>
-                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 10') as $user)
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 9') as $user)
                                         <option value="{{ $user->name }}" @if($schedule->dop4 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                     @endforeach
                                     </select>
