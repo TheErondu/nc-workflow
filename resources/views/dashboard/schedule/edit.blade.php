@@ -5,7 +5,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Edit Schedule</h5>
+                        <h5 class="card-title" style="color: white;">Edit Schedule (Uploaded by : {{$schedule->user->name}}</h5>
+
 
                     </div>
                     <div class="row">
@@ -86,7 +87,7 @@
                                     <label for="producer1">Producer 1 </label>
                                     <select class="form-control select2" name="producer1" id="producer1" data-placeholder=" select Producer">
                                         <option value="" selected>select</option>
-                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 13') as $user)
+                                        @foreach(\DB::select('SELECT name from users WHERE department_id = 7') as $user)
                                         <option value="{{ $user->name }}" @if($schedule->producer1 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                     @endforeach
                                     </select>
