@@ -83,71 +83,35 @@
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="producer1">Producer 1 </label>
-                                    <select class="form-control select2" name="producer1" id="producer1" data-placeholder=" select producer">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 13)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="producer1" type="text" class="form-control" id="producer1"
+                                    value="{{ old('producer1') }}"  placeholder=""/>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="producer2">Producer 2 </label>
-                                    <select class="form-control select2" name="producer2" id="producer2" data-placeholder=" select producer2">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 13)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="producer2" type="text" class="form-control" id="producer2"
+                                    value="{{ old('producer2') }}"  placeholder=""/>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="dop1">Director of Photography 1</label>
-                                    <select class="form-control select2" name="dop1" id="dop1" data-placeholder=" select Director of Photography 1">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 10)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="dop1" type="text" class="form-control" id="dop1"
+                                    value="{{ old('dop1') }}"  placeholder=""/>
                                 </div>
                             </div>
                                 <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="dop2">Director of Photography 2</label>
-                                    <select class="form-control select2" name="dop2" id="dop2" data-placeholder=" select Director of Photography 2">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 10)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="dop2" type="text" class="form-control" id="dop2"
+                                    value="{{ old('dop2') }}"  placeholder=""/>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="dop3">Director of Photography 3</label>
-                                    <select class="form-control select2" name="dop3" id="dop3" data-placeholder=" select Director of Photography 3">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 10)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="dop3" type="text" class="form-control" id="dop3"
+                                    value="{{ old('dop3') }}"  placeholder=""/>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="dop4">Director of Photography 4</label>
-                                    <select class="form-control select2" name="dop4" id="dop4" data-placeholder=" select Director of Photography 4">
-                                        <option value="" selected>select</option>
-                                        @foreach($users as $user)
-                                            @if ($user->department_id === 10)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input name="dop4" type="text" class="form-control" id="dop4"
+                                    value="{{ old('dop4') }}"  placeholder=""/>
                                 </div>
                                 </div>
 
