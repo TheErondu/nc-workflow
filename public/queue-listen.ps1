@@ -2,7 +2,7 @@ Start-Sleep -s 6
 
 #hit run artisan command to import the cleaned csv to database
 
-C:/xampp/php/php.exe C:/xampp/htdocs/nc-workflow/artisan queue:work
+C:/xampp/php/php.exe C:/xampp/htdocs/nc-workflow/artisan queue:listener
 
 Start-Sleep -s 90
 #Todo Mail sending
