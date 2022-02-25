@@ -77,6 +77,7 @@ class ProductionShowLogsController extends Controller
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');
         $production_logs->producer2 = $request->input('producer2');
+        $production_logs->producer2 = $request->input('producer3');
         $production_logs->director = $request->input('director');
         $production_logs->vision_mixer = $request->input('vision_mixer');
         $production_logs->engineer = $request->input('engineer');
@@ -169,6 +170,7 @@ class ProductionShowLogsController extends Controller
         $production_logs->location = $request->input('location');
         $production_logs->producer1 = $request->input('producer1');
         $production_logs->producer2 = $request->input('producer2');
+        $production_logs->producer3 = $request->input('producer3');
         $production_logs->director = $request->input('director');
         $production_logs->title = $request->input('show_name');
         $production_logs->vision_mixer = $request->input('vision_mixer');

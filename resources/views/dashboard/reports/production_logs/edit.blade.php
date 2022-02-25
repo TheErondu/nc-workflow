@@ -73,7 +73,7 @@
                                     <select class="form-control select2" name="producer1" id="producer1" data-placeholder=" select Producer">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
-                                        <option value="{{ $user->name }}" @if($production_logs->producer2 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        <option value="{{ $user->name }}" @if($production_logs->producer1 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -83,6 +83,15 @@
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
                                         <option value="{{ $user->name }}" @if($production_logs->producer2 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="producer2">Producer 3 </label>
+                                    <select class="form-control select2" name="producer3" id="producer3" data-placeholder=" select Producer 3">
+                                        <option value="" selected>select</option>
+                                        @foreach($users as $user)
+                                        <option value="{{ $user->name }}" @if($production_logs->producer3 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
