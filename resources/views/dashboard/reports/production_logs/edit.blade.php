@@ -72,6 +72,7 @@
                                     <label for="producer1">Producer 1 </label>
                                     <select class="form-control select2" name="producer1" id="producer1" data-placeholder=" select Producer">
                                         <option value="" selected>select</option>
+                                        <option value="nil" selected>none</option>
                                         @foreach($users as $user)
                                         <option value="{{ $user->name }}" @if($production_logs->producer1 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
@@ -81,6 +82,7 @@
                                     <label for="producer2">Producer 2 </label>
                                     <select class="form-control select2" name="producer2" id="producer2" data-placeholder=" select Producer 2">
                                         <option value="" selected>select</option>
+                                        <option value="nil" selected>none</option>
                                         @foreach($users as $user)
                                         <option value="{{ $user->name }}" @if($production_logs->producer2 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
@@ -90,6 +92,7 @@
                                     <label for="producer2">Producer 3 </label>
                                     <select class="form-control select2" name="producer3" id="producer3" data-placeholder=" select Producer 3">
                                         <option value="" selected>select</option>
+                                        <option value="nil" selected>none</option>
                                         @foreach($users as $user)
                                         <option value="{{ $user->name }}" @if($production_logs->producer3 === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
