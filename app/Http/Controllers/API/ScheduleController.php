@@ -13,7 +13,7 @@ class ScheduleController extends ApiController
     {
         $data = Schedule::where('type','preproduction')->whereDate('start', '>=', $request->start)
         ->whereDate('end',   '<=', $request->end)
-        ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
+        ->get(['id', 'title', 'start', 'end' ,'description','allDay','color','type']);
 
             return response()->json($data);
 
@@ -24,7 +24,7 @@ class ScheduleController extends ApiController
     {
             $data = Schedule::where('type','editors')->whereDate('start', '>=', $request->start)
                 ->whereDate('end',   '<=', $request->end)
-                ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
+                ->get(['id', 'title', 'start', 'end' ,'description','allDay','color','type']);
 
             return response()->json($data);
 
@@ -34,7 +34,7 @@ class ScheduleController extends ApiController
     {
             $data = Schedule::where('type','graphics')->whereDate('start', '>=', $request->start)
                 ->whereDate('end',   '<=', $request->end)
-                ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
+                ->get(['id', 'title', 'start', 'end' ,'allDay','description','color','type']);
 
             return response()->json($data);
 
@@ -44,7 +44,7 @@ class ScheduleController extends ApiController
     {
             $data = Schedule::where('type','digital')->whereDate('start', '>=', $request->start)
                 ->whereDate('end',   '<=', $request->end)
-                ->get(['id', 'title', 'start', 'end' ,'allDay','color','type']);
+                ->get(['id', 'title', 'start', 'end' ,'allDay','description','color','type']);
 
             return response()->json($data);
 

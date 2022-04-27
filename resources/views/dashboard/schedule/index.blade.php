@@ -71,6 +71,8 @@
         </div>
     @endsection
     @section('javascript')
+    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
         <script>
             $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
                 $calendar.render();
@@ -99,6 +101,9 @@
                             title: 'name',
                             start: 'start_time',
                             end: 'endtime',
+                            extendedProps: {
+                            description: 'description'
+                                            },
                             backgroundColor: 'color'
                         }
 
@@ -111,17 +116,17 @@
                         // change the border color just for fun
                         info.el.style.borderColor = 'red';
                     },
-                    eventMouseEnter: function(info, element) {
-                        $(element).popover({
-                            title: info.event.title,
-                            content: info.event.description,
-                            trigger: 'hover',
-                            placement: 'auto right',
-                            delay: {
-                                "hide": 300
-                            }
-                        });
-                    },
+                    eventMouseEnter: function(info) {
+                        console.log('eventMouseEnter');
+            var tis=info.el;
+            var tooltip = '<div class="tooltipevent" style="top:'+($(tis).offset().top-5)+'px;left:'+($(tis).offset().left+($(tis).width())/2)+'px"><div>' + info.event.title + '</div><div>' + info.event.extendedProps.description + '</div></div>';
+            var $tooltip = $(tooltip).appendTo('body');
+        },
+        eventMouseLeave: function(info) {
+            console.log('eventMouseLeave');
+            $(info.el).css('z-index', 8);
+            $('.tooltipevent').remove();
+        },
                 });
                 calendar.render();
             });
