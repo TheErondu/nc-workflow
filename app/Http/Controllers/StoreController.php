@@ -86,8 +86,9 @@ class StoreController extends Controller
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
-        $store_item->save();
         dd($email);
+
+        $store_item->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
