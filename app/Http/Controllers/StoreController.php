@@ -8,7 +8,7 @@ use App\Models\Store;
 use App\Models\Department;
 use App\Models\StoreRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -34,7 +34,7 @@ class StoreController extends Controller
      */
     public function RequestIndex()
     {
-        $user_department = FacadesAuth::user()->department->name;
+        $user_department = Auth::user()->department->name;
         $user = auth()->user();
         $available_items = Store::all()->where('assigned_department', $user_department);
         $all_requested = DB::select("SELECT * FROM `store_requests` WHERE status != 'Pending' AND user_id = $user->id");
@@ -81,14 +81,11 @@ class StoreController extends Controller
             'state'           => 'required'
         ]);
         $store_item = new Store();
-        $user = Auth()->user();
         $store_item->item_name = $request->input('item_name');
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
-        $email = $user->email;
-        dd($email);
-
+        $email = Auth::user()->email;
         $store_item->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
@@ -128,7 +125,7 @@ class StoreController extends Controller
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => FacadesAuth::user()->email,
+            'email' => Auth::user()->email,
             'title' => $store_requests->item,
             'status' =>  $store_requests->return_date,
             'body' =>  $store_requests->assigned_department,
@@ -201,7 +198,7 @@ class StoreController extends Controller
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => FacadesAuth::user()->email,
+            'email' => Auth::user()->email,
             'title' => $store_item->item_name,
             'status' =>  $store_item->state,
             'body' =>  $store_item->assigned_department,
