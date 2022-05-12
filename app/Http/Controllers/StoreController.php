@@ -81,11 +81,12 @@ class StoreController extends Controller
             'state'           => 'required'
         ]);
         $store_item = new Store();
-        $email = Auth()->user->email;
+        $user = Auth()->user();
         $store_item->item_name = $request->input('item_name');
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
+        $email = $user->email;
         dd($email);
 
         $store_item->save();
