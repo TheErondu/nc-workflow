@@ -81,15 +81,17 @@ class StoreController extends Controller
             'state'           => 'required'
         ]);
         $store_item = new Store();
+        $email = Auth()->user->email;
         $store_item->item_name = $request->input('item_name');
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
         $store_item->save();
+        dd($email);
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
             'cc_emails' => $cc_emails,
-            'email' => FacadesAuth::user()->user->email,
+            'email' => $email,
             'title' => $store_item->item_name,
             'status' =>  $store_item->state,
             'body' =>  $store_item->assigned_department,

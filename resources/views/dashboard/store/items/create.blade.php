@@ -66,7 +66,6 @@
                                     <div class="mb-3 col-md-8">
                                         <label for="assigned_department">Assigned Department</label>
                                         <select class="form-control select2" name="assigned_department" id="assigned_department">
-                                            <option value="{{ Auth::user()->department }}">{{ Auth::user()->department }}</option>
                                             @foreach ($departments as $department)
                                                 <option value="{{ $department->name }}">{{ $department->name }}</option>
                                             @endforeach
