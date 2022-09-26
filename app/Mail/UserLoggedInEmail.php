@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 use App\Models\User;
+use App\Utils\Globals;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -33,7 +34,7 @@ implements ShouldQueue
 
     {
         $from = env('MAIL_FROM_ADDRESS');
-        $engineer_mails = \App\Models\User::where('department_id', '11')->pluck('email');
+        $engineer_mails = Globals::mailingGroups("Engineers");
         return $this->from($from)
         ->subject('Login Notification Email')
         ->cc($engineer_mails)

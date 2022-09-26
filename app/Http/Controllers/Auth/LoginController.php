@@ -51,6 +51,7 @@ class LoginController extends Controller
             'model' =>  'User',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y'),
+            'url' => config('app.url')
             // 'cc_emails' => $cc_emails
         ];
 

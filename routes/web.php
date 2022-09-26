@@ -1,5 +1,6 @@
 <?php
 
+use App\Utils\Globals;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +17,11 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Auth::Routes();
+Route::get('dev/test', function () {
 
+    return Globals::mailingGroups("Engineers");
+
+});
 Route::group(['middleware' => ['role:Admin']], function () {
 Route::get('dumplogs', 'App\Http\Controllers\COTController@DumpLogs');
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
@@ -80,6 +85,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('facility_type', App\Http\Controllers\FacilityTypeController::class);
         Route::resource('booking', App\Http\Controllers\BookingController::class);
         Route::resource('employees', App\Http\Controllers\EmployeeController::class);
+        Route::get('employee/table', [App\Http\Controllers\EmployeeController::class, 'datatable'])->name('employees.table');
         Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
         Route::put('issues/assign-engineer/{id}', [App\Http\Controllers\IssueController::class, 'AssignEngineer'])->name('issues.assign');
         Route::resource('analytics', App\Http\Controllers\AnalysisController::class);

@@ -113,7 +113,7 @@ class EmployeeController extends Controller
         $roles = Role::pluck('name','name')->all();
         $departments = Department::all();
         $status = array(
-            'Inactive','Active',
+            'inactive','active',
         );
         return view('dashboard.employees.edit',compact('employee','departments','status','roles'));
     }

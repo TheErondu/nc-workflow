@@ -72,17 +72,15 @@
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="production_name">Production Name</label>
-                                    <input name="production_name" type="text" class="form-control" id="production_name"
-                                        value="{{ old('production_name') }}" required placeholder="">
+                                    <select class="form-control select2" name="production_name" id="production_name">
+                                        @foreach ($assignedProductions as $production)
+                                            <option value="{{ $production->title }}">{{ $production->title }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label class="form-label">Trip Date</label>
-                                    <div class="input-group date" id="datetimepicker-date" data-target-input="nearest">
-                                        <input name="trip_date" type="text" class="form-control datetimepicker-input"
-                                            data-target="#datetimepicker-date" />
-                                        <div class="input-group-text" data-target="#datetimepicker-date"
-                                            data-toggle="datetimepicker"><i class="fa fa-calendar"></i></div>
-                                    </div>
+                                    <label class="form-label"><h3>Trip Date : {{date('Y-m-d h:i:s')}}<h3></label>
+
                                 </div>
 
                                 <div class="row justify-content-between">

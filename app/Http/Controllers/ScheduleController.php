@@ -40,7 +40,6 @@ class ScheduleController extends Controller
               ]);
 
               return response()->json($event);
-             break;
 
            case 'edit':
               $event = Schedule::find($request->id)->update([
@@ -50,17 +49,13 @@ class ScheduleController extends Controller
               ]);
 
               return response()->json($event);
-             break;
 
            case 'delete':
               $event = Schedule::find($request->id)->delete();
 
               return response()->json($event);
-             break;
 
-           default:
-             # ...
-             break;
+
         }
     }
 
@@ -112,6 +107,7 @@ class ScheduleController extends Controller
         $schedule->dop2 = $request->input('dop2');
         $schedule->dop3 = $request->input('dop3');
         $schedule->dop4 = $request->input('dop4');
+        $schedule->driver = $request->input('driver');
         $schedule->description = $request->input('description');
         $schedule->type = $request->input('type');
         $schedule->user_id = $user->id;
@@ -207,6 +203,7 @@ class ScheduleController extends Controller
         $schedule->dop2 = $request->input('dop2');
         $schedule->dop3 = $request->input('dop3');
         $schedule->dop4 = $request->input('dop4');
+        $schedule->driver = $request->input('driver');
         $schedule->description = $request->input('description');
         $schedule->type = $request->input('type');
         $schedule->user_id = $schedule->user_id;

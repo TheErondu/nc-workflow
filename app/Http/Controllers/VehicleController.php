@@ -96,7 +96,7 @@ class VehicleController extends Controller
     public function edit($id)
     {
         $vehicle = Vehicle::all()->find($id);
-        $drivers = User::all()->where('department_id', 11);
+        $drivers = User::all()->where('department_id', 21);
         return view('dashboard.logistics.vehicles.edit', compact('drivers', 'vehicle'));
     }
 

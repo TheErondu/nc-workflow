@@ -1,13 +1,13 @@
 @component('mail::message')
-# {{ $details['title'] }}
+    # {{ $details['title'] }}
 
-{{ $details['body'] }}
+    {{ $details['body'] }}
 
 
-@component('mail::button', ['url' => 'https://nbd.bravetech.media/logs/cot'])
-Check Logs
-@endcomponent
+    @component('mail::button', ['url' => 'https://wf.newscentral.ng/logs/cot'])
+        Check Logs
+    @endcomponent
 
-Thanks,<br>
-NewsCentral TV
+    Thanks,<br>
+    NewsCentral TV
 @endcomponent

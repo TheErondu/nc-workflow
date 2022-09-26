@@ -79,6 +79,18 @@
                                                 class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label>Driver</label>
+                                    <select class="form-control select2" name="driver" id="driver"
+                                        data-placeholder=" select Driver">
+                                        <option value="" selected>select</option>
+                                        @foreach ($users as $user)
+                                            @if ($user->department_id === 21)
+                                                <option value="{{ $user->name }}" @if($schedule->driver === $user->name) selected='selected' @endif>{{ $user->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             @if($schedule->type === 'preproduction' )
                             <input value="preproduction" name="type" type="text" class="form-control" id="type" hidden readonly>

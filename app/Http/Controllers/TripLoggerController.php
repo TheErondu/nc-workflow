@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Events\RecordCreatedEvent;
+use App\Models\Schedule;
 use App\Models\TripLogger;
 use App\Models\User;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -19,7 +22,7 @@ class TripLoggerController extends Controller
      */
     public function index()
     {
-        $drivers = User::all()->where('department_id',11);
+        $drivers = User::all()->where('department_id',21);
         $vehicles = Vehicle::all();
         $triploggers = Triplogger::all();
         return view('dashboard.logistics.triplogger.index',compact('vehicles','triploggers', 'drivers'));
@@ -32,9 +35,13 @@ class TripLoggerController extends Controller
      */
     public function create()
     {
-        $vehicles = Vehicle::all();
-        $drivers = User::all()->where('department_id',11);
-        return view('dashboard.logistics.triplogger.create',compact('drivers','vehicles'));
+
+        $driver = Auth::user()->name;
+        $vehicles =  DB::select("SELECT * FROM `vehicles` WHERE assigned_driver = '$driver' ");
+        $today = date('Y-m-d');
+        $drivers = User::all()->where('department_id',21);
+        $assignedProductions = DB::select("SELECT * FROM `schedules` WHERE driver = '$driver' AND start LIKE '%$today%'");
+        return view('dashboard.logistics.triplogger.create',compact('drivers','vehicles','assignedProductions'));
     }
 
     /**
@@ -45,17 +52,7 @@ class TripLoggerController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'number_plate'             => 'required',
-            'assigned_driver'           => 'required',
-            'production_name'           => 'required',
-            'trip_date'           => 'required',
-            'odometer_start'           => 'required',
-            'odometer_stop'           => 'required',
-            'trip_information'           => 'required',
-            'trip_distance'           => 'required',
-            'fuel_station'           => 'required'
-        ]);
+
 
         $triplogger = new Triplogger();
         $triplogger->number_plate     = $request->input('number_plate');
@@ -68,7 +65,7 @@ class TripLoggerController extends Controller
         $triplogger->trip_distance = $request->input('trip_distance');
         $triplogger->fuel_station = $request->input('fuel_station');
         $triplogger->save();
-        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 21');
         $details = [
             'cc_emails' => $cc_emails,
             'email' => $triplogger->user->email,
@@ -104,9 +101,9 @@ class TripLoggerController extends Controller
      */
     public function edit($id)
     {   $triplogger = Triplogger::all()->find($id);
-        $drivers = User::all()->where('department_id',11);
-        $vehicles = Vehicle::all();
-        return view('dashboard.logistics.triplogger.edit', compact('drivers','triplogger','vehicles'));
+        $driver = Auth::user()->name;
+        $vehicles =  DB::select("SELECT * FROM `vehicles` WHERE assigned_driver = '$driver' ");
+        return view('dashboard.logistics.triplogger.edit', compact('driver','triplogger','vehicles'));
     }
 
 
@@ -140,7 +137,7 @@ class TripLoggerController extends Controller
     $triplogger->trip_distance = $request->input('trip_distance');
     $triplogger->fuel_station = $request->input('fuel_station');
     $triplogger->save();
-    $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
+    $cc_emails = DB::select('SELECT email from users WHERE department_id = 21');
         $details = [
             'cc_emails' => $cc_emails,
         'email' => $triplogger->user->email,

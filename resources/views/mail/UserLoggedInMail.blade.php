@@ -1,13 +1,14 @@
+
 @component('mail::message')
-# Welcome back! {{ $details['user'] }},
 
-You logged in to NC-WORKFLOW on {{ \Carbon\Carbon::now()->format('d-M-Y, H:i a')}}
+# Welcome back {{ $details['user'] }}!
 
-## Not You?
-Contact IT Department Immediately
+You logged in to NC-WORKFLOW on:{{ \Carbon\Carbon::now()->format('d-M-Y, H:i a') }}
 
-@component('mail::button', ['url' => 'https://nbd.bravetech.media/home'])
-My Dashboard
+Not You?
+  Contact IT Department Immediately
+  @component('mail::button', ['url' => 'https://wf.newscentral.ng/home'])
+  My Dashboard
 @endcomponent
 
 Thanks,<br>

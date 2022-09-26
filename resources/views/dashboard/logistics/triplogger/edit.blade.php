@@ -58,12 +58,9 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="assigned_driver">User</label>
-                                    <select class="form-control select2" name="assigned_driver" id="assigned_driver">
-                                        @foreach ($drivers as $driver)
-                                        <option value="{{ $driver->name }}" @if($triplogger->assigned_driver === $driver->name) selected='selected' @endif>{{ $driver->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="assigned_driver">Driver</label>
+                                    <input name="production_name" type="text" class="form-control" id="production_name"
+                                    value="{{ $driver}}" readonly required placeholder="">
                                 </div>
                             </div>
                             <input id="type" name="type" class="form-control type" hidden value="award" required
@@ -72,16 +69,12 @@
                                 <div class="mb-3 col-md-4">
                                     <label for="production_name">Production Name</label>
                                     <input name="production_name" type="text" class="form-control" id="production_name"
-                                        value="{{ $triplogger->production_name}}" required placeholder="">
+                                        value="{{ $triplogger->production_name}}" readonly required placeholder="">
                                 </div>
-                                <div class="mb-3 col-md-4">
-                                    <label class="form-label">Trip Date</label>
-                                    <div class="input-group date" id="datetimepicker-date" data-target-input="nearest">
-                                        <input name="trip_date" value="{{ $triplogger->trip_date}}" type="text" class="form-control datetimepicker-input"
-                                            data-target="#datetimepicker-date" />
-                                        <div class="input-group-text" data-target="#datetimepicker-date"
-                                            data-toggle="datetimepicker"><i class="fa fa-calendar"></i></div>
-                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label class="form-label"><h3>Trip Date : {{date('Y-m-d h:i:s')}}<h3></label>
+
+
                                 </div>
 
                                 <div class="row justify-content-between">
