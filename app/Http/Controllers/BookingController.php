@@ -38,8 +38,8 @@ class BookingController extends Controller
         $validatedData = $request->validate([
             'title'           => 'required',
             'date'           => 'required',
-            'start_time'           => 'required',
-            'end_time'           => 'required',
+            'start'           => 'required',
+            'end'           => 'required',
             'type'           => 'required',
             'facility'           => 'required',
             'description'           => 'required',

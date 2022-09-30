@@ -63,7 +63,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label">start time</label>
                                     <div class="input-group date" id="datetimepicker-minimum2" data-target-input="nearest">
-                                        <input name="start_time" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum2" />
+                                        <input name="start" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum2" />
                                         <div class="input-group-text" data-target="#datetimepicker-minimum2" data-toggle="datetimepicker"><i
                                                 class="fa fa-calendar"></i></div>
                                     </div>
@@ -77,7 +77,7 @@
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label">end time</label>
                                     <div class="input-group date" id="datetimepicker-minimum3" data-target-input="nearest">
-                                        <input name="end_time" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum3" />
+                                        <input name="end" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-minimum3" />
                                         <div class="input-group-text" data-target="#datetimepicker-minimum3" data-toggle="datetimepicker"><i
                                                 class="fa fa-calendar"></i></div>
                                     </div>

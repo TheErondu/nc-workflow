@@ -79,8 +79,8 @@ class ScheduleController extends Controller
     {
         $validatedData = $request->validate([
             // 'title'             => 'required',
-            // 'start'           => 'required',
-            // 'end'           => 'required',
+             'start'           => 'required',
+             'end'           => 'required',
             // 'start'           => 'required',
             // 'status'           => 'required',
             // 'producer1'           => 'required',
