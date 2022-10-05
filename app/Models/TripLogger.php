@@ -10,4 +10,8 @@ class TripLogger extends Model
     use HasFactory;
 
     protected $table = 'trip_loggers';
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
 }
