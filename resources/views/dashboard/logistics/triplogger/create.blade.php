@@ -49,7 +49,7 @@
                             <div class=" row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="number_plate">Number plate </label>
-                                    <select class="form-control select2" name="number_plate" id="number_plate">
+                                    <select class="form-control select2" name="number_plate" required id="number_plate">
                                         <option value="not Assigned">--Not Assigned--</option>
                                         @foreach ($vehicles as $vehicle)
                                             <option value="{{ $vehicle->number_plate }}">{{ $vehicle->number_plate }}
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="assigned_driver">User</label>
-                                    <select class="form-control select2" name="assigned_driver" id="assigned_driver">
+                                    <select class="form-control select2" name="assigned_driver" required id="assigned_driver">
                                         <option value="{{ Auth::user()->name }}">{{ Auth::user()->name }}</option>
                                         @foreach ($drivers as $driver)
                                             <option value="{{ $driver->name }}">{{ $driver->name }}</option>
@@ -72,7 +72,7 @@
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
                                     <label for="production_name">Production Name</label>
-                                    <select class="form-control select2" name="production_name" id="production_name">
+                                    <select class="form-control select2" name="production_name" required id="production_name">
                                         @foreach ($assignedProductions as $production)
                                             <option value="{{ $production->title }}">{{ $production->title }}</option>
                                         @endforeach
