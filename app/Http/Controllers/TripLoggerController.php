@@ -65,18 +65,18 @@ class TripLoggerController extends Controller
         $triplogger->trip_distance = $request->input('trip_distance');
         $triplogger->fuel_station = $request->input('fuel_station');
         $triplogger->save();
-        $cc_emails = DB::select('SELECT email from users WHERE department_id = 21');
-        $details = [
-            'cc_emails' => $cc_emails,
-            'email' => $triplogger->user->email,
-            'title' => $triplogger->production_name,
-            'status' =>  $triplogger->status,
-            'body' =>  $triplogger->trip_information,
-            'model' =>  'Trip logger ',
-            'user' => auth()->user()->name,
-            'time' => date('d-m-Y')
-        ];
-        Event::dispatch(new RecordCreatedEvent($details));
+        // $cc_emails = DB::select('SELECT email from users WHERE department_id = 21');
+        // $details = [
+        //     'cc_emails' => $cc_emails,
+        //     'email' => $triplogger->user->email,
+        //     'title' => $triplogger->production_name,
+        //     'status' =>  $triplogger->status,
+        //     'body' =>  $triplogger->trip_information,
+        //     'model' =>  'Trip logger ',
+        //     'user' => auth()->user()->name,
+        //     'time' => date('d-m-Y')
+        // ];
+        // Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully added triplogger');
 
         return redirect()->route('triplogger.index');
