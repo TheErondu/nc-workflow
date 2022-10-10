@@ -104,4 +104,8 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\MaintenanceScheduler');
     }
+    public function triplogger()
+    {
+        return $this->hasOne('App\Models\TripLogger');
+    }
 }
