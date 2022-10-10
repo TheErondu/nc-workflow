@@ -80,6 +80,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label"><h3>Trip Date : {{date('Y-m-d h:i:s')}}<h3></label>
+                                        <input type="" hidden readonly name="trip_date" value="{{date('Y-m-d h:i:s')}}">
 
                                 </div>
 
