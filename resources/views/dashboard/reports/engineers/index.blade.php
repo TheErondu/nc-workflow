@@ -45,7 +45,7 @@
                         // any other sources...
                     ],
                     eventClick: function(info) {
-                        window.location = "/logs/" + info.event.id;
+                        window.location = "/logs/engineers/" + info.event.id;
                     },
                     eventMouseEnter: function(info) {
                         console.log('eventMouseEnter');

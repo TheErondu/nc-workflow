@@ -82,7 +82,7 @@ class EngineerLogsController extends Controller
         ];
         Event::dispatch(new LogSubmittedEvent($details));
         $request->session()->flash('message', 'Successfully created Report');
-        return redirect()->route('logs.index');
+        return redirect()->route('engineers.index');
     }
 
     /**
@@ -107,7 +107,7 @@ class EngineerLogsController extends Controller
             'user_id' => $log->user_id,
 
         ];
-        return view('logs.show', compact('details'));
+        return view('dashboard.reports.engineers.show', compact('details'));
     }
 
     /**
@@ -121,7 +121,7 @@ class EngineerLogsController extends Controller
 
     {
         $log = EngineerLogs::all()->find($id);
-        return view('logs.edit', compact('log'));
+        return view('dashboard.reports.engineers.edit', compact('log'));
     }
 
     /**
@@ -165,7 +165,7 @@ class EngineerLogsController extends Controller
         ];
         Event::dispatch(new LogEditedEvent($details));
         $request->session()->flash('message', 'Changes saved!');
-        return redirect()->route('logs.index');
+        return redirect()->route('engineers.index');
 
     }
 
@@ -182,11 +182,11 @@ class EngineerLogsController extends Controller
         if($password =="githuber@nuel0"){
             DB::table('logs')->where('id', $id)->delete();
             $request->session()->flash('message', 'Log Deleted!');
-        return redirect()->route('logs.index');
+        return redirect()->route('engineers.index');
         }
         else{
         $request->session()->flash('message', 'Superuser Password Required for this action!');
-        return redirect()->route('logs.index');
+        return redirect()->route('engineers.index');
         }
     }
 }
