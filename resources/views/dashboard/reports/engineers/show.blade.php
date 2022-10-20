@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="card-header">
                         <div class="mb-3 col-md-12">
-                            <h4>Showing log for the date: {{ $details['date'] }}</h4>
+                            <h4>Showing log for the date:{{ $details['date'] }}</h4>
                     </div>
                     </div>
                     <table class="table table-striped table-bordered">
