@@ -88,4 +88,16 @@
     format: 'dd-mm-yyyy',
 });
     </script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
+                    $('.table').DataTable({
+                    });
+                    /* =========================================================================================== */
+                    /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
+                    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                        $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+                    });
+                });
+            </script>
 @endsection

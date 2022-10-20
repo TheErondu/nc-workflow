@@ -17,7 +17,7 @@
                                     <label for="assigned_department"> Date</label>
                                     <div class="input-group date" id="datetimepicker-minimum"
                                         data-target-input="nearest">
-                                        <input name="date" value="{{$logs->date}}" type="text" class="form-control datetimepicker-input"
+                                        <input name="date" value="{{$log->date}}" type="text" class="form-control datetimepicker-input"
                                             data-target="#datetimepicker-minimum" />
                                         <div class="input-group-text" data-target="#datetimepicker-minimum"
                                             data-toggle="datetimepicker"><i class="fa fa-calendar"></i></div>
