@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Events\LogEditedEvent;
-use App\Events\LogSubmittedEvent;
+use App\Events\RecordCreatedEvent;
+use App\Events\RecordUpdatedEvent;
 use App\Models\EngineerLogs;
+use App\Utils\Globals;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,20 +67,18 @@ class EngineerLogsController extends Controller
         $logs->color = $rand_background;
         $logs->save();
         // $cc_emails = DB::select('SELECT email from users');
-        $cc_emails = env('CC_EMAILS');
+        $cc_emails = Globals::mailingGroups("Engineers");
         $details = [
-            // 'email' => $logs->user->email,
-            'email' => env('LOG_RECIPIENT'),
-            'problems' => $logs->problems,
-            'resolutions' =>  $logs->resolutions,
-            'new_development' =>  $logs->new_development,
-            'comments' =>  $logs->comments,
-            'model' =>  'Log',
-            'user' => $user->name,
-            'date' => $logs->date,
-            'cc_emails' => $cc_emails
+            'cc_emails' => $cc_emails,
+            'email' => "donald.saola@newscentral.ng",
+            'title' => $logs->title,
+            'status' =>  $logs->problems,
+            'body' =>  $logs->resolutions,
+            'model' =>  'Engineer Logs',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
         ];
-        Event::dispatch(new LogSubmittedEvent($details));
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully created Report');
         return redirect()->route('engineers.index');
     }
@@ -150,20 +148,18 @@ class EngineerLogsController extends Controller
         $log->color = $rand_background;
         $log->save();
         // $cc_emails = DB::select('SELECT email from users');
-        $cc_emails = env('CC_EMAILS');
+        $cc_emails = Globals::mailingGroups("Engineers");
         $details = [
-            // 'email' => $logs->user->email,
-            'email' => env('LOG_RECIPIENT'),
-            'problems' => $log->problems,
-            'resolutions' =>  $log->resolutions,
-            'new_development' =>  $log->new_development,
-            'comments' =>  $log->comments,
-            'model' =>  'Log',
-            'user' => $user->name,
-            'date' => $log->date,
-            'cc_emails' => $cc_emails
+            'cc_emails' => $cc_emails,
+            'email' => "donald.saola@newscentral.ng",
+            'title' => $log->title,
+            'status' =>  $log->problems,
+            'body' =>  $log->resolutions,
+            'model' =>  'Engineer Logs',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
         ];
-        Event::dispatch(new LogEditedEvent($details));
+        Event::dispatch(new RecordUpdatedEvent($details));
         $request->session()->flash('message', 'Changes saved!');
         return redirect()->route('engineers.index');
 

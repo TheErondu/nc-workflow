@@ -1,6 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
+@if (Session::has('message'))
+<div class="container">
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <div class="alert-icon">
+            <i class="far fa-fw fa-bell"></i>
+        </div>
+        <div class="alert-message">
+            <strong> {{ session('message') }}</strong>
+        </div>
+
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+            aria-label="Close"></button>
+    </div>
+</div>
+@endif
+@if ($errors->any())
+<div class="container">
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        @foreach ($errors->all() as $error)
+            <div class="alert-icon">
+                <i class="far fa-fw fa-bell"></i>
+            </div>
+            <div class="alert-message">
+                <strong> {{ $error }}</strong>
+            </div>
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        @endforeach
+    </div>
+</div>
+@endif
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
