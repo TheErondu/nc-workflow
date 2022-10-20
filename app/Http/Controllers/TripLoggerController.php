@@ -39,6 +39,7 @@ class TripLoggerController extends Controller
         $driver = Auth::user()->name;
         $vehicles =  DB::select("SELECT * FROM `vehicles` WHERE assigned_driver = '$driver' ");
         $today = date('Y-m-d');
+        dd($today);
         $drivers = User::all()->where('department_id',21);
         $assignedProductions = DB::select("SELECT * FROM `schedules` WHERE driver = '$driver' AND start LIKE '%$today%'");
         return view('dashboard.logistics.triplogger.create',compact('drivers','vehicles','assignedProductions'));
@@ -65,18 +66,18 @@ class TripLoggerController extends Controller
         $triplogger->trip_distance = $request->input('trip_distance');
         $triplogger->fuel_station = $request->input('fuel_station');
         $triplogger->save();
-        // $cc_emails = DB::select('SELECT email from users WHERE department_id = 21');
-        // $details = [
-        //     'cc_emails' => $cc_emails,
-        //     'email' => $triplogger->user->email,
-        //     'title' => $triplogger->production_name,
-        //     'status' =>  $triplogger->status,
-        //     'body' =>  $triplogger->trip_information,
-        //     'model' =>  'Trip logger ',
-        //     'user' => auth()->user()->name,
-        //     'time' => date('d-m-Y')
-        // ];
-        // Event::dispatch(new RecordCreatedEvent($details));
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 21');
+        $details = [
+            'cc_emails' => $cc_emails,
+            'email' => $triplogger->user->email,
+            'title' => $triplogger->production_name,
+            'status' =>  $triplogger->status,
+            'body' =>  $triplogger->trip_information,
+            'model' =>  'Trip logger ',
+            'user' => auth()->user()->name,
+            'time' => date('d-m-Y')
+        ];
+        Event::dispatch(new RecordCreatedEvent($details));
         $request->session()->flash('message', 'Successfully added triplogger');
 
         return redirect()->route('triplogger.index');

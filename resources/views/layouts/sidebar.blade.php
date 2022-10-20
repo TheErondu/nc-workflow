@@ -87,6 +87,9 @@
                                 class="align-middle me-2 fas fa-clipboard-check"></i> <span
                                 class="align-middle">Director's Report</span></a></li>
                                 @endcanany
+                                <li @if (Route::is('engineers.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('engineers.index') }}"> <i
+                                            class="align-middle me-2 fas fa-clipboard-check"></i> <span
+                                            class="align-middle">Engineer/IT Logs</span></a></li>
 
                                 @canany(['access-editor_logs', 'access-editor_logs-readonly'])
                     <li @if (Route::is('editors.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('editors.index') }}"> <i
