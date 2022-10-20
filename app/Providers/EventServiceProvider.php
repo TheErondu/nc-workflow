@@ -52,6 +52,14 @@ class EventServiceProvider extends ServiceProvider
         EngineerAssignedEvent::class => [
             EngineerAssignedEventListener::class,
         ],
+        LogSubmittedEvent::class => [
+            LogSubmittedEventListener::class,
+
+        ],
+        LogEditedEvent::class => [
+            LogEditedEventListener::class,
+
+        ],
 
     ];
 
