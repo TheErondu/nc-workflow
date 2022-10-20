@@ -53,8 +53,9 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Role</th>
                                     <th>Department</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
                                     <th>Created At</th>
 
                                 </tr>
@@ -68,6 +69,7 @@
                                         <td>{{ $employee->email }}</td>
                                         <td>{{ $employee->department->name }}</td>
                                         <td>{{ $employee->role }}</td>
+                                        <td>{{ $employee->status }}</td>
                                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $employee->created_at)->format('d-M-Y') }}
                                         </td>
                                     </tr>
