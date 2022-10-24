@@ -39,7 +39,7 @@ class TripLoggerController extends Controller
         $driver = Auth::user()->name;
         $vehicles =  DB::select("SELECT * FROM `vehicles` WHERE assigned_driver = '$driver' ");
         $today = date('Y-m-d');
-        dd($today);
+       // dd($today);
         $drivers = User::all()->where('department_id',21);
         $assignedProductions = DB::select("SELECT * FROM `schedules` WHERE driver = '$driver' AND start LIKE '%$today%'");
         return view('dashboard.logistics.triplogger.create',compact('drivers','vehicles','assignedProductions'));
