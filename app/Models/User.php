@@ -102,10 +102,10 @@ class User extends Authenticatable
     }
     public function maintenance_schedule()
     {
-        return $this->hasOne('App\Models\MaintenanceScheduler');
+        return $this->hasMany('App\Models\MaintenanceScheduler');
     }
     public function triplogger()
     {
-        return $this->hasOne('App\Models\TripLogger');
+        return $this->hasMany('App\Models\TripLogger');
     }
 }

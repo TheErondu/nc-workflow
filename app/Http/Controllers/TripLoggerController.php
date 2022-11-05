@@ -65,6 +65,7 @@ class TripLoggerController extends Controller
         $triplogger->trip_information = $request->input('trip_information');
         $triplogger->trip_distance = $request->input('trip_distance');
         $triplogger->fuel_station = $request->input('fuel_station');
+        $triplogger->user_id = Auth()->user()->id;
         $triplogger->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 21');
         $details = [
