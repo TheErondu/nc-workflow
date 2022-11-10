@@ -7,6 +7,7 @@ use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Models\Content;
 use App\Models\Country;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
@@ -16,12 +17,14 @@ class ContentController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $data = Content::whereDate('start_date', '>=', $request->start)
-                ->whereDate('end_date',   '<=', $request->end)
+
+            $data = Content::whereDate('start_date', '>=', Carbon::createFromFormat('Y-m-d', $request->start))
+                ->whereDate('end_date',   '<=', Carbon::createFromFormat('Y-m-d', $request->end))
                 ->get(['id', 'name', 'start_date', 'end_date', 'type']);
             return response()->json($data);
         }
-        return view('dashboard.content.index');
+        $countries = Country::all();
+        return view('dashboard.content.index', compact('countries'));
     }
 
 
@@ -108,6 +111,7 @@ class ContentController extends Controller
         $content->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
+            'email' => $user->email,
             'cc_emails' => $cc_emails,
             'title' => $content->title,
             'start' =>  $content->start,

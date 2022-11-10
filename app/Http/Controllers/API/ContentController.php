@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 
 use App\Models\Content;
+use Carbon\Carbon;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
@@ -17,8 +18,8 @@ class ContentController extends ApiController
             // ->whereDate('end',   '<=', $request->end)
             //     ->get(['id', 'title','start', 'end']);
                 $data = QueryBuilder::for(Content::class)
-                ->allowedFilters('country')->whereDate('start', '>=', $request->start)
-                ->whereDate('end',   '<=', $request->end)
+                ->allowedFilters('country')->whereDate('start', '>=',date("Y-m-d", strtotime($request->start)))
+                ->whereDate('end',   '<=',date("Y-m-d", strtotime($request->end)))
                     ->get(['id', 'title','start', 'end']);
 
             return response()->json($data);
