@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use App\Models\BatchStoreRequest;
 use App\Models\Store;
 use App\Models\Department;
 use App\Models\StoreRequest;
@@ -23,8 +24,10 @@ class StoreController extends Controller
     {
         $store_items = Store::all();
         $store_requests = StoreRequest::all()->where('status','pending');
-        $approved_items =StoreRequest::all()->where('status','Approved');
-        return view('dashboard.store.index', compact('store_items','store_requests','approved_items'));
+        $batch_store_requests = BatchStoreRequest::all()->where('status','pending');
+        //dd($batch_store_requests);
+        $approved_items = StoreRequest::all()->where('status','Approved');
+        return view('dashboard.store.index', compact('store_items','store_requests', 'batch_store_requests','approved_items'));
     }
 
      /**

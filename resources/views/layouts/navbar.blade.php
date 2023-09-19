@@ -7,6 +7,28 @@
 
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav ms-auto">
+
+            @if (count(Session::get('allRequestedItems', []))>0)
+                <li class="nav-item dropdown ms-lg-2">
+                    <a style="color:orange" class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown"
+                    data-bs-toggle="dropdown">
+                    <i class="align-middle fas fa-cart-plus"></i>&nbsp;
+                    <span> Batch</span>
+                    @if(count(Session::get('allRequestedItems', [])) > 0)
+                        <span class="badge">{{ count(Session::get('allRequestedItems', [])) }}</span>
+                    @endif
+                 </a>
+
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <a  id="clear-batch-link"  class="dropdown-item" href="#"><i
+                                class="align-middle me-1 fas fa-fw fa-eye"></i>
+                            View Items in Batch</a>
+                        <a class="dropdown-item" href="{{ route('store.requests.batch.clear') }}"><i
+                                class="align-middle me-1 fas fa-fw fa-ban"></i> Clear current batch</a>
+                    </div>
+                </li>
+                @include('layouts.components.batch-modal')
+                @endif
             <li class="nav-item dropdown ms-lg-2">
                 <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown"
                     data-bs-toggle="dropdown">
@@ -61,3 +83,17 @@
 
 </nav>
 @endauth
+<script>
+    $(document).ready(function () {
+        const batchModal = new bootstrap.Modal($('#batch-modal'));
+
+        $('#clear-batch-link').click(function () {
+            batchModal.show();
+        });
+
+        $('#change-password-cancel').click(function (event) {
+            event.preventDefault();
+            batchModal.hide();
+        });
+    });
+</script>

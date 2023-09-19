@@ -72,6 +72,40 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('logs/transmission', 'App\Http\Controllers\TransmissionReportController');
     Route::resource('logs/cot', 'App\Http\Controllers\COTController');
 
+    ///Batch Store requests
+
+    Route::post('store/requests/batch/add', 'App\Http\Controllers\BatchController@addItems')->name('store.requests.batch.add');
+    Route::get('store/requests/batch/add/{id}', 'App\Http\Controllers\BatchController@addSingleItem')->name('store.requests.batch.add.single');
+
+    Route::get('store/requests/batch/clear', 'App\Http\Controllers\BatchController@clearBatch')->name('store.requests.batch.clear');
+
+    Route::get('store/requests/batch/view', 'App\Http\Controllers\BatchController@index')->name('store.requests.batch.view');
+    Route::get('store/requests/batch/remove/{id}', 'App\Http\Controllers\BatchController@removeItem')->name('store.requests.batch.remove');
+
+    Route::post('store/requests/batch/store', 'App\Http\Controllers\BatchStoreRequestsController@submitBatchRequest')->name('store.requests.batch.store');
+
+    Route::get('store/requests/batch/{batch_id}', 'App\Http\Controllers\BatchStoreRequestsController@showBatchRequestEditPage')->name('store.requests.batch.edit');
+
+    Route::put('store/requests/batch/repeat/{id}', 'App\Http\Controllers\BatchStoreRequestsController@repeatBatchRequest')->name('store.requests.batch.repeat');
+
+    Route::put('store/requests/batch/{id}/extend', 'App\Http\Controllers\BatchStoreRequestsController@extendBatchRequestReturnDate')->name('store.requests.batch.extend');
+
+    Route::put('store/requests/batch/approve', 'App\Http\Controllers\BatchStoreRequestsController@approveBatchRequest')->name('store.requests.batch.approve');
+
+    Route::put('store/requests/batch/return', 'App\Http\Controllers\BatchStoreRequestsController@returnBatchRequest')->name('store.requests.batch.return');
+
+    // /GatePass Routes /////
+
+    Route::resource('gatepass', 'App\Http\Controllers\GatePassController');
+
+    Route::post('gatepass/{id}/print', 'App\Http\Controllers\GatePassController@printPassFromApproved')->name('gatepass.print');
+
+    Route::post('gatepass/batch/{id}/print', 'App\Http\Controllers\GatePassController@printPassFromBatchRequest')->name('gatepass.batch.print');
+
+    ///////////////////////////
+
+    Route::put('store/requests/batch/reject', 'App\Http\Controllers\BatchStoreRequestsController@rejectBatchRequest')->name('store.requests.batch.reject');
+
     Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
     Route::get('store-requests/create/{id}', 'App\Http\Controllers\StoreController@createRequest')->name('store-requests.create');
     Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
@@ -103,4 +137,6 @@ Route::group(['middleware' => ['auth']], function () {
         ];
         Mail::to('erone007@gmail.com')->send(new \App\Mail\SentLogs($details));
     });
+
+    Route::get('/signage/bookings',[App\Http\Controllers\SignageController::class, 'showBookings']);
 });

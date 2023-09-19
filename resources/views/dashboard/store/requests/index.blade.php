@@ -58,7 +58,7 @@
                                             @foreach($available_items as $item)
                                             <tr>
                                                 <td>
-                                                    <a href="{{route('store-requests.create', ['id' =>$item->id ] )}}"><i class=" fas fa-plus">&nbsp;Make Request</i></a>
+                                                    <a href="{{ route('store.requests.batch.add.single', ['id' => $item->id]) }}"><i class=" fas fa-plus">&nbsp;Add to batch</i></a>
                                                 </td>
                                                 <td>{{$item->item_name}}</td>
 
@@ -141,14 +141,6 @@
                 /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
                 $('.table').DataTable({
                     responsive: false,
-                    "sAutoWidth": true,
-                    "bDestroy": true,
-                    "sPaginationType": "bootstrap", // full_numbers
-                    "iDisplayStart ": 10,
-                    "iDisplayLength": 10,
-                    "bPaginate": false, //hide pagination
-                    "bFilter": true, //hide Search bar
-                    "bInfo": false,
                 });
                 /* =========================================================================================== */
                 /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
