@@ -25,8 +25,6 @@ class GatePassController extends Controller
 
         return view('dashboard.store.gatepass.index', compact('gatepasses'));
     }
-
-
     public function create()
     {
         $store_requests = StoreRequest::latest()->where('status', 'Approved')->get();
