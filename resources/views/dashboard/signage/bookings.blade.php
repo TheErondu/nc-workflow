@@ -46,20 +46,17 @@
                 <!-- Your table content goes here -->
                 <table>
                     <tr>
-                        <th>Company</th>
-                        <th>Contact</th>
-                        <th>Country</th>
+                        <th>Show title</th>
+                        <th>Start time</th>
+                        <th>End time</th>
                     </tr>
+                    @foreach ($bookings as $booking )
                     <tr>
-                        <td>Alfreds Futterkiste</td>
-                        <td>Maria Anders</td>
-                        <td>Germany</td>
+                        <td>{{$booking->title}}&nbsp; </td>
+                        <td>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$booking->start)}}&nbsp; </td>
+                        <td>{{$booking->end}}&nbsp; </td>
                     </tr>
-                    <tr>
-                        <td>Centro comercial Moctezuma</td>
-                        <td>Francisco Chang</td>
-                        <td>Mexico</td>
-                    </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

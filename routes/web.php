@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Auth::Routes();
+Route::get('/signage/bookings',[App\Http\Controllers\SignageController::class, 'showBookings']);
 Route::get('dev/test', function () {
 
     return Globals::mailingGroups("Engineers");
@@ -137,6 +138,4 @@ Route::group(['middleware' => ['auth']], function () {
         ];
         Mail::to('erone007@gmail.com')->send(new \App\Mail\SentLogs($details));
     });
-
-    Route::get('/signage/bookings',[App\Http\Controllers\SignageController::class, 'showBookings']);
 });
