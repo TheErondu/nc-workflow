@@ -7,6 +7,7 @@
 /public/ticker
 /public/breaking
 /storage/*.key
+/storage
 /vendor
 .env
 .env.backup
