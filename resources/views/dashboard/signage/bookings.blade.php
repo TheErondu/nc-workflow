@@ -19,170 +19,91 @@
 
 <body>
     <div>
-        <div class="carousel">
-            <ul class="slides">
-                <input type="radio" name="radio-buttons" id="img-1" checked />
-                <li class="slide-container">
-                    <div class="slide-image">
-                        <img
-                            src="https://placehold.co/1920x1080">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                @foreach ($schedules as $schedule)
+                    <div class="carousel-item">
+                        <img class="d-block w-100"
+                            src="https://images.unsplash.com/photo-1432958576632-8a39f6b97dc7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=6ecedc1e639d8a4b77aa8e85f4962f03"
+                            data-color="lightblue" alt="First Image">
+                        <div class="carousel-caption d-md-block">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card-opaque">
+                                        <div class="card-header" style="background-color: #272727;">
+                                            <h5 class="card-title" style="color: white;">{{ $schedule->title }}</h5>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row justify-content-around">
+                                                <div class="mb-3 col-md-4">
+                                                    <h5 class="highlight-black" for="borrower">Producer :
+                                                        {{ $schedule->producer1 }}</h5>
+                                                </div>
+                                                <div class="mb-3 col-md-4">
+                                                    <h5 class="highlight-black" for="borrower">Item :
+                                                        {{ $schedule->description }}</h5>
+                                                </div>
+
+                                                <div class="mb-3 col-md-4">
+                                                    <h5 class="highlight-black" for="borrower">Return Date
+                                                        :&nbsp;{{ \Carbon\Carbon::parse($schedule->start)->format('d-M-Y') }}
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </li>
-                <input type="radio" name="radio-buttons" id="img-2" />
-                <li class="slide-container">
-                    <div class="slide-image">
-                        <img
-                            src="https://placehold.co/1920x1080">
-                    </div>
-                </li>
-                <input type="radio" name="radio-buttons" id="img-3" />
-                <li class="slide-container">
-                    <div class="slide-image">
-                        <img src="https://placehold.co/1920x1080">
-                    </div>
-                </li>
-            </ul>
-            <div class="overlay-table">
-                <!-- Your table content goes here -->
-                <table>
-                    <tr>
-                        <th>Show title</th>
-                        <th>Start time</th>
-                        <th>End time</th>
-                    </tr>
-                    @foreach ($bookings as $booking )
-                    <tr>
-                        <td>{{$booking->title}}&nbsp; </td>
-                        <td>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$booking->start)}}&nbsp; </td>
-                        <td>{{$booking->end}}&nbsp; </td>
-                    </tr>
-                    @endforeach
-                </table>
+                @endforeach
             </div>
         </div>
     </div>
 
     <style>
-        .carousel {
-            position: relative;
-            overflow: hidden;
-        }
-
-        ul.slides {
-            display: block;
-            position: relative;
-            height: 100vh;
-            width: 100vw;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            list-style: none;
-        }
-
-        .slides * {
-            user-select: none;
-            -ms-user-select: none;
-            -moz-user-select: none;
-            -khtml-user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-        }
-
-        ul.slides input {
-            display: none;
-        }
-
-        .slide-container {
-            display: block;
-        }
-
-        .slide-image {
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            opacity: 0;
-            transition: all 3s ease-in-out;
-        }
-
-        .slide-image img {
-            width: 100%;
-            min-width: 100%;
-            height: 100%;
-        }
-
-        .carousel-dots {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 20px;
-            z-index: 999;
-            text-align: center;
-        }
-
-        .carousel-dots .carousel-dot {
+        h5 {
             display: inline-block;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #fff;
-            opacity: 0.5;
-            margin: 10px;
+            padding: 10px;
+            background: #B9121B;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
 
-        input:checked+.slide-container .slide-image {
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 1s ease-in-out;
-        }
-
-        input#img-1:checked~.carousel-dots label#img-dot-1,
-        input#img-2:checked~.carousel-dots label#img-dot-2,
-        input#img-3:checked~.carousel-dots label#img-dot-3 {
-            opacity: 1;
-        }
-
-        .overlay-table {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Adjust the background color and opacity as needed */
-            display: flex;
-            justify-content: center;
-            align-items: start;
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        .overlay-table table {
-            color: #fff;
-            font-size: 24px;
+        .full-screen {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
     <script>
-        // Auto-slide functionality
-        let currentSlide = 1;
+        var $item = $('.carousel-item');
+        var $wHeight = $(window).height();
+        $item.eq(0).addClass('active');
+        $item.height($wHeight);
+        $item.addClass('full-screen');
 
-        function autoSlide() {
-            const slides = document.querySelectorAll('.slide-container');
-            const radios = document.querySelectorAll('input[name="radio-buttons"]');
+        $('.carousel img').each(function() {
+            var $src = $(this).attr('src');
+            var $color = $(this).attr('data-color');
+            $(this).parent().css({
+                'background-image': 'url(' + $src + ')',
+                'background-color': $color
+            });
+            $(this).remove();
+        });
 
-            radios[currentSlide - 1].checked = true;
+        $(window).on('resize', function() {
+            $wHeight = $(window).height();
+            $item.height($wHeight);
+        });
 
-            currentSlide++;
-
-            if (currentSlide > slides.length) {
-                currentSlide = 1;
-            }
-
-            setTimeout(autoSlide, 5000); // Adjust the duration (in milliseconds) between slides
-        }
-
-        autoSlide();
+        $('.carousel').carousel({
+            interval: 6000,
+            pause: "false"
+        });
     </script>
 </body>
 

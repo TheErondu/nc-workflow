@@ -17,8 +17,8 @@ class SignageController extends Controller
     public function showBookings()
     {
         $today = Carbon::today()->isoFormat('YYYY-MM-DD hh:mm:ss');
-        $bookings = Schedule::where('start', '>=', $today)->get();
-        return view('dashboard.signage.bookings', compact('bookings'));
+        $schedules = Schedule::where('start', '>=', $today)->get();
+        return view('dashboard.signage.bookings', compact('schedules'));
     }
 
     /**
