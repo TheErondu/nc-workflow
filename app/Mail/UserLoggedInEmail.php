@@ -34,10 +34,8 @@ implements ShouldQueue
 
     {
         $from = env('MAIL_FROM_ADDRESS');
-        $engineer_mails = Globals::mailingGroups("Engineers");
         return $this->from($from)
         ->subject('Login Notification Email')
-        ->cc($engineer_mails)
         ->markdown('mail.UserLoggedInMail');
     }
 }
