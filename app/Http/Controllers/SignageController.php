@@ -9,16 +9,20 @@ use Illuminate\Http\Request;
 
 class SignageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function showBookings()
     {
+        $display = request()->get('display')??0;
         $today = Carbon::today()->isoFormat('YYYY-MM-DD hh:mm:ss');
-        $schedules = Schedule::where('start', '>=', $today)->get();
-        return view('dashboard.signage.bookings', compact('schedules'));
+        $schedules = Schedule::where('id', '>',0)->paginate(6);
+        switch($display){
+            case 1:
+                return view('dashboard.signage.display1', compact('schedules'));
+            case 2:
+                return view('dashboard.signage.display2', compact('schedules'));
+            default:
+            return view('dashboard.signage.display1', compact('schedules'));
+        }
     }
 
     /**

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Auth::Routes();
-Route::get('/signage/bookings',[App\Http\Controllers\SignageController::class, 'showBookings']);
+Route::get('/signage',[App\Http\Controllers\SignageController::class, 'showBookings']);
 Route::get('dev/test', function () {
 
     return Globals::mailingGroups("Engineers");
