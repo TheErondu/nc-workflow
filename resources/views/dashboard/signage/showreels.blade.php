@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signage Page</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/bas.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/OrbitControls-2.js"></script>
+    <script src="{{asset('js/three.min.js')}}"></script>
+    <script src="{{asset('js/TweenMax.min.js')}}"></script>
+    <script src="{{asset('js/bas.js')}}"></script>
+    <script src="{{asset('js/OrbitControls-2.js')}}"></script>
 
     <style>
         body {
@@ -36,9 +36,9 @@
 <body>
     <div id="three-container"></div>
 
-    <div id="instructions">
+    {{-- <div id="instructions">
         click and drag to control the animation
-    </div>
+    </div> --}}
 </body>
 <script>
     window.onload = init;
@@ -55,13 +55,13 @@
         root.renderer.setPixelRatio(window.devicePixelRatio || 1);
         root.camera.position.set(0, 0, 60);
 
-        var width = 200;
+        var width = 240;
         var height = 120;
 
         var slide = new Slide(width, height, 'out');
         var l1 = new THREE.ImageLoader();
         l1.setCrossOrigin('Anonymous');
-        l1.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/winter.jpg', function(img) {
+        l1.load('{{asset('img/end-card.jpg')}}', function(img) {
             slide.setImage(img);
         })
         root.scene.add(slide);
@@ -69,7 +69,7 @@
         var slide2 = new Slide(width, height, 'in');
         var l2 = new THREE.ImageLoader();
         l2.setCrossOrigin('Anonymous');
-        l2.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/spring.jpg', function(img) {
+        l2.load('{{asset('img/screen.jpg')}}', function(img) {
             slide2.setImage(img);
         })
 
@@ -77,7 +77,7 @@
 
         var tl = new TimelineMax({
             repeat: -1,
-            repeatDelay: 1.0,
+            repeatDelay: 8.0,
             yoyo: true
         });
 
@@ -488,5 +488,5 @@
         });
     }
 </script>
-
+@include('dashboard.signage.main',['next' => 'tickets'])
 </html>

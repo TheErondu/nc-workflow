@@ -5,24 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use DateTime;
+use Exception;
 use Illuminate\Http\Request;
 
 class SignageController extends Controller
 {
 
-    public function showBookings()
+    public function show()
     {
-        $display = request()->get('display')??0;
+        $display = request()->get('display') ?? 'showreels';
         $today = Carbon::today()->isoFormat('YYYY-MM-DD hh:mm:ss');
-        $schedules = Schedule::where('id', '>',0)->paginate(6);
-        switch($display){
-            case 1:
-                return view('dashboard.signage.display1', compact('schedules'));
-            case 2:
-                return view('dashboard.signage.display2', compact('schedules'));
-            default:
-            return view('dashboard.signage.display1', compact('schedules'));
-        }
+        $schedules = Schedule::where('id', '>', 0)->paginate(6);
+        $showreels = "";
+        $data = [
+            'schedules' => $schedules,
+            'showreels' => $showreels
+        ];
+        $view = 'dashboard.signage.'.$display;
+        return view($view, $data);
     }
 
     /**
@@ -42,17 +42,6 @@ class SignageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }
