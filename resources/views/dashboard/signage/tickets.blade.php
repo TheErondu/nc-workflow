@@ -1,394 +1,586 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <style>
-       body{margin-top:20px;
-background:#eee;
-}
+    <title>Table 07</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-.padding {
-    padding: 10px;
-}
+    <link rel="stylesheet" href="css/style.css">
 
-/* GRID */
-.col {
-    padding: 10px 20px;
-	margin-bottom: 10px;
-	background: #fff;
-	color: #666666;
-	text-align: center;
-	font-weight: 400;
-	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.row h3 {
-	color: #666666;
-}
-
-.row.grid {
-	margin-left: 0;
-}
-
-.grid {
-	position: relative;
-	width: 100%;
-	background: #fff;
-	color: #666666;
-	border-radius: 2px;
-	margin-bottom: 25px;
-	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.grid .grid-header {
-	position: relative;
-	border-bottom: 1px solid #ddd;
-	padding: 15px 10px 10px 20px;
-}
-
-.grid .grid-header:before,
-.grid .grid-header:after {
-	display: table;
-	content: " ";
-}
-
-.grid .grid-header:after {
-	clear: both;
-}
-
-.grid .grid-header span,
-.grid .grid-header > .fa {
-	display: inline-block;
-	margin: 0;
-	font-weight: 300;
-	font-size: 1.5em;
-	float: left;
-}
-
-.grid .grid-header span {
-	padding: 0 5px;
-}
-
-.grid .grid-header > .fa {
-	padding: 5px 10px 0 0;
-}
-
-.grid .grid-header > .grid-tools {
-	padding: 4px 10px;
-}
-
-.grid .grid-header > .grid-tools a {
-	color: #999999;
-	padding-left: 10px;
-	cursor: pointer;
-}
-
-.grid .grid-header > .grid-tools a:hover {
-	color: #666666;
-}
-
-.grid .grid-body {
-	padding: 15px 20px 15px 20px;
-	font-size: 0.9em;
-	line-height: 1.9em;
-}
-
-.grid .full {
-	padding: 0 !important;
-}
-
-.grid .transparent {
-	box-shadow: none !important;
-	margin: 0px !important;
-	border-radius: 0px !important;
-}
-
-.grid.top.black > .grid-header {
-	border-top-color: #000000 !important;
-}
-
-.grid.bottom.black > .grid-body {
-	border-bottom-color: #000000 !important;
-}
-
-.grid.top.blue > .grid-header {
-	border-top-color: #007be9 !important;
-}
-
-.grid.bottom.blue > .grid-body {
-	border-bottom-color: #007be9 !important;
-}
-
-.grid.top.green > .grid-header {
-	border-top-color: #00c273 !important;
-}
-
-.grid.bottom.green > .grid-body {
-	border-bottom-color: #00c273 !important;
-}
-
-.grid.top.purple > .grid-header {
-	border-top-color: #a700d3 !important;
-}
-
-.grid.bottom.purple > .grid-body {
-	border-bottom-color: #a700d3 !important;
-}
-
-.grid.top.red > .grid-header {
-	border-top-color: #dc1200 !important;
-}
-
-.grid.bottom.red > .grid-body {
-	border-bottom-color: #dc1200 !important;
-}
-
-.grid.top.orange > .grid-header {
-	border-top-color: #f46100 !important;
-}
-
-.grid.bottom.orange > .grid-body {
-	border-bottom-color: #f46100 !important;
-}
-
-.grid.no-border > .grid-header {
-	border-bottom: 0px !important;
-}
-
-.grid.top > .grid-header {
-	border-top-width: 4px !important;
-	border-top-style: solid !important;
-}
-
-.grid.bottom > .grid-body {
-	border-bottom-width: 4px !important;
-	border-bottom-style: solid !important;
-}
-
-
-/* SUPPORT TICKET */
-.support ul {
-    list-style: none;
-	padding: 0px;
-}
-
-.support ul li {
-	padding: 8px 10px;
-}
-
-.support ul li a {
-	color: #999;
-	display: block;
-}
-
-.support ul li a:hover {
-	color: #666;
-}
-
-.support ul li.active {
-	background: #0073b7;
-}
-
-.support ul li.active a {
-	color: #fff;
-}
-
-.support ul.support-label li {
-	padding: 2px 0px;
-}
-
-.support h2,
-.support-content h2 {
-	margin-top: 5px;
-}
-
-.support-content .list-group li {
-	padding: 15px 20px 12px 20px;
-	cursor: pointer;
-}
-
-.support-content .list-group li:hover {
-	background: #eee;
-}
-
-.support-content .fa-padding .fa {
-	padding-top: 5px;
-	width: 1.5em;
-}
-
-.support-content .info {
-	color: #777;
-	margin: 0px;
-}
-
-.support-content a {
-	color: #111;
-}
-
-.support-content .info a:hover {
-	text-decoration: underline;
-}
-
-.support-content .info .fa {
-	width: 1.5em;
-	text-align: center;
-}
-
-.support-content .number {
-	color: #777;
-}
-
-.support-content img {
-	margin: 0 auto;
-	display: block;
-}
-
-.support-content .modal-body {
-	padding-bottom: 0px;
-}
-
-.support-content-comment {
-	padding: 10px 10px 10px 30px;
-	background: #eee;
-	border-top: 1px solid #ccc;
-}
-
-
-/* BACKGROUND COLORS */
-.bg-red, .bg-yellow, .bg-aqua, .bg-blue, .bg-light-blue, .bg-green, .bg-navy, .bg-teal, .bg-olive, .bg-lime, .bg-orange, .bg-fuchsia, .bg-purple, .bg-maroon, bg-gray, bg-black, .bg-red a, .bg-yellow a, .bg-aqua a, .bg-blue a, .bg-light-blue a, .bg-green a, .bg-navy a, .bg-teal a, .bg-olive a, .bg-lime a, .bg-orange a, .bg-fuchsia a, .bg-purple a, .bg-maroon a, bg-gray a, .bg-black a {
-    color: #f9f9f9 !important;
-}
-.bg-white, .bg-white a {
-	color: #999999 !important;
-}
-.bg-red {
-	background-color: #f56954 !important;
-}
-.bg-yellow {
-	background-color: #f39c12 !important;
-}
-.bg-aqua {
-	background-color: #00c0ef !important;
-}
-.bg-blue {
-	background-color: #0073b7 !important;
-}
-.bg-light-blue {
-	background-color: #3c8dbc !important;
-}
-.bg-green {
-	background-color: #00a65a !important;
-}
-.bg-navy {
-	background-color: #001f3f !important;
-}
-.bg-teal {
-	background-color: #39cccc !important;
-}
-.bg-olive {
-	background-color: #3d9970 !important;
-}
-.bg-lime {
-	background-color: #01ff70 !important;
-}
-.bg-orange {
-	background-color: #ff851b !important;
-}
-.bg-fuchsia {
-	background-color: #f012be !important;
-}
-.bg-purple {
-	background-color: #932ab6 !important;
-}
-.bg-maroon {
-	background-color: #85144b !important;
-}
-.bg-gray {
-	background-color: #eaeaec !important;
-}
-.bg-black {
-	background-color: #222222 !important;
-}
-    </style>
 </head>
+
 <body>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <div class="container">
-    <section class="content">
-        <div class="row">
-            <!-- END NAV TICKET -->
-            <!-- BEGIN TICKET -->
-            <div class="col-md-12">
-                <div class="grid support-content">
-                     <div class="grid-body">
-                         <h2>Open tickets</h2>
-                         <hr>
-                        <div class="row">
-                            <!-- BEGIN TICKET CONTENT -->
-                            <div class="col-md-12">
-                                <ul class="list-group fa-padding">
-                                    <li class="list-group-item" data-toggle="modal" data-target="#issue">
-                                        <div class="media">
-                                            <i class="fa fa-cog pull-left"></i>
-                                            <div class="media-body">
-                                                <strong>Add drag and drop config import closes</strong> <span class="label label-danger">IMPORTANT</span><span class="number pull-right"># 13698</span>
-                                                <p class="info">Opened by <a href="#">jwilliams</a> 5 hours ago <i class="fa fa-comments"></i> <a href="#">2 comments</a></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item" data-toggle="modal" data-target="#issue">
-                                        <div class="media">
-                                            <i class="fa fa-file-o pull-left"></i>
-                                            <div class="media-body">
-                                                <strong>Document that Helvetica Neue can cause problems on Windows</strong> <span class="label label-success">SUCCESS</span><span class="number pull-right"># 13697</span>
-                                                <p class="info">Opened by <a href="#">lgardner</a> 12 hours ago <i class="fa fa-comments"></i> <a href="#">7 comments</a></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item" data-toggle="modal" data-target="#issue">
-                                        <div class="media">
-                                            <i class="fa fa-code-fork pull-left"></i>
-                                            <div class="media-body">
-                                                <strong>Manually triggering dropdown not working</strong> <span class="label label-primary">NOT IMPORTANT</span><span class="number pull-right"># 13695</span>
-                                                <p class="info">Opened by <a href="#">ehernandez</a> 19 hours ago <i class="fa fa-comments"></i> <a href="#">14 comments</a></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item" data-toggle="modal" data-target="#issue">
-                                        <div class="media">
-                                            <i class="fa fa-code pull-left"></i>
-                                            <div class="media-body">
-                                                <strong>Add classes for respective directions to affix</strong> <span class="label label-primary">NOT IMPORTANT</span><span class="number pull-right"># 13691</span>
-                                                <p class="info">Opened by <a href="#">tmckenzie</a> 1 day ago <i class="fa fa-comments"></i> <a href="#">20 comments</a></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item" data-toggle="modal" data-target="#issue">
-                                        <div class="media">
-                                            <i class="fa fa-code pull-left"></i>
-                                            <div class="media-body">
-                                                <strong>Responsive tables of the horizontal scroll bar</strong> <span class="label label-danger">IMPORTANT</span><span class="number pull-right"># 13680</span>
-                                                <p class="info">Opened by <a href="#">tmckenzie</a> 2 days ago <i class="fa fa-comments"></i> <a href="#">5 comments</a></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <!-- END DETAIL TICKET -->
-                            </div>
-                            <!-- END TICKET CONTENT -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END TICKET -->
-        </div>
-    </section>
+    <style>
+        .table {
+            width: auto;
+            min-width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody+tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+        .table-sm th,
+        .table-sm td {
+            padding: 0.3rem;
+        }
+
+        .table-bordered {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+
+        .table-borderless th,
+        .table-borderless td,
+        .table-borderless thead th,
+        .table-borderless tbody+tbody {
+            border: 0;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .table-hover tbody tr:hover {
+            color: #212529;
+            background-color: rgba(0, 0, 0, 0.075);
+        }
+
+        .table-primary,
+        .table-primary>th,
+        .table-primary>td {
+            background-color: #b8daff;
+        }
+
+        .table-primary th,
+        .table-primary td,
+        .table-primary thead th,
+        .table-primary tbody+tbody {
+            border-color: #7abaff;
+        }
+
+        .table-hover .table-primary:hover {
+            background-color: #9fcdff;
+        }
+
+        .table-hover .table-primary:hover>td,
+        .table-hover .table-primary:hover>th {
+            background-color: #9fcdff;
+        }
+
+        .table-secondary,
+        .table-secondary>th,
+        .table-secondary>td {
+            background-color: #d6d8db;
+        }
+
+        .table-secondary th,
+        .table-secondary td,
+        .table-secondary thead th,
+        .table-secondary tbody+tbody {
+            border-color: #b3b7bb;
+        }
+
+        .table-hover .table-secondary:hover {
+            background-color: #c8cbcf;
+        }
+
+        .table-hover .table-secondary:hover>td,
+        .table-hover .table-secondary:hover>th {
+            background-color: #c8cbcf;
+        }
+
+        .table-success,
+        .table-success>th,
+        .table-success>td {
+            background-color: #c3e6cb;
+        }
+
+        .table-success th,
+        .table-success td,
+        .table-success thead th,
+        .table-success tbody+tbody {
+            border-color: #8fd19e;
+        }
+
+        .table-hover .table-success:hover {
+            background-color: #b1dfbb;
+        }
+
+        .table-hover .table-success:hover>td,
+        .table-hover .table-success:hover>th {
+            background-color: #b1dfbb;
+        }
+
+        .table-info,
+        .table-info>th,
+        .table-info>td {
+            background-color: #bee5eb;
+        }
+
+        .table-info th,
+        .table-info td,
+        .table-info thead th,
+        .table-info tbody+tbody {
+            border-color: #86cfda;
+        }
+
+        .table-hover .table-info:hover {
+            background-color: #abdde5;
+        }
+
+        .table-hover .table-info:hover>td,
+        .table-hover .table-info:hover>th {
+            background-color: #abdde5;
+        }
+
+        .table-warning,
+        .table-warning>th,
+        .table-warning>td {
+            background-color: #ffeeba;
+        }
+
+        .table-warning th,
+        .table-warning td,
+        .table-warning thead th,
+        .table-warning tbody+tbody {
+            border-color: #ffdf7e;
+        }
+
+        .table-hover .table-warning:hover {
+            background-color: #ffe8a1;
+        }
+
+        .table-hover .table-warning:hover>td,
+        .table-hover .table-warning:hover>th {
+            background-color: #ffe8a1;
+        }
+
+        .table-danger,
+        .table-danger>th,
+        .table-danger>td {
+            background-color: #f5c6cb;
+        }
+
+        .table-danger th,
+        .table-danger td,
+        .table-danger thead th,
+        .table-danger tbody+tbody {
+            border-color: #ed969e;
+        }
+
+        .table-hover .table-danger:hover {
+            background-color: #f1b0b7;
+        }
+
+        .table-hover .table-danger:hover>td,
+        .table-hover .table-danger:hover>th {
+            background-color: #f1b0b7;
+        }
+
+        .table-light,
+        .table-light>th,
+        .table-light>td {
+            background-color: #fdfdfe;
+        }
+
+        .table-light th,
+        .table-light td,
+        .table-light thead th,
+        .table-light tbody+tbody {
+            border-color: #fbfcfc;
+        }
+
+        .table-hover .table-light:hover {
+            background-color: #ececf6;
+        }
+
+        .table-hover .table-light:hover>td,
+        .table-hover .table-light:hover>th {
+            background-color: #ececf6;
+        }
+
+        .table-dark,
+        .table-dark>th,
+        .table-dark>td {
+            background-color: #c6c8ca;
+        }
+
+        .table-dark th,
+        .table-dark td,
+        .table-dark thead th,
+        .table-dark tbody+tbody {
+            border-color: #95999c;
+        }
+
+        .table-hover .table-dark:hover {
+            background-color: #b9bbbe;
+        }
+
+        .table-hover .table-dark:hover>td,
+        .table-hover .table-dark:hover>th {
+            background-color: #b9bbbe;
+        }
+
+        .table-active,
+        .table-active>th,
+        .table-active>td {
+            background-color: rgba(0, 0, 0, 0.075);
+        }
+
+        .table-hover .table-active:hover {
+            background-color: rgba(0, 0, 0, 0.075);
+        }
+
+        .table-hover .table-active:hover>td,
+        .table-hover .table-active:hover>th {
+            background-color: rgba(0, 0, 0, 0.075);
+        }
+
+        .table .thead-dark th {
+            color: #fff;
+            background-color: #343a40;
+            border-color: #454d55;
+        }
+
+        .table .thead-light th {
+            color: #495057;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+        }
+
+        .table-dark {
+            color: #fff;
+            background-color: #343a40;
+        }
+
+        .table-dark th,
+        .table-dark td,
+        .table-dark thead th {
+            border-color: #454d55;
+        }
+
+        .table-dark.table-bordered {
+            border: 0;
+        }
+
+        .table-dark.table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .table-dark.table-hover tbody tr:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.075);
+        }
+
+        @media (max-width: 575.98px) {
+            .table-responsive-sm {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table-responsive-sm>.table-bordered {
+                border: 0;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .table-responsive-md {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table-responsive-md>.table-bordered {
+                border: 0;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .table-responsive-lg {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table-responsive-lg>.table-bordered {
+                border: 0;
+            }
+        }
+
+        @media (max-width: 1199.98px) {
+            .table-responsive-xl {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table-responsive-xl>.table-bordered {
+                border: 0;
+            }
+        }
+
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive>.table-bordered {
+            border: 0;
+        }
+
+        @media print {
+
+            *,
+            *::before,
+            *::after {
+                text-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+            }
+
+            a:not(.btn) {
+                text-decoration: underline;
+            }
+
+            abbr[title]::after {
+                content: " (" attr(title) ")";
+            }
+
+            pre {
+                white-space: pre-wrap !important;
+            }
+
+            pre,
+            blockquote {
+                border: 1px solid #adb5bd;
+                page-break-inside: avoid;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            tr,
+            img {
+                page-break-inside: avoid;
+            }
+
+            p,
+            h2,
+            h3 {
+                orphans: 3;
+                widows: 3;
+            }
+
+            h2,
+            h3 {
+                page-break-after: avoid;
+            }
+
+            @page {
+                size: a3;
+            }
+
+            body {
+                min-width: 992px !important;
+            }
+
+            .container {
+                min-width: 992px !important;
+            }
+
+            .navbar {
+                display: none;
+            }
+
+            .badge {
+                border: 1px solid #000;
+            }
+
+            .table {
+                border-collapse: collapse !important;
+            }
+
+            .table td,
+            .table th {
+                background-color: #fff !important;
+            }
+
+            .table-bordered th,
+            .table-bordered td {
+                border: 1px solid #dee2e6 !important;
+            }
+
+            .table-dark {
+                color: inherit;
+            }
+
+            .table-dark th,
+            .table-dark td,
+            .table-dark thead th,
+            .table-dark tbody+tbody {
+                border-color: #dee2e6;
+            }
+
+            .table .thead-dark th {
+                color: inherit;
+                border-color: #dee2e6;
+            }
+        }
+
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            font-weight: normal;
+            background: #2b3035;
+            color: gray;
+            overflow-x: hidden;
+        }
+
+        a {
+            -webkit-transition: .3s all ease;
+            -o-transition: .3s all ease;
+            transition: .3s all ease;
+            color: #1089ff;
+        }
+
+        a:hover,
+        a:focus {
+            text-decoration: none !important;
+            outline: none !important;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5 {
+            line-height: 1.5;
+            font-weight: 400;
+            font-family: "Poppins", Arial, sans-serif;
+            color: #000;
+        }
+
+        .bg-primary {
+            background: #1089ff !important;
+        }
+
+        .ftco-section {
+            padding: 7em 0;
+        }
+
+        .ftco-no-pt {
+            padding-top: 0;
+        }
+
+        .ftco-no-pb {
+            padding-bottom: 0;
+        }
+
+        .heading-section {
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .table-wrap {
+            overflow-x: scroll;
+        }
+
+        .table {
+            min-width: 1000px !important;
+            width: 100%;
+        }
+
+        .table thead th {
+            border: none;
+            padding: 20px 30px;
+            font-size: 14px;
+            color: #fff;
+            border-bottom: 4px solid #2b3035;
+        }
+
+        .table tbody tr {
+            margin-bottom: 10px;
+        }
+
+        .table tbody th,
+        .table tbody td {
+            border: none;
+            padding: 20px 30px;
+            border-bottom: 3px solid #2b3035;
+            font-size: 14px;
+        }
+    </style>
+    <div>
+        <h2 style="text-align: center; color:#fff">Today's bookings</h2>
+        <table class="table table-bordered table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>Producer</th>
+                    <th>Title</th>
+                    <th>Duration</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach ($schedules as $schedule )
+               <tr>
+                <th scope="row">{{$schedule->producer1}}</th>
+                <td>{{$schedule->title}}</td>
+                <td>{{$schedule->start}} - {{$schedule->end}}</td>
+                <td>{{$schedule->description}}</td>
+            </tr>
+               @endforeach
+            </tbody>
+        </table>
     </div>
-    @include('dashboard.signage.main',['next' => 'videos'])
 </body>
+@include('dashboard.signage.main', ['next' => 'today'])
+
 </html>
