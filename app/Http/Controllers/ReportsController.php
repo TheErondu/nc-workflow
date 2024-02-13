@@ -47,73 +47,55 @@ class ReportsController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $requestData = $request->validate([
 
-            // 'bulletin'             => 'required',
-            // 'dts_in'             => 'required',
-            // 'actual_in'           => 'required',
-            // 'variance1'           => 'required',
-            // 'dts_out'           => 'required',
-            // 'actual_out'           => 'required',
-            // 'variance2'         => 'required',
-            // 'comment'         => 'required'
-
-            // 'b2bulletin'             => 'required',
-            // 'b2dts_in'             => 'required',
-            // 'b2actual_in'           => 'required',
-            // 'b2variance1'           => 'required',
-            // 'b2dts_out'           => 'required',
-            // 'b2actual_out'           => 'required',
-            // 'b2variance2'         => 'required',
-            // 'b2comment'         => 'required',
+            'log_date' => 'required',
+            'director' => 'required'
         ]);
 
         $user = Auth::user();
-        $reports = new Reports();
 
-        $reports->producer = $request->input('producer');
-        $reports->director = $request->input('director');
-        $reports->anchor = $request->input('anchor');
-        $reports->log_date = $request->input('log_date');
-        $reports->start = $request->input('log_date');
-        $reports->end = $request->input('log_date');
-        $background_colors = array('#028336', '#ad2323', '#b1a514');
-        $rand_background = $background_colors[array_rand($background_colors)];
-        $reports->color = $rand_background;
-        $reports->vision_mixer = $request->input('vision_mixer');
-        $reports->engineer = $request->input('engineer');
-        $reports->sound_technician = $request->input('sound_technician');
-        $reports->camera_operator = $request->input('camera_operator');
-        $reports->camera_operator2 = $request->input('camera_operator2');
-        $reports->autocue = $request->input('autocue');
-        $reports->graphics = $request->input('graphics');
-        $reports->tx = $request->input('tx');
-        $reports->bulletin = $request->input('bulletin');
-        $reports->title = $request->input('bulletin');
-        $reports->dts_in = $request->input('dts_in');
-        $reports->actual_in = $request->input('actual_in');
-        $reports->variance1 = $request->input('variance1');
-        $reports->dts_out = $request->input('dts_out');
-        $reports->actual_out = $request->input('actual_out');
-        $reports->variance2 = $request->input('variance2');
-        $reports->comment = $request->input('comment');
-        $reports->b2bulletin = $request->input('b2bulletin');
-        $reports->b2dts_in = $request->input('b2dts_in');
-        $reports->b2actual_in = $request->input('b2actual_in');
-        $reports->b2variance1 = $request->input('b2variance1');
-        $reports->b2dts_out = $request->input('b2dts_out');
-        $reports->b2actual_out = $request->input('b2actual_out');
-        $reports->b2variance2 = $request->input('b2variance2');
-        $reports->b2comment = $request->input('b2comment');
-        $reports->user_id = $user->id;
-        $reports->save();
+        $requestData = $request->except('_token');
+        $requestData['start'] = $requestData['log_date'];
+        $requestData['end'] = $requestData['log_date'];
+        $requestData['user_id'] = $user->id;
+
+
+
+        // Extract dynamic sections from the request data
+        $dynamicSections = $requestData['bulletin'] ?? [];
+
+        // Initialize an array to store the structured data
+        $structuredSections = [];
+
+        // Iterate through each dynamic section
+        foreach ($dynamicSections as $index => $bulletin) {
+            $structuredSections[] = [
+                'bulletin' => $bulletin,
+                'dts_in' => $requestData['dts_in'][$index] ?? null,
+                'actual_in' => $requestData['actual_in'][$index] ?? null,
+                'variance1' => $requestData['variance1'][$index] ?? null,
+                'dts_out' => $requestData['dts_out'][$index] ?? null,
+                'actual_out' => $requestData['actual_out'][$index] ?? null,
+                'variance2' => $requestData['variance2'][$index] ?? null,
+                'comment' => $requestData['comment'][$index] ?? null,
+            ];
+        }
+
+        $structuredSectionsJson = json_encode($structuredSections);
+
+        $requestData['bulletins'] = $structuredSectionsJson;
+
+        $requestData['title'] = $structuredSections[0]['bulletin'];
+        // Save to the database
+        $reports = Reports::create($requestData);
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $reports->user->email,
-            'title' => $reports->bulletin,
-            'status' =>  $reports->dts_in,
-            'body' =>  $reports->comment,
-            'model' =>  'Director Reports',
+            'title' => $reports->title,
+            'status' => $reports->dts_in,
+            'body' => $reports->comment,
+            'model' => 'Director Reports',
             'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails
@@ -156,69 +138,48 @@ class ReportsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            // 'bulletin'             => 'required',
-            // 'dts_in'             => 'required',
-            // 'actual_in'           => 'required',
-            // 'variance1'           => 'required',
-            // 'dts_out'           => 'required',
-            // 'actual_out'           => 'required',
-            // 'variance2'         => 'required',
-            // 'comment'         => 'required',
-            // 'b2bulletin'             => 'required',
-            // 'b2dts_in'             => 'required',
-            // 'b2actual_in'           => 'required',
-            // 'b2variance1'           => 'required',
-            // 'b2dts_out'           => 'required',
-            // 'b2actual_out'           => 'required',
-            // 'b2variance2'         => 'required',
-            // 'b2comment'         => 'required',
-        ]);
-        $reports = Reports::find($id);
         $user = Auth::user();
-        $reports->producer = $request->input('producer');
-        $reports->director = $request->input('director');
-        $reports->anchor = $request->input('anchor');
-        $reports->log_date = $request->input('log_date');
-        $reports->start = $request->input('log_date');
-        $reports->end = $request->input('log_date');
-        $background_colors = array('#028336', '#ad2323', '#b1a514');
-        $rand_background = $background_colors[array_rand($background_colors)];
-        $reports->color = $rand_background;
-        $reports->vision_mixer = $request->input('vision_mixer');
-        $reports->engineer = $request->input('engineer');
-        $reports->sound_technician = $request->input('sound_technician');
-        $reports->camera_operator = $request->input('camera_operator');
-        $reports->camera_operator2 = $request->input('camera_operator2');
-        $reports->autocue = $request->input('autocue');
-        $reports->graphics = $request->input('graphics');
-        $reports->tx = $request->input('tx');
-        $reports->bulletin = $request->input('bulletin');
-        $reports->title = $request->input('bulletin');
-        $reports->dts_in = $request->input('dts_in');
-        $reports->actual_in = $request->input('actual_in');
-        $reports->variance1 = $request->input('variance1');
-        $reports->dts_out = $request->input('dts_out');
-        $reports->actual_out = $request->input('actual_out');
-        $reports->variance2 = $request->input('variance2');
-        $reports->comment = $request->input('comment');
-        $reports->b2bulletin = $request->input('b2bulletin');
-        $reports->b2dts_in = $request->input('b2dts_in');
-        $reports->b2actual_in = $request->input('b2actual_in');
-        $reports->b2variance1 = $request->input('b2variance1');
-        $reports->b2dts_out = $request->input('b2dts_out');
-        $reports->b2actual_out = $request->input('b2actual_out');
-        $reports->b2variance2 = $request->input('b2variance2');
-        $reports->b2comment = $request->input('b2comment');
-        $reports->user_id = $reports->user_id;
-        $reports->save();
+
+        $requestData = $request->except('_token');
+        $requestData['start'] = $requestData['log_date'];
+        $requestData['end'] = $requestData['log_date'];
+        $requestData['user_id'] = $user->id;
+        // Extract dynamic sections from the request data
+        $dynamicSections = $requestData['bulletin'] ?? [];
+
+        // Initialize an array to store the structured data
+        $structuredSections = [];
+
+        // Iterate through each dynamic section
+        foreach ($dynamicSections as $index => $bulletin) {
+            $structuredSections[] = [
+                'bulletin' => $bulletin,
+                'dts_in' => $requestData['dts_in'][$index] ?? null,
+                'actual_in' => $requestData['actual_in'][$index] ?? null,
+                'variance1' => $requestData['variance1'][$index] ?? null,
+                'dts_out' => $requestData['dts_out'][$index] ?? null,
+                'actual_out' => $requestData['actual_out'][$index] ?? null,
+                'variance2' => $requestData['variance2'][$index] ?? null,
+                'comment' => $requestData['comment'][$index] ?? null,
+            ];
+        }
+
+        $structuredSectionsJson = json_encode($structuredSections);
+
+        $requestData['bulletins'] = $structuredSectionsJson;
+
+        $requestData['title'] = $structuredSections[0]['bulletin'];
+
+        $reports = Reports::Find($id);
+       // dd($requestData);
+        $reports->update($requestData);
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [
             'email' => $reports->user->email,
-            'title' => $reports->bulletin,
-            'status' =>  $reports->dts_in,
-            'body' =>  $reports->comment,
-            'model' =>  'Directors Report',
+            'title' => $reports->title,
+            'status' => $reports->dts_in,
+            'body' => $reports->comment,
+            'model' => 'Directors Report',
             'user' => $user->name,
             'time' => date('d-m-Y'),
             'cc_emails' => $cc_emails

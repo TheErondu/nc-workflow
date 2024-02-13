@@ -84,16 +84,19 @@
 </nav>
 @endauth
 <script>
-    $(document).ready(function () {
-        const batchModal = new bootstrap.Modal($('#batch-modal'));
+   $(document).ready(function() {
+    // Your existing code...
 
-        $('#clear-batch-link').click(function () {
-            batchModal.show();
-        });
+    // Add Section Button Click Event
+    $("#addSectionButton").on("click", function () {
+        // Clone the entire dynamic section
+        var dynamicSection = $(".dynamic-bulletin").first().clone();
 
-        $('#change-password-cancel').click(function (event) {
-            event.preventDefault();
-            batchModal.hide();
-        });
+        // Clear input values in the cloned section
+        dynamicSection.find("input, textarea").val('');
+
+        // Append the cloned section to the container
+        $(".dynamic-bulletin").append(dynamicSection);
     });
+});
 </script>
