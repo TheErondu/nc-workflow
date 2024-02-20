@@ -98,7 +98,7 @@
                                                                     Approve</button>
                                                             @endif
                                                 @endcan
-                                                @can('store-request-approval')
+                                                @can('role-create')
                                                     @if ($batch_store_request->date_extension_status == 3)
                                                         <div class="justify-content-center">
                                                             <h3 style="color: rgb(89, 187, 240)">
@@ -137,7 +137,7 @@
                                         @endcan
                                         @if (\App\Helpers\ItemRequestHelpers::departmentIsSameAsRequestor($batch_store_request->user)||$requestedBatchExists)
 
-                                        @can('supervisor')
+                                        @can('role-create')
                                             @if ($batch_store_request->status == 'pending')
                                                 <button id="approve-btn" form="batch-approve-form" class=" btn-primary"
                                                     type="submit" style="margin: 1rem; background-color: green !important;"
@@ -172,7 +172,7 @@
                                                 </button>
                                             {{-- @endif --}}
                                         {{-- @endcanany --}}
-                                        @canany(['store-request-approval', 'supervisor'])
+                                        @canany(['role-create', 'supervisor'])
                                             @if ($batch_store_request->status == 'checked')
                                                 <button id="release-btn" form="batch-release-form" class=" btn-primary"
                                                     type="submit" style="margin: 1rem; background-color: green !important;"
