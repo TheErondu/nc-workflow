@@ -283,7 +283,7 @@ class BatchStoreRequestsController extends Controller
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
 
-        return redirect()->route('store.requests.manage')->with('message', 'Batch Request returned');
+        return redirect()->route('store.index')->with('message', 'Batch Request returned');
     }
 
 

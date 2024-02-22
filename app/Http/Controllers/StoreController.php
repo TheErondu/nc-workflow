@@ -18,9 +18,9 @@ class StoreController extends Controller
     public function index()
     {
         $store_items = Store::all();
-        $store_requests = StoreRequest::where('status','pending')->get();
-        $approved_items = StoreRequest::where('status','Approved')->get();
-        $batch_store_requests = BatchStoreRequest::where('status','pending')->get();
+        $store_requests = StoreRequest::where('status','pending')->get()->sortByDesc('created_at');
+        $approved_items = StoreRequest::where('status','Approved')->get()->sortByDesc('created_at');
+        $batch_store_requests = BatchStoreRequest::where('status','pending')->get()->sortByDesc('created_at');
         $approved_batch_store_requests = BatchStoreRequest::where('status','approved')->get()->sortByDesc('created_at');
         //dd($approved_batch_store_requests);
 

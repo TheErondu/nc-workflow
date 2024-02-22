@@ -102,12 +102,7 @@
                                                             aria-describedby="datatables-basic_info">
                                                             <thead>
                                                                 <tr role="row">
-                                                                    <th class="___class_+?28___" tabindex="0"
-                                                                        aria-controls="datatables-basic" rowspan="1"
-                                                                        colspan="1" style="width: 283px;"
-                                                                        aria-label="Name: activate to sort column ascending">
-                                                                        Action
-                                                                    </th>
+                                                                    <th>Date</th>
                                                                     <th class="___class_+?29___" tabindex="0"
                                                                         aria-controls="datatables-basic" rowspan="1"
                                                                         colspan="1" style="width: 283px;"
@@ -139,6 +134,8 @@
                                                                 @foreach ($store_requests as $request)
                                                                     <tr class="odd">
                                                                         <td><a href="{{ route('store-requests.edit',$request->id) }}">Approve/Reject</a></td>
+                                                                        <td class="sorting_1">
+                                                                            {{ \Carbon\Carbon::parse($request->created_at)->format('d-M-Y') }}</td>
                                                                         <td class="sorting_1">
                                                                             {{ \Carbon\Carbon::parse($request->return_date)->format('d-M-Y') }}</td>
                                                                         <td>{{ $request->user->name }}</td>
@@ -174,6 +171,11 @@
                                                                         aria-controls="datatables-basic" rowspan="1"
                                                                         colspan="1" style="width: 283px;"
                                                                         aria-label="Name: activate to sort column ascending">
+                                                                        Date</th>
+                                                                        <th class="___class_+?29___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 283px;"
+                                                                        aria-label="Name: activate to sort column ascending">
                                                                         Batch ID</th>
                                                                     <th class="___class_+?30___" tabindex="0"
                                                                         aria-controls="datatables-basic" rowspan="1"
@@ -200,6 +202,7 @@
                                                                             href="{{ route('store.requests.batch.edit', [$batchRequest->id]) }}"><i
                                                                                 class=" fas fa-eye">&nbsp;inspect</i></a>
                                                                     </td>
+                                                                    <td>{{ $batchRequest->created_at }}</td>
                                                                     <td><strong>{{ $batchRequest->batch_id }}</td>
                                                                     <td> <strong> {{ count(json_decode($batchRequest->items)) }}
                                                                             Item(s)<strong>
@@ -228,6 +231,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th></th>
+                                                                    <th style="white-space:nowrap;">Date</th>
                                                                     <th style="white-space:nowrap;">Return By</th>
                                                                     <th style="white-space:nowrap;">Borrower</th>
                                                                     <th style="white-space:nowrap;">Item</th>
@@ -240,6 +244,7 @@
                                                                     <tr>
                                                                         <td><a
                                                                                 href="{{ route('store-requests.edit',['id'=> $item->id, 'returned' => "yes"]) }}">Returned??</a></td>
+                                                                                <td>{{ $item->created_at }}</td>
                                                                         <td>{{ $item->return_date }}</td>
                                                                         <td>{{ $item->user->name }}</td>
                                                                         <td>{{ $item->item }}</td>
