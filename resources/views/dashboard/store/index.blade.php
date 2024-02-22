@@ -102,6 +102,7 @@
                                                             aria-describedby="datatables-basic_info">
                                                             <thead>
                                                                 <tr role="row">
+                                                                    <th>Action</th>
                                                                     <th>Date</th>
                                                                     <th class="___class_+?29___" tabindex="0"
                                                                         aria-controls="datatables-basic" rowspan="1"
