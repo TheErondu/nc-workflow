@@ -77,7 +77,7 @@
                                                                     class=" btn-primary" type="submit"
                                                                     style="background-color: green !important;" name="button">
                                                                     Approve</button>
-                                                            @endif
+                                                    @endif
                                                 @endcan
                                                 @can('store-admin')
                                                     @if ($batch_store_request->date_extension_status == 2)
@@ -96,7 +96,7 @@
                                                                     class=" btn-primary" type="submit"
                                                                     style="background-color: green !important;" name="button">
                                                                     Approve</button>
-                                                            @endif
+                                                    @endif
                                                 @endcan
                                                 @can('role-create')
                                                     @if ($batch_store_request->date_extension_status == 3)
@@ -114,173 +114,161 @@
                                                                     class=" btn-primary" type="submit"
                                                                     style="background-color: green !important;" name="button">
                                                                     Approve</button>
-                                                            @endif
-                                                        </h3>
-                                                    </div>
-                                                @endcan
-                                            </tbody>
+                                                    @endif
+                                                    </h3>
+                                        </div>
+                                    @endcan
+                                    </tbody>
 
-                                        </table>
+                                    </table>
 
-                                        {{-- Batch action Buttons --}}
-                                        @can('request-store-items')
-                                            @if ($items->count() > 0 && $batch_store_request->user_id == Auth()->user()->id)
-                                                <button form="batch-repeat-form" style="margin: 1rem" class=" btn-primary"
-                                                    type="submit" style="background-color: orange !important;"
-                                                    name="button">Repeat Request</button>
-                                            @endif
-                                            @if ($batch_store_request->status == 'released' && $batch_store_request->user_id == Auth()->user()->id)
-                                                <button form="batch-extend-form" style="margin: 1rem" class=" btn-primary"
-                                                    type="submit" style="background-color: orange !important;"
-                                                    name="button">Extend Date</button>
-                                            @endif
-                                        @endcan
-                                        @if (\App\Helpers\ItemRequestHelpers::departmentIsSameAsRequestor($batch_store_request->user)||$requestedBatchExists)
-
-                                        @can('role-create')
-                                            @if ($batch_store_request->status == 'pending')
-                                                <button id="approve-btn" form="batch-approve-form" class=" btn-primary"
-                                                    type="submit" style="margin: 1rem; background-color: green !important;"
-                                                    name="button">Mark
-                                                    Batch request as approved</button>
-                                            @endif
-                                        @endcan
+                                    {{-- Batch action Buttons --}}
+                                    @can('request-store-items')
+                                        @if ($items->count() > 0 && $batch_store_request->user_id == Auth()->user()->id)
+                                            <button form="batch-repeat-form" style="margin: 1rem" class=" btn-primary"
+                                                type="submit" style="background-color: orange !important;"
+                                                name="button">Repeat Request</button>
                                         @endif
-                                        {{-- @canany(['gatepass', 'store-admin']) --}}
-                                            @if ($batch_store_request->status == 'approved')
+                                        @if ($batch_store_request->status == 'released' && $batch_store_request->user_id == Auth()->user()->id)
+                                            <button form="batch-extend-form" style="margin: 1rem" class=" btn-primary"
+                                                type="submit" style="background-color: orange !important;"
+                                                name="button">Extend Date</button>
+                                        @endif
+                                    @endcan
+                                    @if ($batch_store_request->status == 'pending')
+                                        <button id="approve-btn" form="batch-approve-form" class=" btn-primary"
+                                            type="submit" style="margin: 1rem; background-color: green !important;"
+                                            name="button">Mark
+                                            Batch request as approved</button>
+                                    @endif
+                                    {{-- @canany(['gatepass', 'store-admin']) --}}
+                                    {{-- @if ($batch_store_request->status == 'approved')
                                                 <button id="check-btn" form="batch-check-form" class=" btn-primary"
                                                     type="submit" style="margin: 1rem; background-color: green !important;"
                                                     name="button">Mark
                                                     Batch request as checked</button>
-                                            @endif
+                                            @endif --}}
 
-                                            {{-- @if ($batch_store_request->status == 'released') --}}
-                                                <button id="return-btn" form="batch-return-form" style="margin: 1rem"
-                                                    class=" btn-primary" type="submit"
-                                                    style="background-color: green !important;" name="button">Mark
-                                                    Batch request as returned</button>
+                                    @if ($batch_store_request->status == 'approved')
+                                        <button id="return-btn" form="batch-return-form" style="margin: 1rem"
+                                            class=" btn-primary" type="submit" style="background-color: green !important;"
+                                            name="button">Mark
+                                            Batch request as returned</button>
 
-                                                <label>Make printed Gatepass Available For Security
-                                                    <input form="batch-gatepass-form" type="checkbox" name="for_security"
-                                                        value="1">
-                                                </label>
+                                        <label>Make printed Gatepass Available For Security
+                                            <input form="batch-gatepass-form" type="checkbox" name="for_security"
+                                                value="1">
+                                        </label>
 
-                                                <button id="gatepass-btn" form="batch-gatepass-form" style="margin: 1rem"
-                                                    class=" btn-primary" type="submit"
-                                                    style="background-color: green !important;" name="button"><i
-                                                        class="fa fa-print"></i>&nbsp; Print Gatepass
-                                                </button>
-                                            {{-- @endif --}}
-                                        {{-- @endcanany --}}
-                                        @canany(['role-create', 'supervisor'])
-                                            @if ($batch_store_request->status == 'checked')
-                                                <button id="release-btn" form="batch-release-form" class=" btn-primary"
-                                                    type="submit" style="margin: 1rem; background-color: green !important;"
-                                                    name="button">Mark
-                                                    Batch request as released</button>
-                                            @endif
-                                                @if ($batch_store_request->status != 'returned')
-                                                <button class="btn-primary" href="#" data-bs-toggle="modal"
+                                        <button id="gatepass-btn" form="batch-gatepass-form" style="margin: 1rem"
+                                            class=" btn-primary" type="submit" style="background-color: green !important;"
+                                            name="button"><i class="fa fa-print"></i>&nbsp; Print Gatepass
+                                        </button>
+                                    @endif
+                                    {{-- @endcanany --}}
+                                    @canany(['role-create', 'supervisor'])
+                                        @if ($batch_store_request->status != 'returned')
+                                            <button class="btn-primary" href="#" data-bs-toggle="modal"
                                                 data-bs-target="#requestRejectionCenteredModalPrimary"
                                                 style="background-color: red !important;"><strong>Reject</strong></button>
-                                                @endif
-                                        @endcanany
-                                        <button class="btn-primary" onclick="location.href='{{ url()->previous() }}';"
-                                            style="background-color: red !important;"><strong>Go Back</strong></button>
+                                        @endif
+                                    @endcanany
+                                    <button class="btn-primary" onclick="location.href='{{ url()->previous() }}';"
+                                        style="background-color: red !important;"><strong>Go Back</strong></button>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    @endsection
-    @section('javascript')
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
-                $('.table').DataTable({
-                    "pageLength": 5,
-                    "pagingType": "numbers"
-                });
-                /* =========================================================================================== */
-                /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                    $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
-                });
-            });
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
 
-                // Select2
-                $(".select2").each(function() {
-                    $(this)
-                        .wrap("<div class=\"position-relative\"></div>")
-                        .select2({
-                            placeholder: "Select value",
-                            dropdownParent: $(this).parent()
-                        });
-                })
-                // Datetimepicker
-                $('#datetimepicker-minimum').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm:ss'
-                });
-                $('#datetimepicker-minimum2').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm:ss'
-                });
-                $('#datetimepicker-view-mode').datetimepicker({
-                    viewMode: 'years'
-                });
-                $('#datetimepicker-time').datetimepicker({
-                    format: 'LT'
-                });
-                $('#datetimepicker-date').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm:ss'
-                });
+    </div>
+@endsection
+@section('javascript')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            /* = NOTE : don't add "id" in <table> if not necessary, is added than replace each "id" here = */
+            $('.table').DataTable({
+                "pageLength": 5,
+                "pagingType": "numbers"
             });
-        </script>
+            /* =========================================================================================== */
+            /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
-        <script>
-            $('#all').on('click', function() {
-                $(':checkbox').prop("checked", $(this).is(':checked'));
+            // Select2
+            $(".select2").each(function() {
+                $(this)
+                    .wrap("<div class=\"position-relative\"></div>")
+                    .select2({
+                        placeholder: "Select value",
+                        dropdownParent: $(this).parent()
+                    });
+            })
+            // Datetimepicker
+            $('#datetimepicker-minimum').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss'
             });
-        </script>
+            $('#datetimepicker-minimum2').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss'
+            });
+            $('#datetimepicker-view-mode').datetimepicker({
+                viewMode: 'years'
+            });
+            $('#datetimepicker-time').datetimepicker({
+                format: 'LT'
+            });
+            $('#datetimepicker-date').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss'
+            });
+        });
+    </script>
 
-        <script>
-            $('#repeat-btn').on('click', function() {
-                $('.batch-repeat-form').submit();
-            });
+    <script>
+        $('#all').on('click', function() {
+            $(':checkbox').prop("checked", $(this).is(':checked'));
+        });
+    </script>
 
-            $('#approve-btn').on('click', function() {
-                $('.batch-approve-form').submit();
-            });
+    <script>
+        $('#repeat-btn').on('click', function() {
+            $('.batch-repeat-form').submit();
+        });
 
-            $('#check-btn').on('click', function() {
-                $('.batch-check-form').submit();
-            });
+        $('#approve-btn').on('click', function() {
+            $('.batch-approve-form').submit();
+        });
 
-            $('#release-btn').on('click', function() {
-                $('.batch-release-form').submit();
-            });
+        $('#check-btn').on('click', function() {
+            $('.batch-check-form').submit();
+        });
 
-            $('#return-btn').on('click', function() {
-                $('.batch-return-form').submit();
-            });
+        $('#release-btn').on('click', function() {
+            $('.batch-release-form').submit();
+        });
 
-            $('#gatepass-btn').on('click', function() {
-                $('.batch-gatepass-form').submit();
-            });
+        $('#return-btn').on('click', function() {
+            $('.batch-return-form').submit();
+        });
 
-            $('#repeat-btn').on('click', function() {
-                $('.batch-repeat-form').submit();
-            });
+        $('#gatepass-btn').on('click', function() {
+            $('.batch-gatepass-form').submit();
+        });
 
-            $('#extend-btn').on('click', function() {
-                $('.batch-extend-form').submit();
-            });
-        </script>
-    @endsection
+        $('#repeat-btn').on('click', function() {
+            $('.batch-repeat-form').submit();
+        });
+
+        $('#extend-btn').on('click', function() {
+            $('.batch-extend-form').submit();
+        });
+    </script>
+@endsection

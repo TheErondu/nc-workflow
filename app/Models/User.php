@@ -55,6 +55,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\StoreRequest');
     }
+    public function batch_store_request()
+    {
+        return $this->hasMany('App\Models\StoreRequest');
+    }
     public function ob_logs()
     {
         return $this->hasMany('App\Models\OBlogs');

@@ -249,6 +249,72 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                       {{-- Table For Approved batch Requests --}}
+
+                                                       <div class="row">
+                                                        <div class="card table-card">
+                                                        <h1> Batch Requests</h1>
+                                                        </div>
+                                                        <table class="table table-bordered dataTable dtr-inline"
+                                                            style="width: 100%;" role="grid"
+                                                            aria-describedby="datatables-basic_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="___class_+?28___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 283px;"
+                                                                        aria-label="Name: activate to sort column ascending">
+                                                                        Action
+                                                                    </th>
+                                                                    <th class="___class_+?29___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 283px;"
+                                                                        aria-label="Name: activate to sort column ascending">
+                                                                       Date</th>
+                                                                    <th class="___class_+?29___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 283px;"
+                                                                        aria-label="Name: activate to sort column ascending">
+                                                                        Batch ID</th>
+                                                                    <th class="___class_+?30___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 441px;"
+                                                                        aria-label="Position: activate to sort column ascending"
+                                                                        aria-sort="descending">Items</th>
+                                                                    <th class="___class_+?31___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 441px;"
+                                                                        aria-label="Position: activate to sort column ascending"
+                                                                        aria-sort="descending">Requestor</th>
+                                                                    <th class="___class_+?32___" tabindex="0"
+                                                                        aria-controls="datatables-basic" rowspan="1"
+                                                                        colspan="1" style="width: 207px;"
+                                                                        aria-label="Office: activate to sort column ascending">
+                                                                        Return Date</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($approved_batch_store_requests as $batchRequest)
+                                                                <tr>
+                                                                    <td>
+                                                                        <a
+                                                                            href="{{ route('store.requests.batch.edit', [$batchRequest->id]) }}"><i
+                                                                                class=" fas fa-eye">&nbsp;inspect</i></a>
+                                                                    </td>
+                                                                    <td><strong>{{ $batchRequest->created_at }}</td>
+                                                                    <td><strong>{{ $batchRequest->batch_id }}</td>
+                                                                    <td> <strong> {{ count(json_decode($batchRequest->items)) }}
+                                                                            Item(s)<strong>
+                                                                    </td>
+                                                                    <td> <strong>{{ $batchRequest->user->name }}</td>
+                                                                    <td> <strong>{{ \Carbon\Carbon::parse($batchRequest->return_date)->format('d-M-Y') }}
+
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

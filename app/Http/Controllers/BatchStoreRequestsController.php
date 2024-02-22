@@ -161,7 +161,7 @@ class BatchStoreRequestsController extends Controller
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
 
-        return redirect()->route('store.requests.manage')->with('message', 'Batch Request status has been changed to Approved!');
+        return redirect()->route('store.index')->with('message', 'Batch Request status has been changed to Approved!');
     }
 
     public function checkBatchRequest(Request $request)
@@ -188,7 +188,7 @@ class BatchStoreRequestsController extends Controller
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
 
-        return redirect()->route('store.requests.manage')->with('message', 'Batch Request status has been changed to Checked!');
+        return redirect()->route('store.index')->with('message', 'Batch Request status has been changed to Checked!');
     }
 
     public function releaseBatchRequest(Request $request)
@@ -215,7 +215,7 @@ class BatchStoreRequestsController extends Controller
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
 
-        return redirect()->route('store.requests.manage')->with('message', 'Batch Request status has been changed to Approved!');
+        return redirect()->route('store.index')->with('message', 'Batch Request status has been changed to Approved!');
     }
 
     public function rejectBatchRequest(Request $request)
@@ -249,7 +249,7 @@ class BatchStoreRequestsController extends Controller
         ];
         Event::dispatch(new RecordUpdatedEvent($details));
 
-        return redirect()->route('store.requests.manage')->with('message', 'Batch Request  status has  been changed to Rejected!');
+        return redirect()->route('store.index')->with('message', 'Batch Request  status has  been changed to Rejected!');
     }
 
 

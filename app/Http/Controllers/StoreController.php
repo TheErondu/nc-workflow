@@ -15,19 +15,16 @@ use Illuminate\Support\Facades\Event;
 
 class StoreController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $store_items = Store::all();
-        $store_requests = StoreRequest::all()->where('status','pending');
-        $batch_store_requests = BatchStoreRequest::all()->where('status','pending');
-        //dd($batch_store_requests);
-        $approved_items = StoreRequest::all()->where('status','Approved');
-        return view('dashboard.store.index', compact('store_items','store_requests', 'batch_store_requests','approved_items'));
+        $store_requests = StoreRequest::where('status','pending')->get();
+        $approved_items = StoreRequest::where('status','Approved')->get();
+        $batch_store_requests = BatchStoreRequest::where('status','pending')->get();
+        $approved_batch_store_requests = BatchStoreRequest::where('status','approved')->get()->sortByDesc('created_at');
+        //dd($approved_batch_store_requests);
+
+        return view('dashboard.store.index', compact('store_items','store_requests', 'batch_store_requests','approved_items','approved_batch_store_requests'));
     }
 
      /**
