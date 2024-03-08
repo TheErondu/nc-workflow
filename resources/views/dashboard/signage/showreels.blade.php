@@ -79,7 +79,7 @@
             repeat: -1,
             repeatDelay: 8.0,
             yoyo: true
-        });
+        }).timeScale(24 / 60);
 
         tl.add(slide.transition(), 0);
         tl.add(slide2.transition(), 0);
@@ -488,5 +488,5 @@
         });
     }
 </script>
-@include('dashboard.signage.main',['next' => 'awards', 'delay'=> 10000])
+@include('dashboard.signage.main',['next' => 'tickets', 'delay'=> 10000])
 </html>
