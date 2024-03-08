@@ -263,8 +263,7 @@
 
         .table .thead-dark th {
             color: #fff;
-            background-color: #343a40;
-            border-color: #454d55;
+            background-color: #d71f27;
         }
 
         .table .thead-light th {
@@ -274,15 +273,14 @@
         }
 
         .table-dark {
-            color: #fff;
-            background-color: #343a40;
+            color: #000;
+            background-color: transparent;
+            border-radius: 15px;
         }
 
         .table-dark th,
         .table-dark td,
-        .table-dark thead th {
-            border-color: #454d55;
-        }
+        .table-dark thead th {}
 
         .table-dark.table-bordered {
             border: 0;
@@ -465,8 +463,8 @@
             font-size: 16px;
             line-height: 1.8;
             font-weight: normal;
-            background: #2b3035;
-            color: gray;
+            background: #ededed;
+            color: #000000;
             overflow-x: hidden;
         }
 
@@ -535,14 +533,15 @@
         .table {
             min-width: 1000px !important;
             width: 100%;
+            border-radius: 15px;
         }
 
         .table thead th {
-            border: none;
             padding: 20px 30px;
-            font-size: 14px;
+            font-size: 20px;
             color: #fff;
-            border-bottom: 4px solid #2b3035;
+            border: none;
+            border-color: #fff;
         }
 
         .table tbody tr {
@@ -553,14 +552,14 @@
         .table tbody td {
             border: none;
             padding: 20px 30px;
-            border-bottom: 3px solid #2b3035;
-            font-size: 14px;
+            font-size: 20px;
+            font-weight: 600;
         }
     </style>
     <div>
-        <h2 style="text-align: center; color:#fff">Today's bookings</h2>
-        <table class="table table-bordered table-dark table-hover">
-            <thead>
+        <h1 style="text-align: center; color:#d71f27;font-weight: 700;">Open Tickets</h1>
+        <table class="table table-dark">
+            <thead style="background-color: #d71f27;">
                 <tr>
                     <th>Producer</th>
                     <th>Title</th>
@@ -569,18 +568,18 @@
                 </tr>
             </thead>
             <tbody>
-               @foreach ($schedules as $schedule )
-               <tr>
-                <th scope="row">{{$schedule->producer1}}</th>
-                <td>{{$schedule->title}}</td>
-                <td>{{$schedule->start}} - {{$schedule->end}}</td>
-                <td>{{$schedule->description}}</td>
-            </tr>
-               @endforeach
+                @foreach ($schedules as $schedule)
+                    <tr>
+                        <th scope="row">{{ $schedule->producer1 }}</th>
+                        <td>{{ $schedule->title }}</td>
+                        <td>{{ $schedule->start }} - {{ $schedule->end }}</td>
+                        <td>{{ $schedule->description }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 </body>
-@include('dashboard.signage.main', ['next' => 'today'])
+@include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000])
 
 </html>

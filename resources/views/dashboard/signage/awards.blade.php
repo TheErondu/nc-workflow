@@ -314,11 +314,6 @@
 
             const sliderContent = `
   <img class="slider__img" src="${img}" alt="${title}" />
-  <div class="slider__context flex-column">
-    <h3 class="slider__category">${category}</h3>
-    <strong class="slider__title">${title}</strong>
-    <small class="slider__price">${price}</small>
-  </div>
 `;
             const sliderIndex = `
   <span>${
@@ -419,6 +414,6 @@
     slider.renderItem();
     slider.basicAimation(1, 1);
 </script>
-@include('dashboard.signage.main', ['next' => 'tickets'])
+@include('dashboard.signage.main', ['next' => 'tickets', 'delay'=> 10000])
 
 </html>

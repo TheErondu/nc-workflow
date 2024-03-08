@@ -488,5 +488,5 @@
         });
     }
 </script>
-@include('dashboard.signage.main',['next' => 'awards'])
+@include('dashboard.signage.main',['next' => 'awards', 'delay'=> 10000])
 </html>
