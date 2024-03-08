@@ -7,6 +7,6 @@
         // Delayed navigation after 7 seconds
         setTimeout(function() {
             window.location.href = newURL;
-        }, 10000);
+        }, 60000);
         // 7000 milliseconds = 7 seconds
 </script>
