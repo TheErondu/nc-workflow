@@ -1,4 +1,4 @@
-{{--
+
 <script>
     // Set the URL to navigate to
     const newURL = '{{ route('signage.show') }}?display={{ $next }}';
@@ -32,4 +32,4 @@
         retryNavigation();
     }
 </script>
- --}}
+
