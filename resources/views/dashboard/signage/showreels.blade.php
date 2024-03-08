@@ -488,5 +488,5 @@
         });
     }
 </script>
-@include('dashboard.signage.main',['next' => 'tickets'])
+@include('dashboard.signage.main',['next' => 'awards'])
 </html>

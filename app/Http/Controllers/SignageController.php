@@ -12,8 +12,9 @@ class SignageController extends Controller
     public function show()
     {
         $display = request()->get('display') ?? 'showreels';
-        $today = Carbon::today()->isoFormat('YYYY-MM-DD hh:mm:ss');
-        $schedules = Schedule::where('created_at', '>=', $today)->paginate(6);
+        $today = Carbon::today();
+        $schedules = Schedule::whereDate('start', $today)
+        ->paginate(6);
         $showreels = "";
         $data = [
             'schedules' => $schedules,
