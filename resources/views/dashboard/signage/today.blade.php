@@ -36,6 +36,6 @@
         </table>
     </div>
 </body>
-@include('dashboard.signage.main', ['next' => 'showreels', 'delay'=> 60000])
+@include('dashboard.signage.main', ['next' => 'showreels', 'delay'=> 10000])
 
 </html>

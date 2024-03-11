@@ -5,488 +5,390 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signage Page</title>
-    <script src="{{asset('js/three.min.js')}}"></script>
-    <script src="{{asset('js/TweenMax.min.js')}}"></script>
-    <script src="{{asset('js/bas.js')}}"></script>
-    <script src="{{asset('js/OrbitControls-2.js')}}"></script>
+    <script src="{{ asset('js/three.min.js') }}"></script>
+    <script src="{{ asset('js/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('js/bas.js') }}"></script>
+    <script src="{{ asset('js/OrbitControls-2.js') }}"></script>
 
     <style>
-        body {
+        .info {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 9999999;
+            margin: 1.5rem;
+        }
+
+        @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            padding: 0;
             margin: 0;
+            border: 0;
+        }
+
+        html {
+            font-size: 10px;
+            font-size: calc(5px + 0.4vw);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgba(225, 255, 255, .8);
+        }
+
+        /* Slider style */
+        .cd-slider {
+            position: relative;
+            width: 100%;
+            height: 100vh;
             overflow: hidden;
         }
 
-        canvas {
-            background-image: radial-gradient(#666, #333);
+        .cd-slider.ie9 nav div span {
+            display: none;
         }
 
-        #instructions {
+        .cd-slider ul li {
             position: absolute;
-            color: #fff;
-            bottom: 0;
-            padding-bottom: 6px;
-            font-family: sans-serif;
+            top: 0;
+            left: 0;
             width: 100%;
-            text-align: center;
+            height: 100%;
+            visibility: hidden;
+            transition: visibility 0s .6s;
+        }
+
+        .cd-slider ul li::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 100%;
+            width: 135vh;
+            height: 135vh;
+            border: solid rgba(0, 0, 0, 0.2);
+            border-width: 0;
+            transform: translate(-50%, -50%);
             pointer-events: none;
+            transition: border-width .4s .6s;
+        }
+
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-position: 50% 100%;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            mix-blend-mode: lighten;
+            opacity: 0;
+            transform: scale(1.2);
+            transition: opacity .4s .6s, transform .4s .6s;
+        }
+
+        .content blockquote {
+            position: absolute;
+            bottom: 5%;
+            left: 4%;
+            z-index: 2;
+            max-width: 45%;
+        }
+
+        blockquote p {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        blockquote span {
+            font-size: 1.4rem;
+        }
+
+        /* current slide
+---------------------------------*/
+        .cd-slider li.current_slide {
+            visibility: visible;
+        }
+
+        .cd-slider li.current_slide::before {
+            border-width: 16rem;
+        }
+
+        .cd-slider li.current_slide .content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* nav
+---------------------------------*/
+        nav div {
+            position: absolute;
+            top: 50%;
+            left: 4%;
+            width: 5rem;
+            height: 5rem;
+            margin-top: -2.5rem;
+            list-style: none;
+        }
+
+        nav div:last-of-type {
+            left: auto;
+            right: 4%;
+        }
+
+        .prev,
+        .next {
+            position: relative;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            display: none;
+            border-radius: 100%;
+            transition: box-shadow .3s;
+        }
+
+        .prev::before,
+        .prev::after,
+        .next::before,
+        .next::after {
+            content: '';
+            position: absolute;
+            left: 43%;
+            background: #fff;
+            width: .4rem;
+            min-width: 3px;
+            border-radius: 3px;
+            height: 34%;
+        }
+
+        .prev::before {
+            transform: rotate(45deg);
+            top: 24%;
+        }
+
+        .prev::after {
+            transform: rotate(-45deg);
+            bottom: 24%;
+        }
+
+        .next::before,
+        .next::after {
+            left: auto;
+            right: 43%;
+        }
+
+        .next::before {
+            transform: rotate(-45deg);
+            top: 24%;
+        }
+
+        .next::after {
+            transform: rotate(45deg);
+            bottom: 24%;
+        }
+
+        .prev:hover,
+        .next:hover {
+            box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        nav>div>span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 100%;
+            z-index: 5;
+            pointer-events: none;
+            will-change: width, height;
+            transform: translate(-50%, -50%);
+            transition: width .6s, height .6s;
         }
     </style>
 </head>
 
 <body>
-    <div id="three-container"></div>
+    <section class="cd-slider">
+        <ul>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/1.jpg')}})">
 
-    {{-- <div id="instructions">
-        click and drag to control the animation
-    </div> --}}
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/2.jpg')}})">
+
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/3.jpg')}}">
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/4.jpg')}})">
+
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/5.jpg')}}">
+                </div>
+            </li>
+        </ul>
+        <nav>
+            <div><a class="prev" href="#"></a></div>
+            <div><a class="next" href="#"></a></div>
+        </nav>
+    </section>
 </body>
 <script>
-    window.onload = init;
-    console.ward = function() {}; // what warnings?
+(function () {
+  var autoUpdate = true,
+    timeTrans = 7000,
+    cdSlider = document.querySelector('.cd-slider'),
+    item = cdSlider.querySelectorAll("li"),
+    nav = cdSlider.querySelector("nav");
 
-    function init() {
-        var root = new THREERoot({
-            createCameraControls: !true,
-            antialias: (window.devicePixelRatio === 1),
-            fov: 80
-        });
+  item[0].className = "current_slide";
 
-        root.renderer.setClearColor(0x000000, 0);
-        root.renderer.setPixelRatio(window.devicePixelRatio || 1);
-        root.camera.position.set(0, 0, 60);
+  for (var i = 0, len = item.length; i < len; i++) {
+    var color = item[i].getAttribute("data-color");
+    item[i].style.backgroundColor = color;
+  }
 
-        var width = 240;
-        var height = 120;
-
-        var slide = new Slide(width, height, 'out');
-        var l1 = new THREE.ImageLoader();
-        l1.setCrossOrigin('Anonymous');
-        l1.load('{{asset('img/end-card.jpg')}}', function(img) {
-            slide.setImage(img);
-        })
-        root.scene.add(slide);
-
-        var slide2 = new Slide(width, height, 'in');
-        var l2 = new THREE.ImageLoader();
-        l2.setCrossOrigin('Anonymous');
-        l2.load('{{asset('img/screen.jpg')}}', function(img) {
-            slide2.setImage(img);
-        })
-
-        root.scene.add(slide2);
-
-        var tl = new TimelineMax({
-            repeat: -1,
-            repeatDelay: 8.0,
-            yoyo: true
-        }).timeScale(24 / 60);
-
-        tl.add(slide.transition(), 0);
-        tl.add(slide2.transition(), 0);
-
-        createTweenScrubber(tl);
-
-        window.addEventListener('keyup', function(e) {
-            if (e.keyCode === 80) {
-                tl.paused(!tl.paused());
-            }
-        });
+  // Detect IE
+  // hide ripple effect on IE9
+  var ua = window.navigator.userAgent;
+  var msie = ua.indexOf("MSIE");
+  if (msie > 0) {
+    var version = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
+    if (version === 9) {
+      cdSlider.className = "cd-slider ie9";
     }
+  }
 
-    ////////////////////
-    // CLASSES
-    ////////////////////
+  if (item.length <= 1) {
+    nav.style.display = "none";
+  }
 
-    function Slide(width, height, animationPhase) {
-        var plane = new THREE.PlaneGeometry(width, height, width * 2, height * 2);
+  function prevSlide() {
+    var currentSlide = cdSlider.querySelector("li.current_slide"),
+      prevElement = currentSlide.previousElementSibling,
+      prevSlide = (prevElement !== null) ? prevElement : item[item.length - 1],
+      prevColor = prevSlide.getAttribute("data-color"),
+      el = document.createElement('span');
 
-        THREE.BAS.Utils.separateFaces(plane);
+    currentSlide.className = "";
+    prevSlide.className = "current_slide";
 
-        var geometry = new SlideGeometry(plane);
+    nav.children[0].appendChild(el);
 
-        geometry.bufferUVs();
+    var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
+      ripple = nav.children[0].querySelector("span");
 
-        var aAnimation = geometry.createAttribute('aAnimation', 2);
-        var aStartPosition = geometry.createAttribute('aStartPosition', 3);
-        var aControl0 = geometry.createAttribute('aControl0', 3);
-        var aControl1 = geometry.createAttribute('aControl1', 3);
-        var aEndPosition = geometry.createAttribute('aEndPosition', 3);
+    ripple.style.height = size + 'px';
+    ripple.style.width = size + 'px';
+    ripple.style.backgroundColor = prevColor;
 
-        var i, i2, i3, i4, v;
-
-        var minDuration = 0.8;
-        var maxDuration = 1.2;
-        var maxDelayX = 0.9;
-        var maxDelayY = 0.125;
-        var stretch = 0.11;
-
-        this.totalDuration = maxDuration + maxDelayX + maxDelayY + stretch;
-
-        var startPosition = new THREE.Vector3();
-        var control0 = new THREE.Vector3();
-        var control1 = new THREE.Vector3();
-        var endPosition = new THREE.Vector3();
-
-        var tempPoint = new THREE.Vector3();
-
-        function getControlPoint0(centroid) {
-            var signY = Math.sign(centroid.y);
-
-            tempPoint.x = THREE.Math.randFloat(0.1, 0.3) * 50;
-            tempPoint.y = signY * THREE.Math.randFloat(0.1, 0.3) * 70;
-            tempPoint.z = THREE.Math.randFloatSpread(20);
-
-            return tempPoint;
-        }
-
-        function getControlPoint1(centroid) {
-            var signY = Math.sign(centroid.y);
-
-            tempPoint.x = THREE.Math.randFloat(0.3, 0.6) * 50;
-            tempPoint.y = -signY * THREE.Math.randFloat(0.3, 0.6) * 70;
-            tempPoint.z = THREE.Math.randFloatSpread(20);
-
-            return tempPoint;
-        }
-
-        for (i = 0, i2 = 0, i3 = 0, i4 = 0; i < geometry.faceCount; i++, i2 += 6, i3 += 9, i4 += 12) {
-            var face = plane.faces[i];
-            var centroid = THREE.BAS.Utils.computeCentroid(plane, face);
-
-            // animation
-            var duration = THREE.Math.randFloat(minDuration, maxDuration);
-            var delayX = THREE.Math.mapLinear(centroid.x, -width * 0.5, width * 0.5, 0.0, maxDelayX);
-            var delayY;
-
-            if (animationPhase === 'in') {
-                delayY = THREE.Math.mapLinear(Math.abs(centroid.y), 0, height * 0.5, 0.0, maxDelayY)
-            } else {
-                delayY = THREE.Math.mapLinear(Math.abs(centroid.y), 0, height * 0.5, maxDelayY, 0.0)
-            }
-
-            for (v = 0; v < 6; v += 2) {
-                aAnimation.array[i2 + v] = delayX + delayY + (Math.random() * stretch * duration);
-                aAnimation.array[i2 + v + 1] = duration;
-            }
-
-            // positions
-
-            endPosition.copy(centroid);
-            startPosition.copy(centroid);
-
-            if (animationPhase === 'in') {
-                control0.copy(centroid).sub(getControlPoint0(centroid));
-                control1.copy(centroid).sub(getControlPoint1(centroid));
-            } else { // out
-                control0.copy(centroid).add(getControlPoint0(centroid));
-                control1.copy(centroid).add(getControlPoint1(centroid));
-            }
-
-            for (v = 0; v < 9; v += 3) {
-                aStartPosition.array[i3 + v] = startPosition.x;
-                aStartPosition.array[i3 + v + 1] = startPosition.y;
-                aStartPosition.array[i3 + v + 2] = startPosition.z;
-
-                aControl0.array[i3 + v] = control0.x;
-                aControl0.array[i3 + v + 1] = control0.y;
-                aControl0.array[i3 + v + 2] = control0.z;
-
-                aControl1.array[i3 + v] = control1.x;
-                aControl1.array[i3 + v + 1] = control1.y;
-                aControl1.array[i3 + v + 2] = control1.z;
-
-                aEndPosition.array[i3 + v] = endPosition.x;
-                aEndPosition.array[i3 + v + 1] = endPosition.y;
-                aEndPosition.array[i3 + v + 2] = endPosition.z;
-            }
-        }
-
-        var material = new THREE.BAS.BasicAnimationMaterial({
-            shading: THREE.FlatShading,
-            side: THREE.DoubleSide,
-            uniforms: {
-                uTime: {
-                    type: 'f',
-                    value: 0
-                }
-            },
-            shaderFunctions: [
-                THREE.BAS.ShaderChunk['cubic_bezier'],
-                //THREE.BAS.ShaderChunk[(animationPhase === 'in' ? 'ease_out_cubic' : 'ease_in_cubic')],
-                THREE.BAS.ShaderChunk['ease_in_out_cubic'],
-                THREE.BAS.ShaderChunk['quaternion_rotation']
-            ],
-            shaderParameters: [
-                'uniform float uTime;',
-                'attribute vec2 aAnimation;',
-                'attribute vec3 aStartPosition;',
-                'attribute vec3 aControl0;',
-                'attribute vec3 aControl1;',
-                'attribute vec3 aEndPosition;',
-            ],
-            shaderVertexInit: [
-                'float tDelay = aAnimation.x;',
-                'float tDuration = aAnimation.y;',
-                'float tTime = clamp(uTime - tDelay, 0.0, tDuration);',
-                'float tProgress = ease(tTime, 0.0, 1.0, tDuration);'
-                //'float tProgress = tTime / tDuration;'
-            ],
-            shaderTransformPosition: [
-                (animationPhase === 'in' ? 'transformed *= tProgress;' : 'transformed *= 1.0 - tProgress;'),
-                'transformed += cubicBezier(aStartPosition, aControl0, aControl1, aEndPosition, tProgress);'
-            ]
-        }, {
-            map: new THREE.Texture(),
-        });
-
-        THREE.Mesh.call(this, geometry, material);
-
-        this.frustumCulled = false;
-    }
-    Slide.prototype = Object.create(THREE.Mesh.prototype);
-    Slide.prototype.constructor = Slide;
-    Object.defineProperty(Slide.prototype, 'time', {
-        get: function() {
-            return this.material.uniforms['uTime'].value;
-        },
-        set: function(v) {
-            this.material.uniforms['uTime'].value = v;
-        }
+    ripple.addEventListener("webkitTransitionEnd", function () {
+      if (this.parentNode) {
+        this.parentNode.removeChild(this);
+      }
     });
 
-    Slide.prototype.setImage = function(image) {
-        this.material.uniforms.map.value.image = image;
-        this.material.uniforms.map.value.needsUpdate = true;
-    };
+    ripple.addEventListener("transitionend", function () {
+      if (this.parentNode) {
+        this.parentNode.removeChild(this);
+      }
+    });
 
-    Slide.prototype.transition = function() {
-        return TweenMax.fromTo(this, 3.0, {
-            time: 0.0
-        }, {
-            time: this.totalDuration,
-            ease: Power0.easeInOut
-        });
-    };
+  }
 
+  function nextSlide() {
+    var currentSlide = cdSlider.querySelector("li.current_slide"),
+      nextElement = currentSlide.nextElementSibling,
+      nextSlide = (nextElement !== null) ? nextElement : item[0],
+      nextColor = nextSlide.getAttribute("data-color"),
+      el = document.createElement('span');
 
-    function SlideGeometry(model) {
-        THREE.BAS.ModelBufferGeometry.call(this, model);
+    currentSlide.className = "";
+    nextSlide.className = "current_slide";
+
+    nav.children[1].appendChild(el);
+
+    var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
+      ripple = nav.children[1].querySelector("span");
+
+    ripple.style.height = size + 'px';
+    ripple.style.width = size + 'px';
+    ripple.style.backgroundColor = nextColor;
+
+    ripple.addEventListener("webkitTransitionEnd", function () {
+      if (this.parentNode) {
+        this.parentNode.removeChild(this);
+      }
+    });
+
+    ripple.addEventListener("transitionend", function () {
+      if (this.parentNode) {
+        this.parentNode.removeChild(this);
+      }
+    });
+
+  }
+
+  function updateNavColor() {
+    var currentSlide = cdSlider.querySelector("li.current_slide");
+
+    var nextColor = (currentSlide.nextElementSibling !== null) ? currentSlide.nextElementSibling.getAttribute("data-color") : item[0].getAttribute("data-color");
+    var prevColor = (currentSlide.previousElementSibling !== null) ? currentSlide.previousElementSibling.getAttribute("data-color") : item[item.length - 1].getAttribute("data-color");
+
+    if (item.length > 2) {
+      nav.querySelector(".prev").style.backgroundColor = prevColor;
+      nav.querySelector(".next").style.backgroundColor = nextColor;
     }
-    SlideGeometry.prototype = Object.create(THREE.BAS.ModelBufferGeometry.prototype);
-    SlideGeometry.prototype.constructor = SlideGeometry;
-    SlideGeometry.prototype.bufferPositions = function() {
-        var positionBuffer = this.createAttribute('position', 3).array;
+  }
 
-        for (var i = 0; i < this.faceCount; i++) {
-            var face = this.modelGeometry.faces[i];
-            var centroid = THREE.BAS.Utils.computeCentroid(this.modelGeometry, face);
+  nav.querySelector(".next").addEventListener('click', function (event) {
+    event.preventDefault();
+    nextSlide();
+    updateNavColor();
+  });
 
-            var a = this.modelGeometry.vertices[face.a];
-            var b = this.modelGeometry.vertices[face.b];
-            var c = this.modelGeometry.vertices[face.c];
+  nav.querySelector(".prev").addEventListener("click", function (event) {
+    event.preventDefault();
+    prevSlide();
+    updateNavColor();
+  });
 
-            positionBuffer[face.a * 3] = a.x - centroid.x;
-            positionBuffer[face.a * 3 + 1] = a.y - centroid.y;
-            positionBuffer[face.a * 3 + 2] = a.z - centroid.z;
-
-            positionBuffer[face.b * 3] = b.x - centroid.x;
-            positionBuffer[face.b * 3 + 1] = b.y - centroid.y;
-            positionBuffer[face.b * 3 + 2] = b.z - centroid.z;
-
-            positionBuffer[face.c * 3] = c.x - centroid.x;
-            positionBuffer[face.c * 3 + 1] = c.y - centroid.y;
-            positionBuffer[face.c * 3 + 2] = c.z - centroid.z;
-        }
-    };
-
-
-    function THREERoot(params) {
-        params = utils.extend({
-            fov: 60,
-            zNear: 10,
-            zFar: 100000,
-
-            createCameraControls: true
-        }, params);
-
-        this.renderer = new THREE.WebGLRenderer({
-            antialias: params.antialias,
-            alpha: true
-        });
-        this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
-        document.getElementById('three-container').appendChild(this.renderer.domElement);
-
-        this.camera = new THREE.PerspectiveCamera(
-            params.fov,
-            window.innerWidth / window.innerHeight,
-            params.zNear,
-            params.zfar
-        );
-
-        this.scene = new THREE.Scene();
-
-        if (params.createCameraControls) {
-            this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-        }
-
-        this.resize = this.resize.bind(this);
-        this.tick = this.tick.bind(this);
-
-        this.resize();
-        this.tick();
-
-        window.addEventListener('resize', this.resize, false);
+  // autoUpdate
+  var intervalId = setInterval(function () {
+    if (autoUpdate) {
+      nextSlide();
+      updateNavColor();
     }
-    THREERoot.prototype = {
-        tick: function() {
-            this.update();
-            this.render();
-            requestAnimationFrame(this.tick);
-        },
-        update: function() {
-            this.controls && this.controls.update();
-        },
-        render: function() {
-            this.renderer.render(this.scene, this.camera);
-        },
-        resize: function() {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
+  }, timeTrans);
 
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-    };
+  // Set timeout for redirection after the last slide
+  setTimeout(function () {
+    window.location.href = '{{ route('signage.show') }}?display={{'tickets'}}';
+    clearInterval(intervalId); // Stop the autoUpdate interval
+  }, (item.length * timeTrans));
 
-    ////////////////////
-    // UTILS
-    ////////////////////
+})();
 
-    var utils = {
-        extend: function(dst, src) {
-            for (var key in src) {
-                dst[key] = src[key];
-            }
-
-            return dst;
-        },
-        randSign: function() {
-            return Math.random() > 0.5 ? 1 : -1;
-        },
-        ease: function(ease, t, b, c, d) {
-            return b + ease.getRatio(t / d) * c;
-        },
-        fibSpherePoint: (function() {
-            var vec = {
-                x: 0,
-                y: 0,
-                z: 0
-            };
-            var G = Math.PI * (3 - Math.sqrt(5));
-
-            return function(i, n, radius) {
-                var step = 2.0 / n;
-                var r, phi;
-
-                vec.y = i * step - 1 + (step * 0.5);
-                r = Math.sqrt(1 - vec.y * vec.y);
-                phi = i * G;
-                vec.x = Math.cos(phi) * r;
-                vec.z = Math.sin(phi) * r;
-
-                radius = radius || 1;
-
-                vec.x *= radius;
-                vec.y *= radius;
-                vec.z *= radius;
-
-                return vec;
-            }
-        })(),
-        spherePoint: (function() {
-            return function(u, v) {
-                u === undefined && (u = Math.random());
-                v === undefined && (v = Math.random());
-
-                var theta = 2 * Math.PI * u;
-                var phi = Math.acos(2 * v - 1);
-
-                var vec = {};
-                vec.x = (Math.sin(phi) * Math.cos(theta));
-                vec.y = (Math.sin(phi) * Math.sin(theta));
-                vec.z = (Math.cos(phi));
-
-                return vec;
-            }
-        })()
-    };
-
-    function createTweenScrubber(tween, seekSpeed) {
-        seekSpeed = seekSpeed || 0.001;
-
-        function stop() {
-            TweenMax.to(tween, 1, {
-                timeScale: 0
-            });
-        }
-
-        function resume() {
-            TweenMax.to(tween, 1, {
-                timeScale: 1
-            });
-        }
-
-        function seek(dx) {
-            var progress = tween.progress();
-            var p = THREE.Math.clamp((progress + (dx * seekSpeed)), 0, 1);
-
-            tween.progress(p);
-        }
-
-        var _cx = 0;
-
-        // desktop
-        var mouseDown = false;
-        document.body.style.cursor = 'pointer';
-
-        window.addEventListener('mousedown', function(e) {
-            mouseDown = true;
-            document.body.style.cursor = 'ew-resize';
-            _cx = e.clientX;
-            stop();
-        });
-        window.addEventListener('mouseup', function(e) {
-            mouseDown = false;
-            document.body.style.cursor = 'pointer';
-            resume();
-        });
-        window.addEventListener('mousemove', function(e) {
-            if (mouseDown === true) {
-                var cx = e.clientX;
-                var dx = cx - _cx;
-                _cx = cx;
-
-                seek(dx);
-            }
-        });
-        // mobile
-        window.addEventListener('touchstart', function(e) {
-            _cx = e.touches[0].clientX;
-            stop();
-            e.preventDefault();
-        });
-        window.addEventListener('touchend', function(e) {
-            resume();
-            e.preventDefault();
-        });
-        window.addEventListener('touchmove', function(e) {
-            var cx = e.touches[0].clientX;
-            var dx = cx - _cx;
-            _cx = cx;
-
-            seek(dx);
-            e.preventDefault();
-        });
-    }
 </script>
-@include('dashboard.signage.main',['next' => 'tickets', 'delay'=> 10000])
+
 </html>
