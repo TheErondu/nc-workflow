@@ -16,21 +16,28 @@
         <table class="table table-dark">
             <thead style="background-color: #d71f27;">
                 <tr>
-                    <th>Producer</th>
-                    <th>Title</th>
-                    <th>Duration</th>
-                    <th>Description</th>
+                    <th>Equipment</th>
+                    <th>Date</th>
+                    <th>location</th>
+                    <th>Fault Description</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($schedules as $schedule)
-                    <tr>
-                        <th scope="row">{{ $schedule->producer1 }}</th>
-                        <td>{{ $schedule->title }}</td>
-                        <td>{{ $schedule->start }} - {{ $schedule->end }}</td>
-                        <td>{{ $schedule->description }}</td>
-                    </tr>
-                @endforeach
+                @forelse ($tickets as $ticket )
+                <tr>
+                    <th scope="row">{{ $ticket->item_name }}</th>
+                    <td>{{ $ticket->date }}</td>
+                    <td>{{ $ticket->location }}</td>
+                    <td>{{ $ticket->description }}</td>
+                </tr>
+                @empty
+                <tr>
+                    <th scope="row">N/A</th>
+                    <th scope="row"></th>
+                    <th scope="row"></th>
+                    <th scope="row">There are No tickets at this time..</th>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Issue;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,12 +14,14 @@ class SignageController extends Controller
     {
         $display = request()->get('display') ?? 'showreels';
         $today = Carbon::today();
-        $schedules = Schedule::whereDate('start', $today)
+        $schedules = Schedule::whereDate('start', $today);
+        $tickets = Issue::where('status', 'OPEN')->orderByDesc('created_at')
         ->paginate(6);
         $showreels = "";
         $data = [
             'schedules' => $schedules,
-            'showreels' => $showreels
+            'showreels' => $showreels,
+            'tickets' => $tickets
         ];
         $view = 'dashboard.signage.'.$display;
         return view($view, $data);
