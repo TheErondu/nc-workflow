@@ -246,6 +246,14 @@
                 <div class="content" style="background-image:url({{asset('signage-slides/process/5.jpg')}}">
                 </div>
             </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/6.jpg')}}">
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/7.jpg')}}">
+                </div>
+            </li>
         </ul>
         <nav>
             <div><a class="prev" href="#"></a></div>
