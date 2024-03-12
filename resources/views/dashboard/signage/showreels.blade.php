@@ -224,34 +224,34 @@
     <section class="cd-slider">
         <ul>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/1.jpg')}})">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/1.jpg')}}?v=2)">
 
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/2.jpg')}})">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/2.jpg')}}?v=2)">
 
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/3.jpg')}}">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/3.jpg')}}?v=2">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/4.jpg')}})">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/4.jpg')}}?v=2)">
 
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/5.jpg')}}">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/5.jpg')}}?v=2">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/6.jpg')}}">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/6.jpg')}}?v=2">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/7.jpg')}}">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/7.jpg')}}?v=2">
                 </div>
             </li>
         </ul>
