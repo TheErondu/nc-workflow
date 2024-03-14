@@ -6,14 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{{asset('css/today-table.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/today-table.css') }}">
 
 </head>
 
 <body>
     <div>
-        <h1 style="text-align: center; color:#d71f27;font-weight: 700;">Open Tickets</h1>
-        <table class="table table-dark">
+        <h1
+            style="letter-spacing: 10px;text-align: center;color:#d71f27;font-size: 90px;font-weight: 700;padding: 1px 1px 1px 1px;line-height: 0.0;">
+            Open Tickets</h1>
+        <table class="table bordered table-dark">
             <thead style="background-color: #d71f27;">
                 <tr>
                     <th>Equipment</th>
@@ -23,25 +25,25 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($tickets as $ticket )
-                <tr>
-                    <th scope="row">{{ $ticket->item_name }}</th>
-                    <td>{{ $ticket->date }}</td>
-                    <td>{{ $ticket->location }}</td>
-                    <td>{{ $ticket->description }}</td>
-                </tr>
+                @forelse ($tickets as $ticket)
+                    <tr>
+                        <th scope="row">{{ $ticket->item_name }}</th>
+                        <td>{{ $ticket->date }}</td>
+                        <td>{{ $ticket->location }}</td>
+                        <td>{{ $ticket->description }}</td>
+                    </tr>
                 @empty
-                <tr>
-                    <th scope="row">N/A</th>
-                    <th scope="row"></th>
-                    <th scope="row"></th>
-                    <th scope="row">There are No tickets at this time..</th>
-                </tr>
+                    <tr>
+                        <th scope="row">N/A</th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row">There are No tickets at this time..</th>
+                    </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 </body>
-@include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000])
+{{-- @include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000]) --}}
 
 </html>

@@ -13,7 +13,9 @@
 <body>
 
     <div>
-        <h1 style="text-align: center; color:#d71f27;font-weight: 700;">Today's bookings</h1>
+        <h1
+        style="letter-spacing: 10px;text-align: center;color:#d71f27;font-size: 90px;font-weight: 700;padding: 1px 1px 1px 1px;line-height: 0.0;">
+        Today's bookings</h1>
         <table class="table table-dark">
             <thead style="background-color: #d71f27;">
                 <tr>
