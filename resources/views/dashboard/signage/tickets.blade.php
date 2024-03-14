@@ -12,9 +12,7 @@
 
 <body>
     <div>
-        <h1
-            style="letter-spacing: 10px;text-align: center;color:#d71f27;font-size: 90px;font-weight: 700;padding: 1px 1px 1px 1px;line-height: 0.0;">
-            Open Tickets</h1>
+        <h1 class="table-title">Open Tickets</h1>
         <table class="table bordered table-dark">
             <thead style="background-color: #d71f27;">
                 <tr>
@@ -44,6 +42,6 @@
         </table>
     </div>
 </body>
-{{-- @include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000]) --}}
+@include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000])
 
 </html>

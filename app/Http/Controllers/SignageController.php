@@ -14,7 +14,7 @@ class SignageController extends Controller
     {
         $display = request()->get('display') ?? 'showreels';
         $today = Carbon::today();
-        $schedules = Schedule::whereDate('start', $today);
+        $schedules = Schedule::whereDate('start', $today)->get();
         $tickets = Issue::where('status', 'OPEN')->orderByDesc('created_at')
         ->paginate(6);
         $showreels = "";
