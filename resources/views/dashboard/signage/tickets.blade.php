@@ -50,7 +50,7 @@
         // Call addMarqueeAnimation on window load
         window.onload = addMarqueeAnimation;
     </script>
-    {{-- @include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000]) --}}
+    @include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000])
 </body>
 
 </html>
