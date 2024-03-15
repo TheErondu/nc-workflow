@@ -5,7 +5,7 @@
     <title>Table 07</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{asset('css/today-table.css')}}">
 
 </head>
@@ -25,17 +25,33 @@
             </thead>
             <tbody>
                 @foreach ($schedules as $schedule)
-                    <tr>
-                        <th scope="row">{{ $schedule->producer1 }}</th>
+                    <tr class="marquee">
+                        <td>{{ $schedule->producer1 }}</td>
                         <td>{{ $schedule->title }}</td>
-                        <td>{{ $schedule->start }} - {{ $schedule->end }}</td>
+                        <td style="width:22%">{{ \Carbon\Carbon::parse($schedule->start )->format('h:i a')}} - {{ \Carbon\Carbon::parse($schedule->end )->format('h:i a')}}</td>
                         <td>{{ $schedule->description }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <script>
+            // Function to check if the number of rows exceeds the threshold and add animation accordingly
+            function addMarqueeAnimation() {
+                const rows = document.querySelectorAll('.marquee');
+                console.log(rows.length);
+                if (rows.length > 3) {
+                    rows.forEach(row => {
+                        row.classList.add('marquee-animation');
+                    });
+                }
+            }
+
+            // Call addMarqueeAnimation on window load
+            window.onload = addMarqueeAnimation;
+        </script>
     </div>
 </body>
 @include('dashboard.signage.main', ['next' => 'showreels', 'delay'=> 10000])
 
 </html>
+
