@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body style="margin: 0rem 2rem">
 
     <div>
         <h1 class="table-title">Today's bookings</h1>
