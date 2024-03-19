@@ -33,7 +33,8 @@ body {
     text-align: center;
     border-color: #242424;
     border: 1px solid;
-    padding: 10px;
+    margin: 1px !important;
+    padding: 1px !important;
     position: relative;
     z-index: -7;
 }

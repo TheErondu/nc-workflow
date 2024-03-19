@@ -16,7 +16,7 @@
             <thead style="background-color: #d71f27;">
                 <tr>
                     <th style="width: 20%">Equipment</th>
-                    <th style="width: 20%">Equipment</th>
+                    <th style="width: 20%">location</th>
                     <th style="width: 30%">Date</th>
                     <th style="width: 30%">Fault Description</th>
                 </tr>
@@ -26,7 +26,7 @@
                     <tr class="marquee">
                         <td>{{ $ticket->item_name }}</td>
                         <td>{{ $ticket->location }}</td>
-                        <td>{{ $ticket->date }}</td>
+                        <td>{{\Carbon\Carbon::parse($ticket->date )->format('d-m-Y') }}</td>
                         <td>{{ $ticket->description }}</td>
                     </tr>
                 @empty
