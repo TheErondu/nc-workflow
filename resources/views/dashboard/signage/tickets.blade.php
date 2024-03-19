@@ -16,6 +16,7 @@
             <thead style="background-color: #d71f27;">
                 <tr>
                     <th style="width: 20%">Equipment</th>
+                    <th style="width: 20%">Equipment</th>
                     <th style="width: 30%">Date</th>
                     <th style="width: 30%">Fault Description</th>
                 </tr>
@@ -24,6 +25,7 @@
                 @forelse ($tickets as $ticket)
                     <tr class="marquee">
                         <td>{{ $ticket->item_name }}</td>
+                        <td>{{ $ticket->location }}</td>
                         <td>{{ $ticket->date }}</td>
                         <td>{{ $ticket->description }}</td>
                     </tr>
