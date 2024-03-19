@@ -27,7 +27,7 @@
                         <td>{{ $ticket->item_name }}</td>
                         <td>{{ $ticket->location }}</td>
                         <td>{{\Carbon\Carbon::parse($ticket->date )->format('d-m-Y') }}</td>
-                        <td>{{ $ticket->description }}</td>
+                        <td>{{ \Illuminate\Support\Str::limit($ticket->description, 60) }}</td>
                     </tr>
                 @empty
                     <tr>
