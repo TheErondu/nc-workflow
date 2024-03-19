@@ -35,7 +35,7 @@
             </tbody>
         </table>
 
-    <script>
+    {{-- <script>
         // Function to check if the number of rows exceeds the threshold and add animation accordingly
         function addMarqueeAnimation() {
             const rows = document.querySelectorAll('.marquee');
@@ -49,7 +49,7 @@
 
         // Call addMarqueeAnimation on window load
         window.onload = addMarqueeAnimation;
-    </script>
+    </script> --}}
     @include('dashboard.signage.main', ['next' => 'today', 'delay'=> 10000])
 </body>
 
