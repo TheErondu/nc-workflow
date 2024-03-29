@@ -254,6 +254,26 @@
                 <div class="content" style="background-image:url({{asset('signage-slides/process/7.jpg')}}?v=2">
                 </div>
             </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/8.jpg')}}?v=2">
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/9.jpg')}}?v=2">
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/10.jpg')}}?v=2">
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/11.jpg')}}?v=2">
+                </div>
+            </li>
+            <li data-color="#00000000">
+                <div class="content" style="background-image:url({{asset('signage-slides/process/12.jpg')}}?v=2">
+                </div>
+            </li>
         </ul>
         <nav>
             <div><a class="prev" href="#"></a></div>
