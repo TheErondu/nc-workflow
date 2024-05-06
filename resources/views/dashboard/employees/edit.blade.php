@@ -95,8 +95,7 @@
                                         class="btn btn-primary">Submit</button>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <button id="delete-form" style="background-color: rgb(53, 54, 55) !important;" type="submit"
-                                        class="btn btn-danger">Delete</button>
+                                    <a class="btn btn-danger" href="#" onclick="confirmDelete(event)">Delete</a>
                                 </div>
                             </div>
                         </form>
@@ -158,4 +157,12 @@
             });
         });
     </script>
+        <script>
+            function confirmDelete(event) {
+                event.preventDefault();
+                if (confirm('Are you sure you want to delete this employee?')) {
+                    document.getElementById('delete-form').submit();
+                }
+            }
+        </script>
 @endsection

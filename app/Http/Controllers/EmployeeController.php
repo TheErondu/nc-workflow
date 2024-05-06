@@ -188,7 +188,8 @@ class EmployeeController extends Controller
 
     public function destroy(Request $request, Employee $employee)
     {
-       $user = User::find($employee->id);
+       $user = Employee::find($employee->id);
+       dd($user->name);
        $user->store_request()->delete();
        $user->batch_store_request()->delete();
        $user->delete();
