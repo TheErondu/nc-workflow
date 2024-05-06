@@ -185,14 +185,14 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employee $employee)
+
+    public function destroy(Request $request, Employee $employee)
     {
-        //
+       $user = User::find($employee->id);
+       $user->store_request()->delete();
+       $user->batch_store_request()->delete();
+       $user->delete();
+       $request->session()->flash('message', 'Password Reset!');
+       return redirect()->route('employees.index');
     }
 }

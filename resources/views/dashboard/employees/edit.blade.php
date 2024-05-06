@@ -85,14 +85,18 @@
                             </div>
 
 
-                            <div class="row justify-content-between">
-                                <div class="mb-3 col-md-6">
+                            <div class="row justify-content-evenly">
+                                <div class="mb-3 col-md-4">
                                     <a href="{{ route('employees.index') }}" style="background-color: rgb(53, 54, 55) !important;"
                                         class="btn btn-primary">Cancel</a>
                                 </div>
-                                <div class="mb-3 col-md-1">
+                                <div style="padding-right: 40px;" class="mb-3 col-md-4">
                                     <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
                                         class="btn btn-primary">Submit</button>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <button id="delete-form" style="background-color: rgb(53, 54, 55) !important;" type="submit"
+                                        class="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </form>
@@ -110,6 +114,11 @@
                             </div>
                             </div>
                             </div>
+                        </form>
+                        <form action="{{ route('employees.destroy', $employee->id) }}" id="delete-form" method="POST">
+                            @method('DELETE')
+                            @csrf
+
                         </form>
                     </div>
                 </div>

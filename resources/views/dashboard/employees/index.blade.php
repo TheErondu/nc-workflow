@@ -45,38 +45,49 @@
                         @endif
                     </div>
                     @if (count($employees) > 0)
-
-                    <div style="overflow-y: auto; height:400px; ">
-                        <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Department</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Created At</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employees as $employee)
+                        <div style="overflow-y: auto; height:400px; ">
+                            <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0"
+                                width="100%">
+                                <thead>
                                     <tr>
-                                        <td><a href="{{ route('employees.edit', $employee->id) }}"><i
-                                                    class="far fa-edit"></i></a></td>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->email }}</td>
-                                        <td>{{ $employee->department->name }}</td>
-                                        <td>{{ $employee->role }}</td>
-                                        <td>{{ $employee->status }}</td>
-                                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $employee->created_at)->format('d-M-Y') }}
-                                        </td>
+                                        <th>#</th>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Department</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Created At</th>
+
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($employees as $employee)
+                                        <tr>
+                                            <td><a href="{{ route('employees.edit', $employee->id) }}"><i
+                                                        class="far fa-edit"></i></a></td>
+                                                        <td>
+                                                            <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </a>
+                                                            <form action="{{ route('employees.destroy', $employee->id) }}" id="delete-form" method="POST" style="display: none;">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                            </form>
+                                                        </td>
+
+                                            <td>{{ $employee->name }}</td>
+                                            <td>{{ $employee->email }}</td>
+                                            <td>{{ $employee->department->name }}</td>
+                                            <td>{{ $employee->role }}</td>
+                                            <td>{{ $employee->status }}</td>
+                                            <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $employee->created_at)->format('d-M-Y') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="modal fade" id="smallModal" role="dialog" aria-labelledby="smallModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
@@ -92,12 +103,12 @@
                                 </div>
                             </div>
                         </div>
-
                     @else
                         <div class="card">
                             <div class="card-body card-black">
                                 <p>No Vehicles Have Been Added yet, Click <a href="{{ route('employees.create') }}"
-                                        data-toggle="tooltip" title="" data-original-title="Add Vehicles">Here</a> to add
+                                        data-toggle="tooltip" title="" data-original-title="Add Vehicles">Here</a> to
+                                    add
                                     employees
                                 <p>
                                 <p><a class="btn btn-primary" href="{{ route('employees.create') }}">Add Employee</a>
@@ -112,16 +123,15 @@
     </div>
 @endsection
 @section('javascript')
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-			// Datatables with Buttons
-			var datatablesButtons = $("#datatables-buttons").DataTable({
-				responsive: true,
-                fixedHeader:true,
-                paginate:false,
-				buttons: ["copy", "print"]
-			});
+            // Datatables with Buttons
+            var datatablesButtons = $("#datatables-buttons").DataTable({
+                responsive: true,
+                fixedHeader: true,
+                paginate: false,
+                buttons: ["copy", "print"]
+            });
             datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
             /* =========================================================================================== */
             /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
@@ -130,6 +140,4 @@
             });
         });
     </script>
-
-
 @endsection
