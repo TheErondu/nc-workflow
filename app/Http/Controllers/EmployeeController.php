@@ -189,11 +189,10 @@ class EmployeeController extends Controller
     public function destroy(Request $request, Employee $employee)
     {
        $user = Employee::find($employee->id);
-       dd($user->name);
        $user->store_request()->delete();
        $user->batch_store_request()->delete();
        $user->delete();
-       $request->session()->flash('message', 'Password Reset!');
+       $request->session()->flash('message', 'Employee deleted sucessfully!');
        return redirect()->route('employees.index');
     }
 }
