@@ -67,7 +67,7 @@
                                             <td><a href="{{ route('employees.edit', $employee->id) }}"><i
                                                         class="far fa-edit"></i></a></td>
                                                         <td>
-                                                            <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                                            <a href="#" onclick="confirmDelete(event)">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </a>
                                                             <form action="{{ route('employees.destroy', $employee->id) }}" id="delete-form" method="POST" style="display: none;">
@@ -139,5 +139,13 @@
                 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
             });
         });
+    </script>
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
+            if (confirm('Are you sure you want to delete this employee?')) {
+                document.getElementById('delete-form').submit();
+            }
+        }
     </script>
 @endsection
