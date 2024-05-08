@@ -25,7 +25,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = User::all();
+        $employees = User::all()->sortByDesc('created_at');
         return view('dashboard.employees.index',compact('employees'));
     }
 
