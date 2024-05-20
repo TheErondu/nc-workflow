@@ -26,4 +26,12 @@ class SignageController extends Controller
         $view = 'dashboard.signage.'.$display;
         return view($view, $data);
     }
+
+    public function index()
+    {
+        
+
+        return view('dashboard.signage.admin.index');
+    }
+
 }

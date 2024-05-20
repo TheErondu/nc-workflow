@@ -119,7 +119,7 @@
                                                                         <td class="sorting_1">
                                                                             {{ \Carbon\Carbon::parse($request->return_date)->format('d-M-Y') }}</td>
                                                                         <td>{{ $request->user->name }}</td>
-                                                                    
+
                                                                         <td class="dtr-control" tabindex="0">
                                                                             {{ $request->item }}</td>
                                                                             <td class="dtr-control" tabindex="0">
@@ -188,7 +188,7 @@
                                                                     <td> <strong> {{ count(json_decode($batchRequest->items)) }}
                                                                             Item(s)<strong>
                                                                     </td>
-                                                                    <td> <strong>{{ $batchRequest->user->name }}</td>
+                                                                    {{-- <td> <strong>{{ $batchRequest->user->name }}</td> --}}
                                                                     <td> <strong>{{ \Carbon\Carbon::parse($batchRequest->return_date)->format('d-M-Y') }}
 
                                                                     </td>
