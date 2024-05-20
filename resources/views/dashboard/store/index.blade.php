@@ -162,11 +162,11 @@
                                                                         colspan="1" style="width: 441px;"
                                                                         aria-label="Position: activate to sort column ascending"
                                                                         aria-sort="descending">Items</th>
-                                                                    <th class="___class_+?31___" tabindex="0"
+                                                                    {{-- <th class="___class_+?31___" tabindex="0"
                                                                         aria-controls="datatables-basic" rowspan="1"
                                                                         colspan="1" style="width: 441px;"
                                                                         aria-label="Position: activate to sort column ascending"
-                                                                        aria-sort="descending">Requestor</th>
+                                                                        aria-sort="descending">Requestor</th> --}}
                                                                     <th class="___class_+?32___" tabindex="0"
                                                                         aria-controls="datatables-basic" rowspan="1"
                                                                         colspan="1" style="width: 207px;"
