@@ -51,11 +51,11 @@ class BatchStoreRequestsController extends Controller
         $batch_store_request = new BatchStoreRequest();
         $batch = explode(",", $request->input('item_ids'));
         //dd($batch);
-        $allRequestedItems = [];
+    // joro sexy ass bitch
         if ($batch == null) {
             return redirect()->back()->withErrors(['No item selected!']);
         } else {
-
+            $allRequestedItems = [];
             foreach ($batch as $requested_item) { // $interests array contains input data
                 $item = Store::find($requested_item);
                 $item->state = Store::is_borrowed;
@@ -164,7 +164,7 @@ class BatchStoreRequestsController extends Controller
         return redirect()->route('store.index')->with('message', 'Batch Request status has been changed to Approved!');
     }
 
-    public function checkBatchRequest(Request $request)
+    public function checkBatchRequest(Request $request): \Illuminate\Http\RedirectResponse
     {
         $batch_id = $request->input('batch_id');
         // dd($batch);

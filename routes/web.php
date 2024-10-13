@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Auth::Routes();
-Route::get('signage',[App\Http\Controllers\SignageController::class, 'show'])->name('signage.show');
+Route::get('signage/{screen:name}', [App\Http\Controllers\SignageController::class, 'show'])->name('signage.show');
+Route::get('signage/screens', [App\Http\Controllers\SignageController::class, 'getScreensList'])->name('signage.screens.list');
 Route::get('dev/test', function () {
 
     return Globals::mailingGroups("Engineers");
@@ -40,7 +41,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('oblogs', 'App\Http\Controllers\OBlogsController');
     Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
     Route::resource('roles', 'App\Http\Controllers\RoleController');
-    Route::get('signage/admin',[App\Http\Controllers\SignageController::class, 'index'])->name('signage.manage');
+    Route::get('signage/admin', [App\Http\Controllers\SignageController::class, 'index'])->name('signage.admin');
+    Route::get('signage/admin/screens/create', [App\Http\Controllers\SignageController::class, 'showCreateScreenPage'])->name('signage.admin.screens.create');
+    Route::post('signage/admins/screens/add', [App\Http\Controllers\SignageController::class, 'createScreen'])->name('signage.admin.screens.add');
 
     //Engineer logs
 

@@ -84,7 +84,7 @@
             <div class="col-lg-3 col-sm-6">
                 <div class="card-box bg-blue">
                     <div class="inner">
-                        <h3> 3 </h3>
+                        <h3> {{count($screens??0)}} </h3>
                         <p> Screens </p>
                     </div>
                     <div class="icon">

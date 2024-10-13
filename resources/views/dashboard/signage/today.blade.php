@@ -51,7 +51,7 @@
         </script>
     </div>
 </body>
-@include('dashboard.signage.main', ['next' => 'showreels', 'delay'=> 10000])
+@include('dashboard.signage.main')
 
 </html>
 

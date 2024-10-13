@@ -16,7 +16,7 @@ class CreateScreensTable extends Migration
         Schema::create('screens', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('views')->nullable(); // Using JSON for a list of strings
+            $table->string('views')->nullable(); // Using JSON for a list of strings
             $table->timestamps();
         });
     }

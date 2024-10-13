@@ -20,7 +20,8 @@
         "rap2hpoutre/laravel-log-viewer": "^2.0",
         "spatie/laravel-permission": "^5.3",
         "spatie/laravel-query-builder": "^3.6",
-        "yajra/laravel-datatables-oracle": "^9.21"
+        "yajra/laravel-datatables-oracle": "^9.21",
+        "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

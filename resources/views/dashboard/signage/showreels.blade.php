@@ -224,54 +224,54 @@
     <section class="cd-slider">
         <ul>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/1.jpg')}}?v=3)">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/1.jpg') }}?v=3)">
 
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/2.jpg')}}?v=2)">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/2.jpg') }}?v=2)">
 
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/3.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/3.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/4.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/4.jpg') }}?v=2.1">
 
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/5.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/5.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/6.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/6.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/7.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/7.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/8.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/8.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/9.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/9.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/10.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/10.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/11.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/11.jpg') }}?v=2.1">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{asset('signage-slides/process/12.jpg')}}?v=2.1">
+                <div class="content" style="background-image:url({{ asset('signage-slides/process/12.jpg') }}?v=2.1">
                 </div>
             </li>
         </ul>
@@ -282,141 +282,155 @@
     </section>
 </body>
 <script>
-(function () {
-  var autoUpdate = true,
-    timeTrans = 7000,
-    cdSlider = document.querySelector('.cd-slider'),
-    item = cdSlider.querySelectorAll("li"),
-    nav = cdSlider.querySelector("nav");
+    (function() {
+        var autoUpdate = true,
+            timeTrans = 7000,
+            cdSlider = document.querySelector('.cd-slider'),
+            item = cdSlider.querySelectorAll("li"),
+            nav = cdSlider.querySelector("nav");
 
-  item[0].className = "current_slide";
+        item[0].className = "current_slide";
 
-  for (var i = 0, len = item.length; i < len; i++) {
-    var color = item[i].getAttribute("data-color");
-    item[i].style.backgroundColor = color;
-  }
+        for (var i = 0, len = item.length; i < len; i++) {
+            var color = item[i].getAttribute("data-color");
+            item[i].style.backgroundColor = color;
+        }
 
-  // Detect IE
-  // hide ripple effect on IE9
-  var ua = window.navigator.userAgent;
-  var msie = ua.indexOf("MSIE");
-  if (msie > 0) {
-    var version = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
-    if (version === 9) {
-      cdSlider.className = "cd-slider ie9";
-    }
-  }
+        // Detect IE
+        // hide ripple effect on IE9
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE");
+        if (msie > 0) {
+            var version = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
+            if (version === 9) {
+                cdSlider.className = "cd-slider ie9";
+            }
+        }
 
-  if (item.length <= 1) {
-    nav.style.display = "none";
-  }
+        if (item.length <= 1) {
+            nav.style.display = "none";
+        }
 
-  function prevSlide() {
-    var currentSlide = cdSlider.querySelector("li.current_slide"),
-      prevElement = currentSlide.previousElementSibling,
-      prevSlide = (prevElement !== null) ? prevElement : item[item.length - 1],
-      prevColor = prevSlide.getAttribute("data-color"),
-      el = document.createElement('span');
+        function prevSlide() {
+            var currentSlide = cdSlider.querySelector("li.current_slide"),
+                prevElement = currentSlide.previousElementSibling,
+                prevSlide = (prevElement !== null) ? prevElement : item[item.length - 1],
+                prevColor = prevSlide.getAttribute("data-color"),
+                el = document.createElement('span');
 
-    currentSlide.className = "";
-    prevSlide.className = "current_slide";
+            currentSlide.className = "";
+            prevSlide.className = "current_slide";
 
-    nav.children[0].appendChild(el);
+            nav.children[0].appendChild(el);
 
-    var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
-      ripple = nav.children[0].querySelector("span");
+            var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider
+                .clientHeight * 2,
+                ripple = nav.children[0].querySelector("span");
 
-    ripple.style.height = size + 'px';
-    ripple.style.width = size + 'px';
-    ripple.style.backgroundColor = prevColor;
+            ripple.style.height = size + 'px';
+            ripple.style.width = size + 'px';
+            ripple.style.backgroundColor = prevColor;
 
-    ripple.addEventListener("webkitTransitionEnd", function () {
-      if (this.parentNode) {
-        this.parentNode.removeChild(this);
-      }
-    });
+            ripple.addEventListener("webkitTransitionEnd", function() {
+                if (this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            });
 
-    ripple.addEventListener("transitionend", function () {
-      if (this.parentNode) {
-        this.parentNode.removeChild(this);
-      }
-    });
+            ripple.addEventListener("transitionend", function() {
+                if (this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            });
 
-  }
+        }
 
-  function nextSlide() {
-    var currentSlide = cdSlider.querySelector("li.current_slide"),
-      nextElement = currentSlide.nextElementSibling,
-      nextSlide = (nextElement !== null) ? nextElement : item[0],
-      nextColor = nextSlide.getAttribute("data-color"),
-      el = document.createElement('span');
+        function nextSlide() {
+            var currentSlide = cdSlider.querySelector("li.current_slide"),
+                nextElement = currentSlide.nextElementSibling,
+                nextSlide = (nextElement !== null) ? nextElement : item[0],
+                nextColor = nextSlide.getAttribute("data-color"),
+                el = document.createElement('span');
 
-    currentSlide.className = "";
-    nextSlide.className = "current_slide";
+            currentSlide.className = "";
+            nextSlide.className = "current_slide";
 
-    nav.children[1].appendChild(el);
+            nav.children[1].appendChild(el);
 
-    var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider.clientHeight * 2,
-      ripple = nav.children[1].querySelector("span");
+            var size = (cdSlider.clientWidth >= cdSlider.clientHeight) ? cdSlider.clientWidth * 2 : cdSlider
+                .clientHeight * 2,
+                ripple = nav.children[1].querySelector("span");
 
-    ripple.style.height = size + 'px';
-    ripple.style.width = size + 'px';
-    ripple.style.backgroundColor = nextColor;
+            ripple.style.height = size + 'px';
+            ripple.style.width = size + 'px';
+            ripple.style.backgroundColor = nextColor;
 
-    ripple.addEventListener("webkitTransitionEnd", function () {
-      if (this.parentNode) {
-        this.parentNode.removeChild(this);
-      }
-    });
+            ripple.addEventListener("webkitTransitionEnd", function() {
+                if (this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            });
 
-    ripple.addEventListener("transitionend", function () {
-      if (this.parentNode) {
-        this.parentNode.removeChild(this);
-      }
-    });
+            ripple.addEventListener("transitionend", function() {
+                if (this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            });
 
-  }
+        }
 
-  function updateNavColor() {
-    var currentSlide = cdSlider.querySelector("li.current_slide");
+        function updateNavColor() {
+            var currentSlide = cdSlider.querySelector("li.current_slide");
 
-    var nextColor = (currentSlide.nextElementSibling !== null) ? currentSlide.nextElementSibling.getAttribute("data-color") : item[0].getAttribute("data-color");
-    var prevColor = (currentSlide.previousElementSibling !== null) ? currentSlide.previousElementSibling.getAttribute("data-color") : item[item.length - 1].getAttribute("data-color");
+            var nextColor = (currentSlide.nextElementSibling !== null) ? currentSlide.nextElementSibling
+                .getAttribute("data-color") : item[0].getAttribute("data-color");
+            var prevColor = (currentSlide.previousElementSibling !== null) ? currentSlide.previousElementSibling
+                .getAttribute("data-color") : item[item.length - 1].getAttribute("data-color");
 
-    if (item.length > 2) {
-      nav.querySelector(".prev").style.backgroundColor = prevColor;
-      nav.querySelector(".next").style.backgroundColor = nextColor;
-    }
-  }
+            if (item.length > 2) {
+                nav.querySelector(".prev").style.backgroundColor = prevColor;
+                nav.querySelector(".next").style.backgroundColor = nextColor;
+            }
+        }
 
-  nav.querySelector(".next").addEventListener('click', function (event) {
-    event.preventDefault();
-    nextSlide();
-    updateNavColor();
-  });
+        nav.querySelector(".next").addEventListener('click', function(event) {
+            event.preventDefault();
+            nextSlide();
+            updateNavColor();
+        });
 
-  nav.querySelector(".prev").addEventListener("click", function (event) {
-    event.preventDefault();
-    prevSlide();
-    updateNavColor();
-  });
+        nav.querySelector(".prev").addEventListener("click", function(event) {
+            event.preventDefault();
+            prevSlide();
+            updateNavColor();
+        });
 
-  // autoUpdate
-  var intervalId = setInterval(function () {
-    if (autoUpdate) {
-      nextSlide();
-      updateNavColor();
-    }
-  }, timeTrans);
+        // Set up the views array and delay time
+        const views = "{!! request('screen')->views !!}"; // Assuming $views is a string of words separated by commas
+        const viewList = views.split(','); // Convert the string into an array
+        const delay = {{ $delay ?? 5000 }}; // Default delay of 5 seconds if not set
 
-  // Set timeout for redirection after the last slide
-  setTimeout(function () {
-    window.location.href = '{{ route('signage.show') }}?display={{'tickets'}}';
-    clearInterval(intervalId); // Stop the autoUpdate interval
-  }, (item.length * timeTrans));
+        // Get the current view index from the URL (if present) or default to 0
+        const urlParams = new URLSearchParams(window.location.search);
+        let viewIndex = 1;
+        const newURL = '{{ url("signage/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
+            viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
 
-})();
+        // autoUpdate
+        var intervalId = setInterval(function() {
+            if (autoUpdate) {
+                nextSlide();
+                updateNavColor();
+            }
+        }, timeTrans);
 
+        // Set timeout for redirection after the last slide
+        setTimeout(function() {
+            window.location.href = newURL;
+            clearInterval(intervalId); // Stop the autoUpdate interval
+        }, (item.length * timeTrans));
+
+    })();
 </script>
 
 </html>
