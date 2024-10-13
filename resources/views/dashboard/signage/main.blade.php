@@ -11,7 +11,7 @@
     // Function to navigate to a specific view
     function navigateToView() {
         // Generate the URL for the specific view using a combination of PHP and JS
-        const newURL = '{{ url("signage/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
+        const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
 
         console.log(newURL); // Logs the URL for debugging
 

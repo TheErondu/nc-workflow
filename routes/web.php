@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Auth::Routes();
-Route::get('signage/{screen:name}', [App\Http\Controllers\SignageController::class, 'show'])->name('signage.show');
+Route::get('signage/show/{screen:name}', [App\Http\Controllers\SignageController::class, 'show'])->name('signage.show');
 Route::get('signage/screens', [App\Http\Controllers\SignageController::class, 'getScreensList'])->name('signage.screens.list');
 Route::get('dev/test', function () {
 
