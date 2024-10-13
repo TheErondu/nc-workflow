@@ -410,11 +410,14 @@
         const viewList = views.split(','); // Convert the string into an array
         const delay = {{ $delay ?? 5000 }}; // Default delay of 5 seconds if not set
 
-        // Get the current view index from the URL (if present) or default to 0
         const urlParams = new URLSearchParams(window.location.search);
-        let viewIndex = 1;
+        let viewIndex = urlParams.has('viewIndex') ? parseInt(urlParams.get('viewIndex')) : 0;
+
+        // Ensure viewIndex is within bounds
+        viewIndex = viewIndex % viewList.length;
         const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
             viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
+
 
         // autoUpdate
         var intervalId = setInterval(function() {
