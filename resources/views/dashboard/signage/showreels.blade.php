@@ -413,7 +413,7 @@
         // Get the current view index from the URL (if present) or default to 0
         const urlParams = new URLSearchParams(window.location.search);
         let viewIndex = 1;
-        const newURL = '{{ url("signage/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
+        const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
             viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
 
         // autoUpdate
