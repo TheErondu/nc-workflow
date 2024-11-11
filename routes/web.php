@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Mail;
 Auth::Routes();
 Route::get('signage/show/{screen:name}', [App\Http\Controllers\SignageController::class, 'show'])->name('signage.show');
 Route::get('signage/screens', [App\Http\Controllers\SignageController::class, 'getScreensList'])->name('signage.screens.list');
+Route::get('awards/voting/results', [App\Http\Controllers\AwardsController::class, 'showLiveResults'])->name('awards.voting.results');
+Route::get('ipaddresses/generate', [App\Http\Controllers\IpAddressController::class, 'generateUnusedIPAddress'])->name('ipaddresses.generate');
 Route::get('dev/test', function () {
 
     return Globals::mailingGroups("Engineers");
@@ -129,6 +131,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('facility_type', App\Http\Controllers\FacilityTypeController::class);
     Route::resource('booking', App\Http\Controllers\BookingController::class);
     Route::resource('employees', App\Http\Controllers\EmployeeController::class);
+    Route::resource('ipaddresses', App\Http\Controllers\IpAddressController::class);
     Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
     Route::put('issues/assign-engineer/{id}', [App\Http\Controllers\IssueController::class, 'AssignEngineer'])->name('issues.assign');
     Route::resource('analytics', App\Http\Controllers\AnalysisController::class);

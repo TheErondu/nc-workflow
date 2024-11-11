@@ -22,6 +22,11 @@ class AwardsController extends Controller
         return view('dashboard.awards.index', compact('awards','shows','teams'));
     }
 
+
+    public function showLiveResults(){
+        return view('dashboard.awards.voting.showLiveResults');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
