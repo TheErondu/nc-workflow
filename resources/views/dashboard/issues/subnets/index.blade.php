@@ -6,8 +6,8 @@
                 <div class="card table-card">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
                         <span>IP Addresses </span>
-                        <a href="{{ route('employees.create') }}" style="background-color: rgb(0, 0, 0) !important;"
-                            type="submit" class="btn btn-primary create-button">Add New Ip Address <i
+                        <a href="{{ route('ipaddresses.generate') }}" style="background-color: rgb(0, 0, 0) !important;"
+                            type="submit" class="btn btn-primary create-button">Generate New Ip Address <i
                                 class="fas fa-plus"></i></a>
                     </div>
                     <div class="row">

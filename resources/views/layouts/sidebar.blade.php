@@ -46,6 +46,9 @@
                             @can('fix-issues')
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('issues.index') }}">
                             All Issues</a></li>
+
+                            <li class="sidebar-item"><a class="sidebar-link" href="{{ route('ipaddresses.index') }}">
+                                Get Unused IPaddress</a></li>
                             @endcan
                 </ul>
             </li>

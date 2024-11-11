@@ -130,7 +130,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('facility_type', App\Http\Controllers\FacilityTypeController::class);
     Route::resource('booking', App\Http\Controllers\BookingController::class);
     Route::resource('employees', App\Http\Controllers\EmployeeController::class);
-    Route::resource('ipaddresses', App\Http\Controllers\IpAddressController::class);
+    Route::resource('ipaddresses', App\Http\Controllers\IpAddressController::class)->except('show');
     Route::get('ipaddresses/generate', [App\Http\Controllers\IpAddressController::class, 'generateUnusedIPAddress'])->name('ipaddresses.generate');
     Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
     Route::put('issues/assign-engineer/{id}', [App\Http\Controllers\IssueController::class, 'AssignEngineer'])->name('issues.assign');
