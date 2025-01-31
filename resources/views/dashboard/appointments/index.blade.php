@@ -39,14 +39,14 @@
             <div class="col-12">
                 <div class="card">
 
-                        <div class="card-body">
-                            <div id="fullcalendar2"></div>
-                            <a href="{{ route('appointments.create') }}" class="btn btn-primary">Book
-                                Appointment
-                                <i class="fa fa-plus"></i></a>
+                    <div class="card-body">
+                        <div id="fullcalendar2"></div>
+                        <a href="{{ route('appointments.create') }}" class="btn btn-primary">Book
+                            Appointment
+                            <i class="fa fa-plus"></i></a>
 
 
-                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -98,16 +98,19 @@
                         // change the border color just for fun
                         info.el.style.borderColor = 'red';
                     },
-                    eventMouseEnter: function(info, element) {
-                        $(element).popover({
-                            title: info.event.title,
-                            content: info.event.description,
-                            trigger: 'hover',
-                            placement: 'auto right',
-                            delay: {
-                                "hide": 300
-                            }
-                        });
+                    eventMouseEnter: function(info) {
+
+                        var tis = info.el;
+                        var tooltip = '<div class="tooltipevent" style="top:' + ($(tis).offset().top - 5) +
+                            'px;left:' + ($(tis).offset().left + ($(tis).width()) / 2) + 'px"><div>' + info
+                            .event.title + '</div><div>' + info.event.extendedProps.description +
+                            '</div></div>';
+                        var $tooltip = $(tooltip).appendTo('body');
+                    },
+                    eventMouseLeave: function(info) {
+
+                        $(info.el).css('z-index', 8);
+                        $('.tooltipevent').remove();
                     },
                 });
                 calendar.render();
