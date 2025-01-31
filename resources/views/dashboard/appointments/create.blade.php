@@ -136,76 +136,140 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const photoInput = document.getElementById("photoInput");
-            const takePhotoBtn = document.getElementById("takePhoto");
-            const photoPreview = document.getElementById("photoPreview");
+    const photoInput = document.getElementById("photoInput");
+    const takePhotoBtn = document.getElementById("takePhoto");
+    const photoPreview = document.getElementById("photoPreview");
 
-            // Function to show preview
-            function showPreview(file) {
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        photoPreview.src = e.target.result;
-                        photoPreview.style.display = "block";
-                    };
-                    reader.readAsDataURL(file);
+    // Function to show preview
+    function showPreview(file) {
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoPreview.src = e.target.result;
+                photoPreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Function to compress image
+    function compressImage(file, callback) {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            img.onload = function() {
+                // Create a canvas to resize the image
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+
+                // Set the canvas dimensions to the image dimensions (scaled down)
+                const maxWidth = 500;  // Set your preferred width
+                const maxHeight = 500; // Set your preferred height
+                let width = img.width;
+                let height = img.height;
+
+                // Calculate the new dimensions while preserving aspect ratio
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
                 }
-            }
 
-            // Listen for file selection
-            photoInput.addEventListener("change", function() {
-                if (photoInput.files.length > 0) {
-                    showPreview(photoInput.files[0]);
-                }
-            });
+                canvas.width = width;
+                canvas.height = height;
 
-            // Take Photo using Camera
-            takePhotoBtn.addEventListener("click", function() {
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    alert("Your device does not support camera access.");
-                    return;
-                }
+                // Draw the image onto the canvas
+                ctx.drawImage(img, 0, 0, width, height);
 
-                navigator.mediaDevices.getUserMedia({
-                        video: {
-                            facingMode: "environment"
-                        }
-                    })
-                    .then((stream) => {
-                        let video = document.createElement("video");
-                        video.srcObject = stream;
-                        video.play();
-
-                        let canvas = document.createElement("canvas");
-                        let context = canvas.getContext("2d");
-
-                        setTimeout(() => {
-                            canvas.width = video.videoWidth;
-                            canvas.height = video.videoHeight;
-                            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                            stream.getTracks().forEach(track => track.stop());
-
-                            // Convert canvas image to Blob
-                            canvas.toBlob(blob => {
-                                let file = new File([blob], "captured_photo.jpg", {
-                                    type: "image/jpeg"
-                                });
-
-                                // Create a DataTransfer object and add the file to it
-                                let dataTransfer = new DataTransfer();
-                                dataTransfer.items.add(file);
-                                photoInput.files = dataTransfer.files;
-
-                                // Show preview
-                                showPreview(file);
-                            }, "image/jpeg");
-                        }, 500);
-                    })
-                    .catch((error) => {
-                        console.error("Camera access error:", error);
-                        alert("Could not access the camera.");
+                // Compress the image by reducing the quality
+                canvas.toBlob(function(blob) {
+                    const compressedFile = new File([blob], file.name, {
+                        type: "image/jpeg",
+                        lastModified: Date.now()
                     });
+                    callback(compressedFile);
+                }, "image/jpeg", 0.7);  // 0.7 is the quality (0 to 1)
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Listen for file selection
+    photoInput.addEventListener("change", function() {
+        if (photoInput.files.length > 0) {
+            const file = photoInput.files[0];
+
+            // Compress the image before showing the preview
+            compressImage(file, function(compressedFile) {
+                showPreview(compressedFile);
+
+                // Append the compressed image to the form
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(compressedFile);
+                photoInput.files = dataTransfer.files;
             });
-        });
+        }
+    });
+
+    // Take Photo using Camera
+    takePhotoBtn.addEventListener("click", function() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            alert("Your device does not support camera access.");
+            return;
+        }
+
+        navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "environment"
+                }
+            })
+            .then((stream) => {
+                let video = document.createElement("video");
+                video.srcObject = stream;
+                video.play();
+
+                let canvas = document.createElement("canvas");
+                let context = canvas.getContext("2d");
+
+                setTimeout(() => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    stream.getTracks().forEach(track => track.stop());
+
+                    // Convert canvas image to Blob
+                    canvas.toBlob(blob => {
+                        let file = new File([blob], "captured_photo.jpg", {
+                            type: "image/jpeg"
+                        });
+
+                        // Compress the image before showing the preview
+                        compressImage(file, function(compressedFile) {
+                            // Create a DataTransfer object and add the compressed file to it
+                            let dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(compressedFile);
+                            photoInput.files = dataTransfer.files;
+
+                            // Show preview
+                            showPreview(compressedFile);
+                        });
+                    }, "image/jpeg");
+                }, 500);
+            })
+            .catch((error) => {
+                console.error("Camera access error:", error);
+                alert("Could not access the camera.");
+            });
+    });
+});
+
     </script>
 @endsection
