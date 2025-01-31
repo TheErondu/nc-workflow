@@ -36,19 +36,20 @@ Route::get('graphics-news-calendar', [App\Http\Controllers\API\CalendarViewContr
 Route::get('graphics-shows-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'GraphicsLogShows']);
 Route::get('prompter-news-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'PrompterLogs']);
 Route::get('prompter-shows-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'prompterlogShows']);
+Route::get('appointments', [App\Http\Controllers\API\CalendarViewController::class, 'getAppointments']);
 
 
-Route::group(['middleware' => ['auth:sanctum'],[]], function () {
+Route::group(['middleware' => ['auth:sanctum'], []], function () {
 
-Route::post('logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+    Route::post('logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
 
 
     Route::name('api.')->group(function () {
-    Route::get('/', [App\Http\Controllers\API\HomeController::class, 'info']);
-    // Route::get('/', function () {
-    //     return view('home');
-    // });
-    Route::get('book', [App\Http\Controllers\API\BookController::class, 'index']);
+        Route::get('/', [App\Http\Controllers\API\HomeController::class, 'info']);
+        // Route::get('/', function () {
+        //     return view('home');
+        // });
+        Route::get('book', [App\Http\Controllers\API\BookController::class, 'index']);
         Route::apiResource('messages', 'App\Http\Controllers\API\MessageController');
         Route::apiResource('content', 'App\Http\Controllers\API\ContentController');
         Route::apiResource('documents', 'App\Http\Controllers\API\DocumentController');
@@ -93,9 +94,4 @@ Route::post('logout', [App\Http\Controllers\API\AuthController::class, 'logout']
         Route::apiResource('employees', App\Http\Controllers\API\EmployeeController::class);
         Route::apiResource('analytics', App\Http\Controllers\API\AnalysisController::class);
     });
-
 });
-
-
-
-

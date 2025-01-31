@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\EditorLogs;
 use App\Models\GraphicsLogs;
 use App\Models\GraphicsLogShows;
@@ -87,6 +88,14 @@ class CalendarViewController extends ApiController
         ->get(['id', 'title', 'start','end','color','challenges']);
 
         return response()->json($data);
+    }
+
+    public function getAppointments(Request $request)
+    {
+        $data = Appointment::whereDate('start', '>=', $request->start)
+        ->whereDate('end',   '<=', $request->end)
+        ->get(['id', 'title', 'start', 'email','phone','photo', 'description','status']);
+    return response()->json($data);
     }
 
 }

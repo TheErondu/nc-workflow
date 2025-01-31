@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('logs/engineers', 'App\Http\Controllers\EngineerLogsController')->except('delete');
     Route::delete('/logs/engineers{id}/delete', 'App\Http\Controllers\EngineerLogsController@destroy')->name('logs.engineers.delete');
 
+    Route::resource('appointments', 'App\Http\Controllers\AppointmentController');
+
 
     Route::get('calendar-event', [App\Http\Controllers\ScheduleController::class, 'index']);
     Route::post('calendar-crud-ajax', [App\Http\Controllers\ScheduleController::class, 'calendarEvents']);

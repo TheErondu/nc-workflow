@@ -37,6 +37,9 @@
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="{{route('booking.index', ['type'=>'boardroom']) }}"><i class="align-middle me-1 fas fa-fw fa-podcast"></i>
                         Book Boardroom</a>
+                        <a class="dropdown-item" href="{{route('appointments.create') }}"><i class="align-middle me-1 fas fa-fw fa-calendar"></i>
+                            Book an Appointment</a>
+
                     <a class="dropdown-item" href="{{route('booking.index', ['type'=>'studio']) }}"><i
                             class="align-middle me-1 fas fa-fw fa-film"></i> Book a Studio</a>
                 </div>
