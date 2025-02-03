@@ -44,6 +44,19 @@
                     </div>
                     <div class="card-body">
 
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <strong>Add permission:</strong>
+                            <form action="{{ route('permissions.store') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" required id="name" placeholder="Enter name" name="name">
+                                </div>
+
+                                <button style="margin-top: 0.5rem;margin-bottom:2.0rem;" type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+
                     {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
                     <div class="row">
                         <div class="mb-3">

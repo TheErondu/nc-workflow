@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('oblogs', 'App\Http\Controllers\OBlogsController');
     Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
     Route::resource('roles', 'App\Http\Controllers\RoleController');
+    Route::post('permissions/store', 'App\Http\Controllers\PermissionController@store')->name('permissions.store');
     Route::get('signage/admin', [App\Http\Controllers\SignageController::class, 'index'])->name('signage.admin');
     Route::get('signage/admin/screens/create', [App\Http\Controllers\SignageController::class, 'showCreateScreenPage'])->name('signage.admin.screens.create');
     Route::post('signage/admins/screens/add', [App\Http\Controllers\SignageController::class, 'createScreen'])->name('signage.admin.screens.add');
