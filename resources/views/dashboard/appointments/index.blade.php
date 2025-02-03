@@ -38,14 +38,11 @@
             </div>
             <div class="col-12">
                 <div class="card">
-
                     <div class="card-body">
                         <div id="fullcalendar2"></div>
                         <a href="{{ route('appointments.create') }}" class="btn btn-primary">Book
                             Appointment
                             <i class="fa fa-plus"></i></a>
-
-
                     </div>
                 </div>
 

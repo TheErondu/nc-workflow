@@ -16,11 +16,14 @@
                     <i class="align-middle me-2 fas fa-fw fa-users"></i> <span class="align-middle">Awards</span>
                 </a>
             </li>
+            @can('access-appointments')
             <li @if (Route::is('appointments.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#" href="{{ route('appointments.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-fw fa-file"></i> <span class="align-middle">Appointments</span>
                 </a>
             </li>
+            @endcan
+
             <li @if (Route::is('schedule.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#" href="{{ route('schedule.index') }}" class="sidebar-link">
                     <i class="align-middle me-2 fas fa-fw fa-calendar"></i> <span class="align-middle">
