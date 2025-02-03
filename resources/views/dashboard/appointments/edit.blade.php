@@ -126,11 +126,9 @@
                                 <div class="mb-3 col-md-6">
                                     <a href="{{ route('appointments.index') }}" class="btn btn-secondary">Cancel</a>
                                 </div>
-                                @can('update-appointment')
                                     <div class="mb-3 col-md-1">
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
-                                @endcan
 
                             </div>
                         </form>
