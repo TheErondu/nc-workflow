@@ -114,11 +114,11 @@
                                         <a href="{{ asset('storage/' . $appointment->photo) }}"
                                             data-lightbox="imagePreview">
                                             <img id="photoPreview" src="{{ asset('storage/' . $appointment->photo) }}"
-                                                class="img-fluid mt-2" style="max-height: 300px; cursor: pointer;">
+                                                class="img-fluid mt-2" style="max-height: 150px; cursor: pointer;">
                                         </a>
                                     @else
                                         <img id="photoPreview" src="" class="img-fluid mt-2"
-                                            style="display: none; max-height: 300px;">
+                                            style="display: none; max-height: 150px;">
                                     @endif
                                 </div>
                             </div>
