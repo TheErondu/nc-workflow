@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -16,7 +17,8 @@ class AppointmentController extends Controller
 
     public function create(Request $request)
     {
-        return view('dashboard.appointments.create');
+        $employees = Employee::all();
+        return view('dashboard.appointments.create',compact('employees'));
     }
 
     public function store(Request $request)
@@ -25,6 +27,7 @@ class AppointmentController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
+            'host' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
             'start' => 'required|date',
@@ -51,7 +54,8 @@ class AppointmentController extends Controller
 
     public function edit(Request $request, Appointment $appointment)
     {
-        return view('dashboard.appointments.edit', compact('appointment'));
+        $employees = Employee::all();
+        return view('dashboard.appointments.edit', compact('appointment','employees'));
     }
 
     public function update(Request $request, Appointment $appointment)
@@ -59,6 +63,7 @@ class AppointmentController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
+            'host' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
             'start' => 'required|date',
@@ -67,7 +72,7 @@ class AppointmentController extends Controller
             'description' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        
+
 
         // Handle the photo upload
         if ($request->hasFile('photo')) {

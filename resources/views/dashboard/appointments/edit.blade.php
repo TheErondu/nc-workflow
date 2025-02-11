@@ -121,6 +121,15 @@
                                             style="display: none; max-height: 150px;">
                                     @endif
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">Person to See</label>
+                                    <select name="host" class="form-control select2" required>
+                                        <option value="" selected disabled>Select a person</option>
+                                        @foreach ($employees as $employee)
+                                            <option @if ($employee->name === $appointment->host) selected='selected' @endif value="{{ $employee->name }}">{{ $employee->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
@@ -141,10 +150,16 @@
 @section('javascript')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            $(".select2").select2({
-                placeholder: "Select value",
-                dropdownParent: $(this).parent()
-            });
+            // Select2
+            $(".select2").each(function() {
+                    $(this)
+                        .wrap("<div class=\"position-relative\"></div>")
+                        .select2({
+                            placeholder: "Select value",
+                            dropdownParent: $(this).parent()
+                        });
+                })
+                // Datetimepicker
 
             $('#datetimepicker-start').datetimepicker({
                 format: 'YYYY-MM-DD HH:mm:ss'
