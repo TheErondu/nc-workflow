@@ -112,7 +112,7 @@ class ScheduleController extends Controller
         $schedule->user_id = $user->id;
         $schedule->save();
         $email =  Auth::user()->email;
-        $cc_emails = DB::select('SELECT email from users WHERE department_id = 9 OR department_id =7 OR department_id =21');
+        $cc_emails = DB::select('SELECT email from users WHERE department_id = 9 OR department_id =7 OR department_id =21 OR department_id=35');
         $details = [
             'cc_emails' => $cc_emails,
             'email' => $email,
@@ -208,7 +208,7 @@ class ScheduleController extends Controller
         $schedule->user_id = $schedule->user_id;
         $schedule->save();
         $email =  Auth::user()->email;
-        $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 9 OR department_id =7 OR department_id =21');
+        $cc_emails =  DB::select('SELECT email from users WHERE department_id = 9 OR department_id =7 OR department_id =21 OR department_id=35');
         $details = [
             'cc_emails' => $cc_emails,
             'email' => $email,
