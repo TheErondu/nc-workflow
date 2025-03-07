@@ -195,6 +195,10 @@
                                 class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage User
                                 Accounts</span></a></li>
 
+                                <li class="sidebar-item"><a class="sidebar-link" href="{{ route('generate.reports.index') }}"><i
+                                    class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Generate Reports
+                                    </span></a></li>
+
                                     @endcan
                                     @can('role-create')
                                 <li class="sidebar-item"><a class="sidebar-link" href="{{ route('roles.index') }}"><i
