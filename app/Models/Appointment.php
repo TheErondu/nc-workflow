@@ -17,6 +17,7 @@ class Appointment extends Model
         'status',      // Status of the appointment (pending, confirmed, cancelled)
         'description', // Additional details
         'photo',       // Photo file path
+        'host',        // Who the Visitor is coming to see
         'user_id',     // Associated user
     ];
 

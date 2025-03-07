@@ -103,6 +103,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::put('store/requests/batch/return', 'App\Http\Controllers\BatchStoreRequestsController@returnBatchRequest')->name('store.requests.batch.return');
 
+
+    //Generate Reports
+
+    Route::get('generate/reports', 'App\Http\Controllers\GenerateReportsController@index')->name('generate.reports.index');
+    
+
     // /GatePass Routes /////
 
     Route::resource('gatepass', 'App\Http\Controllers\GatePassController');
