@@ -57,7 +57,7 @@ class IssueController extends Controller
         $validatedData = $request->validate([
             'item_name'                 => 'required'
         ]);
-        $raisedby = Auth::user()->username;
+        $raisedby = Auth::user()->name;
         $issue = new Issue();
         $issue->item_name     = $request->input('item_name');
         $issue->description = $request->input('description');
