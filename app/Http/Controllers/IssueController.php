@@ -23,7 +23,7 @@ class IssueController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $raised_issues = DB::table('issues')->where('raised_by', Auth::user()->id)->orderBy('id','desc')->get();
+        $raised_issues = DB::table('issues')->where('raised_by', Auth::user()->name)->orderBy('id','desc')->get();
         if (request()->query('type') === 'raised') {
 
             $issues = $raised_issues;
