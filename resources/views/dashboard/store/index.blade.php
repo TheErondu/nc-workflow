@@ -118,7 +118,7 @@
                                                                             {{ \Carbon\Carbon::parse($request->created_at)->format('d-M-Y') }}</td>
                                                                         <td class="sorting_1">
                                                                             {{ \Carbon\Carbon::parse($request->return_date)->format('d-M-Y') }}</td>
-                                                                        <td>{{ $request->user->name }}</td>
+                                                                        <td>{{ $request->user->name??"N?A" }}</td>
 
                                                                         <td class="dtr-control" tabindex="0">
                                                                             {{ $request->item }}</td>
@@ -228,7 +228,7 @@
                                                                                 <td class="sorting_1">
                                                                                     {{ \Carbon\Carbon::parse($item->created_at)->format('d-M-Y') }}</td>
                                                                         <td>{{ $item->return_date }}</td>
-                                                                        <td>{{ $item->user->name }}</td>
+                                                                        <td>{{ $item->user->name??"N/A" }}</td>
                                                                         <td>{{ $item->item }}</td>
                                                                         <td>{{ $item->store->serial_no }}</td>
                                                                     </tr>
@@ -294,7 +294,7 @@
                                                                     <td> <strong> {{ count(json_decode($batchRequest->items)) }}
                                                                             Item(s)<strong>
                                                                     </td>
-                                                                    <td>{{ $batchRequest->user->name }}</td>
+                                                                    <td>{{ $batchRequest->user->name??"N/A" }}</td>
                                                                     <td> {{ \Carbon\Carbon::parse($batchRequest->return_date)->format('d-M-Y') }}
 
                                                                     </td>
