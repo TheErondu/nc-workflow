@@ -162,11 +162,11 @@
                                                                         colspan="1" style="width: 441px;"
                                                                         aria-label="Position: activate to sort column ascending"
                                                                         aria-sort="descending">Items</th>
-                                                                    {{-- <th class="___class_+?31___" tabindex="0"
+                                                                    <th class="___class_+?31___" tabindex="0"
                                                                         aria-controls="datatables-basic" rowspan="1"
                                                                         colspan="1" style="width: 441px;"
                                                                         aria-label="Position: activate to sort column ascending"
-                                                                        aria-sort="descending">Requestor</th> --}}
+                                                                        aria-sort="descending">Requestor</th>
                                                                     <th class="___class_+?32___" tabindex="0"
                                                                         aria-controls="datatables-basic" rowspan="1"
                                                                         colspan="1" style="width: 207px;"
@@ -188,7 +188,7 @@
                                                                     <td> <strong> {{ count(json_decode($batchRequest->items)) }}
                                                                             Item(s)<strong>
                                                                     </td>
-                                                                    {{-- <td> <strong>{{ $batchRequest->user->name }}</td> --}}
+                                                                    <td> <strong>{{ $batchRequest->user->name ??"Not Available" }}</td>
                                                                     <td> <strong>{{ \Carbon\Carbon::parse($batchRequest->return_date)->format('d-M-Y') }}
 
                                                                     </td>
@@ -228,7 +228,7 @@
                                                                                 <td class="sorting_1">
                                                                                     {{ \Carbon\Carbon::parse($item->created_at)->format('d-M-Y') }}</td>
                                                                         <td>{{ $item->return_date }}</td>
-                                                                        <td>{{ $item->user->name??"N/A" }}</td>
+                                                                        <td>{{ $item->user->name??"Not Available" }}</td>
                                                                         <td>{{ $item->item }}</td>
                                                                         <td>{{ $item->store->serial_no }}</td>
                                                                     </tr>
@@ -294,7 +294,7 @@
                                                                     <td> <strong> {{ count(json_decode($batchRequest->items)) }}
                                                                             Item(s)<strong>
                                                                     </td>
-                                                                    <td>{{ $batchRequest->user->name??"N/A" }}</td>
+                                                                    <td>{{ $batchRequest->user->name??"Not Available" }}</td>
                                                                     <td> {{ \Carbon\Carbon::parse($batchRequest->return_date)->format('d-M-Y') }}
 
                                                                     </td>
