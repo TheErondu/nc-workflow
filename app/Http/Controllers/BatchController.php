@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Store;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class BatchController extends Controller
 {

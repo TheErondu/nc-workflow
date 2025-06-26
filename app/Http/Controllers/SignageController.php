@@ -73,6 +73,7 @@ class SignageController extends Controller
             "showreels",
             "tickets",
             "today",
+            "birthdays"
         ];
 
         return view('dashboard.signage.admin.screens.create', compact('views'));

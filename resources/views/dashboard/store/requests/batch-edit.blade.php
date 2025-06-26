@@ -72,7 +72,7 @@
                                                                 Extension
                                                                 Reason:{{ $batch_store_request->date_extension_reason }}
                                                                 <br>
-
+b 
                                                                 <button form="batch-extend-form" style="margin: 1rem"
                                                                     class=" btn-primary" type="submit"
                                                                     style="background-color: green !important;" name="button">
