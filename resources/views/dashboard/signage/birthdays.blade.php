@@ -224,8 +224,7 @@
     <section class="cd-slider">
         <ul>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/birthdays/26-06-2025/1.jpg') }}?v=4)">
-
+                <div class="content" style="background-image:url({{ asset('signage-slides/birthdays/09-09-2025/1.jpg') }}?v=5)">
                 </div>
             </li>
             {{-- <li data-color="#00000000">
