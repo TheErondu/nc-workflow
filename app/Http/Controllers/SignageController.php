@@ -20,7 +20,7 @@ class SignageController extends Controller
         $today = Carbon::today();
         $schedules = Schedule::whereDate('start', $today)->get();
         $tickets = Issue::where('status', 'OPEN')->orderByDesc('created_at')
-        ->paginate(6);
+            ->paginate(6);
         $showreels = "";
         $data = [
             'schedules' => $schedules,
@@ -28,11 +28,11 @@ class SignageController extends Controller
             'tickets' => $tickets,
             'screen'   => $screenToShow
         ];
-       // dd(vars: $view);
-       $data['screen'] = Screen::find(3);
-       $view = 'birthdays';
+        // dd(vars: $view);
+        $data['screen'] = Screen::find(3);
+        $view = 'birthdays';
         if ($view != null) {
-          return view(view: "dashboard.signage.$view", data: $data);
+            return view(view: "dashboard.signage.$view", data: $data);
         } else {
             return view(view: "dashboard.signage.landing", data: $data);
         }
@@ -43,7 +43,6 @@ class SignageController extends Controller
         $screens = Screen::orderBy('created_at', 'desc')->get();
 
         return response()->json($screens);
-
     }
 
     public function index()
@@ -66,7 +65,6 @@ class SignageController extends Controller
         ]);
 
         return redirect()->route('signage.admin', $screen->id)->with('message', 'New screens added!');
-
     }
 
     public function showCreateScreenPage()
@@ -80,5 +78,4 @@ class SignageController extends Controller
 
         return view('dashboard.signage.admin.screens.create', compact('views'));
     }
-
 }
