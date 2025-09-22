@@ -28,9 +28,9 @@ class SignageController extends Controller
             'tickets' => $tickets,
             'screen'   => $screenToShow
         ];
-        // dd(vars: $view);
-        $data['screen'] = Screen::find(3);
-        $view = 'birthdays';
+        // // dd(vars: $view);
+        // $data['screen'] = Screen::find(3);
+        // $view = 'birthdays';
         if ($view != null) {
             return view(view: "dashboard.signage.$view", data: $data);
         } else {
