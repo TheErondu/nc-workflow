@@ -225,7 +225,7 @@
         <ul>
             <li data-color="#00000000">
 
-                <div class="content" style="background-image:url({{ asset('signage-slides/birthdays/05-10-2025/1.jpg') }}?v=5)">
+                <div class="content" style="background-image:url({{ asset('signage-slides/birthdays/06-10-2025/1.jpg') }}?v=5)">
                 </div>
             </li>
             {{-- <li data-color="#00000000">
