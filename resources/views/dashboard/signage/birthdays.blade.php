@@ -221,15 +221,18 @@
 </head>
 
 <body>
+
     <section class="cd-slider">
         <ul>
             <li data-color="#00000000">
 
-                <div class="content" style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/1.jpg') }}?v=5)">
+                <div class="content"
+                    style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/1.jpg') }}?v=5)">
                 </div>
             </li>
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/2.jpg') }}?v=5)">
+                <div class="content"
+                    style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/2.jpg') }}?v=5)">
                 </div>
             </li>
 
@@ -432,15 +435,14 @@
             }
         }, timeTrans);
 
-        if(item.length == 1){
+        if (item.length == 1) {
             return;
-        }
-        else{
+        } else {
             // Set timeout for redirection after the last slide
-        setTimeout(function() {
-            window.location.href = newURL;
-            clearInterval(intervalId); // Stop the autoUpdate interval
-        }, (item.length * timeTrans));
+            setTimeout(function() {
+                window.location.href = newURL;
+                clearInterval(intervalId); // Stop the autoUpdate interval
+            }, (item.length * timeTrans));
         }
 
     })();
