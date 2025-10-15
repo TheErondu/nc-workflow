@@ -227,10 +227,10 @@
             <li data-color="#00000000">
 
                 <div class="content"
-                    style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/1.jpg') }}?v=5)">
+                    style="background-image:url({{ asset('signage-slides/birthdays/15-10-2025/1.jpg') }}?v=5)">
                 </div>
             </li>
-            <li data-color="#00000000">
+            {{-- <li data-color="#00000000">
                 <div class="content"
                     style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/2.jpg') }}?v=5)">
                 </div>
@@ -241,7 +241,7 @@
                     style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/3.jpg') }}?v=2)">
 
                 </div>
-            </li>
+            </li> --}}
             {{-- <li data-color="#00000000">
                 <div class="content" style="background-image:url({{ asset('signage-slides/process/3.jpg') }}?v=2.1">
                 </div>
