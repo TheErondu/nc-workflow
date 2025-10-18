@@ -30,8 +30,8 @@ class SignageController extends Controller
         ];
         // // dd(vars: $view);
 
-        // $data['screen'] = Screen::find(3);
-        // $view = 'birthdays';
+        $data['screen'] = Screen::find(3);
+        $view = 'birthdays';
 
         if ($view != null) {
             return view(view: "dashboard.signage.$view", data: $data);
