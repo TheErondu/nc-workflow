@@ -226,12 +226,12 @@
         <ul>
             <li data-color="#00000000">
                 <div class="content"
-                    style="background-image:url({{ asset('signage-slides/birthdays/11-11-2025/1.jpg') }}?v=5)">
+                    style="background-image:url({{ asset('signage-slides/birthdays/17-11-2025/1.jpg') }}?v=5)">
                 </div>
             </li>
             <li data-color="#00000000">
                 <div class="content"
-                    style="background-image:url({{ asset('signage-slides/birthdays/11-11-2025/2.jpg') }}?v=5)">
+                    style="background-image:url({{ asset('signage-slides/birthdays/17-11-2025/2.jpg') }}?v=5)">
                 </div>
             </li>
 
