@@ -25,7 +25,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = User::all()->sortByDesc('created_at');
+        $employees = User::with('department')->get()->sortByDesc('created_at');
         return view('dashboard.employees.index',compact('employees'));
     }
 
@@ -77,7 +77,7 @@ class EmployeeController extends Controller
             'email' => $user->email,
             'title' => $employee->name,
             'status' =>  $employee->email,
-            'body' =>  $employee->department->name,
+            'body' =>  $employee->department?->name ?? 'N/A',
             'model' =>  'Employees',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y')
@@ -150,7 +150,7 @@ class EmployeeController extends Controller
             'email' => $user->email,
             'title' => $employee->name,
             'status' =>  $employee->email,
-            'body' =>  $employee->department->name,
+            'body' =>  $employee->department?->name ?? 'N/A',
             'model' =>  'Employees',
             'user' => auth()->user()->name,
             'time' => date('d-m-Y')
