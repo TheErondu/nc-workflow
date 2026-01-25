@@ -171,8 +171,6 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //var_dump('bazinga');
-        //die();
         $validatedData = $request->validate([
             // 'title'             => 'required',
             // 'start'           => 'required',

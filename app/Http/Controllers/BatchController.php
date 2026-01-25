@@ -42,16 +42,13 @@ class BatchController extends Controller
 
             }
 
-
-
-            //dd(count($sessionBatch));
-
             // Store the updated cart in the session
             Session::put('allRequestedItems', $sessionBatch);
 
             return redirect()->back()->with('message', 'Items added to batch successfully.');
         }
     }
+
     public function addSingleItem(Request $request, $id)
     {
         $item = Store::find($id);
@@ -78,17 +75,12 @@ class BatchController extends Controller
                 array_push($sessionBatch, $item->attributesToArray());
             }
 
-
-
-            //dd(count($sessionBatch));
-
             // Store the updated cart in the session
             Session::put('allRequestedItems', $sessionBatch);
 
             return redirect()->back()->with('message', 'Items added to batch successfully.');
         }
     }
-
 
     public function removeItem(Request $request, $id)
     {

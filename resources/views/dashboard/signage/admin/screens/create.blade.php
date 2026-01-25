@@ -5,22 +5,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">FILL IN REQUIRED FIELDS.</h5>
-
+                        <h5 class="card-title" style="color: white;">Create New Screen</h5>
                     </div>
                     <div class="row">
                         @if (Session::has('message'))
                             <div class="container">
                                 <div class="alert alert-success alert-dismissible" role="alert">
-                                    <div class="alert-icon">
-                                        <i class="far fa-fw fa-bell"></i>
-                                    </div>
                                     <div class="alert-message">
-                                        <strong> {{ session('message') }}</strong>
+                                        <strong>{{ session('message') }}</strong>
                                     </div>
-
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             </div>
                         @endif
@@ -28,50 +22,60 @@
                             <div class="container">
                                 <div class="alert alert-danger alert-dismissible" role="alert">
                                     @foreach ($errors->all() as $error)
-                                        <div class="alert-icon">
-                                            <i class="far fa-fw fa-bell"></i>
-                                        </div>
                                         <div class="alert-message">
-                                            <strong> {{ $error }}</strong>
+                                            <strong>{{ $error }}</strong>
                                         </div>
-
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
                                     @endforeach
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             </div>
                         @endif
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('signage.admin.screens.add') }}">
+                        <form method="POST" action="{{ route('signage.admin.screens.store') }}">
                             @csrf
                             <div class="row justify-content-between">
-                                <div class="mb-3  col-md-4">
-                                    <label for="name">Name</label>
+                                <div class="mb-3 col-md-4">
+                                    <label for="name">Name <span class="text-danger">*</span></label>
                                     <input name="name" type="text" class="form-control" id="name"
-                                        placeholder="Name">
+                                        placeholder="Screen Name" value="{{ old('name') }}" required>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="show_title">Select Views</label>
-                                    <select class="form-control select2" name="views[]" id="views" multiple>
+                                    <label for="views">Select Views <span class="text-danger">*</span></label>
+                                    <select class="form-control select2" name="views[]" id="views" multiple required>
                                         @foreach ($views as $view)
-                                                <option value="{{ $view }}">
-                                                    {{ $view}}
-                                                </option>
+                                            <option value="{{ $view }}" {{ in_array($view, old('views', [])) ? 'selected' : '' }}>
+                                                {{ ucfirst($view) }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
                             <div class="row justify-content-between">
+                                <div class="mb-3 col-md-3">
+                                    <label for="slide_duration">Slide Duration (seconds)</label>
+                                    <input name="slide_duration" type="number" class="form-control" id="slide_duration"
+                                        placeholder="7" value="{{ old('slide_duration', 7) }}" min="1" max="60">
+                                    <small class="text-muted">How long each slide displays (1-60 seconds)</small>
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <label for="view_duration">View Duration (seconds)</label>
+                                    <input name="view_duration" type="number" class="form-control" id="view_duration"
+                                        placeholder="60" value="{{ old('view_duration', 60) }}" min="10" max="600">
+                                    <small class="text-muted">How long to stay on each view before switching (10-600 seconds)</small>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <a href="{{ route('schedule.index') }}"
+                                    <a href="{{ route('signage.admin') }}"
                                         style="background-color: rgb(53, 54, 55) !important;"
                                         class="btn btn-primary">Cancel</a>
                                 </div>
                                 <div class="mb-3 col-md-1">
                                     <button style="background-color: rgb(37, 38, 38) !important;" type="submit"
-                                        class="btn btn-primary">Submit</button>
+                                        class="btn btn-primary">Create</button>
                                 </div>
                             </div>
                         </form>
@@ -79,39 +83,28 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 @section('javascript')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-
-
             // Select2
             $(".select2").each(function() {
                 $(this)
                     .wrap("<div class=\"position-relative\"></div>")
                     .select2({
-                        placeholder: "Select value",
+                        placeholder: "Select views",
                         dropdownParent: $(this).parent()
                     });
             });
 
-            // Datetimepicker
-            $('#datetimepicker-minimum').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss'
-            });
-            $('#datetimepicker-minimum2').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss'
-            });
-            $('#datetimepicker-view-mode').datetimepicker({
-                viewMode: 'years'
-            });
-            $('#datetimepicker-time').datetimepicker({
-                format: 'LT'
-            });
-            $('#datetimepicker-date').datetimepicker({
-                format: 'LT'
+            // Convert seconds to milliseconds before form submission
+            document.querySelector('form').addEventListener('submit', function(e) {
+                var slideDuration = document.getElementById('slide_duration');
+                var viewDuration = document.getElementById('view_duration');
+
+                slideDuration.value = parseInt(slideDuration.value) * 1000;
+                viewDuration.value = parseInt(viewDuration.value) * 1000;
             });
         });
     </script>

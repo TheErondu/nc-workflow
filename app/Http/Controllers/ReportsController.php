@@ -171,7 +171,6 @@ class ReportsController extends Controller
         $requestData['title'] = $structuredSections[0]['bulletin'];
 
         $reports = Reports::Find($id);
-       // dd($requestData);
         $reports->update($requestData);
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11 OR department_id = 7 OR department_id = 13');
         $details = [

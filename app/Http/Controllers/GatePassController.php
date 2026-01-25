@@ -167,7 +167,6 @@ class GatePassController extends Controller
         $gatepass->items = Store::find($store_request->store_id)->first();
 
         $gatepass->pass_id = $pass_id;
-        // dd($pass_id);
         $gatepass->data = json_encode($data);
         $gatepass->user_id = $store_request->user_id;
         $gatepass->department_id = $store_request->department_id;
@@ -193,7 +192,6 @@ class GatePassController extends Controller
     {
         $user = Auth::user();
         $batch = BatchStoreRequest::find($id);
-        // dd($batch);
         $json = $batch->items;
         $items = json_decode($json, false);
 

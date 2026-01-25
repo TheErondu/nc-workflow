@@ -29,9 +29,9 @@ class StoreController extends ApiController
     public function MyStore()
     {   $user = FacadesAuth::user();
         $store_items = Store::all();
-        $store_requests =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Pending' AND user_id = $user->id;");
-        $borrowed_items =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Approved' AND user_id = $user->id;");
-        $returned_items =  DB::select("SELECT * FROM `store_requests` WHERE status = 'Returned' AND user_id = $user->id;");
+        $store_requests = StoreRequest::where('status', 'Pending')->where('user_id', $user->id)->get();
+        $borrowed_items = StoreRequest::where('status', 'Approved')->where('user_id', $user->id)->get();
+        $returned_items = StoreRequest::where('status', 'Returned')->where('user_id', $user->id)->get();
         return response()->json( compact('store_items','store_requests','borrowed_items','returned_items'));
     }
 

@@ -77,66 +77,154 @@
         .bg-red {
             background-color: #d9534f !important;
         }
+
+        .screens-table {
+            background-color: #1a1a1a;
+        }
+
+        .screens-table tbody tr {
+            background-color: #1a1a1a;
+            color: #fff;
+            border-bottom: 1px solid #444;
+        }
+
+        .screens-table thead {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .screens-table thead th {
+            border-bottom: 2px solid #444;
+        }
+
+        .screens-table tbody tr a:not(.btn) {
+            color: #fff;
+        }
+
+        .screens-table .badge.bg-secondary {
+            background-color: #444 !important;
+        }
     </style>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container">
+        @if (Session::has('message'))
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <div class="alert-message">
+                            <strong>{{ session('message') }}</strong>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-lg-3 col-sm-6">
                 <div class="card-box bg-blue">
                     <div class="inner">
-                        <h3> {{count($screens??0)}} </h3>
-                        <p> Screens </p>
+                        <h3>{{ count($screens ?? 0) }}</h3>
+                        <p>Screens</p>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                        <i class="fa fa-desktop" aria-hidden="true"></i>
                     </div>
-                    <a href="#" class="card-box-footer" onclick="openModal()">Manage screens<i
-                            class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('signage.admin.screens.create') }}" class="card-box-footer">
+                        Add New Screen <i class="fa fa-plus"></i>
+                    </a>
                 </div>
             </div>
 
             <div class="col-lg-3 col-sm-6">
                 <div class="card-box bg-green">
                     <div class="inner">
-                        <h3> 6 </h3>
-                        <p> Connected clients</p>
+                        <h3>Slides</h3>
+                        <p>Manage Content</p>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-money" aria-hidden="true"></i>
+                        <i class="fa fa-image" aria-hidden="true"></i>
                     </div>
-                    <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('signage.slides.index') }}" class="card-box-footer">
+                        Manage Slides <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
-            {{-- <div class="col-lg-3 col-sm-6">
-            <div class="card-box bg-orange">
-                <div class="inner">
-                    <h3> 5464 </h3>
-                    <p> New Admissions </p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                </div>
-                <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div> --}}
-            {{-- <div class="col-lg-3 col-sm-6">
-            <div class="card-box bg-red">
-                <div class="inner">
-                    <h3> 723 </h3>
-                    <p> Faculty Strength </p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-users"></i>
-                </div>
-                <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div> --}}
         </div>
-        <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <a href="#">uiuxstream</a>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #272727;">
+                        <h5 class="card-title mb-0" style="color: white;">All Screens</h5>
+                    </div>
+                    <div class="card-body">
+                        @if ($screens->isEmpty())
+                            <p class="text-muted">No screens have been created yet.</p>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table screens-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Views</th>
+                                            <th>Slide Duration</th>
+                                            <th>View Duration</th>
+                                            <th>Created</th>
+                                            <th style="width: 200px;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($screens as $screen)
+                                            <tr>
+                                                <td>
+                                                    <a href="{{ route('signage.show', $screen->name) }}" target="_blank">
+                                                        {{ $screen->name }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    @if (is_array($screen->views))
+                                                        @foreach ($screen->views as $view)
+                                                            <span class="badge bg-secondary">{{ $view }}</span>
+                                                        @endforeach
+                                                    @else
+                                                        {{ $screen->views }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ ($screen->slide_duration ?? 7000) / 1000 }}s</td>
+                                                <td>{{ ($screen->view_duration ?? 60000) / 1000 }}s</td>
+                                                <td>{{ $screen->created_at->format('Y-m-d') }}</td>
+                                                <td>
+                                                    <a href="{{ route('signage.show', $screen->name) }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success" title="Preview">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <a style="padding: 10px" class="text-white" href="{{ route('signage.admin.screens.edit', $screen) }}"
+                                                        class="btn btn-sm btn-outline-primary" title="Edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <form action="{{ route('signage.admin.screens.destroy', $screen) }}"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('Are you sure you want to delete this screen?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                {{ $screens->links() }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 @endsection
-

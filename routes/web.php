@@ -1,9 +1,7 @@
 <?php
 
-use App\Utils\Globals;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,13 +18,13 @@ Auth::Routes();
 Route::get('signage/show/{screen:name}', [App\Http\Controllers\SignageController::class, 'show'])->name('signage.show');
 Route::get('signage/screens', [App\Http\Controllers\SignageController::class, 'getScreensList'])->name('signage.screens.list');
 Route::get('awards/voting/results', [App\Http\Controllers\AwardsController::class, 'showLiveResults'])->name('awards.voting.results');
-Route::get('dev/test', function () {
 
-    return Globals::mailingGroups("Engineers");
-});
-Route::group(['middleware' => ['role:Admin']], function () {
+Route::group(['middleware' => ['auth', 'role:Admin']], function () {
     Route::get('dumplogs', 'App\Http\Controllers\COTController@DumpLogs');
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+    Route::resource('roles', 'App\Http\Controllers\RoleController');
+    Route::post('permissions/store', 'App\Http\Controllers\PermissionController@store')->name('permissions.store');
+    Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
 });
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -41,11 +39,30 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('reports', 'App\Http\Controllers\ReportsController');
     Route::resource('oblogs', 'App\Http\Controllers\OBlogsController');
     Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
-    Route::resource('roles', 'App\Http\Controllers\RoleController');
-    Route::post('permissions/store', 'App\Http\Controllers\PermissionController@store')->name('permissions.store');
+    // Signage Admin Routes
     Route::get('signage/admin', [App\Http\Controllers\SignageController::class, 'index'])->name('signage.admin');
     Route::get('signage/admin/screens/create', [App\Http\Controllers\SignageController::class, 'showCreateScreenPage'])->name('signage.admin.screens.create');
-    Route::post('signage/admins/screens/add', [App\Http\Controllers\SignageController::class, 'createScreen'])->name('signage.admin.screens.add');
+    Route::post('signage/admin/screens', [App\Http\Controllers\SignageController::class, 'createScreen'])->name('signage.admin.screens.store');
+    Route::get('signage/admin/screens/{screen}/edit', [App\Http\Controllers\SignageController::class, 'editScreen'])->name('signage.admin.screens.edit');
+    Route::put('signage/admin/screens/{screen}', [App\Http\Controllers\SignageController::class, 'updateScreen'])->name('signage.admin.screens.update');
+    Route::delete('signage/admin/screens/{screen}', [App\Http\Controllers\SignageController::class, 'destroyScreen'])->name('signage.admin.screens.destroy');
+
+    // Signage Birthdays Routes (Calendar-based CRUD)
+    Route::get('signage/admin/birthdays', [App\Http\Controllers\SignageSlideController::class, 'birthdaysIndex'])->name('signage.birthdays.index');
+    Route::get('signage/admin/birthdays/calendar', [App\Http\Controllers\SignageSlideController::class, 'birthdayCalendarEvents'])->name('signage.birthdays.calendar');
+    Route::get('signage/admin/birthdays/create', [App\Http\Controllers\SignageSlideController::class, 'birthdaysCreate'])->name('signage.birthdays.create');
+    Route::post('signage/admin/birthdays', [App\Http\Controllers\SignageSlideController::class, 'birthdaysStore'])->name('signage.birthdays.store');
+    Route::get('signage/admin/birthdays/{slide}/edit', [App\Http\Controllers\SignageSlideController::class, 'birthdaysEdit'])->name('signage.birthdays.edit');
+    Route::put('signage/admin/birthdays/{slide}', [App\Http\Controllers\SignageSlideController::class, 'birthdaysUpdate'])->name('signage.birthdays.update');
+    Route::delete('signage/admin/birthdays/{slide}', [App\Http\Controllers\SignageSlideController::class, 'birthdaysDestroy'])->name('signage.birthdays.destroy');
+
+    // Signage Slides Routes (Table-based CRUD for non-birthday slides)
+    Route::get('signage/admin/slides', [App\Http\Controllers\SignageSlideController::class, 'index'])->name('signage.slides.index');
+    Route::get('signage/admin/slides/create', [App\Http\Controllers\SignageSlideController::class, 'create'])->name('signage.slides.create');
+    Route::post('signage/admin/slides', [App\Http\Controllers\SignageSlideController::class, 'store'])->name('signage.slides.store');
+    Route::get('signage/admin/slides/{slide}/edit', [App\Http\Controllers\SignageSlideController::class, 'edit'])->name('signage.slides.edit');
+    Route::put('signage/admin/slides/{slide}', [App\Http\Controllers\SignageSlideController::class, 'update'])->name('signage.slides.update');
+    Route::delete('signage/admin/slides/{slide}', [App\Http\Controllers\SignageSlideController::class, 'destroy'])->name('signage.slides.destroy');
 
     //Engineer logs
 
@@ -141,16 +158,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('employees', App\Http\Controllers\EmployeeController::class);
     Route::resource('ipaddresses', App\Http\Controllers\IpAddressController::class)->except('show');
     Route::get('ipaddresses/generate', [App\Http\Controllers\IpAddressController::class, 'generateUnusedIPAddress'])->name('ipaddresses.generate');
-    Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
     Route::put('issues/assign-engineer/{id}', [App\Http\Controllers\IssueController::class, 'AssignEngineer'])->name('issues.assign');
     Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
-
-
-    Route::get('/event-test', function () {
-        $details = [
-            'title' => 'Mail from NTV Logs Exporter',
-            'body' => 'The MCR logs for yesterday has been sucessfully exported to the database'
-        ];
-        Mail::to('erone007@gmail.com')->send(new \App\Mail\SentLogs($details));
-    });
 });

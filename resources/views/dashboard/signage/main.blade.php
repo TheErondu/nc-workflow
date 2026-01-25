@@ -1,8 +1,8 @@
 <script>
     // Set up the views array and delay time
-    const views = "{!! $screen->views !!}"; // Assuming $views is a string of words separated by commas
-    const viewList = views.split(','); // Convert the string into an array
-    const delay = {{$delay ?? 60000}}; // Default delay of 5 seconds if not set
+    const views = @json(is_array($screen->views) ? $screen->views : explode(',', $screen->views ?? ''));
+    const viewList = Array.isArray(views) ? views : views.split(',');
+    const delay = {{ $delay ?? 60000 }}; // Default delay in ms
 
     // Get the current view index from the URL (if present) or default to 0
     const urlParams = new URLSearchParams(window.location.search);

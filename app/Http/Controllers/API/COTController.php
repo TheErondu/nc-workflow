@@ -70,7 +70,6 @@ class COTController extends ApiController
             }
         }
         fclose($file);
-        // print_r($importData_arr);
         array_pop($importData_arr);
 
         // Insert to MySQL database

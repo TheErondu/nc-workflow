@@ -164,8 +164,6 @@ class ContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //var_dump('bazinga');
-        //die();
         $validatedData = $request->validate([
             'title'             => 'required',
             'team_lead'           => 'required',

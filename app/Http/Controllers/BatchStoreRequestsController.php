@@ -50,8 +50,6 @@ class BatchStoreRequestsController extends Controller
         $user = auth()->user();
         $batch_store_request = new BatchStoreRequest();
         $batch = explode(",", $request->input('item_ids'));
-        //dd($batch);
-    // joro sexy ass bitch
         if ($batch == null) {
             return redirect()->back()->withErrors(['No item selected!']);
         } else {
@@ -73,7 +71,6 @@ class BatchStoreRequestsController extends Controller
             $cc_emails = MailingLists::addEmailsToCc($batch_store_request);
             $batch_store_request->save();
             Session::remove('allRequestedItems');
-            // dd($allRequestedItems);
             $cc_emails = MailingLists::addEmailsToCc($batch_store_request);
             $link = route('store.requests.batch.edit', ['batch_id' => $batch_store_request->id]);
             $details = [
@@ -99,7 +96,6 @@ class BatchStoreRequestsController extends Controller
         $batch_store_request = BatchStoreRequest::find($id);
         $batch = collect(json_decode($batch_store_request->items))->pluck('id');
         $items = Store::find($batch)->where('state', Store::is_in_circulation);
-        // dd($items);
         $allRequestedItems = [];
         foreach ($items as $requested_item) { // $interests array contains input data
             $item = Store::find($requested_item->id);
@@ -118,7 +114,6 @@ class BatchStoreRequestsController extends Controller
         $new_batch_store_request->batch_id = "$user->id" . date('Ymdhi');
         $new_batch_store_request->save();
         $link = route('store.requests.batch.edit', ['batch_id' => $new_batch_store_request->batch_id]);
-        // dd($allRequestedItems);
         $cc_emails = MailingLists::addEmailsToCc($new_batch_store_request);
         $details = [
             'cc_emails' => $cc_emails,
@@ -139,9 +134,7 @@ class BatchStoreRequestsController extends Controller
     public function approveBatchRequest(Request $request)
     {
         $batch_id = $request->input('batch_id');
-        // dd($batch);
         $batchRequest = BatchStoreRequest::with('user')->where('batch_id', $batch_id)->first();
-        // dd($batchRequest);
         $batchRequest->update([
             'status' => 'approved'
         ]);
@@ -167,9 +160,7 @@ class BatchStoreRequestsController extends Controller
     public function checkBatchRequest(Request $request): \Illuminate\Http\RedirectResponse
     {
         $batch_id = $request->input('batch_id');
-        // dd($batch);
         $batchRequest = BatchStoreRequest::with('user')->where('batch_id', $batch_id)->first();
-        // dd($batchRequest);
         $batchRequest->update([
             'status' => 'checked'
         ]);
@@ -194,9 +185,7 @@ class BatchStoreRequestsController extends Controller
     public function releaseBatchRequest(Request $request)
     {
         $batch_id = $request->input('batch_id');
-        // dd($batch);
         $batchRequest = BatchStoreRequest::with('user')->where('batch_id', $batch_id)->first();
-        // dd($batchRequest);
         $batchRequest->update([
             'status' => 'released'
         ]);
@@ -221,7 +210,6 @@ class BatchStoreRequestsController extends Controller
     public function rejectBatchRequest(Request $request)
     {
         $batch_id = $request->input('batch_id');
-        //  dd($request->input('rejection_comment'));
         $batchRequest = BatchStoreRequest::with('user')->where('batch_id', $batch_id)->first();
         $batchRequest->status = "rejected";
         $batchRequest->rejection_comment = $request->input('rejection_comment');
@@ -256,7 +244,6 @@ class BatchStoreRequestsController extends Controller
     public function returnBatchRequest(Request $request)
     {
         $batch_id = $request->input('batch_id');
-        // dd($batch);
         $batchRequest = BatchStoreRequest::with('user')->where('batch_id', $batch_id)->first();
         $batchRequest->update([
             'status' => 'returned'
@@ -299,11 +286,9 @@ class BatchStoreRequestsController extends Controller
             $batchRequest->date_extension_status = 0;
             $batchRequest->return_date = $batchRequest->extended_date;
         } else {
-            // dd($batchRequest);
             $batchRequest->date_extension_status = 1;
         }
         $batchRequest->extended_date = Carbon::parse($request->input('extension_date'))->format('Y-m-d');
-        // dd($batchRequest->extended_date);
         $batchRequest->date_extension_reason = $request->input('date_extension_reason');
         $batchRequest->save();
         $cc_emails = MailingLists::addEmailsToCc($batchRequest);
@@ -343,23 +328,23 @@ class BatchStoreRequestsController extends Controller
         $status = $request->input('status');
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
-        $query = "SELECT * FROM `batch_store_requests` WHERE id > 0";
+
+        $query = BatchStoreRequest::query();
+
         if (!is_null($status)) {
-            $query .= " AND status = '$status'";
+            $query->where('status', $status);
         }
 
         if (!is_null($start_date)) {
-            $query .= " AND created_at >= '$start_date'";
+            $query->where('created_at', '>=', $start_date);
         }
 
         if (!is_null($end_date)) {
-            $query .= " AND created_at <= '$end_date'";
+            $query->where('created_at', '<=', $end_date);
         }
-        $date = Date('D-m-Y');
-        $report = collect(DB::select($query));
-        // dd($report);
-       return view('pdf.batch_request_reports',compact('report'));
-       // return Excel::download(new ExportBatchRequests($report), "report_$start_date-$end_date.xlsx");
+
+        $report = $query->get();
+        return view('pdf.batch_request_reports', compact('report'));
     }
 
 }

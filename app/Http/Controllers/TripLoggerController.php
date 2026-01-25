@@ -37,11 +37,10 @@ class TripLoggerController extends Controller
     {
 
         $driver = Auth::user()->name;
-        $vehicles =  DB::select("SELECT * FROM `vehicles` WHERE assigned_driver = '$driver' ");
+        $vehicles = Vehicle::where('assigned_driver', $driver)->get();
         $today = date('Y-m-d');
-       // dd($today);
         $drivers = User::all()->where('department_id',21);
-        $assignedProductions = DB::select("SELECT * FROM `schedules` WHERE driver = '$driver' AND start LIKE '%$today%'");
+        $assignedProductions = Schedule::where('driver', $driver)->where('start', 'LIKE', "%{$today}%")->get();
         return view('dashboard.logistics.triplogger.create',compact('drivers','vehicles','assignedProductions'));
     }
 
@@ -104,7 +103,7 @@ class TripLoggerController extends Controller
     public function edit($id)
     {   $triplogger = Triplogger::all()->find($id);
         $driver = Auth::user()->name;
-        $vehicles =  DB::select("SELECT * FROM `vehicles` WHERE assigned_driver = '$driver' ");
+        $vehicles = Vehicle::where('assigned_driver', $driver)->get();
         return view('dashboard.logistics.triplogger.edit', compact('driver','triplogger','vehicles'));
     }
 

@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Event;
 
 class EmployeeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:Admin')->only(['store', 'update', 'destroy', 'resetpass']);
+    }
+
     /**
      * Display a listing of the resource.
      *

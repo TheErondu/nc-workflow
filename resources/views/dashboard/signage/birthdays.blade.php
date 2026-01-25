@@ -4,21 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signage Page</title>
+    <title>Birthday Celebrations</title>
     <script src="{{ asset('js/three.min.js') }}"></script>
     <script src="{{ asset('js/TweenMax.min.js') }}"></script>
     <script src="{{ asset('js/bas.js') }}"></script>
     <script src="{{ asset('js/OrbitControls-2.js') }}"></script>
 
     <style>
-        .info {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 9999999;
-            margin: 1.5rem;
-        }
-
         @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
 
         *,
@@ -99,25 +91,7 @@
             transition: opacity .4s .6s, transform .4s .6s;
         }
 
-        .content blockquote {
-            position: absolute;
-            bottom: 5%;
-            left: 4%;
-            z-index: 2;
-            max-width: 45%;
-        }
-
-        blockquote p {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-        }
-
-        blockquote span {
-            font-size: 1.4rem;
-        }
-
-        /* current slide
----------------------------------*/
+        /* current slide */
         .cd-slider li.current_slide {
             visibility: visible;
         }
@@ -131,8 +105,7 @@
             transform: scale(1);
         }
 
-        /* nav
----------------------------------*/
+        /* nav */
         nav div {
             position: absolute;
             top: 50%;
@@ -217,89 +190,62 @@
             transform: translate(-50%, -50%);
             transition: width .6s, height .6s;
         }
+
+        /* No slides message */
+        .no-slides {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #666;
+            font-size: 2rem;
+        }
+
+        .no-slides p {
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 
 <body>
-
+    @if(isset($slides) && count($slides) > 0)
     <section class="cd-slider">
         <ul>
+            @foreach($slides as $slide)
             <li data-color="#00000000">
                 <div class="content"
-                    style="background-image:url({{ asset('signage-slides/birthdays/17-11-2025/1.jpg') }}?v=5)">
+                    style="background-image:url({{ $slide->image_url }}?v={{ $slide->updated_at->timestamp }})">
                 </div>
             </li>
-            <li data-color="#00000000">
-                <div class="content"
-                    style="background-image:url({{ asset('signage-slides/birthdays/17-11-2025/2.jpg') }}?v=5)">
-                </div>
-            </li>
-
-
-            {{-- <li data-color="#00000000">
-                <div class="content"
-                    style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/2.jpg') }}?v=5)">
-                </div>
-            </li>
-
-            <li data-color="#00000000">
-                <div class="content"
-                    style="background-image:url({{ asset('signage-slides/birthdays/10-10-2025/3.jpg') }}?v=2)">
-
-                </div>
-            </li> --}}
-            {{-- <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/3.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/4.jpg') }}?v=2.1">
-
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/5.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/6.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/7.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/8.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/9.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/10.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/11.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/12.jpg') }}?v=2.1">
-                </div>
-            </li> --}}
+            @endforeach
         </ul>
         <nav>
             <div><a class="prev" href="#"></a></div>
             <div><a class="next" href="#"></a></div>
         </nav>
     </section>
+    @endif
 </body>
 <script>
     (function() {
+        // Set up the views array for navigation
+        const views = @json(is_array($screen->views) ? $screen->views : explode(',', $screen->views ?? ''));
+        const viewList = Array.isArray(views) ? views : views.split(',');
+        const viewDuration = {{ $screen->view_duration ?? 60000 }};
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let viewIndex = urlParams.has('viewIndex') ? parseInt(urlParams.get('viewIndex')) : 0;
+
+        // Ensure viewIndex is within bounds
+        viewIndex = viewIndex % viewList.length;
+        const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
+            viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
+
+        @if(isset($slides) && count($slides) > 0)
         var autoUpdate = true,
-            timeTrans = 7000,
+            timeTrans = {{ $screen->slide_duration ?? 7000 }},
             cdSlider = document.querySelector('.cd-slider'),
             item = cdSlider.querySelectorAll("li"),
             nav = cdSlider.querySelector("nav");
@@ -312,7 +258,6 @@
         }
 
         // Detect IE
-        // hide ripple effect on IE9
         var ua = window.navigator.userAgent;
         var msie = ua.indexOf("MSIE");
         if (msie > 0) {
@@ -346,18 +291,11 @@
             ripple.style.width = size + 'px';
             ripple.style.backgroundColor = prevColor;
 
-            ripple.addEventListener("webkitTransitionEnd", function() {
-                if (this.parentNode) {
-                    this.parentNode.removeChild(this);
-                }
-            });
-
             ripple.addEventListener("transitionend", function() {
                 if (this.parentNode) {
                     this.parentNode.removeChild(this);
                 }
             });
-
         }
 
         function nextSlide() {
@@ -380,18 +318,11 @@
             ripple.style.width = size + 'px';
             ripple.style.backgroundColor = nextColor;
 
-            ripple.addEventListener("webkitTransitionEnd", function() {
-                if (this.parentNode) {
-                    this.parentNode.removeChild(this);
-                }
-            });
-
             ripple.addEventListener("transitionend", function() {
                 if (this.parentNode) {
                     this.parentNode.removeChild(this);
                 }
             });
-
         }
 
         function updateNavColor() {
@@ -420,20 +351,6 @@
             updateNavColor();
         });
 
-        // Set up the views array and delay time
-        const views = "{!! request('screen')->views !!}"; // Assuming $views is a string of words separated by commas
-        const viewList = views.split(','); // Convert the string into an array
-        const delay = {{ $delay ?? 5000 }}; // Default delay of 5 seconds if not set
-
-        const urlParams = new URLSearchParams(window.location.search);
-        let viewIndex = urlParams.has('viewIndex') ? parseInt(urlParams.get('viewIndex')) : 0;
-
-        // Ensure viewIndex is within bounds
-        viewIndex = viewIndex % viewList.length;
-        const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
-            viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
-
-
         // autoUpdate
         var intervalId = setInterval(function() {
             if (autoUpdate) {
@@ -443,15 +360,22 @@
         }, timeTrans);
 
         if (item.length == 1) {
-            return;
-        } else {
-            // Set timeout for redirection after the last slide
             setTimeout(function() {
                 window.location.href = newURL;
-                clearInterval(intervalId); // Stop the autoUpdate interval
-            }, (item.length * timeTrans));
-        }
+            }, viewDuration);
+        } else {
+            var totalSlideTime = item.length * timeTrans;
+            var switchTime = Math.min(totalSlideTime, viewDuration);
 
+            setTimeout(function() {
+                window.location.href = newURL;
+                clearInterval(intervalId);
+            }, switchTime);
+        }
+        @else
+        // No birthdays today - immediately skip to the next view
+        window.location.href = newURL;
+        @endif
     })();
 </script>
 

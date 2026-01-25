@@ -7,6 +7,11 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:Admin');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Event;
 
 class StoreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:manage-store-requests')->only(['Approve', 'Reject', 'Return']);
+    }
+
     public function index()
     {
         $store_items = Store::all();
@@ -22,7 +27,6 @@ class StoreController extends Controller
         $approved_items = StoreRequest::where('status','Approved')->get()->sortByDesc('created_at');
         $batch_store_requests = BatchStoreRequest::where('status','pending')->get()->sortByDesc('created_at');
         $approved_batch_store_requests = BatchStoreRequest::where('status','approved')->get()->sortByDesc('created_at');
-        //dd($approved_batch_store_requests);
 
         return view('dashboard.store.index', compact('store_items','store_requests', 'batch_store_requests','approved_items','approved_batch_store_requests'));
     }
@@ -37,7 +41,7 @@ class StoreController extends Controller
         $user_department = Auth::user()->department->name;
         $user = auth()->user();
         $available_items = Store::all()->where('assigned_department', $user_department);
-        $all_requested = DB::select("SELECT * FROM `store_requests` WHERE status != 'Pending' AND user_id = $user->id");
+        $all_requested = StoreRequest::where('status', '!=', 'Pending')->where('user_id', $user->id)->get();
         $requested_items = StoreRequest::all()->where('status', 'pending')->where('user_id',$user->id);
         $store_requests = StoreRequest::all();
         return view('dashboard.store.requests.index', compact('available_items','store_requests','requested_items','all_requested'));

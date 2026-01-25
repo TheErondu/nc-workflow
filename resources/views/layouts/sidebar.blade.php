@@ -2,7 +2,7 @@
     <a class="sidebar-brand" href="/">
         <img src="/img/logo.gif" style="width: 10rem;">
     </a>
-    <div class="sidebar-content">
+    <div style="padding-bottom: 3rem" class="sidebar-content">
 
 
         <ul class="sidebar-nav">
@@ -246,11 +246,34 @@
                     <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analytics</span>
                 </a>
             </li>
-            <li class="sidebar-item">
-                <ul class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-
+            <li @if (Route::is('signage.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                <a data-bs-target="#signage" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle me-2 fas fa-tv"></i> <span class="align-middle">Signage</span>
+                </a>
+                <ul id="signage"
+                    @if (Route::is('signage.*')) class="sidebar-dropdown list-unstyled" @else class="sidebar-dropdown list-unstyled collapse" @endif
+                    data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('signage.admin') }}">
+                            <i class="align-middle me-2 fas fa-desktop"></i>
+                            <span class="align-middle">Screens</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('signage.birthdays.index') }}">
+                            <i class="align-middle me-2 fas fa-birthday-cake"></i>
+                            <span class="align-middle">Birthdays</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('signage.slides.index') }}">
+                            <i class="align-middle me-2 fas fa-images"></i>
+                            <span class="align-middle">Slides</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
+
 
         </ul>
     </div>

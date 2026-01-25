@@ -60,7 +60,9 @@ class IssueController extends ApiController
         $validatedData = $request->validate([
             'item_name'                 => 'required'
         ]);
-        $raisedby = Auth::user()->name;
+        $user = Auth::user();
+        // Use name, fall back to username, then email prefix as last resort
+        $raisedby = $user->name ?? $user->username ?? explode('@', $user->email)[0];
         $issue = new Issue();
         $issue->item_name     = $request->input('item_name');
         $issue->description = $request->input('description');
@@ -139,7 +141,8 @@ class IssueController extends ApiController
         $issue->description = $request->input('description');
         $issue->date = $request->input('date');
         $issue->location = $request->input('location');
-        $issue->raised_by = $request->input('raised_by');
+        // Preserve original raised_by if not provided in request
+        $issue->raised_by = $request->input('raised_by') ?? $issue->raised_by;
         $issue->department = $request->input('department');
         if ($user->can('fix-issues')) {
             $fixedBy = auth()->user()->username;
@@ -157,7 +160,6 @@ class IssueController extends ApiController
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
 
-        // dd($link);
         $details = [
             'link' => $link,
             'email' =>  $email,

@@ -217,74 +217,57 @@
             transform: translate(-50%, -50%);
             transition: width .6s, height .6s;
         }
+
+        /* No slides message */
+        .no-slides {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #1a1a1a;
+            color: #666;
+            font-size: 2rem;
+        }
     </style>
 </head>
 
 <body>
+    @if(isset($slides) && count($slides) > 0)
     <section class="cd-slider">
         <ul>
+            @foreach($slides as $slide)
             <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/1.jpg') }}?v=3)">
-
+                <div class="content"
+                    style="background-image:url({{ $slide->image_url }}?v={{ $slide->updated_at->timestamp }})">
                 </div>
             </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/2.jpg') }}?v=2)">
-
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/3.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/4.jpg') }}?v=2.1">
-
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/5.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/6.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/7.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/8.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/9.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/10.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/11.jpg') }}?v=2.1">
-                </div>
-            </li>
-            <li data-color="#00000000">
-                <div class="content" style="background-image:url({{ asset('signage-slides/process/12.jpg') }}?v=2.1">
-                </div>
-            </li>
+            @endforeach
         </ul>
         <nav>
             <div><a class="prev" href="#"></a></div>
             <div><a class="next" href="#"></a></div>
         </nav>
     </section>
+    @endif
 </body>
 <script>
     (function() {
+        // Set up the views array for navigation
+        const views = @json(is_array($screen->views) ? $screen->views : explode(',', $screen->views ?? ''));
+        const viewList = Array.isArray(views) ? views : views.split(',');
+        const viewDuration = {{ $screen->view_duration ?? 60000 }};
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let viewIndex = urlParams.has('viewIndex') ? parseInt(urlParams.get('viewIndex')) : 0;
+
+        // Ensure viewIndex is within bounds
+        viewIndex = viewIndex % viewList.length;
+        const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
+            viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
+
+        @if(isset($slides) && count($slides) > 0)
         var autoUpdate = true,
-            timeTrans = 7000,
+            timeTrans = {{ $screen->slide_duration ?? 7000 }},
             cdSlider = document.querySelector('.cd-slider'),
             item = cdSlider.querySelectorAll("li"),
             nav = cdSlider.querySelector("nav");
@@ -405,20 +388,6 @@
             updateNavColor();
         });
 
-        // Set up the views array and delay time
-        const views = "{!! request('screen')->views !!}"; // Assuming $views is a string of words separated by commas
-        const viewList = views.split(','); // Convert the string into an array
-        const delay = {{ $delay ?? 5000 }}; // Default delay of 5 seconds if not set
-
-        const urlParams = new URLSearchParams(window.location.search);
-        let viewIndex = urlParams.has('viewIndex') ? parseInt(urlParams.get('viewIndex')) : 0;
-
-        // Ensure viewIndex is within bounds
-        viewIndex = viewIndex % viewList.length;
-        const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
-            viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
-
-
         // autoUpdate
         var intervalId = setInterval(function() {
             if (autoUpdate) {
@@ -427,11 +396,25 @@
             }
         }, timeTrans);
 
-        // Set timeout for redirection after the last slide
-        setTimeout(function() {
-            window.location.href = newURL;
-            clearInterval(intervalId); // Stop the autoUpdate interval
-        }, (item.length * timeTrans));
+        if (item.length == 1) {
+            // Single slide - still switch views after view duration
+            setTimeout(function() {
+                window.location.href = newURL;
+            }, viewDuration);
+        } else {
+            // Multiple slides - switch views after all slides shown or view duration (whichever is less)
+            var totalSlideTime = item.length * timeTrans;
+            var switchTime = Math.min(totalSlideTime, viewDuration);
+
+            setTimeout(function() {
+                window.location.href = newURL;
+                clearInterval(intervalId);
+            }, switchTime);
+        }
+        @else
+        // No slides available - immediately skip to the next view
+        window.location.href = newURL;
+        @endif
 
     })();
 </script>

@@ -289,3 +289,146 @@ Key environment variables to configure (see `.env.example`):
 - Queue connection (currently `sync`, consider `redis` or `database` for production)
 - Session driver
 - Cache driver
+
+---
+
+## Code Review Findings (January 2026)
+
+### Codebase Statistics
+
+| Metric | Count |
+|--------|-------|
+| Models | 42 |
+| Web Controllers | 48 |
+| API Controllers | 42 |
+| Routes | 160+ |
+| Events | 7 |
+| Listeners | 7 |
+| Mail Classes | 9 |
+
+### Strengths
+
+1. **Clean Architecture** - Proper separation of web/API concerns, organized feature directories
+2. **Event-Driven System** - Well-implemented notification system with events, listeners, and queued mail
+3. **Authentication** - Modern Sanctum API auth combined with Spatie Permission for RBAC
+4. **Laravel Conventions** - Resource routing, middleware, proper directory structure
+
+### Critical Issues
+
+#### 1. ~~SQL Injection Vulnerabilities~~ ✅ FIXED (January 2026)
+
+Previously had raw `DB::select()` queries with string interpolation. **All 7 critical instances have been fixed** by replacing with Eloquent queries:
+
+- `TripLoggerController.php` - 3 instances fixed
+- `StoreController.php` - 1 instance fixed
+- `API/StoreController.php` - 3 instances fixed
+- `BatchStoreRequestsController.php` - 1 instance fixed (dynamic query building)
+
+#### 2. ~~Debug Code in Production~~ ✅ FIXED (January 2026)
+
+All debug code has been removed:
+- Removed test routes (`/dev/test`, `/event-test`)
+- Removed all commented `dd()`, `var_dump()`, `print_r()` statements from 15 files
+- Removed inappropriate comments
+
+#### 3. ✅ Authorization Hardening Added (January 2026)
+
+Controller-level middleware added for sensitive operations:
+- `EmployeeController` - `role:Admin` on `store`, `update`, `destroy`, `resetpass`
+- `PermissionController` - `role:Admin` on all methods
+- `StoreController` - `permission:manage-store-requests` on `Approve`, `Reject`, `Return`
+- Routes moved to Admin group: `roles`, `permissions/store`, `employees/password/reset`
+
+#### 4. Missing Test Coverage
+
+- Only 2 example tests exist
+- No feature tests for 40+ modules
+- No API endpoint tests
+
+#### 5. Hard-coded Values
+
+- Department IDs: 11, 7, 13, 34
+- Status strings: 'Pending', 'Approved', 'Returned'
+- Magic numbers throughout controllers
+
+### Technical Debt Summary
+
+| Issue | Count | Priority | Status |
+|-------|-------|----------|--------|
+| ~~Raw SQL queries (injection risk)~~ | ~~7~~ | ~~Critical~~ | ✅ Fixed |
+| ~~Debug code / test routes~~ | ~~15+ files~~ | ~~Critical~~ | ✅ Fixed |
+| ~~Authorization gaps~~ | ~~3 controllers~~ | ~~Critical~~ | ✅ Fixed |
+| Missing tests | 40+ modules | High | Pending |
+| Code duplication | 15+ patterns | High | Pending |
+| Missing validation | 25+ methods | High | Pending |
+| Hard-coded values | 50+ instances | Medium | Pending |
+| N+1 query problems | 20+ locations | Medium | Pending |
+
+---
+
+## Next Steps / Roadmap
+
+### Phase 1: Security Hardening (Critical) ✅ COMPLETED
+
+- [x] **Fix SQL Injection vulnerabilities** - Replaced all `DB::select()` with Eloquent queries (7 instances)
+- [x] **Remove debug code** - Removed all `dd()` statements, test routes, and inappropriate comments (15+ files)
+- [x] **Audit authentication** - Added authorization middleware to sensitive controllers (EmployeeController, PermissionController, StoreController)
+- [ ] **Input validation** - Create Form Request classes for all store/update methods
+
+### Phase 2: Code Quality (High Priority)
+
+- [ ] **Add test coverage** - Implement feature tests for critical workflows:
+  - Store request approval flow
+  - Issue ticket lifecycle
+  - User authentication (web and API)
+  - Schedule CRUD operations
+- [ ] **Create constants/enums** - Replace hard-coded IDs and status strings:
+  ```php
+  // Create app/Enums/Department.php
+  // Create app/Enums/RequestStatus.php
+  ```
+- [ ] **Implement Form Requests** - Move validation from controllers to dedicated request classes
+
+### Phase 3: Architecture Improvements (Medium Priority)
+
+- [ ] **Extract service classes** - Move business logic from controllers:
+  - `StoreRequestService` - Handle approval workflows
+  - `ScheduleService` - Calendar and scheduling logic
+  - `NotificationService` - Centralize email sending
+- [ ] **Fix N+1 queries** - Add eager loading with `with()` for relationships
+- [ ] **Add caching** - Cache analytics queries and frequently accessed data
+- [ ] **Implement repository pattern** - Abstract database access for testability
+
+### Phase 4: Performance & Monitoring (Lower Priority)
+
+- [ ] **Add pagination** - Replace `Model::all()` with paginated queries
+- [ ] **Database indexes** - Add indexes for common query filters
+- [ ] **Error tracking** - Integrate Sentry or similar
+- [ ] **Structured logging** - Implement proper log channels
+
+### Phase 5: Frontend Modernization (Future)
+
+- [ ] **Migrate to Vue 3 components** - Replace jQuery with Vue components
+- [ ] **Add TypeScript** - Type safety for frontend code
+- [ ] **API documentation** - Generate OpenAPI/Swagger docs
+
+---
+
+## Development Guidelines
+
+### When Writing New Code
+
+1. **Never use raw SQL** - Always use Eloquent or parameterized Query Builder
+2. **Always validate input** - Create Form Request classes for validation
+3. **Write tests first** - Add feature tests for new functionality
+4. **Use constants** - Never hard-code IDs or status values
+5. **Eager load relationships** - Prevent N+1 queries with `with()`
+
+### Code Review Checklist
+
+- [ ] No raw SQL queries (`DB::select`, `DB::statement` with concatenation)
+- [ ] No `dd()` or debug statements
+- [ ] Form Request class for validation
+- [ ] Feature test coverage
+- [ ] No hard-coded IDs or magic numbers
+- [ ] Eager loading for relationships

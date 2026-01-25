@@ -130,6 +130,8 @@
                             @else
 
                             {{-- Normal Users --}}
+                            <input name="raised_by" type="hidden" value="{{$issue->raised_by}}">
+                            <input name="date" type="hidden" value="{{$issue->date}}">
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="item_name">Equipment</label>

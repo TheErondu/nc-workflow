@@ -8,10 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Screen extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','views'];
 
-    public function signage()
-    {
-        return $this->belongsTo(Signage::class);
-    }
+    /**
+     * Available view types for signage screens.
+     */
+    public const VIEW_TYPES = [
+        'showreels',
+        'tickets',
+        'today',
+        'birthdays',
+        'general',
+    ];
+
+    protected $fillable = [
+        'name',
+        'views',
+        'slide_duration',
+        'view_duration',
+    ];
+
+    protected $casts = [
+        'views' => 'array',
+    ];
 }
