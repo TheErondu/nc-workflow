@@ -186,8 +186,10 @@
                             </div>
 
                             {{-- Pagination --}}
-                            <div class="d-flex justify-content-center mt-4">
-                                {{ $slides->links() }}
+                            <div class="row justify-content-center mt-4">
+                                <div class="col-6">
+                                    {!! $slides->render('dashboard.roles.paginate') !!}
+                                </div>
                             </div>
                         @endif
                     </div>
