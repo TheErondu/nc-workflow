@@ -40,10 +40,13 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header" style="background-color: #272727;">
+                        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #272727;">
                             <h5 class="card-title mb-0" style="color: white;">
                                 {{ ucfirst($viewType) }} Slides ({{ $viewSlides->count() }})
                             </h5>
+                            <a href="{{ route('signage.slides.create') }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"></i> Add Slide
+                            </a>
                         </div>
                         <div class="card-body">
                             @if ($viewSlides->isEmpty())
