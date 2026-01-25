@@ -12,15 +12,35 @@ class SignageSlideController extends Controller
     /**
      * Display a listing of slides (excludes birthdays).
      */
-    public function index()
+    public function index(Request $request)
     {
-        $slidesByViewType = SignageSlide::with('user')
-            ->where('view_type', '!=', 'birthdays')
-            ->orderBy('sort_order')
-            ->get()
-            ->groupBy('view_type');
+        $query = SignageSlide::with('user')
+            ->where('view_type', '!=', 'birthdays');
 
-        return view('dashboard.signage.admin.slides.index', compact('slidesByViewType'));
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('view_type', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by view type
+        if ($request->filled('view_type')) {
+            $query->where('view_type', $request->view_type);
+        }
+
+        $slides = $query->orderBy('view_type')
+            ->orderBy('sort_order')
+            ->paginate(10)
+            ->withQueryString();
+
+        $viewTypes = SignageSlide::where('view_type', '!=', 'birthdays')
+            ->distinct()
+            ->pluck('view_type');
+
+        return view('dashboard.signage.admin.slides.index', compact('slides', 'viewTypes'));
     }
 
     /**
