@@ -396,21 +396,13 @@
             }
         }, timeTrans);
 
-        if (item.length == 1) {
-            // Single slide - still switch views after view duration
-            setTimeout(function() {
-                window.location.href = newURL;
-            }, viewDuration);
-        } else {
-            // Multiple slides - switch views after all slides shown or view duration (whichever is less)
-            var totalSlideTime = item.length * timeTrans;
-            var switchTime = Math.min(totalSlideTime, viewDuration);
+        // Wait until all slides have been displayed at least once before switching views
+        var totalSlideTime = item.length * timeTrans;
 
-            setTimeout(function() {
-                window.location.href = newURL;
-                clearInterval(intervalId);
-            }, switchTime);
-        }
+        setTimeout(function() {
+            window.location.href = newURL;
+            clearInterval(intervalId);
+        }, totalSlideTime);
         @else
         // No slides available - immediately skip to the next view
         window.location.href = newURL;
