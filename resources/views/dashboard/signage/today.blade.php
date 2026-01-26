@@ -268,7 +268,7 @@
 
             if (marquee && bookingCount > 0) {
                 // Calculate scroll duration based on number of bookings
-                const baseDuration = 5; // seconds per booking
+                const baseDuration = 10; // seconds per booking
                 const duration = Math.max(15, bookingCount * baseDuration);
                 marquee.style.setProperty('--scroll-duration', duration + 's');
 
