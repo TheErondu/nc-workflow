@@ -37,6 +37,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('documents', 'App\Http\Controllers\DocumentController');
     Route::resource('dutylog', 'App\Http\Controllers\DutyloggerController');
     Route::resource('reports', 'App\Http\Controllers\ReportsController');
+    Route::get('manual-reports/download/template', [App\Http\Controllers\ManualReportController::class, 'downloadTemplate'])->name('manual-reports.template');
+    Route::post('manual-reports/import/word', [App\Http\Controllers\ManualReportController::class, 'importFromWord'])->name('manual-reports.import');
+    Route::resource('manual-reports', App\Http\Controllers\ManualReportController::class);
     Route::resource('oblogs', 'App\Http\Controllers\OBlogsController');
     Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
     // Signage Admin Routes

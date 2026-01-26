@@ -36,6 +36,7 @@ Route::get('graphics-news-calendar', [App\Http\Controllers\API\CalendarViewContr
 Route::get('graphics-shows-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'GraphicsLogShows']);
 Route::get('prompter-news-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'PrompterLogs']);
 Route::get('prompter-shows-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'prompterlogShows']);
+Route::get('manual-reports-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'ManualReports']);
 Route::get('appointments', [App\Http\Controllers\API\CalendarViewController::class, 'getAppointments']);
 
 

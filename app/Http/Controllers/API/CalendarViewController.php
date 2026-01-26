@@ -13,6 +13,7 @@ use App\Models\ProductionShowLogs;
 use App\Models\PrompterLogs;
 use App\Models\PrompterLogShows;
 use App\Models\Reports;
+use App\Models\ManualReport;
 use Illuminate\Http\Request;
 
 class CalendarViewController extends ApiController
@@ -96,6 +97,43 @@ class CalendarViewController extends ApiController
         ->whereDate('end',   '<=', $request->end)
         ->get(['id', 'title', 'start', 'email','phone','photo', 'description','status']);
     return response()->json($data);
+    }
+
+    public function ManualReports(Request $request)
+    {
+        $query = ManualReport::query();
+
+        if ($request->has('start') && $request->has('end')) {
+            $query->whereDate('report_date', '>=', $request->start)
+                  ->whereDate('report_date', '<=', $request->end);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('report_type', $request->type);
+        }
+
+        $data = $query->get()->map(function ($report) {
+            $colors = [
+                'director' => '#3788d8',
+                'vision_mixer' => '#28a745',
+                'graphics' => '#dc3545',
+                'sto' => '#ffc107',
+                'audio' => '#6f42c1',
+            ];
+
+            return [
+                'id' => $report->id,
+                'title' => $report->title,
+                'start' => $report->report_date->format('Y-m-d'),
+                'end' => $report->report_date->format('Y-m-d'),
+                'color' => $colors[$report->report_type] ?? '#6c757d',
+                'extendedProps' => [
+                    'report_type' => $report->report_type_label,
+                ],
+            ];
+        });
+
+        return response()->json($data);
     }
 
 }

@@ -99,7 +99,8 @@
                             'production.*',
                             'engineers.*',
                             'prompter.*',
-                            'transmission.*')) class="sidebar-dropdown list-unstyled " @else class="sidebar-dropdown list-unstyled collapse" @endif
+                            'transmission.*',
+                            'manual-reports.*')) class="sidebar-dropdown list-unstyled " @else class="sidebar-dropdown list-unstyled collapse" @endif
                     data-bs-parent="#sidebar">
                     @canany(['access-dir_reports', 'access-dir_reports-readonly'])
                         <li @if (Route::is('reports.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
@@ -168,6 +169,12 @@
                                     class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Prompter
                                     Logs (Shows)</span></a></li>
                     @endcanany
+                    <li @if (Route::is('manual-reports.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                        <a class="sidebar-link" href="{{ route('manual-reports.index') }}">
+                            <i class="align-middle me-2 fas fa-pen-alt"></i>
+                            <span class="align-middle">Manual Reports</span>
+                        </a>
+                    </li>
                     {{-- <li @if (Route::is('transmission.*')) class="sidebar-item active" @else class="sidebar-item" @endif><a class="sidebar-link" href="{{ route('transmission.index') }}"> <i
                                 class="align-middle me-2 fas fa-file-alt"></i> <span class="align-middle">Transmission
                                 Logs</span></a></li> --}}
