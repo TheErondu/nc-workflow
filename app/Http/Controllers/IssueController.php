@@ -220,6 +220,29 @@ class IssueController extends Controller
     }
 
     /**
+     * Bulk close selected issues.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkClose(Request $request)
+    {
+        $request->validate([
+            'issue_ids' => 'required|array',
+            'issue_ids.*' => 'integer|exists:issues,id',
+        ]);
+
+        $count = Issue::whereIn('id', $request->input('issue_ids'))
+            ->where('status', '!=', 'CLOSED')
+            ->update([
+                'status' => 'CLOSED',
+                'resolved_date' => date('d-m-Y H:i:s'),
+            ]);
+
+        return redirect()->route('issues.index')->with('message', $count . ' issue(s) closed successfully.');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

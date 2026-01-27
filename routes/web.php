@@ -148,6 +148,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('store-requests/approve/{id}', 'App\Http\Controllers\StoreController@Approve')->name('store-requests.approve');
     Route::put('store-requests/reject/{id}', 'App\Http\Controllers\StoreController@Reject')->name('store-requests.reject');
     Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
+    Route::post('issues/bulk-close', [App\Http\Controllers\IssueController::class, 'bulkClose'])->name('issues.bulk-close');
     Route::resource('issues', 'App\Http\Controllers\IssueController');
     Route::resource('jobs', 'App\Http\Controllers\QueueJobsController');
     Route::get('job/retry/{id}', 'App\Http\Controllers\QueueJobsController@Retry')->name('job.retry');

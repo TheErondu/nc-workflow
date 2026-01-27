@@ -45,48 +45,80 @@
                         @endif
                     </div>
                     @if (count($issues) > 0)
-
-                            <div style="overflow-y: auto; height:400px; ">
-                        <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th width=40%>Description</th>
-                                    <th>Date</th>
-                                    <th>Location</th>
-                                    <th>Raised By</th>
-                                    <th>Department</th>
-                                    <th>Status</th>
-                                    <th>Fixed by</th>
-                                    <th>Action Taken</th>
-                                    <th>Cause of Breakdown</th>
-                                    <th>Engineers Comment</th>
-                                    <th>Resolved Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($issues as $issue)
-                                    <tr>
-                                        <td><a href="{{ route('issues.edit', $issue->id) }}"><i
-                                                    class="far fa-edit"></i></a></td>
-                                        <td>{{ $issue->item_name }}</td>
-                                        <td>{{ $issue->description }}</td>
-                                        <td>{{ $issue->date }}</td>
-                                        <td>{{ $issue->location }}</td>
-                                        <td>{{ $issue->raised_by }}</td>
-                                        <td>{{ $issue->department }}</td>
-                                        <td>{{ $issue->status }}</td>
-                                        <td>{{ $issue->fixed_by }}</td>
-                                        <td>{{ $issue->action_taken }}</td>
-                                        <td>{{ $issue->cause_of_breakdown }}</td>
-                                        <td>{{ $issue->engineers_comment }}</td>
-                                        <td>{{ $issue->resolved_date }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="card-body">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="statusFilter">Filter by Status</label>
+                                    <select id="statusFilter" class="form-control">
+                                        <option value="">All</option>
+                                        <option value="OPEN">Open</option>
+                                        <option value="CLOSED">Closed</option>
+                                    </select>
+                                </div>
+                                @can('fix-issues')
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button type="button" id="bulkCloseBtn" class="btn btn-danger" disabled>
+                                        Close Selected (<span id="selectedCount">0</span>)
+                                    </button>
+                                </div>
+                                @endcan
                             </div>
+                        </div>
+
+                        <form id="bulkCloseForm" method="POST" action="{{ route('issues.bulk-close') }}">
+                            @csrf
+                            <div style="overflow-y: auto; height:400px;">
+                                <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            @can('fix-issues')
+                                            <th width="30px"><input type="checkbox" id="selectAll"></th>
+                                            @endcan
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th width=40%>Description</th>
+                                            <th>Date</th>
+                                            <th>Location</th>
+                                            <th>Raised By</th>
+                                            <th>Department</th>
+                                            <th>Status</th>
+                                            <th>Fixed by</th>
+                                            <th>Action Taken</th>
+                                            <th>Cause of Breakdown</th>
+                                            <th>Engineers Comment</th>
+                                            <th>Resolved Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($issues as $issue)
+                                            <tr>
+                                                @can('fix-issues')
+                                                <td>
+                                                    @if($issue->status !== 'CLOSED')
+                                                        <input type="checkbox" class="issue-checkbox" name="issue_ids[]" value="{{ $issue->id }}">
+                                                    @endif
+                                                </td>
+                                                @endcan
+                                                <td><a href="{{ route('issues.edit', $issue->id) }}"><i
+                                                            class="far fa-edit"></i></a></td>
+                                                <td>{{ $issue->item_name }}</td>
+                                                <td>{{ $issue->description }}</td>
+                                                <td>{{ $issue->date }}</td>
+                                                <td>{{ $issue->location }}</td>
+                                                <td>{{ $issue->raised_by }}</td>
+                                                <td>{{ $issue->department }}</td>
+                                                <td>{{ $issue->status }}</td>
+                                                <td>{{ $issue->fixed_by }}</td>
+                                                <td>{{ $issue->action_taken }}</td>
+                                                <td>{{ $issue->cause_of_breakdown }}</td>
+                                                <td>{{ $issue->engineers_comment }}</td>
+                                                <td>{{ $issue->resolved_date }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                         <div class="modal fade" id="smallModal" role="dialog" aria-labelledby="smallModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
@@ -153,16 +185,63 @@
     </script>
     <script>
        document.addEventListener("DOMContentLoaded", function() {
-			// Datatables with Buttons
-			var datatablesButtons = $("#datatables-buttons").DataTable({
-				responsive: true,
-                fixedHeader:true,
-                paginate:true,
-                "order": [[ 0, "desc" ]],
-				buttons: ["copy", "print"]
-			});
+            // Status column index (accounting for checkbox column)
+            var statusColIndex = {{ auth()->user()->can('fix-issues') ? 8 : 7 }};
+
+            // Datatables with Buttons
+            var datatablesButtons = $("#datatables-buttons").DataTable({
+                responsive: true,
+                fixedHeader: true,
+                paginate: true,
+                "order": [[ {{ auth()->user()->can('fix-issues') ? 1 : 0 }}, "desc" ]],
+                buttons: ["copy", "print"],
+                columnDefs: [
+                    @can('fix-issues')
+                    { orderable: false, targets: 0 }
+                    @endcan
+                ]
+            });
             datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
-            /* =========================================================================================== */
+
+            // Status filter
+            $('#statusFilter').on('change', function() {
+                var val = $(this).val();
+                datatablesButtons.column(statusColIndex).search(val ? '^' + val + '$' : '', true, false).draw();
+            });
+
+            // Select all checkbox
+            $('#selectAll').on('change', function() {
+                // Only select visible (filtered) rows that have checkboxes
+                var rows = datatablesButtons.rows({ search: 'applied' }).nodes();
+                $(rows).find('.issue-checkbox').prop('checked', this.checked);
+                updateSelectedCount();
+            });
+
+            // Individual checkbox change
+            $(document).on('change', '.issue-checkbox', function() {
+                updateSelectedCount();
+                // Uncheck "select all" if any individual checkbox is unchecked
+                if (!this.checked) {
+                    $('#selectAll').prop('checked', false);
+                }
+            });
+
+            // Update selected count and button state
+            function updateSelectedCount() {
+                var count = $('.issue-checkbox:checked').length;
+                $('#selectedCount').text(count);
+                $('#bulkCloseBtn').prop('disabled', count === 0);
+            }
+
+            // Bulk close button
+            $('#bulkCloseBtn').on('click', function() {
+                var count = $('.issue-checkbox:checked').length;
+                if (count === 0) return;
+                if (confirm('Are you sure you want to close ' + count + ' issue(s)?')) {
+                    $('#bulkCloseForm').submit();
+                }
+            });
+
             /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
                 $($.fn.dataTable.tables(true)).DataTable().columns.adjust().responsive.recalc();
