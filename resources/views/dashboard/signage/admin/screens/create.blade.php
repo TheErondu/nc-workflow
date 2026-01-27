@@ -98,14 +98,7 @@
                     });
             });
 
-            // Convert seconds to milliseconds before form submission
-            document.querySelector('form').addEventListener('submit', function(e) {
-                var slideDuration = document.getElementById('slide_duration');
-                var viewDuration = document.getElementById('view_duration');
-
-                slideDuration.value = parseInt(slideDuration.value) * 1000;
-                viewDuration.value = parseInt(viewDuration.value) * 1000;
-            });
+            // Duration conversion is handled server-side
         });
     </script>
 @endsection

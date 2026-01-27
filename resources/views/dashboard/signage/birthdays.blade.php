@@ -1,3 +1,5 @@
+@if(isset($slides) && count($slides) > 0)
+{{-- ===== BIRTHDAY SLIDES VIEW ===== --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -190,27 +192,10 @@
             transform: translate(-50%, -50%);
             transition: width .6s, height .6s;
         }
-
-        /* No slides message */
-        .no-slides {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #666;
-            font-size: 2rem;
-        }
-
-        .no-slides p {
-            margin-bottom: 1rem;
-        }
     </style>
 </head>
 
 <body>
-    @if(isset($slides) && count($slides) > 0)
     <section class="cd-slider">
         <ul>
             @foreach($slides as $slide)
@@ -226,24 +211,19 @@
             <div><a class="next" href="#"></a></div>
         </nav>
     </section>
-    @endif
 </body>
 <script>
     (function() {
-        // Set up the views array for navigation
         const views = @json(is_array($screen->views) ? $screen->views : explode(',', $screen->views ?? ''));
         const viewList = Array.isArray(views) ? views : views.split(',');
         const viewDuration = {{ $screen->view_duration ?? 60000 }};
 
         const urlParams = new URLSearchParams(window.location.search);
         let viewIndex = urlParams.has('viewIndex') ? parseInt(urlParams.get('viewIndex')) : 0;
-
-        // Ensure viewIndex is within bounds
         viewIndex = viewIndex % viewList.length;
         const newURL = '{{ url("signage/show/{$screen->name}") }}' + '?view=' + encodeURIComponent(viewList[
             viewIndex]) + '&viewIndex=' + ((viewIndex + 1) % viewList.length);
 
-        @if(isset($slides) && count($slides) > 0)
         var autoUpdate = true,
             timeTrans = {{ $screen->slide_duration ?? 7000 }},
             cdSlider = document.querySelector('.cd-slider'),
@@ -257,7 +237,6 @@
             item[i].style.backgroundColor = color;
         }
 
-        // Detect IE
         var ua = window.navigator.userAgent;
         var msie = ua.indexOf("MSIE");
         if (msie > 0) {
@@ -351,7 +330,6 @@
             updateNavColor();
         });
 
-        // autoUpdate
         var intervalId = setInterval(function() {
             if (autoUpdate) {
                 nextSlide();
@@ -372,11 +350,125 @@
                 clearInterval(intervalId);
             }, switchTime);
         }
-        @else
-        // No birthdays today - immediately skip to the next view
-        window.location.href = newURL;
-        @endif
     })();
 </script>
 
 </html>
+@else
+{{-- ===== NO BIRTHDAYS TODAY ===== --}}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Birthday Celebrations</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            padding: 2rem 3rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-shrink: 0;
+            background: #d71f27;
+            margin: -2rem -3rem 2rem -3rem;
+            padding: 1.5rem 3rem;
+        }
+
+        .header-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+        }
+
+        .header-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+
+        .header-title {
+            color: #fff;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .no-birthdays {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .no-birthdays svg {
+            width: 160px;
+            height: 160px;
+            fill: #ccc;
+            margin-bottom: 2.5rem;
+        }
+
+        .no-birthdays p {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #888;
+        }
+
+        .no-birthdays .sub {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #aaa;
+            margin-top: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">
+                {{-- Birthday cake icon --}}
+                <svg viewBox="0 0 24 24"><path d="M12 6c1.11 0 2-.9 2-2 0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.9 2 2 2zm4.6 9.99l-1.07-1.07-1.08 1.07c-1.3 1.3-3.58 1.31-4.89 0l-1.07-1.07-1.09 1.07C6.75 16.64 5.88 17 4.96 17c-.73 0-1.4-.23-1.96-.61V21c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-4.61c-.56.38-1.23.61-1.96.61-.92 0-1.79-.36-2.44-1.01zM18 9h-5V7h-2v2H6c-1.66 0-3 1.34-3 3v1.54c0 1.08.88 1.96 1.96 1.96.52 0 1.02-.2 1.38-.57l2.14-2.13 2.13 2.13c.74.74 2.03.74 2.77 0l2.14-2.13 2.13 2.13c.37.37.86.57 1.38.57 1.08 0 1.96-.88 1.96-1.96V12c.01-1.66-1.33-3-2.99-3z"/></svg>
+            </div>
+            <h1 class="header-title">Birthday Celebrations</h1>
+        </div>
+
+        <div class="no-birthdays">
+            {{-- Large cake icon --}}
+            <svg viewBox="0 0 24 24"><path d="M12 6c1.11 0 2-.9 2-2 0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.9 2 2 2zm4.6 9.99l-1.07-1.07-1.08 1.07c-1.3 1.3-3.58 1.31-4.89 0l-1.07-1.07-1.09 1.07C6.75 16.64 5.88 17 4.96 17c-.73 0-1.4-.23-1.96-.61V21c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-4.61c-.56.38-1.23.61-1.96.61-.92 0-1.79-.36-2.44-1.01zM18 9h-5V7h-2v2H6c-1.66 0-3 1.34-3 3v1.54c0 1.08.88 1.96 1.96 1.96.52 0 1.02-.2 1.38-.57l2.14-2.13 2.13 2.13c.74.74 2.03.74 2.77 0l2.14-2.13 2.13 2.13c.37.37.86.57 1.38.57 1.08 0 1.96-.88 1.96-1.96V12c.01-1.66-1.33-3-2.99-3z"/></svg>
+            <p>No Birthdays Today</p>
+            <p class="sub">Check back tomorrow</p>
+        </div>
+    </div>
+
+    @include('dashboard.signage.main', ['delay' => $screen->view_duration ?? 60000])
+</body>
+
+</html>
+@endif
