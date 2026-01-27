@@ -94,6 +94,8 @@
                     @if (Route::is(
                             'reports.*',
                             'mcr.*',
+                            'sto-logs.*',
+                            'audio-logs.*',
                             'editors.*',
                             'oblogs.*',
                             'production.*',
@@ -132,6 +134,18 @@
                             @if (Route::is('mcr.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                             <a class="sidebar-link" href="{{ route('mcr.index') }}"> <i
                                     class="align-middle me-2 fas fa-file-video"></i> <span class="align-middle">MCR
+                                    Logs</span></a></li>
+                    @endcanany
+                    @canany(['access-mcr_logs', 'access-mcr_logs-readonly'])
+                        <li
+                            @if (Route::is('sto-logs.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                            <a class="sidebar-link" href="{{ route('sto-logs.index') }}"> <i
+                                    class="align-middle me-2 fas fa-file-audio"></i> <span class="align-middle">STO
+                                    Logs</span></a></li>
+                        <li
+                            @if (Route::is('audio-logs.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                            <a class="sidebar-link" href="{{ route('audio-logs.index') }}"> <i
+                                    class="align-middle me-2 fas fa-headphones"></i> <span class="align-middle">Audio
                                     Logs</span></a></li>
                     @endcanany
                     @canany(['access-production_show_logs', 'access-production_show_logs-readonly'])

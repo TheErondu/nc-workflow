@@ -6,9 +6,9 @@
                 <div class="card table-card">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
                         <span>Issues </span>
-                        {{-- <a href="{{ route('employees.create') }}" style="background-color: rgb(0, 0, 0) !important;"
-                            type="submit" class="btn btn-primary create-button">Add New Employee <i
-                                class="fas fa-plus"></i></a> --}}
+                        <a href="{{ route('issues.create') }}" style="background-color: rgb(0, 0, 0) !important;"
+                            class="btn btn-primary create-button">Report Tech Problem <i
+                                class="fas fa-plus"></i></a>
                     </div>
                     <div class="row">
                         @if (Session::has('message'))

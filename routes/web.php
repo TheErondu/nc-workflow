@@ -89,6 +89,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('store', 'App\Http\Controllers\StoreController');
     Route::resource('logs/mcr', 'App\Http\Controllers\McrLogsController');
+    Route::resource('logs/sto', 'App\Http\Controllers\StoLogsController')->names('sto-logs');
+    Route::resource('logs/audio', 'App\Http\Controllers\AudioLogsController')->names('audio-logs');
     Route::resource('logs/production', 'App\Http\Controllers\ProductionShowLogsController');
     Route::resource('logs/editors', 'App\Http\Controllers\EditorLogsController');
     Route::resource('logs/prompter-news', 'App\Http\Controllers\PrompterLogsController');

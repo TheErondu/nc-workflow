@@ -11,7 +11,6 @@ use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class IssueController extends Controller
 {
@@ -23,14 +22,21 @@ class IssueController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $raised_issues = DB::table('issues')->where('raised_by', Auth::user()->name)->orderBy('id','desc')->get();
-        if (request()->query('type') === 'raised') {
+        $userName = $user->name;
 
+        // Get issues raised by current user
+        $raised_issues = Issue::where('raised_by', $userName)->orderBy('id', 'desc')->get();
+
+        if (request()->query('type') === 'raised') {
             $issues = $raised_issues;
-        } elseif (($user->can('fix-issues'))) {
-            $issues = DB::table('issues')->orderBy('id','DESC')->get();
-        } else
+        } elseif ($user->can('fix-issues')) {
+            // Engineers/admins can see all issues
+            $issues = Issue::orderBy('id', 'desc')->get();
+        } else {
+            // Regular users only see their own issues
             $issues = $raised_issues;
+        }
+
         $users = User::all();
         return view('dashboard.issues.index', compact('issues', 'raised_issues', 'users'));
     }
@@ -55,11 +61,15 @@ class IssueController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'item_name'                 => 'required'
+            'item_name' => 'required',
+            'description' => 'nullable|string',
+            'location' => 'nullable|string',
+            'department' => 'nullable|string',
         ]);
         $user = Auth::user();
         // Use name, fall back to username, then email prefix as last resort
-        $raisedby = $user->name ?? $user->username ?? explode('@', $user->email)[0];
+        // Check for empty strings too, not just null
+        $raisedby = !empty($user->name) ? $user->name : (!empty($user->username) ? $user->username : explode('@', $user->email)[0]);
         $issue = new Issue();
         $issue->item_name     = $request->input('item_name');
         $issue->description = $request->input('description');
@@ -115,15 +125,14 @@ class IssueController extends Controller
      */
     public function edit($id)
     {
-        $issue = Issue::all()->find($id);
-        $engineers = DB::table('users')->where('department_id',11)->get('name');
+        $issue = Issue::findOrFail($id);
+        // Get engineers (department_id = 11)
+        $engineers = User::where('department_id', 11)->get(['name']);
 
-        $issue_status   = array(
-            'OPEN', 'CLOSED'
-        );
+        $issue_status = array_keys(Issue::STATUSES);
         $departments = Department::all();
         $users = User::all();
-        return view('dashboard.issues.edit', compact('issue','engineers', 'users', 'departments', 'issue_status'));
+        return view('dashboard.issues.edit', compact('issue', 'engineers', 'users', 'departments', 'issue_status'));
     }
 
      /**

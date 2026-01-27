@@ -21,7 +21,7 @@ class SignageController extends Controller
         $screenToShow = Screen::find($screen->id);
         $today = Carbon::today();
         $schedules = Schedule::whereDate('start', $today)->get();
-        $tickets = Issue::with('user')->where('status', 'OPEN')->orderByDesc('created_at')
+        $tickets = Issue::where('status', 'OPEN')->orderByDesc('created_at')
             ->take(20)
             ->get();
 

@@ -8,6 +8,8 @@ use App\Models\EditorLogs;
 use App\Models\GraphicsLogs;
 use App\Models\GraphicsLogShows;
 use App\Models\McrLogs;
+use App\Models\StoLogs;
+use App\Models\AudioLogs;
 use App\Models\OBlogs;
 use App\Models\ProductionShowLogs;
 use App\Models\PrompterLogs;
@@ -36,6 +38,22 @@ class CalendarViewController extends ApiController
     public function McrLogs(Request $request)
     {
         $data = McrLogs::whereDate('start', '>=', $request->start)
+        ->whereDate('end',   '<=', $request->end)
+        ->get(['id', 'title', 'start','end','color','remarks']);
+
+        return response()->json($data);
+    }
+    public function StoLogs(Request $request)
+    {
+        $data = StoLogs::whereDate('start', '>=', $request->start)
+        ->whereDate('end',   '<=', $request->end)
+        ->get(['id', 'title', 'start','end','color','remarks']);
+
+        return response()->json($data);
+    }
+    public function AudioLogs(Request $request)
+    {
+        $data = AudioLogs::whereDate('start', '>=', $request->start)
         ->whereDate('end',   '<=', $request->end)
         ->get(['id', 'title', 'start','end','color','remarks']);
 

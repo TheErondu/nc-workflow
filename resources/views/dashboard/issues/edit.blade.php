@@ -69,8 +69,7 @@
                         </form>
                         <form method="POST" enctype="multipart/form-data" action="{{ route('issues.update',$issue->id) }}">
                             @csrf
-                            @method('PUT
-                            ')
+                            @method('PUT')
                             {{-- Engineers only --}}
                             @can('fix-issues')
                             <div class="row justify-content-between">
@@ -140,7 +139,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="department">Department</label>
-                                    <select class="form-control select2" name="department_id" id="department_id" data-placeholder=" Select Department">
+                                    <select class="form-control select2" name="department" id="department" data-placeholder=" Select Department">
                                         <option value="" selected>select</option>
                                         @foreach($departments as $department)
                                             <option value="{{ $department->name}}" @if($issue->department === $department->name) selected='selected' @endif>{{ $department->name }}</option>

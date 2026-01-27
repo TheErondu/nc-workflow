@@ -229,7 +229,7 @@
                             </div>
                             <div class="ticket-meta">
                                 <span class="ticket-location">{{ $ticket->location }}</span>
-                                <span class="ticket-date">{{ \Carbon\Carbon::parse($ticket->date)->format('d M Y') }}</span>
+                                <span class="ticket-date">{{ \Carbon\Carbon::parse($ticket->created_at)->format('d M Y') }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -248,7 +248,7 @@
                                 </div>
                                 <div class="ticket-meta">
                                     <span class="ticket-location">{{ $ticket->location }}</span>
-                                    <span class="ticket-date">{{ \Carbon\Carbon::parse($ticket->date)->format('d M Y') }}</span>
+                                    <span class="ticket-date">{{ \Carbon\Carbon::parse($ticket->created_at)->format('d M Y') }}</span>
                                 </div>
                             </div>
                         @endforeach
