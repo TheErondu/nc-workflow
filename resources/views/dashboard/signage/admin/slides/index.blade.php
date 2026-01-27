@@ -166,7 +166,7 @@
                                                 <td>{{ $slide->user->name ?? 'Unknown' }}</td>
                                                 <td>
                                                     <a href="{{ route('signage.slides.edit', $slide) }}"
-                                                        class="btn btn-sm btn-outline-primary">
+                                                        class="btn btn-sm btn-outline-success">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     <form action="{{ route('signage.slides.destroy', $slide) }}"
