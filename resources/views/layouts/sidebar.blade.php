@@ -240,27 +240,7 @@
                                         class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Generate
                                         Reports
                                     </span></a></li>
-                        @endcan
-                        @can('role-create')
-                            <li class="sidebar-item"><a class="sidebar-link" href="{{ route('roles.index') }}"><i
-                                        class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage
-                                        Roles
-                                    </span></a></li>
-                            <li class="sidebar-item"><a class="sidebar-link" href="{{ route('jobs.index') }}"><i
-                                        class="align-middle me-2 fas fa-cogs"></i> <span class="align-middle">Manage Queued
-                                        jobs
-                                    </span></a></li>
-                        @endcan
-
-                    </ul>
-                </li>
-            @endcanany
-            <li class="sidebar-item ">
-                <a data-bs-target="#" href="{{ route('analytics.index') }}" class="sidebar-link">
-                    <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analytics</span>
-                </a>
-            </li>
-            <li @if (Route::is('signage.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                             <li @if (Route::is('signage.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#signage" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-tv"></i> <span class="align-middle">Signage</span>
                 </a>
@@ -287,8 +267,26 @@
                     </li>
                 </ul>
             </li>
+                        @endcan
+                        @can('role-create')
+                            <li class="sidebar-item"><a class="sidebar-link" href="{{ route('roles.index') }}"><i
+                                        class="align-middle me-2 fas fa-users-cog"></i> <span class="align-middle">Manage
+                                        Roles
+                                    </span></a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="{{ route('jobs.index') }}"><i
+                                        class="align-middle me-2 fas fa-cogs"></i> <span class="align-middle">Manage Queued
+                                        jobs
+                                    </span></a></li>
+                        @endcan
 
-
+                    </ul>
+                </li>
+            @endcanany
+            <li class="sidebar-item ">
+                <a data-bs-target="#" href="{{ route('analytics.index') }}" class="sidebar-link">
+                    <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analytics</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
