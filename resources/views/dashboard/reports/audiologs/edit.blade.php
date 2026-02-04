@@ -35,6 +35,11 @@
                             @method('PUT')
                             <div class="row justify-content-between">
                                 <x-user-select name="sto" label="STO" :users="$users" :selected="$audio_log->sto" col-class="col-md-6" placeholder="select STO" />
+                                <div class="mb-3 col-md-4">
+                                    <label for="log_date">Log Date</label>
+                                    <input name="log_date" type="date" class="form-control" id="log_date" value="{{ $audio_log->start ? \Carbon\Carbon::parse($audio_log->start)->format('Y-m-d') : '' }}">
+                                    <small class="text-muted">Date this log is for</small>
+                                </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">

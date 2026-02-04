@@ -34,6 +34,11 @@
                             @csrf
                             <div class="row justify-content-between">
                                 <x-user-select name="sto" label="STO" :users="$users" :department-ids="10" col-class="col-md-6" placeholder="select STO" />
+                                <div class="mb-3 col-md-4">
+                                    <label for="log_date">Log Date <span class="text-danger">*</span></label>
+                                    <input name="log_date" type="date" class="form-control" id="log_date" value="{{ old('log_date', date('Y-m-d')) }}" required>
+                                    <small class="text-muted">Select the date this log is for</small>
+                                </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
