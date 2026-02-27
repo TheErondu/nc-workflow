@@ -146,8 +146,14 @@
                                         @foreach ($slides as $slide)
                                             <tr>
                                                 <td>
-                                                    <img src="{{ $slide->image_url }}" alt="{{ $slide->title }}"
-                                                        style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                                    @if(($slide->slide_type ?? 'image') === 'video' && $slide->video_path)
+                                                        <div style="width:80px;height:50px;background:#111;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+                                                            <i class="fa fa-play-circle fa-2x text-white-50"></i>
+                                                        </div>
+                                                    @else
+                                                        <img src="{{ $slide->image_url }}" alt="{{ $slide->title }}"
+                                                            style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                                    @endif
                                                 </td>
                                                 <td>{{ $slide->title ?? '-' }}</td>
                                                 <td>
@@ -155,12 +161,27 @@
                                                 </td>
                                                 <td>{{ $slide->active_from ? $slide->active_from->format('Y-m-d') : 'Always' }}</td>
                                                 <td>{{ $slide->active_until ? $slide->active_until->format('Y-m-d') : 'Always' }}</td>
-                                                <td>{{ $slide->sort_order }}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-1">
+                                                        <form action="{{ route('signage.slides.move-up', $slide) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-outline-secondary py-0 px-1" title="Move up">&#8593;</button>
+                                                        </form>
+                                                        <span style="min-width:2rem;text-align:center;">{{ $slide->sort_order }}</span>
+                                                        <form action="{{ route('signage.slides.move-down', $slide) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-outline-secondary py-0 px-1" title="Move down">&#8595;</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     @if ($slide->is_active)
                                                         <span class="badge bg-success">Active</span>
                                                     @else
                                                         <span class="badge bg-danger">Inactive</span>
+                                                    @endif
+                                                    @if($slide->loop_indefinitely)
+                                                        <span class="badge bg-warning text-dark">Loops</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ $slide->user->name ?? 'Unknown' }}</td>

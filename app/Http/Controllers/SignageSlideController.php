@@ -103,7 +103,7 @@ class SignageSlideController extends Controller
             'view_type' => $validated['view_type'],
             'slide_type' => $validated['slide_type'],
             'title' => $validated['title'] ?? null,
-            'sort_order' => $validated['sort_order'] ?? 0,
+            'sort_order' => $validated['sort_order'] ?? (SignageSlide::where('view_type', $validated['view_type'])->max('sort_order') + 1),
             'is_active' => $request->has('is_active'),
             'loop_indefinitely' => $request->has('loop_indefinitely'),
             'active_from' => $validated['active_from'] ?? null,
@@ -292,6 +292,46 @@ class SignageSlideController extends Controller
 
         return redirect()->route('signage.birthdays.index')
             ->with('message', 'Birthday deleted successfully!');
+    }
+
+    /**
+     * Move a slide one position up (lower sort_order) within its view type.
+     */
+    public function moveUp(SignageSlide $slide)
+    {
+        $previous = SignageSlide::where('view_type', $slide->view_type)
+            ->where('sort_order', '<', $slide->sort_order)
+            ->orderBy('sort_order', 'desc')
+            ->first();
+
+        if ($previous) {
+            [$slide->sort_order, $previous->sort_order] = [$previous->sort_order, $slide->sort_order];
+            $slide->save();
+            $previous->save();
+        }
+
+        return redirect()->route('signage.slides.index', request()->only('search', 'view_type'))
+            ->with('message', 'Slide order updated.');
+    }
+
+    /**
+     * Move a slide one position down (higher sort_order) within its view type.
+     */
+    public function moveDown(SignageSlide $slide)
+    {
+        $next = SignageSlide::where('view_type', $slide->view_type)
+            ->where('sort_order', '>', $slide->sort_order)
+            ->orderBy('sort_order')
+            ->first();
+
+        if ($next) {
+            [$slide->sort_order, $next->sort_order] = [$next->sort_order, $slide->sort_order];
+            $slide->save();
+            $next->save();
+        }
+
+        return redirect()->route('signage.slides.index', request()->only('search', 'view_type'))
+            ->with('message', 'Slide order updated.');
     }
 
     /**

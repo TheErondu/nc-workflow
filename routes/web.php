@@ -63,6 +63,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('signage/admin/slides/{slide}/edit', [App\Http\Controllers\SignageSlideController::class, 'edit'])->name('signage.slides.edit');
     Route::put('signage/admin/slides/{slide}', [App\Http\Controllers\SignageSlideController::class, 'update'])->name('signage.slides.update');
     Route::delete('signage/admin/slides/{slide}', [App\Http\Controllers\SignageSlideController::class, 'destroy'])->name('signage.slides.destroy');
+    Route::post('signage/admin/slides/{slide}/move-up', [App\Http\Controllers\SignageSlideController::class, 'moveUp'])->name('signage.slides.move-up');
+    Route::post('signage/admin/slides/{slide}/move-down', [App\Http\Controllers\SignageSlideController::class, 'moveDown'])->name('signage.slides.move-down');
 
     //Engineer logs
 
