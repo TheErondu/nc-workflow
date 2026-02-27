@@ -228,6 +228,12 @@
             color: #666;
             font-size: 2rem;
         }
+
+        .slide-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -236,10 +242,18 @@
     <section class="cd-slider">
         <ul>
             @foreach($slides as $slide)
-            <li data-color="#00000000">
-                <div class="content"
-                    style="background-image:url({{ $slide->image_url }}?v={{ $slide->updated_at->timestamp }})">
-                </div>
+            <li data-color="#00000000" data-type="{{ $slide->slide_type ?? 'image' }}">
+                @if(($slide->slide_type ?? 'image') === 'video' && $slide->video_path)
+                    <div class="content" style="background:#000">
+                        <video class="slide-video"
+                               src="{{ $slide->video_url }}?v={{ $slide->updated_at->timestamp }}"
+                               muted playsinline preload="auto"></video>
+                    </div>
+                @else
+                    <div class="content"
+                         style="background-image:url({{ $slide->image_url }}?v={{ $slide->updated_at->timestamp }})">
+                    </div>
+                @endif
             </li>
             @endforeach
         </ul>
@@ -376,33 +390,70 @@
             }
         }
 
-        nav.querySelector(".next").addEventListener('click', function(event) {
-            event.preventDefault();
+        var slideTimer = null;
+        var slidesShownCount = 0;
+        var hasNavigated = false;
+
+        function clearCurrentTimer() {
+            if (slideTimer) { clearTimeout(slideTimer); slideTimer = null; }
+            var cur = cdSlider.querySelector("li.current_slide");
+            if (cur) {
+                var vid = cur.querySelector('.slide-video');
+                if (vid) { vid.pause(); vid.onended = null; }
+            }
+        }
+
+        function scheduleCurrentSlide() {
+            var cur = cdSlider.querySelector("li.current_slide");
+            if (!cur) return;
+            var type = cur.getAttribute('data-type') || 'image';
+            if (type === 'video') {
+                var vid = cur.querySelector('.slide-video');
+                if (vid) {
+                    vid.currentTime = 0;
+                    // Fallback timer in case video stalls
+                    slideTimer = setTimeout(function() { vid.onended = null; doAutoNext(); }, timeTrans);
+                    vid.onended = function() { clearTimeout(slideTimer); slideTimer = null; doAutoNext(); };
+                    vid.play().catch(function() {}); // fallback timer handles advance if play is blocked
+                } else {
+                    slideTimer = setTimeout(doAutoNext, timeTrans);
+                }
+            } else {
+                slideTimer = setTimeout(doAutoNext, timeTrans);
+            }
+        }
+
+        function doAutoNext() {
+            slidesShownCount++;
+            if (slidesShownCount >= item.length && !hasNavigated) {
+                hasNavigated = true;
+                window.location.href = newURL;
+                return;
+            }
+            clearCurrentTimer();
             nextSlide();
             updateNavColor();
+            scheduleCurrentSlide();
+        }
+
+        nav.querySelector(".next").addEventListener('click', function(event) {
+            event.preventDefault();
+            clearCurrentTimer();
+            nextSlide();
+            updateNavColor();
+            scheduleCurrentSlide();
         });
 
         nav.querySelector(".prev").addEventListener("click", function(event) {
             event.preventDefault();
+            clearCurrentTimer();
             prevSlide();
             updateNavColor();
+            scheduleCurrentSlide();
         });
 
-        // autoUpdate
-        var intervalId = setInterval(function() {
-            if (autoUpdate) {
-                nextSlide();
-                updateNavColor();
-            }
-        }, timeTrans);
-
-        // Wait until all slides have been displayed at least once before switching views
-        var totalSlideTime = item.length * timeTrans;
-
-        setTimeout(function() {
-            window.location.href = newURL;
-            clearInterval(intervalId);
-        }, totalSlideTime);
+        // Kick off
+        scheduleCurrentSlide();
         @else
         // No slides available - immediately skip to the next view
         window.location.href = newURL;

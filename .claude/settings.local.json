@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(php artisan:*)",
+      "Bash(php:*)",
+      "Bash(php -l:*)",
+      "Bash(echo:*)",
+      "Bash(grep:*)",
+      "Bash(composer show:*)",
+      "Bash(composer require:*)",
+      "Bash(wc:*)"
+    ]
+  }
+}

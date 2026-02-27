@@ -75,11 +75,31 @@
                             </div>
 
                             <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label class="d-block">Slide Type <span class="text-danger">*</span></label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="slide_type" id="slide_type_image"
+                                            value="image" {{ old('slide_type', $slide->slide_type ?? 'image') === 'image' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="slide_type_image">Image</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="slide_type" id="slide_type_video"
+                                            value="video" {{ old('slide_type', $slide->slide_type ?? 'image') === 'video' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="slide_type_video">Video</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="image-section">
                                 <div class="mb-3 col-md-3">
                                     <label>Current Image</label>
                                     <div>
-                                        <img src="{{ $slide->image_url }}" alt="{{ $slide->title }}"
-                                            style="max-width: 200px; max-height: 120px; object-fit: cover; border-radius: 4px;">
+                                        @if($slide->image_path)
+                                            <img src="{{ $slide->image_url }}" alt="{{ $slide->title }}"
+                                                style="max-width: 200px; max-height: 120px; object-fit: cover; border-radius: 4px;">
+                                        @else
+                                            <span class="text-muted">No image</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-5">
@@ -88,6 +108,27 @@
                                         accept="image/jpeg,image/png,image/gif">
                                     <small class="text-muted">Leave empty to keep current image. Max 5MB.</small>
                                 </div>
+                            </div>
+
+                            <div class="row" id="video-section">
+                                @if($slide->video_path)
+                                    <div class="mb-3 col-md-4">
+                                        <label>Current Video</label>
+                                        <div>
+                                            <video src="{{ $slide->video_url }}" controls
+                                                style="max-width: 100%; max-height: 150px; border-radius: 4px;"></video>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="mb-3 col-md-5">
+                                    <label for="video">{{ $slide->video_path ? 'Replace Video' : 'Upload Video' }}</label>
+                                    <input name="video" type="file" class="form-control" id="video"
+                                        accept="video/mp4,video/webm,video/ogg">
+                                    <small class="text-muted">Leave empty to keep current video. Max 100MB.</small>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="mb-3 col-md-4">
                                     <div class="form-check mt-4">
                                         <input class="form-check-input" type="checkbox" name="is_active" id="is_active"
@@ -116,4 +157,24 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('javascript')
+<script>
+    (function () {
+        var imageSection = document.getElementById('image-section');
+        var videoSection = document.getElementById('video-section');
+        var radios = document.querySelectorAll('input[name="slide_type"]');
+
+        function toggleSections() {
+            var selected = document.querySelector('input[name="slide_type"]:checked');
+            var isVideo = selected && selected.value === 'video';
+            imageSection.style.display = isVideo ? 'none' : '';
+            videoSection.style.display = isVideo ? '' : 'none';
+        }
+
+        radios.forEach(function (r) { r.addEventListener('change', toggleSections); });
+        toggleSections();
+    })();
+</script>
 @endsection

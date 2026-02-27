@@ -80,27 +80,36 @@ class SignageSlideController extends Controller
     {
         $validated = $request->validate([
             'view_type' => 'required|in:showreels,general',
+            'slide_type' => 'required|in:image,video',
             'title' => 'nullable|string|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'image' => 'required_if:slide_type,image|nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'video' => 'required_if:slide_type,video|nullable|mimes:mp4,webm,ogg|max:102400',
             'sort_order' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
             'active_from' => 'nullable|date',
             'active_until' => 'nullable|date|after_or_equal:active_from',
         ]);
 
-        $imagePath = $request->file('image')->store('signage', 'media');
-        $imagePath = basename($imagePath);
-
-        SignageSlide::create([
+        $slideData = [
             'view_type' => $validated['view_type'],
+            'slide_type' => $validated['slide_type'],
             'title' => $validated['title'] ?? null,
-            'image_path' => $imagePath,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => $request->has('is_active'),
             'active_from' => $validated['active_from'] ?? null,
             'active_until' => $validated['active_until'] ?? null,
             'user_id' => auth()->id(),
-        ]);
+        ];
+
+        if ($validated['slide_type'] === 'video') {
+            $videoPath = $request->file('video')->store('signage', 'media');
+            $slideData['video_path'] = basename($videoPath);
+        } else {
+            $imagePath = $request->file('image')->store('signage', 'media');
+            $slideData['image_path'] = basename($imagePath);
+        }
+
+        SignageSlide::create($slideData);
 
         return redirect()->route('signage.slides.index')
             ->with('message', 'Slide created successfully!');
@@ -160,8 +169,10 @@ class SignageSlideController extends Controller
     {
         $validated = $request->validate([
             'view_type' => 'required|in:showreels,general',
+            'slide_type' => 'required|in:image,video',
             'title' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'image' => 'required_if:slide_type,image,old_slide_type,video|nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'video' => 'nullable|mimes:mp4,webm,ogg|max:102400',
             'sort_order' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
             'active_from' => 'nullable|date',
@@ -170,6 +181,7 @@ class SignageSlideController extends Controller
 
         $data = [
             'view_type' => $validated['view_type'],
+            'slide_type' => $validated['slide_type'],
             'title' => $validated['title'] ?? null,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => $request->has('is_active'),
@@ -178,9 +190,19 @@ class SignageSlideController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            Storage::disk('media')->delete('signage/' . $slide->image_path);
+            if ($slide->image_path) {
+                Storage::disk('media')->delete('signage/' . $slide->image_path);
+            }
             $imagePath = $request->file('image')->store('signage', 'media');
             $data['image_path'] = basename($imagePath);
+        }
+
+        if ($request->hasFile('video')) {
+            if ($slide->video_path) {
+                Storage::disk('media')->delete('signage/' . $slide->video_path);
+            }
+            $videoPath = $request->file('video')->store('signage', 'media');
+            $data['video_path'] = basename($videoPath);
         }
 
         $slide->update($data);
@@ -226,7 +248,12 @@ class SignageSlideController extends Controller
      */
     public function destroy(SignageSlide $slide)
     {
-        Storage::disk('media')->delete('signage/' . $slide->image_path);
+        if ($slide->image_path) {
+            Storage::disk('media')->delete('signage/' . $slide->image_path);
+        }
+        if ($slide->video_path) {
+            Storage::disk('media')->delete('signage/' . $slide->video_path);
+        }
         $slide->delete();
 
         return redirect()->route('signage.slides.index')
@@ -238,7 +265,12 @@ class SignageSlideController extends Controller
      */
     public function birthdaysDestroy(SignageSlide $slide)
     {
-        Storage::disk('media')->delete('signage/' . $slide->image_path);
+        if ($slide->image_path) {
+            Storage::disk('media')->delete('signage/' . $slide->image_path);
+        }
+        if ($slide->video_path) {
+            Storage::disk('media')->delete('signage/' . $slide->video_path);
+        }
         $slide->delete();
 
         return redirect()->route('signage.birthdays.index')
