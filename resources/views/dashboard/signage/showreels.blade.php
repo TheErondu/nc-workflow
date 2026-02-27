@@ -242,7 +242,7 @@
     <section class="cd-slider">
         <ul>
             @foreach($slides as $slide)
-            <li data-color="#00000000" data-type="{{ $slide->slide_type ?? 'image' }}">
+            <li data-color="#00000000" data-type="{{ $slide->slide_type ?? 'image' }}" data-loop="{{ $slide->loop_indefinitely ? '1' : '0' }}">
                 @if(($slide->slide_type ?? 'image') === 'video' && $slide->video_path)
                     <div class="content" style="background:#000">
                         <video class="slide-video"
@@ -407,6 +407,25 @@
             var cur = cdSlider.querySelector("li.current_slide");
             if (!cur) return;
             var type = cur.getAttribute('data-type') || 'image';
+            var loop = cur.getAttribute('data-loop') === '1';
+
+            if (loop) {
+                // Lock on this slide indefinitely.
+                // Reload after viewDuration so a flag change is picked up automatically.
+                if (type === 'video') {
+                    var vid = cur.querySelector('.slide-video');
+                    if (vid) {
+                        vid.loop = true;
+                        vid.currentTime = 0;
+                        vid.play().catch(function() {});
+                    }
+                }
+                slideTimer = setTimeout(function() {
+                    window.location.reload();
+                }, viewDuration);
+                return;
+            }
+
             if (type === 'video') {
                 var vid = cur.querySelector('.slide-video');
                 if (vid) {

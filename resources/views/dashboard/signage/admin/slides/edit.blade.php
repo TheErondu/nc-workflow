@@ -137,6 +137,14 @@
                                             Active
                                         </label>
                                     </div>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="loop_indefinitely" id="loop_indefinitely"
+                                            value="1" {{ old('loop_indefinitely', $slide->loop_indefinitely) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="loop_indefinitely">
+                                            Loop Indefinitely
+                                        </label>
+                                        <div><small class="text-muted">Slide stays on screen until this flag is unchecked (e.g. for events or appreciations).</small></div>
+                                    </div>
                                 </div>
                             </div>
 

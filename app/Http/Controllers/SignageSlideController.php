@@ -82,13 +82,22 @@ class SignageSlideController extends Controller
             'view_type' => 'required|in:showreels,general',
             'slide_type' => 'required|in:image,video',
             'title' => 'nullable|string|max:255',
-            'image' => 'required_if:slide_type,image|nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
-            'video' => 'required_if:slide_type,video|nullable|mimes:mp4,webm,ogg|max:102400',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'video' => 'nullable|mimes:mp4,webm,ogg|max:102400',
             'sort_order' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
+            'loop_indefinitely' => 'nullable|boolean',
             'active_from' => 'nullable|date',
             'active_until' => 'nullable|date|after_or_equal:active_from',
         ]);
+
+        if ($request->input('slide_type') === 'image' && !$request->hasFile('image')) {
+            return back()->withErrors(['image' => 'An image file is required for image slides.'])->withInput();
+        }
+
+        if ($request->input('slide_type') === 'video' && !$request->hasFile('video')) {
+            return back()->withErrors(['video' => 'A video file is required for video slides.'])->withInput();
+        }
 
         $slideData = [
             'view_type' => $validated['view_type'],
@@ -96,6 +105,7 @@ class SignageSlideController extends Controller
             'title' => $validated['title'] ?? null,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => $request->has('is_active'),
+            'loop_indefinitely' => $request->has('loop_indefinitely'),
             'active_from' => $validated['active_from'] ?? null,
             'active_until' => $validated['active_until'] ?? null,
             'user_id' => auth()->id(),
@@ -171,13 +181,19 @@ class SignageSlideController extends Controller
             'view_type' => 'required|in:showreels,general',
             'slide_type' => 'required|in:image,video',
             'title' => 'nullable|string|max:255',
-            'image' => 'required_if:slide_type,image,old_slide_type,video|nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
             'video' => 'nullable|mimes:mp4,webm,ogg|max:102400',
             'sort_order' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
+            'loop_indefinitely' => 'nullable|boolean',
             'active_from' => 'nullable|date',
             'active_until' => 'nullable|date|after_or_equal:active_from',
         ]);
+
+        // When switching from video to image with no existing image, require an upload
+        if ($request->input('slide_type') === 'image' && !$slide->image_path && !$request->hasFile('image')) {
+            return back()->withErrors(['image' => 'An image file is required when switching to an image slide.'])->withInput();
+        }
 
         $data = [
             'view_type' => $validated['view_type'],
@@ -185,6 +201,7 @@ class SignageSlideController extends Controller
             'title' => $validated['title'] ?? null,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => $request->has('is_active'),
+            'loop_indefinitely' => $request->has('loop_indefinitely'),
             'active_from' => $validated['active_from'] ?? null,
             'active_until' => $validated['active_until'] ?? null,
         ];

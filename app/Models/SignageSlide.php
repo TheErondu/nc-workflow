@@ -21,6 +21,7 @@ class SignageSlide extends Model
         'active_until',
         'sort_order',
         'is_active',
+        'loop_indefinitely',
         'user_id',
     ];
 
@@ -29,6 +30,7 @@ class SignageSlide extends Model
         'active_from' => 'date',
         'active_until' => 'date',
         'is_active' => 'boolean',
+        'loop_indefinitely' => 'boolean',
     ];
 
     /**
