@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Models\BatchStoreRequest;
+use App\Models\Location;
 use App\Models\Store;
 use App\Models\Department;
 use App\Models\StoreRequest;
@@ -55,7 +56,8 @@ class StoreController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view('dashboard.store.items.create',compact('departments'));
+        $locations = Location::all();
+        return view('dashboard.store.items.create',compact('departments', 'locations'));
     }
 
      /**
@@ -67,7 +69,8 @@ class StoreController extends Controller
     {   $requested_item = Store::all()->find($id);
         $store_items = Store::all();
         $store_requests = StoreRequest::all();
-        return view('dashboard.store.requests.create', compact('store_items','store_requests','requested_item'));
+        $locations = Location::all();
+        return view('dashboard.store.requests.create', compact('store_items','store_requests','requested_item', 'locations'));
     }
 
     /**
@@ -163,7 +166,8 @@ class StoreController extends Controller
     {
         $departments = Department::all();
         $store_request = storeRequest::all()->find($id);
-        return view('dashboard.store.requests.edit',compact('departments','store_request'));
+        $locations = Location::all();
+        return view('dashboard.store.requests.edit',compact('departments','store_request', 'locations'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -175,7 +179,8 @@ class StoreController extends Controller
     {
         $departments = Department::all();
         $store_item = Store::all()->find($id);
-        return view('dashboard.store.items.edit',compact('departments','store_item'));
+        $locations = Location::all();
+        return view('dashboard.store.items.edit',compact('departments','store_item', 'locations'));
     }
 
     /**

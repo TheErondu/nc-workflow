@@ -246,7 +246,7 @@
                 @if(($slide->slide_type ?? 'image') === 'video' && $slide->video_path)
                     <div class="content" style="background:#000">
                         <video class="slide-video"
-                               src="{{ $slide->video_url }}?v={{ $slide->updated_at->timestamp }}"
+                               src="{{ $slide->video_url }}"
                                muted playsinline preload="auto"></video>
                     </div>
                 @else
@@ -287,6 +287,9 @@
             nav = cdSlider.querySelector("nav");
 
         item[0].className = "current_slide";
+
+        // Trigger buffering on all video slides immediately so they are ready when their turn comes
+        cdSlider.querySelectorAll('.slide-video').forEach(function(vid) { vid.load(); });
 
         for (var i = 0, len = item.length; i < len; i++) {
             var color = item[i].getAttribute("data-color");

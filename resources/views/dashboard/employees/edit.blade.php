@@ -82,6 +82,14 @@
                                             @endforeach
                                         </select>
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="location_id">Branch</label>
+                                    <select class="form-control select2" name="location_id" id="location_id">
+                                        @foreach($locations as $location)
+                                            <option value="{{ $location->id }}" @if(old('location_id', $employee->location_id) == $location->id) selected @endif>{{ $location->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
 

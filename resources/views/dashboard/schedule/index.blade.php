@@ -40,6 +40,15 @@
                 <div class="card">
                     <div class="row">
                         <div class="card-body">
+                            <div class="col-md-3 mb-3">
+                                <label for="location_filter">Filter by Branch</label>
+                                <select class="form-control select2" id="location_filter">
+                                    <option value="">All Branches</option>
+                                    @foreach($locations as $location)
+                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-12">
                                 <div class="tab">
                                     <ul class="nav nav-tabs justify-content-around" id="myTabs" role="tablist">
@@ -108,226 +117,71 @@
     <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
     <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
         <script>
-            $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
-                $calendar.render();
-            });
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var ProdCal = document.getElementById('fullcalendar');
-
-                var calendar = new FullCalendar.Calendar(ProdCal, {
-                    themeSystem: 'bootstrap',
-                    aspectRatio: 2.2,
-                    initialView: 'dayGridMonth',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                    },
-                    eventSources: [
-
-                        // your event source
-                        {
-                            url: '/api/schedule/preproduction',
-                            method: 'GET',
-                            id: 'id',
-                            title: 'name',
-                            start: 'start_time',
-                            end: 'endtime',
-                            extendedProps: {
-                            description: 'description'
-                                            },
-                            backgroundColor: 'color'
-                        }
-
-                        // any other sources...
-
-                    ],
-                    eventClick: function(info) {
-                        window.location = "/schedule/" + info.event.id + "/edit";
-
-                        // change the border color just for fun
-                        info.el.style.borderColor = 'red';
-                    },
-                    eventMouseEnter: function(info) {
-                        console.log('eventMouseEnter');
-            var tis=info.el;
-            var tooltip = '<div class="tooltipevent" style="top:'+($(tis).offset().top-5)+'px;left:'+($(tis).offset().left+($(tis).width())/2)+'px"><div>' + info.event.title + '</div><div>' + info.event.extendedProps.description + '</div></div>';
-            var $tooltip = $(tooltip).appendTo('body');
-        },
-        eventMouseLeave: function(info) {
-            console.log('eventMouseLeave');
-            $(info.el).css('z-index', 8);
-            $('.tooltipevent').remove();
-        },
-                });
-                calendar.render();
-            });
-        </script>
-
-        <script>
             document.addEventListener("DOMContentLoaded", function() {
 
-                var VideoCal = document.getElementById('fullcalendar1');
+                function getLocationId() {
+                    return document.getElementById('location_filter').value;
+                }
 
-                var calendar = new FullCalendar.Calendar(VideoCal, {
-                    themeSystem: 'bootstrap',
-                    aspectRatio: 2.2,
-                    initialView: 'dayGridMonth',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                    },
-                    eventSources: [
+                var calendarInstances = [];
 
-                        // your event source
-                        {
-                            url: '/api/schedule/editors',
+                function makeCalendar(elId, apiUrl) {
+                    var el = document.getElementById(elId);
+                    var cal = new FullCalendar.Calendar(el, {
+                        themeSystem: 'bootstrap',
+                        aspectRatio: 2.2,
+                        initialView: 'dayGridMonth',
+                        headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                        },
+                        eventSources: [{
+                            url: apiUrl,
                             method: 'GET',
-                            id: 'id',
-                            title: 'name',
-                            start: 'start_time',
-                            end: 'endtime',
-                            backgroundColor: 'color'
-                        }
-
-                        // any other sources...
-
-                    ],
-                    eventClick: function(info) {
-                        window.location = "/schedule/" + info.event.id + "/edit";
-
-                        // change the border color just for fun
-                        info.el.style.borderColor = 'red';
-                    },
-                    eventMouseEnter: function(info, element) {
-                        $(element).popover({
-                            title: info.event.title,
-                            content: info.event.description,
-                            trigger: 'hover',
-                            placement: 'auto right',
-                            delay: {
-                                "hide": 300
+                            extraParams: function() {
+                                var loc = getLocationId();
+                                return loc ? { location_id: loc } : {};
                             }
-                        });
-                    },
+                        }],
+                        eventClick: function(info) {
+                            window.location = "/schedule/" + info.event.id + "/edit";
+                            info.el.style.borderColor = 'red';
+                        },
+                        eventMouseEnter: function(info) {
+                            var tis = info.el;
+                            var tooltip = '<div class="tooltipevent" style="top:' + ($(tis).offset().top - 5) + 'px;left:' + ($(tis).offset().left + ($(tis).width()) / 2) + 'px"><div>' + info.event.title + '</div><div>' + (info.event.extendedProps.description || '') + '</div></div>';
+                            $(tooltip).appendTo('body');
+                        },
+                        eventMouseLeave: function(info) {
+                            $(info.el).css('z-index', 8);
+                            $('.tooltipevent').remove();
+                        },
+                    });
+                    cal.render();
+                    calendarInstances.push(cal);
+                    return cal;
+                }
+
+                makeCalendar('fullcalendar',  '/api/schedule/preproduction');
+                makeCalendar('fullcalendar1', '/api/schedule/editors');
+                makeCalendar('fullcalendar2', '/api/schedule/graphics');
+                makeCalendar('fullcalendar3', '/api/schedule/digital');
+
+                // Re-fetch all calendars when branch changes
+                document.getElementById('location_filter').addEventListener('change', function() {
+                    calendarInstances.forEach(function(cal) {
+                        cal.refetchEvents();
+                    });
                 });
 
+                // Re-render on tab switch
                 $(document).on('shown.bs.tab', 'a[data-bs-toggle="tab"]', function(e) {
-                    calendar.render();
-                });
-            });
-        </script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-
-                var GraphiCal = document.getElementById('fullcalendar2')
-
-                var calendar = new FullCalendar.Calendar(GraphiCal, {
-                    themeSystem: 'bootstrap',
-                    aspectRatio: 2.2,
-                    initialView: 'dayGridMonth',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                    },
-                    eventSources: [
-
-                        // your event source
-                        {
-                            url: '/api/schedule/graphics',
-                            method: 'GET',
-                            id: 'id',
-                            title: 'name',
-                            start: 'start_time',
-                            end: 'endtime',
-                            backgroundColor: 'color'
-                        }
-
-                        // any other sources...
-
-                    ],
-                    eventClick: function(info) {
-                        window.location = "/schedule/" + info.event.id + "/edit";
-
-                        // change the border color just for fun
-                        info.el.style.borderColor = 'red';
-                    },
-                    eventMouseEnter: function(info, element) {
-                        $(element).popover({
-                            title: info.event.title,
-                            content: info.event.description,
-                            trigger: 'hover',
-                            placement: 'auto right',
-                            delay: {
-                                "hide": 300
-                            }
-                        });
-                    },
-                });
-                $(document).on('shown.bs.tab', 'a[data-bs-toggle="tab"]', function(e) {
-                    calendar.render();
+                    calendarInstances.forEach(function(cal) { cal.render(); });
                 });
 
-            });
-        </script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-
-                var DigitalCal = document.getElementById('fullcalendar3')
-                var calendar = new FullCalendar.Calendar(DigitalCal, {
-                    themeSystem: 'bootstrap',
-                    aspectRatio: 2.2,
-                    initialView: 'dayGridMonth',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                    },
-                    eventSources: [
-
-                        // your event source
-                        {
-                            url: '/api/schedule/digital',
-                            method: 'GET',
-                            id: 'id',
-                            title: 'name',
-                            start: 'start_time',
-                            end: 'endtime',
-                            backgroundColor: 'color'
-                        }
-
-                        // any other sources...
-
-                    ],
-                    eventClick: function(info) {
-                        window.location = "/schedule/" + info.event.id + "/edit";
-
-                        // change the border color just for fun
-                        info.el.style.borderColor = 'red';
-                    },
-                    eventMouseEnter: function(info, element) {
-                        $(element).popover({
-                            title: info.event.title,
-                            content: info.event.description,
-                            trigger: 'hover',
-                            placement: 'auto right',
-                            delay: {
-                                "hide": 300
-                            }
-                        });
-                    },
-                });
-
-                $(document).on('shown.bs.tab', 'a[data-bs-toggle="tab"]', function(e) {
-                    calendar.render();
-                });
-
+                // Init Select2 for the filter dropdown
+                $("#location_filter").select2({ placeholder: "All Branches" });
             });
         </script>
 

@@ -92,6 +92,16 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="location_id">Branch</label>
+                                    <select class="form-control select2" name="location_id" id="location_id">
+                                        @foreach($locations as $location)
+                                            <option value="{{ $location->id }}" @if(old('location_id', $schedule->location_id) == $location->id) selected @endif>{{ $location->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             @if($schedule->type === 'preproduction' )
                             <input value="preproduction" name="type" type="text" class="form-control" id="type" hidden readonly>
                             <div class="row justify-content-around">

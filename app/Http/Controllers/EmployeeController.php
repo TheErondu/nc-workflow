@@ -6,6 +6,7 @@ use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Location;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,8 @@ class EmployeeController extends Controller
         $status = array(
             'inactive','active',
         );
-        return view('dashboard.employees.create',compact('departments','status','roles'));
+        $locations = Location::all();
+        return view('dashboard.employees.create',compact('departments','status','roles', 'locations'));
     }
 
     /**
@@ -120,7 +122,8 @@ class EmployeeController extends Controller
         $status = array(
             'inactive','active',
         );
-        return view('dashboard.employees.edit',compact('employee','departments','status','roles'));
+        $locations = Location::all();
+        return view('dashboard.employees.edit',compact('employee','departments','status','roles', 'locations'));
     }
 
     /**

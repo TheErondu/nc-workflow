@@ -216,7 +216,7 @@
                 </li>
             @endcan
             @canany(['is-manager'])
-                <li @if (Route::is('departments.*', 'employees.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                <li @if (Route::is('departments.*', 'employees.*', 'locations.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                     <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed">
                         <i class="align-middle me-2 fas fa-fw fa-cogs"></i> <span
                             class="align-middle">Administration</span>
@@ -229,6 +229,9 @@
                             <li class="sidebar-item"><a class="sidebar-link" href="{{ route('facility.index') }}"><i
                                         class="align-middle me-2 fas fa-building"></i> <span class="align-middle">Manage
                                         Facility</span></a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="{{ route('locations.index') }}"><i
+                                        class="align-middle me-2 fas fa-map-marker-alt"></i> <span class="align-middle">Manage
+                                        Branches</span></a></li>
                         @endcan
 
                         @can('manage-users')

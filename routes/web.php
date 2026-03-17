@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('mileage/track/{id}', [App\Http\Controllers\TrackerController::class, 'track'])->name('tracker.track');
     Route::resource('triplogger', 'App\Http\Controllers\TripLoggerController');
     Route::resource('departments', 'App\Http\Controllers\DepartmentController');
+    Route::resource('locations', App\Http\Controllers\LocationController::class);
 
     Route::resource('store', 'App\Http\Controllers\StoreController');
     Route::resource('logs/mcr', 'App\Http\Controllers\McrLogsController');
