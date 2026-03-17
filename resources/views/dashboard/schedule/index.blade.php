@@ -119,11 +119,13 @@
         <script>
             document.addEventListener("DOMContentLoaded", function() {
 
-                function getLocationId() {
-                    return document.getElementById('location_filter').value;
-                }
-
                 var calendarInstances = [];
+                var calendarBaseUrls = [
+                    '/api/schedule/preproduction',
+                    '/api/schedule/editors',
+                    '/api/schedule/graphics',
+                    '/api/schedule/digital'
+                ];
 
                 function makeCalendar(elId, apiUrl) {
                     var el = document.getElementById(elId);
@@ -136,14 +138,7 @@
                             center: 'title',
                             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
                         },
-                        eventSources: [{
-                            url: apiUrl,
-                            method: 'GET',
-                            extraParams: function() {
-                                var loc = getLocationId();
-                                return loc ? { location_id: loc } : {};
-                            }
-                        }],
+                        eventSources: [{ url: apiUrl, method: 'GET' }],
                         eventClick: function(info) {
                             window.location = "/schedule/" + info.event.id + "/edit";
                             info.el.style.borderColor = 'red';
@@ -163,15 +158,29 @@
                     return cal;
                 }
 
-                makeCalendar('fullcalendar',  '/api/schedule/preproduction');
-                makeCalendar('fullcalendar1', '/api/schedule/editors');
-                makeCalendar('fullcalendar2', '/api/schedule/graphics');
-                makeCalendar('fullcalendar3', '/api/schedule/digital');
+                makeCalendar('fullcalendar',  calendarBaseUrls[0]);
+                makeCalendar('fullcalendar1', calendarBaseUrls[1]);
+                makeCalendar('fullcalendar2', calendarBaseUrls[2]);
+                makeCalendar('fullcalendar3', calendarBaseUrls[3]);
 
-                // Re-fetch all calendars when branch changes
-                document.getElementById('location_filter').addEventListener('change', function() {
-                    calendarInstances.forEach(function(cal) {
-                        cal.refetchEvents();
+                // Init Select2 AFTER calendars so any error doesn't block them
+                $("#location_filter")
+                    .wrap("<div class='position-relative'></div>")
+                    .select2({
+                        placeholder: "All Branches",
+                        dropdownParent: $("#location_filter").parent()
+                    });
+
+                // Select2 fires change on the original <select> — use jQuery .on()
+                $("#location_filter").on("change", function() {
+                    var locId = $(this).val();
+                    calendarInstances.forEach(function(cal, i) {
+                        cal.getEventSources().forEach(function(src) { src.remove(); });
+                        cal.addEventSource({
+                            url: calendarBaseUrls[i],
+                            method: 'GET',
+                            extraParams: locId ? { location_id: locId } : {}
+                        });
                     });
                 });
 
@@ -180,8 +189,6 @@
                     calendarInstances.forEach(function(cal) { cal.render(); });
                 });
 
-                // Init Select2 for the filter dropdown
-                $("#location_filter").select2({ placeholder: "All Branches" });
             });
         </script>
 
