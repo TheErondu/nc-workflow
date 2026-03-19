@@ -60,6 +60,7 @@ class BatchController extends Controller
 
 
             // Check if the item already exists in the cart
+            $duplicateItems = [];
             $isDuplicate = false;
             foreach ($sessionBatch as $cartItem) {
                 if ($cartItem['id'] === $item->id) {
