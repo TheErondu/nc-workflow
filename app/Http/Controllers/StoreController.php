@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use App\Exports\Store\BatchStoreRequestsExport;
+use App\Exports\Store\ClosedStoreRequestsExport;
+use App\Exports\Store\StoreItemsExport;
+use App\Exports\Store\StoreRequestsExport;
 use App\Models\BatchStoreRequest;
 use App\Models\Location;
 use App\Models\Store;
@@ -13,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StoreController extends Controller
 {
@@ -332,5 +337,46 @@ class StoreController extends Controller
             $store_item->delete();
         }
         return redirect()->route('store.index')->with('message', 'Successfully Deleted Request');
+    }
+
+    public function exportStoreItems()
+    {
+        return Excel::download(new StoreItemsExport(), 'store-items.xlsx');
+    }
+
+    public function exportPendingRequests()
+    {
+        return Excel::download(new StoreRequestsExport('pending'), 'pending-store-requests.xlsx');
+    }
+
+    public function exportApprovedRequests()
+    {
+        return Excel::download(new StoreRequestsExport('Approved'), 'approved-store-requests.xlsx');
+    }
+
+    public function exportPendingBatchRequests()
+    {
+        return Excel::download(new BatchStoreRequestsExport('pending'), 'pending-batch-requests.xlsx');
+    }
+
+    public function exportApprovedBatchRequests()
+    {
+        return Excel::download(new BatchStoreRequestsExport('approved'), 'approved-batch-requests.xlsx');
+    }
+
+    public function exportAvailableItems()
+    {
+        $department = Auth::user()->department->name;
+        return Excel::download(new StoreItemsExport($department), 'available-items.xlsx');
+    }
+
+    public function exportMyRequests()
+    {
+        return Excel::download(new StoreRequestsExport('pending', Auth::id()), 'my-store-requests.xlsx');
+    }
+
+    public function exportClosedRequests()
+    {
+        return Excel::download(new ClosedStoreRequestsExport(Auth::id()), 'closed-requests.xlsx');
     }
 }

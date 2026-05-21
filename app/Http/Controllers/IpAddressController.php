@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Issues\IpAddressesExport;
 use App\Models\IpAddress;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IpAddressController extends Controller
 {
@@ -127,5 +129,10 @@ class IpAddressController extends Controller
 
         return redirect()->route('ipaddresses.index')
             ->with('message', 'IP address deleted successfully.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new IpAddressesExport(), 'ip-addresses.xlsx');
     }
 }

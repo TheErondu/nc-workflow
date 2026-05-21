@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\EngineerAssignedEvent;
+use App\Exports\Issues\IssuesExport;
 use App\Models\Issue;
 use Illuminate\Http\Request;
 use App\Events\TicketCreatedEvent;
@@ -11,6 +12,7 @@ use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IssueController extends Controller
 {
@@ -255,5 +257,19 @@ class IssueController extends Controller
             $issue->delete();
         }
         return redirect()->route('issues.index')->with('message', 'Successfully Deleted Issue');
+    }
+
+    public function export()
+    {
+        $user = Auth::user();
+        $userName = $user->name;
+
+        if ($user->can('fix-issues')) {
+            $issues = Issue::orderBy('id', 'desc')->get();
+        } else {
+            $issues = Issue::where('raised_by', $userName)->orderBy('id', 'desc')->get();
+        }
+
+        return Excel::download(new IssuesExport($issues), 'issues.xlsx');
     }
 }

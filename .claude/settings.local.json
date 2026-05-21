@@ -10,7 +10,10 @@
       "Bash(composer show:*)",
       "Bash(composer require:*)",
       "Bash(wc:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(New-Item -ItemType Directory -Force -Path \"C:\\\\Dev\\\\nc-workflow\\\\app\\\\Exports\\\\Store\")",
+      "Bash(Out-Null)",
+      "Bash(Write-Host \"done\")"
     ]
   }
 }
