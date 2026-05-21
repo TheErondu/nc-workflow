@@ -27,7 +27,7 @@ class StoreItemsExport implements FromCollection, WithHeadings, WithMapping
 
     public function headings(): array
     {
-        return ['Item Name', 'Serial No', 'State', 'Created At', 'Updated At', 'Assigned Department'];
+        return ['Item Name', 'Serial No', 'State', 'Created At', 'Updated At', 'Assigned Department', 'Created By', 'Last Modified By'];
     }
 
     public function map($item): array
@@ -39,6 +39,8 @@ class StoreItemsExport implements FromCollection, WithHeadings, WithMapping
             $item->created_at ? $item->created_at->format('d-M-Y') : '',
             $item->updated_at ? $item->updated_at->format('d-M-Y') : '',
             $item->assigned_department,
+            $item->created_by,
+            $item->last_modified_by,
         ];
     }
 }

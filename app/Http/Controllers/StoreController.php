@@ -44,11 +44,15 @@ class StoreController extends Controller
      */
     public function RequestIndex()
     {
-        $user_department = Auth::user()->department->name;
         $user = auth()->user();
-        $available_items = Store::all()->where('assigned_department', $user_department);
+        if ($user->hasRole('Admin')) {
+            $available_items = Store::all();
+        } else {
+            $user_department = $user->department->name;
+            $available_items = Store::where('assigned_department', $user_department)->get();
+        }
         $all_requested = StoreRequest::where('status', '!=', 'Pending')->where('user_id', $user->id)->get();
-        $requested_items = StoreRequest::all()->where('status', 'pending')->where('user_id',$user->id);
+        $requested_items = StoreRequest::where('status', 'pending')->where('user_id', $user->id)->get();
         $store_requests = StoreRequest::all();
         return view('dashboard.store.requests.index', compact('available_items','store_requests','requested_items','all_requested'));
     }
@@ -97,6 +101,8 @@ class StoreController extends Controller
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
+        $store_item->created_by = Auth::user()->name;
+        $store_item->last_modified_by = Auth::user()->name;
         $email = Auth::user()->email;
         $store_item->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -208,6 +214,7 @@ class StoreController extends Controller
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
+        $store_item->last_modified_by = Auth::user()->name;
         $store_item->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
@@ -366,7 +373,8 @@ class StoreController extends Controller
 
     public function exportAvailableItems()
     {
-        $department = Auth::user()->department->name;
+        $user = Auth::user();
+        $department = $user->hasRole('Admin') ? null : $user->department->name;
         return Excel::download(new StoreItemsExport($department), 'available-items.xlsx');
     }
 

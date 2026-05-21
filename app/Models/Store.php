@@ -41,7 +41,7 @@ class Store extends Model
 
 
     use HasFactory;
-    protected $fillable = ['asset_class', 'barcode_id', 'inventory_number', 'status', 'class_description', 'serial_no', 'asset_description', 'location', 'sub_location', 'qty', 'location_id'];
+    protected $fillable = ['asset_class', 'barcode_id', 'inventory_number', 'status', 'class_description', 'serial_no', 'asset_description', 'location', 'sub_location', 'qty', 'location_id', 'created_by', 'last_modified_by'];
 
     public function location()
     {

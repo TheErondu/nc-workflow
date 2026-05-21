@@ -51,7 +51,8 @@ class IssueController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view('dashboard.issues.create', compact('departments'));
+        $users = User::orderBy('name')->get(['id', 'name', 'department_id']);
+        return view('dashboard.issues.create', compact('departments', 'users'));
     }
 
     /**
@@ -67,11 +68,19 @@ class IssueController extends Controller
             'description' => 'nullable|string',
             'location' => 'nullable|string',
             'department' => 'nullable|string',
+            'on_behalf_of_user_id' => 'nullable|integer|exists:users,id',
         ]);
-        $user = Auth::user();
-        // Use name, fall back to username, then email prefix as last resort
-        // Check for empty strings too, not just null
-        $raisedby = !empty($user->name) ? $user->name : (!empty($user->username) ? $user->username : explode('@', $user->email)[0]);
+        $admin = Auth::user();
+        $onBehalfOfId = $request->input('on_behalf_of_user_id');
+
+        if ($admin->hasRole('Admin') && $onBehalfOfId) {
+            $targetUser = User::find($onBehalfOfId);
+            $raisedby = $targetUser->name;
+        } else {
+            $targetUser = $admin;
+            $raisedby = !empty($admin->name) ? $admin->name : (!empty($admin->username) ? $admin->username : explode('@', $admin->email)[0]);
+        }
+        $user = $targetUser;
         $issue = new Issue();
         $issue->item_name     = $request->input('item_name');
         $issue->description = $request->input('description');
@@ -87,7 +96,7 @@ class IssueController extends Controller
         $issue->resolved_date = $request->input('resolved_date');
         $issue->save();
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
-        $email = Auth::user()->email;
+        $email = $user->email;
         $url = route('home');
         $link = $url . '/' . 'issues' . '/' . $issue->id . '/edit';
         $details = [

@@ -9,6 +9,7 @@ use App\Helpers\MailingLists;
 use App\Models\BatchStoreRequest;
 use App\Models\Department;
 use App\Models\Store;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,17 +45,23 @@ class BatchStoreRequestsController extends Controller
 
     public function submitBatchRequest(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'return_date'           => 'required',
-        // ]);
-        $user = auth()->user();
+        $admin = auth()->user();
+        $onBehalfOfId = $request->input('on_behalf_of_user_id');
+
+        // Admin submitting on behalf of another user
+        if ($admin->hasRole('Admin') && $onBehalfOfId) {
+            $user = User::findOrFail($onBehalfOfId);
+        } else {
+            $user = $admin;
+        }
+
         $batch_store_request = new BatchStoreRequest();
         $batch = explode(",", $request->input('item_ids'));
         if ($batch == null) {
             return redirect()->back()->withErrors(['No item selected!']);
         } else {
             $allRequestedItems = [];
-            foreach ($batch as $requested_item) { // $interests array contains input data
+            foreach ($batch as $requested_item) {
                 $item = Store::find($requested_item);
                 $item->state = Store::is_borrowed;
                 $item->save();
@@ -73,19 +80,20 @@ class BatchStoreRequestsController extends Controller
             Session::remove('allRequestedItems');
             $cc_emails = MailingLists::addEmailsToCc($batch_store_request);
             $link = route('store.requests.batch.edit', ['batch_id' => $batch_store_request->id]);
+            $submittedBy = ($user->id !== $admin->id) ? " (submitted by {$admin->name})" : '';
             $details = [
                 'cc_emails' => $cc_emails,
-                'email' => Auth::user()->email,
-                'title' => $user->name . ' has made a new store request.',
+                'email' => $user->email,
+                'title' => $user->name . ' has made a new store request.' . $submittedBy,
                 'return date' => $batch_store_request->return_date,
-                'body' => $user->name . ' has requested some items' . 'from the store. Please click the link below to see details of this request and take action.',
+                'body' => $user->name . ' has requested some items from the store. Please click the link below to see details of this request and take action.',
                 'model' => 'Store Requests',
-                'user' => auth()->user()->name,
+                'user' => $admin->name,
                 'time' => date('d-m-Y'),
                 'link' => $link,
             ];
             Event::dispatch(new RecordCreatedEvent($details));
-            return redirect()->route('store-requests.index')->with('message', 'Batch request was sent sucessfully!');
+            return redirect()->route('store-requests.index')->with('message', 'Batch request was sent successfully!');
         }
     }
 

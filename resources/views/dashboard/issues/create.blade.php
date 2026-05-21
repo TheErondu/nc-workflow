@@ -45,6 +45,19 @@
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data" action="{{ route('issues.store') }}">
                             @csrf
+                            @role('Admin')
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-6">
+                                    <label for="on_behalf_of_user_id">Raise on behalf of (optional)</label>
+                                    <select class="form-control select2" name="on_behalf_of_user_id" id="on_behalf_of_user_id" data-placeholder="— Myself —">
+                                        <option value="">— Myself —</option>
+                                        @foreach($users as $u)
+                                            <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            @endrole
                             <div class="row justify-content-between">
                                 <div class="mb-3 col-md-4">
                                     <label for="item_name">Equipment</label>

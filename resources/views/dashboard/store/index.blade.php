@@ -71,6 +71,8 @@
                                                                     <th style="white-space:nowrap;">Created at</th>
                                                                     <th style="white-space:nowrap;">Updated at</th>
                                                                     <th style="white-space:nowrap;">Assigned Department</th>
+                                                                    <th style="white-space:nowrap;">Created By</th>
+                                                                    <th style="white-space:nowrap;">Last Modified By</th>
 
                                                                 </tr>
                                                             </thead>
@@ -86,6 +88,8 @@
                                                                         <td>{{ $item->created_at }}</td>
                                                                         <td>{{ $item->updated_at }}</td>
                                                                         <td>{{ $item->assigned_department }}</td>
+                                                                        <td>{{ $item->created_by }}</td>
+                                                                        <td>{{ $item->last_modified_by }}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
