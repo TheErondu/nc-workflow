@@ -26,7 +26,14 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
     Route::post('permissions/store', 'App\Http\Controllers\PermissionController@store')->name('permissions.store');
     Route::put('employees/password/reset/{id}', [App\Http\Controllers\EmployeeController::class, 'resetpass'])->name('employees.reset');
 });
+Route::get('/offline', function () {
+    return response()->file(public_path('offline.html'));
+})->name('offline');
+
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('push/subscribe', [App\Http\Controllers\PushController::class, 'subscribe'])->name('push.subscribe');
+    Route::post('push/unsubscribe', [App\Http\Controllers\PushController::class, 'unsubscribe'])->name('push.unsubscribe');
+
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
     Route::resource('messages', 'App\Http\Controllers\MessageController');

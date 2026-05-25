@@ -60,6 +60,12 @@
                 </div>
             </li>
 
+            <li class="nav-item ms-lg-2" id="push-nav-item" style="display:none;">
+                <a class="nav-link" href="#" onclick="window.ncSubscribeToPush();return false;" title="Enable push notifications">
+                    <i class="align-middle fas fa-bell"></i>
+                </a>
+            </li>
+
             <li class="nav-item dropdown ms-lg-2">
                 <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown"
                     data-bs-toggle="dropdown">
@@ -91,15 +97,21 @@
 @endauth
 <script>
     $(document).ready(function () {
-        const batchModal = new bootstrap.Modal($('#batch-modal'));
+        const batchModalEl = document.getElementById('batch-modal');
+        const batchModal = batchModalEl ? new bootstrap.Modal(batchModalEl) : null;
 
         $('#clear-batch-link').click(function () {
-            batchModal.show();
+            if (batchModal) batchModal.show();
         });
 
         $('#change-password-cancel').click(function (event) {
             event.preventDefault();
-            batchModal.hide();
+            if (batchModal) batchModal.hide();
         });
     });
+
+    // Show bell icon only when push is supported and not yet permitted
+    if ('Notification' in window && 'PushManager' in window && Notification.permission === 'default') {
+        document.getElementById('push-nav-item').style.display = 'block';
+    }
 </script>
