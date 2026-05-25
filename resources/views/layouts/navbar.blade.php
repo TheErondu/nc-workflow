@@ -60,6 +60,12 @@
                 </div>
             </li>
 
+            <li class="nav-item ms-lg-2" id="push-nav-item" style="display:none;">
+                <a class="nav-link" href="#" onclick="window.ncSubscribeToPush();return false;" title="Enable push notifications">
+                    <i class="align-middle fas fa-bell"></i>
+                </a>
+            </li>
+
             <li class="nav-item dropdown ms-lg-2">
                 <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown"
                     data-bs-toggle="dropdown">
@@ -102,4 +108,9 @@
             batchModal.hide();
         });
     });
+
+    // Show bell icon only when push is supported and not yet permitted
+    if ('Notification' in window && 'PushManager' in window && Notification.permission === 'default') {
+        document.getElementById('push-nav-item').style.display = 'block';
+    }
 </script>
