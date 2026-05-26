@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
+use App\Notifications\IssueRaisedAdminNotification;
+use App\Notifications\IssueClosedAdminNotification;
+use App\Http\Controllers\PushController;
+use Illuminate\Support\Facades\Notification;
 
 class IssueController extends Controller
 {
@@ -151,6 +155,18 @@ class IssueController extends Controller
             'copy' => $copy
         ];
         Event::dispatch(new TicketCreatedEvent($details));
+
+        // Notify all admins via DB (badge) + mail + push (ring)
+        $admins = User::role('Admin')->get();
+        Notification::send($admins, new IssueRaisedAdminNotification($issue));
+        $adminIds = $admins->pluck('id')->toArray();
+        PushController::sendToUsers(
+            $adminIds,
+            '🔔 New Issue: ' . $issue->item_name,
+            'Raised by ' . $raisedby . ($issue->location ? ' — ' . $issue->location : ''),
+            route('issues.edit', $issue->id)
+        );
+
         $request->session()->flash('message', 'Successfully added Issue');
         return redirect()->route('issues.index');
     }
@@ -231,23 +247,36 @@ class IssueController extends Controller
 
         $issue = Issue::find($id);
         $user = Auth::user();
-        $issue->item_name     = $request->input('item_name');
+        $previousStatus = $issue->status;
+        $issue->item_name   = $request->input('item_name');
         $issue->description = $request->input('description');
-        $issue->date = $request->input('date');
-        $issue->location = $request->input('location');
-        // Preserve original raised_by if not provided in request
-        $issue->raised_by = $request->input('raised_by') ?? $issue->raised_by;
-        $issue->department = $request->input('department');
+        $issue->date        = $request->input('date');
+        $issue->location    = $request->input('location');
+        $issue->raised_by   = $request->input('raised_by') ?? $issue->raised_by;
+        $issue->department  = $request->input('department');
         if ($user->can('fix-issues')) {
-            $issue->status = $request->input('status');
-            $issue->fixed_by = $issue->fixed_by;
-            $issue->action_taken = $request->input('action_taken');
+            $issue->status             = $request->input('status');
+            $issue->fixed_by           = $issue->fixed_by;
+            $issue->action_taken       = $request->input('action_taken');
             $issue->cause_of_breakdown = $request->input('cause_of_breakdown');
-            $issue->engineers_comment = $request->input('engineers_comment');
-            $issue->resolved_date = date('d-m-Y H:i:s');
-            $issue->status = $request->input('status');
+            $issue->engineers_comment  = $request->input('engineers_comment');
+            $issue->resolved_date      = date('d-m-Y H:i:s');
         }
         $issue->save();
+
+        // If issue just closed, notify admins
+        if ($previousStatus !== 'CLOSED' && $issue->status === 'CLOSED') {
+            $admins = User::role('Admin')->get();
+            Notification::send($admins, new IssueClosedAdminNotification($issue));
+            $adminIds = $admins->pluck('id')->toArray();
+            PushController::sendToUsers(
+                $adminIds,
+                '✅ Issue Resolved: ' . $issue->item_name,
+                ($issue->fixed_by ? 'Fixed by ' . $issue->fixed_by : 'Marked as closed'),
+                route('issues.edit', $issue->id)
+            );
+        }
+
         $email = User::where('username', 'Like', "$issue->raised_by")->pluck('email')->implode('');
         $copy = Department::where('name', 'Engineers')->pluck('mail_group')->implode('');
         $url = route('home');
