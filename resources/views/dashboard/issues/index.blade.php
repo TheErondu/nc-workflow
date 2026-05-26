@@ -158,21 +158,24 @@ document.addEventListener("DOMContentLoaded", function () {
         { data: 'resolved_date',        title: 'Resolved',           className: 'text-nowrap' }
     );
 
-    var statusColIndex = 8 + colOffset;
+    // Column indices (no-checkbox base, add colOffset for admin):
+    // 0:edit 1:name 2:desc 3:date 4:loc 5:raised_by 6:dept 7:status
+    // 8:fixed_by 9:action 10:cause 11:comment 12:resolved
+    var statusColIndex = 7 + colOffset;
 
     var columnDefs = [
-        { responsivePriority: 1, orderable: false, targets: [0 + colOffset] },                       // edit
-        { responsivePriority: 1, targets: [2 + colOffset, statusColIndex] },                          // name, status
-        { responsivePriority: 2, targets: [4 + colOffset, 6 + colOffset, 7 + colOffset] },            // date, raised_by, dept
-        { responsivePriority: 3, targets: [3 + colOffset, 5 + colOffset] },                           // desc, location
-        { responsivePriority: 4, targets: [9 + colOffset, 13 + colOffset] },                          // fixed_by, resolved
-        { responsivePriority: 5, targets: [10 + colOffset, 11 + colOffset, 12 + colOffset] },         // action, cause, comment
+        { responsivePriority: 1, orderable: false, targets: [0 + colOffset] },                        // edit
+        { responsivePriority: 1, targets: [1 + colOffset, statusColIndex] },                           // name, status
+        { responsivePriority: 2, targets: [3 + colOffset, 5 + colOffset, 6 + colOffset] },             // date, raised_by, dept
+        { responsivePriority: 3, targets: [2 + colOffset, 4 + colOffset] },                            // desc, location
+        { responsivePriority: 4, targets: [8 + colOffset, 12 + colOffset] },                           // fixed_by, resolved
+        { responsivePriority: 5, targets: [9 + colOffset, 10 + colOffset, 11 + colOffset] },           // action, cause, comment
     ];
     if (hasCheckbox) {
         columnDefs.push({ responsivePriority: 1, orderable: false, targets: 0 });
     }
 
-    var STATE_KEY = 'dt_issues_v' + columns.length; // versioned by column count
+    var STATE_KEY = 'dt_issues_v2_' + columns.length; // bump version to discard stale state
 
     var table = $('#issues-table').DataTable({
         processing:  true,
@@ -182,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fixedHeader: true,
         pageLength:  25,
         lengthMenu:  [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
-        order:       [[4 + colOffset, 'desc']],
+        order:       [[3 + colOffset, 'desc']],   // date column
         ajax: {
             url: '{{ route("issues.datatables") }}',
             data: function (d) {
