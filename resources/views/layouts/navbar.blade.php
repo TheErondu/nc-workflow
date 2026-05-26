@@ -64,7 +64,7 @@
             <li class="nav-item dropdown ms-lg-2" id="notif-bell-item">
                 <a class="nav-link position-relative" href="#" id="notifDropdown"
                     data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
-                    <i class="align-middle fas fa-bell"></i>
+                    <i class="align-middle fas fa-bell"></i>&nbsp;<span>  Notifications</span>
                     <span id="notif-badge" style="display:none;position:absolute;top:4px;right:2px;
                           background:#e84040;color:#fff;border-radius:50%;font-size:0.6rem;
                           min-width:16px;height:16px;line-height:16px;text-align:center;padding:0 3px;"></span>
