@@ -172,15 +172,17 @@ document.addEventListener("DOMContentLoaded", function () {
         columnDefs.push({ responsivePriority: 1, orderable: false, targets: 0 });
     }
 
+    var STATE_KEY = 'dt_issues_v' + columns.length; // versioned by column count
+
     var table = $('#issues-table').DataTable({
         processing:  true,
         serverSide:  true,
-        stateSave:   true,
+        autoWidth:   false,   // prevents _fnCalculateColumnWidths crash on stale state
         responsive:  true,
         fixedHeader: true,
         pageLength:  25,
         lengthMenu:  [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
-        order:       [[4 + colOffset, 'desc']],   // date descending
+        order:       [[4 + colOffset, 'desc']],
         ajax: {
             url: '{{ route("issues.datatables") }}',
             data: function (d) {
@@ -205,20 +207,32 @@ document.addEventListener("DOMContentLoaded", function () {
             paginate: { previous: '&laquo;', next: '&raquo;' },
             processing: '<i class="fas fa-spinner fa-spin"></i> Loading…'
         },
-        // Restore status dropdown to match saved state
-        stateLoadParams: function (settings, data) {
-            if (data.statusFilter !== undefined) {
-                $('#statusFilter').val(data.statusFilter);
-            }
-        },
-        stateSaveParams: function (settings, data) {
+        // Use sessionStorage instead of localStorage — not subject to Edge tracking prevention
+        stateSaveCallback: function (settings, data) {
             data.statusFilter = $('#statusFilter').val();
+            try { sessionStorage.setItem(STATE_KEY, JSON.stringify(data)); } catch (e) {}
+        },
+        stateLoadCallback: function (settings) {
+            try {
+                var raw = sessionStorage.getItem(STATE_KEY);
+                if (!raw) return null;
+                var state = JSON.parse(raw);
+                // Discard state if column count changed — prevents style-undefined crash
+                if (state.columns && state.columns.length !== settings.aoColumns.length) {
+                    sessionStorage.removeItem(STATE_KEY);
+                    return null;
+                }
+                if (state.statusFilter !== undefined) {
+                    $('#statusFilter').val(state.statusFilter);
+                }
+                return state;
+            } catch (e) { return null; }
         }
     });
 
-    // Status filter — reload table with new filter value
+    // Status filter — reload AJAX with new filter value
     $('#statusFilter').on('change', function () {
-        table.ajax.reload();
+        table.ajax.reload(null, false); // false = keep current page position
     });
 
     // ── Multiselect across pages ───────────────────────────────────────────
