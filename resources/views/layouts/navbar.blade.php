@@ -86,11 +86,7 @@
             </li>
             @endrole
 
-            <li class="nav-item ms-lg-2" id="push-nav-item" style="display:none;">
-                <a class="nav-link" href="#" onclick="window.ncSubscribeToPush();return false;" title="Enable push notifications">
-                    <i class="align-middle fas fa-bell-slash"></i>
-                </a>
-            </li>
+            {{-- push-nav-item removed; replaced by floating push button below --}}
 
             <li class="nav-item dropdown ms-lg-2">
                 <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown"
@@ -121,6 +117,74 @@
 
 </nav>
 @endauth
+<style>
+@keyframes push-ring {
+    0%,100% { transform: translateY(-50%) rotate(0deg); }
+    6%  { transform: translateY(-50%) rotate(18deg); }
+    12% { transform: translateY(-50%) rotate(-16deg); }
+    18% { transform: translateY(-50%) rotate(13deg); }
+    24% { transform: translateY(-50%) rotate(-9deg); }
+    30% { transform: translateY(-50%) rotate(5deg); }
+    36% { transform: translateY(-50%) rotate(0deg); }
+}
+@keyframes push-glow {
+    0%,100% { box-shadow: 0 0 0 0 rgba(39,174,96,.55), 0 4px 14px rgba(0,0,0,.45); }
+    50%     { box-shadow: 0 0 0 9px rgba(39,174,96,0),  0 4px 14px rgba(0,0,0,.45); }
+}
+#push-float-btn {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9990;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: none;          /* shown via JS */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: background .3s, box-shadow .3s;
+}
+#push-float-btn.push-off {
+    background: #e84040;
+    box-shadow: 0 4px 14px rgba(0,0,0,.45);
+    animation: push-ring 2.8s ease-in-out infinite;
+}
+#push-float-btn.push-off:hover {
+    background: #c0392b;
+}
+#push-float-btn.push-on {
+    background: #27ae60;
+    animation: push-glow 2.2s ease-in-out infinite;
+    cursor: default;
+}
+#push-float-btn .push-tooltip {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1c1c1c;
+    color: #eee;
+    font-size: .72rem;
+    white-space: nowrap;
+    padding: 4px 10px;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s;
+    border: 1px solid #333;
+}
+#push-float-btn:hover .push-tooltip { opacity: 1; }
+</style>
+
+<button id="push-float-btn" type="button" title="">
+    <i class="fas fa-bell" id="push-float-icon"></i>
+    <span class="push-tooltip" id="push-float-tip"></span>
+</button>
+
 <script>
     $(document).ready(function () {
         const batchModalEl = document.getElementById('batch-modal');
@@ -136,8 +200,65 @@
         });
     });
 
-    // Show bell icon only when push is supported and not yet permitted
-    if ('Notification' in window && 'PushManager' in window && Notification.permission === 'default') {
-        document.getElementById('push-nav-item').style.display = 'block';
-    }
+    (function () {
+        if (!('Notification' in window) || !('PushManager' in window) || !('serviceWorker' in navigator)) return;
+
+        var btn  = document.getElementById('push-float-btn');
+        var icon = document.getElementById('push-float-icon');
+        var tip  = document.getElementById('push-float-tip');
+
+        function setEnabled() {
+            btn.className  = 'push-on';
+            btn.style.display = 'flex';
+            icon.className = 'fas fa-bell';
+            tip.textContent = 'Push notifications on';
+        }
+
+        function setDisabled() {
+            btn.className  = 'push-off';
+            btn.style.display = 'flex';
+            icon.className = 'fas fa-bell-slash';
+            tip.textContent = 'Enable push notifications';
+            btn.onclick = function () { window.ncSubscribeToPush(); };
+        }
+
+        // Check actual subscription state (not just permission)
+        navigator.serviceWorker.ready.then(function (reg) {
+            return reg.pushManager.getSubscription();
+        }).then(function (sub) {
+            if (sub && Notification.permission === 'granted') {
+                setEnabled();
+            } else if (Notification.permission === 'denied') {
+                // Blocked — show red but not clickable
+                btn.className  = 'push-off';
+                btn.style.display = 'flex';
+                btn.style.opacity = '0.5';
+                btn.style.cursor  = 'not-allowed';
+                btn.style.animation = 'none';
+                icon.className = 'fas fa-bell-slash';
+                tip.textContent = 'Notifications blocked — check browser settings';
+            } else {
+                setDisabled();
+            }
+        });
+
+        // After subscribing, switch to green
+        var _orig = window.ncSubscribeToPush;
+        window.ncSubscribeToPush = function () {
+            if (typeof _orig === 'function') {
+                _orig();
+                // Watch for permission change
+                var check = setInterval(function () {
+                    if (Notification.permission === 'granted') {
+                        clearInterval(check);
+                        navigator.serviceWorker.ready.then(function (r) {
+                            return r.pushManager.getSubscription();
+                        }).then(function (sub) {
+                            if (sub) setEnabled();
+                        });
+                    }
+                }, 800);
+            }
+        };
+    })();
 </script>
