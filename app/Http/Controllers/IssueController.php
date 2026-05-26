@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class IssueController extends Controller
 {
@@ -23,24 +24,61 @@ class IssueController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $user     = Auth::user();
         $userName = $user->name;
 
-        // Get issues raised by current user
-        $raised_issues = Issue::where('raised_by', $userName)->orderBy('id', 'desc')->get();
+        $base = $user->can('fix-issues')
+            ? Issue::query()
+            : Issue::where('raised_by', $userName);
 
-        if (request()->query('type') === 'raised') {
-            $issues = $raised_issues;
-        } elseif ($user->can('fix-issues')) {
-            // Engineers/admins can see all issues
-            $issues = Issue::orderBy('id', 'desc')->get();
-        } else {
-            // Regular users only see their own issues
-            $issues = $raised_issues;
+        $openCount   = (clone $base)->where('status', 'OPEN')->count();
+        $closedCount = (clone $base)->where('status', 'CLOSED')->count();
+        $totalCount  = $openCount + $closedCount;
+
+        return view('dashboard.issues.index', compact('openCount', 'closedCount', 'totalCount'));
+    }
+
+    public function datatables(Request $request)
+    {
+        $user     = Auth::user();
+        $userName = $user->name;
+        $canFix   = $user->can('fix-issues');
+
+        $query = $canFix
+            ? Issue::query()
+            : Issue::where('raised_by', $userName);
+
+        if ($request->filled('status_filter')) {
+            $query->where('status', $request->input('status_filter'));
         }
 
-        $users = User::all();
-        return view('dashboard.issues.index', compact('issues', 'raised_issues', 'users'));
+        $dt = DataTables::of($query);
+
+        if ($canFix) {
+            $dt->addColumn('checkbox', function ($issue) {
+                if ($issue->status !== 'CLOSED') {
+                    return '<input type="checkbox" class="issue-checkbox" data-id="' . $issue->id . '">';
+                }
+                return '';
+            });
+        }
+
+        return $dt
+            ->addColumn('edit_link', function ($issue) {
+                return '<a href="' . route('issues.edit', $issue->id) . '" title="Edit issue"><i class="far fa-edit"></i></a>';
+            })
+            ->editColumn('status', function ($issue) {
+                $color = $issue->status === 'OPEN' ? '#c0392b' : ($issue->status === 'CLOSED' ? '#27ae60' : '#555');
+                return '<span class="badge" style="background-color:' . $color . ';">' . e($issue->status) . '</span>';
+            })
+            ->editColumn('date', function ($issue) {
+                return $issue->getRawOriginal('date');
+            })
+            ->editColumn('resolved_date', function ($issue) {
+                return $issue->getRawOriginal('resolved_date');
+            })
+            ->rawColumns($canFix ? ['checkbox', 'edit_link', 'status'] : ['edit_link', 'status'])
+            ->make(true);
     }
 
     /**

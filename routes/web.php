@@ -170,6 +170,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
     Route::post('issues/bulk-close', [App\Http\Controllers\IssueController::class, 'bulkClose'])->name('issues.bulk-close');
     Route::get('issues/export', [App\Http\Controllers\IssueController::class, 'export'])->name('issues.export');
+    Route::get('issues/datatables', [App\Http\Controllers\IssueController::class, 'datatables'])->name('issues.datatables');
     Route::resource('issues', 'App\Http\Controllers\IssueController');
     Route::resource('jobs', 'App\Http\Controllers\QueueJobsController');
     Route::get('job/retry/{id}', 'App\Http\Controllers\QueueJobsController@Retry')->name('job.retry');
