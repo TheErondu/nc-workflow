@@ -45,6 +45,9 @@
     <meta name="vapid-public-key" content="{{ config('webpush.vapid.public_key') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Capture beforeinstallprompt as early as possible; the body script reads it back --}}
+    <script>window._installPrompt = null; window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); window._installPrompt = e; });</script>
+
     <style>
         .splash {
             display: flex !important;
@@ -305,30 +308,38 @@
         }
 
         // --- Install prompt ---
-        var deferredPrompt = null;
+        // The actual capture is done in <head> via window._installPrompt so we never miss the event.
         var banner = document.getElementById('pwa-install-banner');
 
+        function showBanner(prompt) {
+            window._installPrompt = prompt;
+            banner.style.display = 'flex';
+        }
+
+        // If the event fired before this script ran, show immediately
+        if (window._installPrompt) showBanner(window._installPrompt);
+
+        // Override the head listener to also show the banner going forward
         window.addEventListener('beforeinstallprompt', function (e) {
             e.preventDefault();
-            deferredPrompt = e;
-            banner.style.display = 'flex';
+            showBanner(e);
         });
 
         document.getElementById('pwa-install-btn').addEventListener('click', function () {
-            if (!deferredPrompt) return;
+            if (!window._installPrompt) return;
             banner.style.display = 'none';
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(function () { deferredPrompt = null; });
+            window._installPrompt.prompt();
+            window._installPrompt.userChoice.then(function () { window._installPrompt = null; });
         });
 
         document.getElementById('pwa-install-dismiss').addEventListener('click', function () {
             banner.style.display = 'none';
-            deferredPrompt = null;
+            window._installPrompt = null;
         });
 
         window.addEventListener('appinstalled', function () {
             banner.style.display = 'none';
-            deferredPrompt = null;
+            window._installPrompt = null;
         });
 
         // --- Push helpers ---
