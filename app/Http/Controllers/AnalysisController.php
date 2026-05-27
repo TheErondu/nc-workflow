@@ -1,113 +1,37 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Services\Analytics;
-use App\Models\Analysis;
-use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+
 class AnalysisController extends Controller
 {
+    public function __construct(protected Analytics $analytics) {}
 
-    protected $analytics;
-
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(Analytics $analytics)
-    {
-        $this->analytics = $analytics;
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Response
-     * @throws Exception
-     */
     public function index()
     {
-       $departmentData = $this->analytics->GetDepartmentInfo();
-       $engineerData = $this->analytics->GetEngineerStats();
-       $borrowerData = $this->analytics->GetBorrowerStats();
-       $producerData = $this->analytics->GetProducerStats();
-       $directorData = $this->analytics->GetDirectorStats();
-       $editorData = $this->analytics->GetVideoEditorStats();
-       $oblogsData = $this->analytics->GetOBLogStats();
-       $graphics_logsData = $this->analytics->GetGraphicslogStats();
+        $summary        = $this->analytics->GetSummaryStats();
+        $trend          = $this->analytics->GetIssuesTrend();
+        $topEquipment   = $this->analytics->GetTopEquipment();
+        $departments    = $this->analytics->GetDepartmentInfo();
+        $engineers      = $this->analytics->GetEngineerStats();
+        $borrowers      = $this->analytics->GetBorrowerStats();
+        $producers      = $this->analytics->GetProducerStats();
+        $editors        = $this->analytics->GetVideoEditorStats();
+        $oblogs         = $this->analytics->GetOBLogStats();
+        $graphics       = $this->analytics->GetGraphicslogStats();
 
-        return view('dashboard.analytics.main',
-        compact('departmentData','engineerData',
-        'borrowerData','producerData','directorData','editorData','oblogsData','graphics_logsData'));
+        return view('dashboard.analytics.main', compact(
+            'summary', 'trend', 'topEquipment', 'departments',
+            'engineers', 'borrowers', 'producers', 'editors', 'oblogs', 'graphics'
+        ));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Analysis  $analysis
-     * @return Response
-     */
-    public function show(Analysis $analysis)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Analysis  $analysis
-     * @return Response
-     */
-    public function edit(Analysis $analysis)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Analysis  $analysis
-     * @return Response
-     */
-    public function update(Request $request, Analysis $analysis)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Analysis  $analysis
-     * @return Response
-     */
-    public function destroy(Analysis $analysis)
-    {
-        //
-    }
+    public function create() {}
+    public function store(Request $request) {}
+    public function show($id) {}
+    public function edit($id) {}
+    public function update(Request $request, $id) {}
+    public function destroy($id) {}
 }
