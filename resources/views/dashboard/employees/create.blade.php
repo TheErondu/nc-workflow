@@ -73,12 +73,13 @@
                                         </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label for="show_title">Role</label>
-                                    <select class="form-control select2" name="roles" id="roles">
-                                            @foreach($roles as $role)
-                                                <option value="{{ $role}}">{{ $role }}</option>
-                                            @endforeach
-                                        </select>
+                                    <label for="roles">Role <span class="text-danger">*</span></label>
+                                    <select class="form-control select2" name="roles" id="roles" required data-placeholder="Select Role">
+                                        <option value="" disabled selected></option>
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role }}" @if(old('roles') === $role) selected @endif>{{ $role }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label for="password">Password</label>

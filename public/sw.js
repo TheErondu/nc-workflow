@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ncworkflow-v1';
+const CACHE_NAME = 'ncworkflow-v2';
 const OFFLINE_URL = '/offline';
 
 const PRECACHE_URLS = [
@@ -35,14 +35,17 @@ self.addEventListener('activate', function (event) {
     );
 });
 
+// JS bundles that block rendering — let the browser cache handle these directly
+var PASSTHROUGH_SCRIPTS = /\/(jquery|settings|app|main|apexcharts|jspdf)[^/]*\.js/;
+
 self.addEventListener('fetch', function (event) {
     // Only handle GET requests for same-origin navigation
     if (event.request.method !== 'GET') return;
     if (!event.request.url.startsWith(self.location.origin)) return;
 
-    // Network-first for HTML pages (always fresh), cache-first for assets
+    // Network-first for HTML pages (always fresh), cache-first for static assets
     var isNavigation = event.request.mode === 'navigate';
-    var isAsset = /\.(css|js|png|jpg|jpeg|gif|svg|ico|woff2?)$/.test(event.request.url);
+    var isAsset = /\.(css|png|jpg|jpeg|gif|svg|ico|woff2?)$/.test(event.request.url);
 
     if (isNavigation) {
         event.respondWith(
@@ -50,7 +53,7 @@ self.addEventListener('fetch', function (event) {
                 return caches.match(OFFLINE_URL) || caches.match('/');
             })
         );
-    } else if (isAsset) {
+    } else if (isAsset && !PASSTHROUGH_SCRIPTS.test(event.request.url)) {
         event.respondWith(
             caches.match(event.request).then(function (cached) {
                 return cached || fetch(event.request).then(function (response) {
@@ -65,6 +68,7 @@ self.addEventListener('fetch', function (event) {
             })
         );
     }
+    // All other requests (JS bundles, API calls, etc.) pass through unintercepted
 });
 
 // Push notification handler

@@ -46,8 +46,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
-        body {
+        .splash {
+            display: flex !important;
+            visibility: visible !important;
+        }
+        .wrapper {
             opacity: 0;
+            transition: opacity 0.3s ease;
         }
     </style>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
@@ -93,6 +98,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script src="{{ asset('js/summernote.min.js') }}"></script>
     <script>
+        // Reveal page content once DOM is ready (pairs with .wrapper { opacity: 0 } in <head>)
+        $(document).ready(function () {
+            $('.wrapper').css('opacity', 1);
+        });
         $(".alert").fadeTo(2000, 500).slideUp(500, function(){
     $(".alert").slideUp(500);
 });
