@@ -19,6 +19,7 @@ class NotificationController extends Controller
             'notifications' => $unread->map(function ($n) {
                 return [
                     'id'         => $n->id,
+                    'issue_id'   => $n->data['issue_id']  ?? null,
                     'ring'       => $n->data['ring']      ?? 'raised',
                     'item_name'  => $n->data['item_name'] ?? '',
                     'raised_by'  => $n->data['raised_by'] ?? '',
@@ -35,6 +36,16 @@ class NotificationController extends Controller
     public function markAllRead()
     {
         Auth::user()->unreadNotifications->markAsRead();
+        return response()->json(['ok' => true]);
+    }
+
+    /** Mark a single notification as read by its UUID. */
+    public function markOne($id)
+    {
+        $notification = Auth::user()->notifications()->where('id', $id)->first();
+        if ($notification && is_null($notification->read_at)) {
+            $notification->markAsRead();
+        }
         return response()->json(['ok' => true]);
     }
 }

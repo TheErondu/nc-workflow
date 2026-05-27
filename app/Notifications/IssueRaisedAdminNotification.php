@@ -8,16 +8,12 @@ use Illuminate\Notifications\Notification;
 
 class IssueRaisedAdminNotification extends Notification
 {
-    public Issue $issue;
-
-    public function __construct(Issue $issue)
-    {
-        $this->issue = $issue;
-    }
+    public function __construct(public Issue $issue, private bool $mailOnly = false)
+    {}
 
     public function via($notifiable): array
     {
-        return ['database', 'mail'];
+        return $this->mailOnly ? ['mail'] : ['database'];
     }
 
     public function toArray($notifiable): array

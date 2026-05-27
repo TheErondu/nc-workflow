@@ -168,8 +168,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('store-requests/approve/{id}', 'App\Http\Controllers\StoreController@Approve')->name('store-requests.approve');
     Route::put('store-requests/reject/{id}', 'App\Http\Controllers\StoreController@Reject')->name('store-requests.reject');
     Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
-    Route::get('notifications/unread',    [App\Http\Controllers\NotificationController::class, 'unread'])->name('notifications.unread');
-    Route::post('notifications/mark-read', [App\Http\Controllers\NotificationController::class, 'markAllRead'])->name('notifications.mark-read');
+    Route::get('notifications/unread',         [App\Http\Controllers\NotificationController::class, 'unread'])->name('notifications.unread');
+    Route::post('notifications/mark-read',     [App\Http\Controllers\NotificationController::class, 'markAllRead'])->name('notifications.mark-read');
+    Route::post('notifications/{id}/mark-one', [App\Http\Controllers\NotificationController::class, 'markOne'])->name('notifications.mark-one');
 
     Route::post('issues/bulk-close', [App\Http\Controllers\IssueController::class, 'bulkClose'])->name('issues.bulk-close');
     Route::get('issues/export', [App\Http\Controllers\IssueController::class, 'export'])->name('issues.export');

@@ -188,13 +188,30 @@
                     : (n.raised_by  ? 'Raised by ' + n.raised_by : '');
                 var a = document.createElement('a');
                 a.href = n.link;
+                a.dataset.notifId   = n.id;
+                a.dataset.notifLink = n.link;
                 a.className = 'dropdown-item notif-item d-flex align-items-start gap-2 py-2';
                 a.style.cssText = 'border-bottom:1px solid #2a2a2a;font-size:.8rem;white-space:normal;';
                 a.innerHTML =
-                    '<span style="width:8px;height:8px;border-radius:50%;background:' + color + ';margin-top:5px;flex-shrink:0;"></span>' +
+                    '<span style="width:8px;height:8px;border-radius:50%;background:' + color + ';margin-top:5px;flex-shrink:0;" class="notif-dot"></span>' +
                     '<div><div style="font-weight:600;">' + label + ': ' + (n.item_name || '') + '</div>' +
                     (sub ? '<div style="color:#aaa;">' + sub + '</div>' : '') +
                     '<div style="color:#666;font-size:.72rem;">' + (n.created_at || '') + '</div></div>';
+                a.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var id   = this.dataset.notifId;
+                    var link = this.dataset.notifLink;
+                    var dot  = this.querySelector('.notif-dot');
+                    if (dot) dot.style.background = '#555';
+                    lastUnread = Math.max(0, lastUnread - 1);
+                    updateBadge(lastUnread);
+                    fetch('{{ url("notifications") }}/' + id + '/mark-one', {
+                        method: 'POST',
+                        headers: { 'X-CSRF-TOKEN': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
+                    }).finally(function () {
+                        window.location.href = link;
+                    });
+                });
                 if (empty && empty.parentNode === list) {
                     list.insertBefore(a, empty);
                 } else {

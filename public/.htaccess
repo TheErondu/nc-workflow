@@ -1,3 +1,7 @@
+# OpenSSL 3.x on Windows reads OPENSSL_CONF at DLL load time (before PHP starts),
+# so putenv() inside PHP is too late. Setting it here lets Apache pass it at process start.
+SetEnv OPENSSL_CONF "C:/xampp/apache/conf/openssl.cnf"
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes

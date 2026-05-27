@@ -17,6 +17,8 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Notifications\IssueRaisedAdminNotification;
 use App\Notifications\IssueClosedAdminNotification;
 use App\Http\Controllers\PushController;
+use App\Jobs\SendIssuePushJob;
+use App\Jobs\SendIssueAdminEmailsJob;
 use Illuminate\Support\Facades\Notification;
 
 class IssueController extends Controller
@@ -156,11 +158,12 @@ class IssueController extends Controller
         ];
         Event::dispatch(new TicketCreatedEvent($details));
 
-        // Notify all admins via DB (badge) + mail + push (ring)
+        // DB notification sync (badge appears on next poll), email + push queued
         $admins = User::role('Admin')->get();
-        Notification::send($admins, new IssueRaisedAdminNotification($issue));
+        Notification::sendNow($admins, new IssueRaisedAdminNotification($issue));
         $adminIds = $admins->pluck('id')->toArray();
-        PushController::sendToUsers(
+        SendIssueAdminEmailsJob::dispatch($adminIds, $issue, 'raised');
+        SendIssuePushJob::dispatch(
             $adminIds,
             '🔔 New Issue: ' . $issue->item_name,
             'Raised by ' . $raisedby . ($issue->location ? ' — ' . $issue->location : ''),
@@ -267,9 +270,10 @@ class IssueController extends Controller
         // If issue just closed, notify admins
         if ($previousStatus !== 'CLOSED' && $issue->status === 'CLOSED') {
             $admins = User::role('Admin')->get();
-            Notification::send($admins, new IssueClosedAdminNotification($issue));
+            Notification::sendNow($admins, new IssueClosedAdminNotification($issue));
             $adminIds = $admins->pluck('id')->toArray();
-            PushController::sendToUsers(
+            SendIssueAdminEmailsJob::dispatch($adminIds, $issue, 'closed');
+            SendIssuePushJob::dispatch(
                 $adminIds,
                 '✅ Issue Resolved: ' . $issue->item_name,
                 ($issue->fixed_by ? 'Fixed by ' . $issue->fixed_by : 'Marked as closed'),
