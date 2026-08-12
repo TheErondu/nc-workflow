@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar">
-    <a class="sidebar-brand" href="/">
-        <img src="/img/logo.gif" style="width: 10rem;">
+    <a class="sidebar-brand" href="/" style="color:#fff; font-weight:800; font-size:1.35rem; letter-spacing:0.5px; text-decoration:none;">
+        News Central
     </a>
     <div style="padding-bottom: 3rem" class="sidebar-content">
 
