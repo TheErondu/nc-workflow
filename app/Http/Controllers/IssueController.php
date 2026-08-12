@@ -16,8 +16,6 @@ use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 use App\Notifications\IssueRaisedAdminNotification;
 use App\Notifications\IssueClosedAdminNotification;
-use App\Http\Controllers\PushController;
-use App\Jobs\SendIssuePushJob;
 use App\Jobs\SendIssueAdminEmailsJob;
 use Illuminate\Support\Facades\Notification;
 
@@ -163,12 +161,6 @@ class IssueController extends Controller
         Notification::sendNow($admins, new IssueRaisedAdminNotification($issue));
         $adminIds = $admins->pluck('id')->toArray();
         SendIssueAdminEmailsJob::dispatch($adminIds, $issue, 'raised');
-        SendIssuePushJob::dispatch(
-            $adminIds,
-            '🔔 New Issue: ' . $issue->item_name,
-            'Raised by ' . $raisedby . ($issue->location ? ' — ' . $issue->location : ''),
-            route('issues.edit', $issue->id)
-        );
 
         $request->session()->flash('message', 'Successfully added Issue');
         return redirect()->route('issues.index');
@@ -273,12 +265,6 @@ class IssueController extends Controller
             Notification::sendNow($admins, new IssueClosedAdminNotification($issue));
             $adminIds = $admins->pluck('id')->toArray();
             SendIssueAdminEmailsJob::dispatch($adminIds, $issue, 'closed');
-            SendIssuePushJob::dispatch(
-                $adminIds,
-                '✅ Issue Resolved: ' . $issue->item_name,
-                ($issue->fixed_by ? 'Fixed by ' . $issue->fixed_by : 'Marked as closed'),
-                route('issues.edit', $issue->id)
-            );
         }
 
         $email = User::where('username', 'Like', "$issue->raised_by")->pluck('email')->implode('');

@@ -33,20 +33,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ asset('favicon/manifest.json') }}">
     <meta name="msapplication-TileColor" content="#272727">
     <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#272727">
-    {{-- PWA --}}
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="NCWorkflow">
-    <meta name="vapid-public-key" content="{{ config('webpush.vapid.public_key') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    {{-- Capture beforeinstallprompt as early as possible; the body script reads it back --}}
-    <script>window._installPrompt = null; window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); window._installPrompt = e; });</script>
 
     <style>
         .splash {
@@ -282,114 +272,6 @@
     })();
     </script>
     @endrole
-
-    {{-- PWA: Install banner --}}
-    <div id="pwa-install-banner" style="display:none;position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:9999;background:#272727;color:#fff;padding:0.75rem 1.25rem;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.4);display:none;align-items:center;gap:0.75rem;font-size:0.9rem;max-width:90vw;">
-        <img src="{{ asset('favicon/android-icon-48x48.png') }}" style="width:32px;height:32px;border-radius:4px;">
-        <span>Install <strong>NC Workflow</strong> for quick access</span>
-        <button id="pwa-install-btn" style="background:#fff;color:#272727;border:none;padding:0.35rem 0.9rem;border-radius:4px;cursor:pointer;font-weight:600;white-space:nowrap;">Install</button>
-        <button id="pwa-install-dismiss" style="background:transparent;color:#aaa;border:none;cursor:pointer;font-size:1.1rem;line-height:1;">✕</button>
-    </div>
-
-    <script>
-    (function () {
-        // --- Service Worker ---
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').then(function (reg) {
-                // Push notifications
-                var vapidPublicKey = document.querySelector('meta[name="vapid-public-key"]').content;
-                if (!vapidPublicKey || !('PushManager' in window)) return;
-
-                reg.pushManager.getSubscription().then(function (existing) {
-                    if (!existing) return; // User hasn't subscribed yet; wait for explicit action
-                    sendSubscriptionToServer(existing, '{{ route("push.subscribe") }}');
-                });
-            });
-        }
-
-        // --- Install prompt ---
-        // The actual capture is done in <head> via window._installPrompt so we never miss the event.
-        var banner = document.getElementById('pwa-install-banner');
-
-        function showBanner(prompt) {
-            window._installPrompt = prompt;
-            banner.style.display = 'flex';
-        }
-
-        // If the event fired before this script ran, show immediately
-        if (window._installPrompt) showBanner(window._installPrompt);
-
-        // Override the head listener to also show the banner going forward
-        window.addEventListener('beforeinstallprompt', function (e) {
-            e.preventDefault();
-            showBanner(e);
-        });
-
-        document.getElementById('pwa-install-btn').addEventListener('click', function () {
-            if (!window._installPrompt) return;
-            banner.style.display = 'none';
-            window._installPrompt.prompt();
-            window._installPrompt.userChoice.then(function () { window._installPrompt = null; });
-        });
-
-        document.getElementById('pwa-install-dismiss').addEventListener('click', function () {
-            banner.style.display = 'none';
-            window._installPrompt = null;
-        });
-
-        window.addEventListener('appinstalled', function () {
-            banner.style.display = 'none';
-            window._installPrompt = null;
-        });
-
-        // --- Push helpers ---
-        function urlBase64ToUint8Array(base64String) {
-            var padding = '='.repeat((4 - base64String.length % 4) % 4);
-            var base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-            var rawData = atob(base64);
-            var outputArray = new Uint8Array(rawData.length);
-            for (var i = 0; i < rawData.length; ++i) { outputArray[i] = rawData.charCodeAt(i); }
-            return outputArray;
-        }
-
-        function sendSubscriptionToServer(subscription, url) {
-            var key = subscription.getKey ? subscription.getKey('p256dh') : null;
-            var auth = subscription.getKey ? subscription.getKey('auth') : null;
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                body: JSON.stringify({
-                    endpoint: subscription.endpoint,
-                    public_key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
-                    auth_token: auth ? btoa(String.fromCharCode.apply(null, new Uint8Array(auth))) : null,
-                })
-            });
-        }
-
-        // Expose subscribe function so a button in the UI can trigger it
-        window.ncSubscribeToPush = function () {
-            if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-                alert('Push notifications are not supported in this browser.');
-                return;
-            }
-            var vapidPublicKey = document.querySelector('meta[name="vapid-public-key"]').content;
-            Notification.requestPermission().then(function (permission) {
-                if (permission !== 'granted') return;
-                navigator.serviceWorker.ready.then(function (reg) {
-                    reg.pushManager.subscribe({
-                        userVisibleOnly: true,
-                        applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
-                    }).then(function (sub) {
-                        sendSubscriptionToServer(sub, '{{ route("push.subscribe") }}');
-                    });
-                });
-            });
-        };
-    })();
-    </script>
 </body>
 
 </html>
