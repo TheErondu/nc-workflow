@@ -133,7 +133,7 @@ class ContentController extends Controller
      */
     public function show($id){
 
-        $content = Content::all()->find($id);
+        $content = Content::find($id);
 
         return view('dashboard.content.show', [ 'content' => $content ]);
 
@@ -150,7 +150,7 @@ class ContentController extends Controller
      */
     public function edit($id)
     {
-        $content = Content::all()->find($id);
+        $content = Content::find($id);
         $countries = Country::all();
         return view('dashboard.content.edit', [ 'content' => $content,'countries' =>$countries]);
     }

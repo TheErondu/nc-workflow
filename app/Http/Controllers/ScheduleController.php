@@ -140,7 +140,7 @@ class ScheduleController extends Controller
      */
     public function show($id){
 
-        $schedule = Schedule::all()->find($id);
+        $schedule = Schedule::find($id);
         $users = User::all();
 
         return view('dashboard.schedule.show', compact('schedule','users'));
@@ -158,7 +158,7 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        $schedule = Schedule::all()->find($id);
+        $schedule = Schedule::find($id);
         $users = User::all();
         $statuses = array(
             'Normal','Important','Urgent','Critical',

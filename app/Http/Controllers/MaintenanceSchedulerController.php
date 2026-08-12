@@ -95,7 +95,7 @@ class MaintenanceSchedulerController extends Controller
      */
     public function show($id){
 
-        $schedule = MaintenanceScheduler::all()->find($id);
+        $schedule = MaintenanceScheduler::find($id);
 
         return view('dashboard.maintenance_scheduler.show', [ 'schedule' => $schedule ]);
 
@@ -112,7 +112,7 @@ class MaintenanceSchedulerController extends Controller
      */
     public function edit($id)
     {
-        $schedule = MaintenanceScheduler::all()->find($id);
+        $schedule = MaintenanceScheduler::find($id);
 
         $schedule_status = array(
             'Started','In Progress','Completed'

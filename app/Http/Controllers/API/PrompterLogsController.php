@@ -103,7 +103,7 @@ class PrompterLogsController extends ApiController
      */
     public function edit($id)
     {
-        $prompter_logs = PrompterLogs::all()->find($id);
+        $prompter_logs = PrompterLogs::find($id);
         return view('dashboard.reports.prompter.edit', compact('prompter_logs'));
     }
 

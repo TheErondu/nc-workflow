@@ -80,7 +80,7 @@ class TransmissionReportController extends Controller
      */
     public function edit($id)
     {
-        $tx_reports = TransmissionReport::all()->find($id);
+        $tx_reports = TransmissionReport::find($id);
         return view('dashboard.reports.transmission.edit', compact('tx_reports'));
     }
 

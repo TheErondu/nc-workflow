@@ -20,8 +20,9 @@ class BatchController extends Controller
         } else {
 
             // Check if the item already exists in the cart
+            $storeItems = Store::whereIn('id', $batch)->get()->keyBy('id');
             foreach ($batch as $requested_item) {
-                $item = Store::find($requested_item);
+                $item = $storeItems->get($requested_item);
                 // $item->state = Store::is_borrowed;
                 // $item->save();
                 $isDuplicate = false;

@@ -124,7 +124,7 @@ class ReportsController extends Controller
      */
     public function edit($id)
     {
-        $reports = Reports::all()->find($id);
+        $reports = Reports::find($id);
         $users = User::all();
         return view('dashboard.reports.directors.edit', compact('reports', 'users'));
     }

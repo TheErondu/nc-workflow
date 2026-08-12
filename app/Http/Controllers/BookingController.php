@@ -22,8 +22,8 @@ class BookingController extends Controller
     public function create()
     {
         $bookings = Booking::all();
-        $studios = Facility::all()->where('type','=','Studio');
-        $boardrooms = Facility::all()->where('type','=','BoardRoom');
+        $studios = Facility::where('type','=','Studio')->get();
+        $boardrooms = Facility::where('type','=','BoardRoom')->get();
         return view('dashboard.booking.create',compact('studios','boardrooms'));
     }
 
@@ -82,7 +82,7 @@ class BookingController extends Controller
      */
     public function show($id){
 
-        $booking = Booking::all()->find($id);
+        $booking = Booking::find($id);
 
         return view('dashboard.booking.show', [ 'booking' => $booking ]);
 
@@ -99,7 +99,7 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-        $booking = Booking::all()->find($id);
+        $booking = Booking::find($id);
         $countries = Country::all();
         return view('dashboard.booking.edit', [ 'booking' => $booking,'countries' =>$countries]);
     }

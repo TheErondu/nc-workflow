@@ -18,7 +18,7 @@ class TripLoggerController extends ApiController
      */
     public function index()
     {
-        $drivers = User::all()->where('department_id',11);
+        $drivers = User::where('department_id', 11)->get();
         $vehicles = Vehicle::all();
         $triploggers = Triplogger::all();
         return response()->json(compact('vehicles','triploggers', 'drivers'));
@@ -32,7 +32,7 @@ class TripLoggerController extends ApiController
     public function create()
     {
         $vehicles = Vehicle::all();
-        $drivers = User::all()->where('department_id',11);
+        $drivers = User::where('department_id', 11)->get();
         return view('dashboard.logistics.triplogger.create',compact('drivers','vehicles'));
     }
 
@@ -100,8 +100,8 @@ class TripLoggerController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   $triplogger = Triplogger::all()->find($id);
-        $drivers = User::all()->where('department_id',11);
+    {   $triplogger = Triplogger::find($id);
+        $drivers = User::where('department_id', 11)->get();
         $vehicles = Vehicle::all();
         return view('dashboard.logistics.triplogger.edit', compact('drivers','triplogger','vehicles'));
     }

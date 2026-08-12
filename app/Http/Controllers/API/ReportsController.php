@@ -116,7 +116,7 @@ class ReportsController extends ApiController
      */
     public function edit($id)
     {
-        $reports = Reports::all()->find($id);
+        $reports = Reports::find($id);
         return view('dashboard.reports.directors.edit', compact('reports'));
     }
 

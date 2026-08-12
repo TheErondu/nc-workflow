@@ -30,20 +30,29 @@ class Analytics
 
     public function GetIssuesTrend(): array
     {
+        $start = now()->subMonths(5)->startOfMonth();
+
+        $raisedByMonth = Issue::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as total")
+            ->where('created_at', '>=', $start)
+            ->groupBy('ym')
+            ->pluck('total', 'ym');
+
+        $closedByMonth = Issue::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as total")
+            ->where('status', 'CLOSED')
+            ->where('created_at', '>=', $start)
+            ->groupBy('ym')
+            ->pluck('total', 'ym');
+
         $labels = [];
         $raised = [];
         $closed = [];
 
         for ($i = 5; $i >= 0; $i--) {
             $date = now()->subMonths($i);
+            $ym = $date->format('Y-m');
             $labels[] = $date->format('M Y');
-            $raised[] = Issue::whereYear('created_at', $date->year)
-                             ->whereMonth('created_at', $date->month)
-                             ->count();
-            $closed[] = Issue::where('status', 'CLOSED')
-                             ->whereYear('created_at', $date->year)
-                             ->whereMonth('created_at', $date->month)
-                             ->count();
+            $raised[] = (int) ($raisedByMonth[$ym] ?? 0);
+            $closed[] = (int) ($closedByMonth[$ym] ?? 0);
         }
 
         return compact('labels', 'raised', 'closed');

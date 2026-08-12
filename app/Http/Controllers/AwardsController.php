@@ -16,9 +16,9 @@ class AwardsController extends Controller
     public function index()
 
     {
-        $awards = Awards::all()->where('type','award');
-        $shows = Awards::all()->where('type','show');
-        $teams = Awards::all()->where('type','team');
+        $awards = Awards::where('type','award')->get();
+        $shows = Awards::where('type','show')->get();
+        $teams = Awards::where('type','team')->get();
         return view('dashboard.awards.index', compact('awards','shows','teams'));
     }
 

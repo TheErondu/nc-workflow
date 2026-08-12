@@ -149,7 +149,7 @@ class SalesScheduleController extends Controller
      */
     public function show($id){
 
-        $content = SalesSchedule::all()->find($id);
+        $content = SalesSchedule::find($id);
 
         return view('dashboard.content.show', [ 'content' => $content ]);
 
@@ -166,7 +166,7 @@ class SalesScheduleController extends Controller
      */
     public function edit($id)
     {
-        $sales_schedule = SalesSchedule::all()->find($id);
+        $sales_schedule = SalesSchedule::find($id);
 
         $client_types = array(
             'Direct','Agency',

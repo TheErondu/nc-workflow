@@ -131,7 +131,7 @@ class GraphicsLogShowsController extends Controller
      */
     public function edit($id)
     {
-        $graphics_log_shows = GraphicsLogShows::all()->find($id);
+        $graphics_log_shows = GraphicsLogShows::find($id);
         $users = User::all();
         return view('dashboard.reports.graphics.shows.edit', compact('graphics_log_shows','users'));
     }

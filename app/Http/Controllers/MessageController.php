@@ -31,8 +31,8 @@ class MessageController extends Controller
      */
     public function index(Response $id)
     {
-        $welcome_message = Message::all()->where('type','message')->sortByDesc('id', 0)->first();
-        $notifications = Message::all()->where('type','notification');
+        $welcome_message = Message::where('type','message')->orderByDesc('id')->first();
+        $notifications = Message::where('type','notification')->get();
         return view('dashboard.messages.index',compact('welcome_message','notifications'));
     }
 
@@ -45,7 +45,7 @@ class MessageController extends Controller
     public function download($id) {
         // retreive all records from db
 
-        $message = Message::all()->find($id);
+        $message = Message::find($id);
 
         return Storage::download($message->file,$message->filename);
 
@@ -127,7 +127,7 @@ class MessageController extends Controller
      */
     public function edit($id)
     {
-        $message = message::all()->find($id);
+        $message = message::find($id);
         return view('dashboard.messages.edit', [ 'message' => $message,]);
     }
 

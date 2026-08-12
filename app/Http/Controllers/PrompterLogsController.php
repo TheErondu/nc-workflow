@@ -134,7 +134,7 @@ class PrompterLogsController extends Controller
      */
     public function edit($id)
     {
-        $prompter_logs = PrompterLogs::all()->find($id);
+        $prompter_logs = PrompterLogs::find($id);
         $users = User::all();
         return view('dashboard.reports.prompter.news.edit', compact('prompter_logs','users'));
     }

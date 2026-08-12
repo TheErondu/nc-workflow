@@ -75,7 +75,7 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function createRequest($id)
-    {   $requested_item = Store::all()->find($id);
+    {   $requested_item = Store::find($id);
         $store_items = Store::all();
         $store_requests = StoreRequest::all();
         $locations = Location::all();
@@ -133,7 +133,7 @@ class StoreController extends Controller
             'return_date'           => 'required',
         ]);
         $user = auth()->user();
-        $requested_item = Store::all()->find($id);
+        $requested_item = Store::find($id);
         $store_requests = new storeRequest();
         $store_requests->user_id = $user->id;
         $store_requests->item = $requested_item->item_name;
@@ -176,7 +176,7 @@ class StoreController extends Controller
     public function editRequest(Request $request, $id)
     {
         $departments = Department::all();
-        $store_request = storeRequest::all()->find($id);
+        $store_request = storeRequest::find($id);
         $locations = Location::all();
         return view('dashboard.store.requests.edit',compact('departments','store_request', 'locations'));
     }
@@ -189,7 +189,7 @@ class StoreController extends Controller
     public function edit($id)
     {
         $departments = Department::all();
-        $store_item = Store::all()->find($id);
+        $store_item = Store::find($id);
         $locations = Location::all();
         return view('dashboard.store.items.edit',compact('departments','store_item', 'locations'));
     }
@@ -241,7 +241,7 @@ class StoreController extends Controller
      */
     public function Approve(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Approved";
         $store_request->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -269,7 +269,7 @@ class StoreController extends Controller
      */
     public function Reject(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Rejected";
         $store_request->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -297,7 +297,7 @@ class StoreController extends Controller
      */
     public function Return(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Returned";
         $store_request->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');

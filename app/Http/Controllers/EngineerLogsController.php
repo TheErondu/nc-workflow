@@ -118,7 +118,7 @@ class EngineerLogsController extends Controller
     public function edit($id)
 
     {
-        $log = EngineerLogs::all()->find($id);
+        $log = EngineerLogs::find($id);
         return view('dashboard.reports.engineers.edit', compact('log'));
     }
 

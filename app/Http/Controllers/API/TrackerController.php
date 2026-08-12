@@ -112,7 +112,7 @@ class TrackerController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   $tracker = Tracker::all()->find($id);
+    {   $tracker = Tracker::find($id);
         $vehicles = Vehicle::all();
         return view('dashboard.logistics.tracker.edit',compact('vehicles','tracker'));
     }
@@ -125,9 +125,9 @@ class TrackerController extends ApiController
      */
     public function track($id)
     {
-        $vehicle = Vehicle::all()->find($id);
+        $vehicle = Vehicle::find($id);
         $vehicles = Vehicle::all();
-        $tracker = Tracker::all()->find($id);
+        $tracker = Tracker::find($id);
         $last_odometer_reading = DB::table('trackers')->orderBy('id', 'DESC')->first('odometer_reading');
         $mileage_trackers = Tracker::where('vehicle_id',$vehicle->id)->get();
         $dates = Tracker::where('vehicle_id',$vehicle->id)->pluck('refuel_date');
