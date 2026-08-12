@@ -5,6 +5,38 @@
 
 <head>
     <meta charset="utf-8">
+    <style>
+        html, body { background-color: #000; }
+        .splash { display: flex !important; visibility: visible !important; }
+        .splash .splash-icon {
+            background: #28304e;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+        .splash.active .splash-icon:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -20px;
+            margin-top: -20px;
+            width: 40px;
+            height: 40px;
+            box-sizing: border-box;
+            border: 5px solid #fff;
+            border-radius: 50%;
+            border-top-color: rgba(0, 0, 0, 0.2);
+            animation: splash-spinner 1.2s linear infinite;
+        }
+        @keyframes splash-spinner {
+            0% { transform: rotate(0deg); }
+            to { transform: rotate(359deg); }
+        }
+        .wrapper { opacity: 0; transition: opacity 0.3s ease; }
+    </style>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="News Central Television.Africa First">
@@ -13,7 +45,8 @@
     <title>{{env('APP_NAME')}}</title>
 
     <!-- PICK ONE OF THE STYLES BELOW -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="preload" href="{{ asset('css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="{{ asset('css/app.css') }}" rel="stylesheet"></noscript>
     <link href="{{ asset('css/summernote.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet">
     <link href="{{ asset('css/Jost.css') }}" rel="stylesheet">
@@ -38,16 +71,6 @@
     <meta name="theme-color" content="#272727">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <style>
-        .splash {
-            display: flex !important;
-            visibility: visible !important;
-        }
-        .wrapper {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-    </style>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/settings.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
