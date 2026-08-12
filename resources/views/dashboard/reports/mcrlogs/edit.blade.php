@@ -47,17 +47,21 @@
                             @csrf
                             @method('PUT')
 
-                            <div class=" row justify-content-between">
+                            <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <label for="bulletin">STO </label>
-                                    <select class="form-control select2" name="sto" id="sto" data-placeholder=" select STO">
+                                    <label for="sto">STO </label>
+                                    <select class="form-control select2" name="sto" id="sto" data-placeholder=" select STO" data-tags="true">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
                                             <option value="{{ $user->name }}" @if($mcr_logs->sto === $user->name) selected='selected' @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
+                                <div class="mb-3 col-md-4">
+                                    <label for="log_date">Log Date</label>
+                                    <input name="log_date" type="date" class="form-control" id="log_date" value="{{ $mcr_logs->start ? \Carbon\Carbon::parse($mcr_logs->start)->format('Y-m-d') : '' }}">
+                                    <small class="text-muted">Date this log is for</small>
+                                </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
@@ -167,7 +171,8 @@
                     .wrap("<div class=\"position-relative\"></div>")
                     .select2({
                         placeholder: "Select value",
-                        dropdownParent: $(this).parent()
+                        dropdownParent: $(this).parent(),
+                        tags: $(this).data('tags') || false
                     });
             })
             // Datetimepicker

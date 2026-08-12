@@ -46,10 +46,10 @@
                         <form method="POST" enctype="multipart/form-data" action="{{ route('mcr.store') }}">
                             @csrf
 
-                            <div class=" row justify-content-between">
+                            <div class="row justify-content-between">
                                 <div class="mb-3 col-md-6">
-                                    <label for="bulletin">STO </label>
-                                    <select class="form-control select2" name="sto" id="sto" data-placeholder=" select STO">
+                                    <label for="sto">STO </label>
+                                    <select class="form-control select2" name="sto" id="sto" data-placeholder=" select STO" data-tags="true">
                                         <option value="" selected>select</option>
                                         @foreach($users as $user)
                                             @if ($user->department_id === 10)
@@ -58,7 +58,11 @@
                                         @endforeach
                                     </select>
                                 </div>
-
+                                <div class="mb-3 col-md-4">
+                                    <label for="log_date">Log Date <span class="text-danger">*</span></label>
+                                    <input name="log_date" type="date" class="form-control" id="log_date" value="{{ old('log_date', date('Y-m-d')) }}" required>
+                                    <small class="text-muted">Select the date this log is for</small>
+                                </div>
                             </div>
                             <div class="row justify-content-around">
                                 <div class="mb-3 col-md-4">
@@ -151,7 +155,8 @@
                     .wrap("<div class=\"position-relative\"></div>")
                     .select2({
                         placeholder: "Select value",
-                        dropdownParent: $(this).parent()
+                        dropdownParent: $(this).parent(),
+                        tags: $(this).data('tags') || false
                     });
             })
             // Datetimepicker

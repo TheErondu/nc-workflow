@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class BatchStoreRequest extends Model
 {
     use HasFactory;
-    protected $fillable = ['status'];
+    protected $fillable = ['status', 'location_id'];
     protected $table = 'batch_store_requests';
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');

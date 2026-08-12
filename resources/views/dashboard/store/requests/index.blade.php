@@ -42,8 +42,9 @@
                         <div class="row">
                             <div class="col-12 col-xl-6">
                                 <div class="table-card">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Available Items</h5>
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Available Items</h5>
+                                        <a href="{{ route('store-requests.export.available') }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export</a>
                                     </div>
                                     <table class="table table-sm table-bordered no-wrap">
                                         <thead>
@@ -72,8 +73,9 @@
 
                             <div class="col-12 col-xl-6">
                                 <div class="table-card">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Items you requested</h5>
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Items you requested</h5>
+                                        <a href="{{ route('store-requests.export.my') }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export</a>
                                         </div>
                                     <table class="table table-sm table-bordered no-wrap">
                                         <thead>
@@ -101,8 +103,9 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="table-card">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Closed item Requests</h5>
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Closed item Requests</h5>
+                                        <a href="{{ route('store-requests.export.closed') }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export</a>
                                        </div>
                                     <table class="table table-sm table-bordered ">
                                         <thead>

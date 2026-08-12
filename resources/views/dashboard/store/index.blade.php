@@ -53,8 +53,11 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab-1" role="tabpanel">
                                         <div class="card table-card">
-                                            <a href="{{route('store.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
+                                            <div class="d-flex gap-2 mb-2">
+                                                <a href="{{route('store.create')}}" style="background-color: rgb(0, 0, 0) !important;" type="submit"
                                                     class="btn btn-primary create-button">Add Item <i class="fas fa-plus"></i></a>
+                                                <a href="{{ route('store.export.items') }}" class="btn btn-success"><i class="fas fa-file-excel"></i> Export to Excel</a>
+                                            </div>
                                                     <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
@@ -68,6 +71,8 @@
                                                                     <th style="white-space:nowrap;">Created at</th>
                                                                     <th style="white-space:nowrap;">Updated at</th>
                                                                     <th style="white-space:nowrap;">Assigned Department</th>
+                                                                    <th style="white-space:nowrap;">Created By</th>
+                                                                    <th style="white-space:nowrap;">Last Modified By</th>
 
                                                                 </tr>
                                                             </thead>
@@ -83,6 +88,8 @@
                                                                         <td>{{ $item->created_at }}</td>
                                                                         <td>{{ $item->updated_at }}</td>
                                                                         <td>{{ $item->assigned_department }}</td>
+                                                                        <td>{{ $item->created_by }}</td>
+                                                                        <td>{{ $item->last_modified_by }}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -94,6 +101,10 @@
                                     </div>
                                     <div class="tab-pane" id="tab-2" role="tabpanel">
                                         <div class="card table-card">
+                                            <div class="d-flex gap-2 mb-2">
+                                                <a href="{{ route('store.export.requests.pending') }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Requests</a>
+                                                <a href="{{ route('store.export.batch.pending') }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Batch Requests</a>
+                                            </div>
                                             <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                                     <div class="row">
@@ -204,6 +215,10 @@
                                     <div class="tab-pane" id="tab-3" role="tabpanel">
 
                                         <div class="card table-card">
+                                            <div class="d-flex gap-2 mb-2">
+                                                <a href="{{ route('store.export.requests.approved') }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Approved</a>
+                                                <a href="{{ route('store.export.batch.approved') }}" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Approved Batch</a>
+                                            </div>
                                             <div class="table-responsive">
                                                 <div id="datatables-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
 

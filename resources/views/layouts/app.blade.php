@@ -33,14 +33,19 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ asset('favicon/manifest.json') }}">
-    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#272727">
     <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#272727">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
-        body {
+        .splash {
+            display: flex !important;
+            visibility: visible !important;
+        }
+        .wrapper {
             opacity: 0;
+            transition: opacity 0.3s ease;
         }
     </style>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
@@ -86,11 +91,187 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script src="{{ asset('js/summernote.min.js') }}"></script>
     <script>
+        // Reveal page content once DOM is ready (pairs with .wrapper { opacity: 0 } in <head>)
+        $(document).ready(function () {
+            $('.wrapper').css('opacity', 1);
+        });
         $(".alert").fadeTo(2000, 500).slideUp(500, function(){
     $(".alert").slideUp(500);
 });
         </script>
 
+    {{-- Notification toast container --}}
+    <div id="nc-toast-container"
+        style="position:fixed;top:68px;right:16px;z-index:10050;display:flex;flex-direction:column;gap:8px;pointer-events:none;"></div>
+
+    @role('Admin')
+    <script>
+    (function () {
+        var POLL_INTERVAL = 30000;
+        var lastUnread    = -1; // -1 so first poll never triggers toasts on page load
+        var csrfToken     = document.querySelector('meta[name="csrf-token"]').content;
+
+        // Unlock AudioContext on first user interaction
+        var audioCtx = null;
+        function getAudioCtx() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            return audioCtx;
+        }
+        document.addEventListener('click', function () { getAudioCtx(); }, { once: true });
+
+        // Ascending arpeggio = raised, descending = closed
+        function playRing(type) {
+            try {
+                var ctx   = getAudioCtx();
+                var notes = type === 'closed' ? [783.99, 659.25, 523.25] : [523.25, 659.25, 783.99];
+                notes.forEach(function (freq, i) {
+                    var osc  = ctx.createOscillator();
+                    var gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    var t = ctx.currentTime + i * 0.18;
+                    gain.gain.setValueAtTime(0.25, t);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                    osc.start(t);
+                    osc.stop(t + 0.35);
+                });
+            } catch (e) {}
+        }
+
+        function showToast(title, body, link, ring) {
+            var container = document.getElementById('nc-toast-container');
+            var color = ring === 'closed' ? '#27ae60' : '#e84040';
+            var icon  = ring === 'closed' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            var div   = document.createElement('div');
+            div.style.cssText = 'background:#1c1c1c;border:1px solid ' + color + ';border-left:4px solid ' + color + ';' +
+                'border-radius:6px;padding:10px 14px;color:#eee;font-size:.82rem;max-width:300px;' +
+                'box-shadow:0 4px 16px rgba(0,0,0,.5);cursor:pointer;transition:opacity .4s;pointer-events:auto;';
+            div.innerHTML =
+                '<div style="font-weight:600;margin-bottom:3px;">' +
+                '<i class="fas ' + icon + '" style="color:' + color + ';margin-right:6px;"></i>' + title + '</div>' +
+                '<div style="color:#aaa;">' + body + '</div>';
+            div.addEventListener('click', function () { window.location.href = link; });
+            container.appendChild(div);
+            setTimeout(function () {
+                div.style.opacity = '0';
+                setTimeout(function () { if (div.parentNode) div.remove(); }, 400);
+            }, 7000);
+        }
+
+        function updateBadge(count) {
+            var badge = document.getElementById('notif-badge');
+            if (!badge) return;
+            if (count > 0) {
+                badge.textContent = count > 99 ? '99+' : count;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function renderList(notifications) {
+            var list  = document.getElementById('notif-list');
+            var empty = document.getElementById('notif-empty');
+            if (!list) return;
+            list.querySelectorAll('.notif-item').forEach(function (el) { el.remove(); });
+            if (!notifications.length) {
+                if (empty) empty.style.display = 'block';
+                return;
+            }
+            if (empty) empty.style.display = 'none';
+            notifications.forEach(function (n) {
+                var color = n.ring === 'closed' ? '#27ae60' : '#e84040';
+                var label = n.ring === 'closed' ? 'Resolved' : 'New Issue';
+                var sub   = n.ring === 'closed'
+                    ? (n.fixed_by   ? 'Fixed by ' + n.fixed_by   : '')
+                    : (n.raised_by  ? 'Raised by ' + n.raised_by : '');
+                var a = document.createElement('a');
+                a.href = n.link;
+                a.dataset.notifId   = n.id;
+                a.dataset.notifLink = n.link;
+                a.className = 'dropdown-item notif-item d-flex align-items-start gap-2 py-2';
+                a.style.cssText = 'border-bottom:1px solid #2a2a2a;font-size:.8rem;white-space:normal;';
+                a.innerHTML =
+                    '<span style="width:8px;height:8px;border-radius:50%;background:' + color + ';margin-top:5px;flex-shrink:0;" class="notif-dot"></span>' +
+                    '<div><div style="font-weight:600;">' + label + ': ' + (n.item_name || '') + '</div>' +
+                    (sub ? '<div style="color:#aaa;">' + sub + '</div>' : '') +
+                    '<div style="color:#666;font-size:.72rem;">' + (n.created_at || '') + '</div></div>';
+                a.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var id   = this.dataset.notifId;
+                    var link = this.dataset.notifLink;
+                    var dot  = this.querySelector('.notif-dot');
+                    if (dot) dot.style.background = '#555';
+                    lastUnread = Math.max(0, lastUnread - 1);
+                    updateBadge(lastUnread);
+                    fetch('{{ url("notifications") }}/' + id + '/mark-one', {
+                        method: 'POST',
+                        headers: { 'X-CSRF-TOKEN': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
+                    }).finally(function () {
+                        window.location.href = link;
+                    });
+                });
+                if (empty && empty.parentNode === list) {
+                    list.insertBefore(a, empty);
+                } else {
+                    list.appendChild(a);
+                }
+            });
+        }
+
+        function poll() {
+            fetch('{{ route("notifications.unread") }}', {
+                headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': csrfToken }
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                var count = data.unread_count || 0;
+                updateBadge(count);
+                renderList(data.notifications || []);
+
+                // Only ring+toast when count genuinely grew (skip first poll to avoid noise on page load)
+                if (lastUnread >= 0 && count > lastUnread) {
+                    var newItems = (data.notifications || []).slice(0, count - lastUnread);
+                    newItems.forEach(function (n) {
+                        playRing(n.ring);
+                        var title = n.ring === 'closed'
+                            ? 'Resolved: '  + n.item_name
+                            : 'New Issue: ' + n.item_name;
+                        var body = n.ring === 'closed'
+                            ? (n.fixed_by  ? 'Fixed by ' + n.fixed_by  : 'Marked as closed')
+                            : (n.raised_by ? 'Raised by ' + n.raised_by : '');
+                        showToast(title, body, n.link, n.ring);
+                    });
+                }
+                lastUnread = count;
+            })
+            .catch(function () {});
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var btn = document.getElementById('notif-mark-read');
+            if (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    fetch('{{ route("notifications.mark-read") }}', {
+                        method: 'POST',
+                        headers: { 'X-CSRF-TOKEN': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
+                    }).then(function () {
+                        lastUnread = 0;
+                        updateBadge(0);
+                        renderList([]);
+                    });
+                });
+            }
+            poll();
+            setInterval(poll, POLL_INTERVAL);
+        });
+    })();
+    </script>
+    @endrole
 </body>
 
 </html>

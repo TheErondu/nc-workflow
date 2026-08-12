@@ -54,9 +54,11 @@ class McrLogsController extends Controller
             'tc'           => 'required',
             'traffic'         => 'required',
             'handed_over_to'         => 'required',
+            'log_date'        => 'required|date',
         ]);
 
         $user = Auth::user();
+        $logDate = $request->input('log_date') . ' ' . date('H:i:s');
         $mcr_logs = new McrLogs();
         $mcr_logs->sto = $request->input('sto');
         $mcr_logs->timing = $request->input('timing');
@@ -66,8 +68,8 @@ class McrLogsController extends Controller
         $mcr_logs->tc = $request->input('tc');
         $mcr_logs->traffic = $request->input('traffic');
         $mcr_logs->handed_over_to = $request->input('handed_over_to');
-        $mcr_logs->start =  date('Y-m-d H:i:s');
-        $mcr_logs->end = date('Y-m-d H:i:s');
+        $mcr_logs->start = $logDate;
+        $mcr_logs->end = $logDate;
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $mcr_logs->color = $rand_background;
@@ -110,7 +112,7 @@ class McrLogsController extends Controller
      */
     public function edit($id)
     {
-        $mcr_logs = McrLogs::all()->find($id);
+        $mcr_logs = McrLogs::find($id);
         $users = User::all();
         return view('dashboard.reports.mcrlogs.edit', compact('mcr_logs','users'));
     }
@@ -136,6 +138,7 @@ class McrLogsController extends Controller
         ]);
         $user = Auth::user();
         $mcr_logs = McrLogs::find($id);
+        $logDate = $request->input('log_date') ? $request->input('log_date') . ' ' . date('H:i:s') : $mcr_logs->start;
         $mcr_logs->sto = $request->input('sto');
         $mcr_logs->timing = $request->input('timing');
         $mcr_logs->programmes = $request->input('programmes');
@@ -144,8 +147,8 @@ class McrLogsController extends Controller
         $mcr_logs->tc = $request->input('tc');
         $mcr_logs->traffic = $request->input('traffic');
         $mcr_logs->handed_over_to = $request->input('handed_over_to');
-        $mcr_logs->start =   $mcr_logs->start;
-        $mcr_logs->end =  $mcr_logs->start;
+        $mcr_logs->start = $logDate;
+        $mcr_logs->end = $logDate;
         $background_colors = array('#028336', '#ad2323', '#b1a514');
         $rand_background = $background_colors[array_rand($background_colors)];
         $mcr_logs->color = $rand_background;

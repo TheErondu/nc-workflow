@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar">
-    <a class="sidebar-brand" href="/">
-        <img src="/img/logo.gif" style="width: 10rem;">
+    <a class="sidebar-brand" href="/" style="color:#fff; font-weight:800; font-size:1.35rem; letter-spacing:0.5px; text-decoration:none;">
+        News Central
     </a>
     <div style="padding-bottom: 3rem" class="sidebar-content">
 
@@ -94,6 +94,8 @@
                     @if (Route::is(
                             'reports.*',
                             'mcr.*',
+                            'sto-logs.*',
+                            'audio-logs.*',
                             'editors.*',
                             'oblogs.*',
                             'production.*',
@@ -133,6 +135,18 @@
                             @if (Route::is('mcr.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                             <a class="sidebar-link" href="{{ route('mcr.index') }}"> <i
                                     class="align-middle me-2 fas fa-file-video"></i> <span class="align-middle">MCR
+                                    Logs</span></a></li>
+                    @endcanany
+                    @canany(['access-mcr_logs', 'access-mcr_logs-readonly'])
+                        <li
+                            @if (Route::is('sto-logs.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                            <a class="sidebar-link" href="{{ route('sto-logs.index') }}"> <i
+                                    class="align-middle me-2 fas fa-file-audio"></i> <span class="align-middle">STO
+                                    Logs</span></a></li>
+                        <li
+                            @if (Route::is('audio-logs.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                            <a class="sidebar-link" href="{{ route('audio-logs.index') }}"> <i
+                                    class="align-middle me-2 fas fa-headphones"></i> <span class="align-middle">Audio
                                     Logs</span></a></li>
                     @endcanany
                     @canany(['access-production_show_logs', 'access-production_show_logs-readonly'])
@@ -209,7 +223,7 @@
                 </li>
             @endcan
             @canany(['is-manager'])
-                <li @if (Route::is('departments.*', 'employees.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
+                <li @if (Route::is('departments.*', 'employees.*', 'locations.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                     <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed">
                         <i class="align-middle me-2 fas fa-fw fa-cogs"></i> <span
                             class="align-middle">Administration</span>
@@ -222,6 +236,9 @@
                             <li class="sidebar-item"><a class="sidebar-link" href="{{ route('facility.index') }}"><i
                                         class="align-middle me-2 fas fa-building"></i> <span class="align-middle">Manage
                                         Facility</span></a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="{{ route('locations.index') }}"><i
+                                        class="align-middle me-2 fas fa-map-marker-alt"></i> <span class="align-middle">Manage
+                                        Branches</span></a></li>
                         @endcan
 
                         @can('manage-users')
@@ -253,6 +270,7 @@
                     <i class="align-middle me-2 fas fa-share-alt"></i> <span class="align-middle">Analytics</span>
                 </a>
             </li>
+             @canany(['is-manager'])
             <li @if (Route::is('signage.*')) class="sidebar-item active" @else class="sidebar-item" @endif>
                 <a data-bs-target="#signage" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-tv"></i> <span class="align-middle">Signage</span>
@@ -280,6 +298,7 @@
                     </li>
                 </ul>
             </li>
+            @endcanany
 
 
         </ul>

@@ -31,7 +31,7 @@ class VehicleController extends ApiController
      */
     public function create()
     {
-        $drivers = User::all()->where('department_id', 11);
+        $drivers = User::where('department_id', 11)->get();
         return response()->json( compact('drivers'));
     }
 
@@ -92,8 +92,8 @@ class VehicleController extends ApiController
      */
     public function edit($id)
     {
-        $vehicle = Vehicle::all()->find($id);
-        $drivers = User::all()->where('department_id', 11);
+        $vehicle = Vehicle::find($id);
+        $drivers = User::where('department_id', 11)->get();
         return view('dashboard.logistics.vehicles.edit', compact('drivers', 'vehicle'));
     }
 

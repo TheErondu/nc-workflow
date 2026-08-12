@@ -1,5 +1,6 @@
 @php
     $sessionBatch = Session::get('allRequestedItems', []);
+    $allUsers = App\Models\User::orderBy('name')->get(['id', 'name']);
 @endphp
 
 <div class="modal fade" id="batch-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -66,6 +67,17 @@
                                         data-toggle="datetimepicker"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
+                            @role('Admin')
+                            <div class="mb-3 col-md-8">
+                                <label for="on_behalf_of_user_id">Submit on behalf of (optional)</label>
+                                <select class="form-control" name="on_behalf_of_user_id" id="on_behalf_of_user_id">
+                                    <option value="">— Myself —</option>
+                                    @foreach($allUsers as $u)
+                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endrole
                             <input type="hidden" name="item_ids"
                                 value="{{ implode(',', array_column($sessionBatch, 'id')) }}">
                             <div class="mb-3 col-md-4">

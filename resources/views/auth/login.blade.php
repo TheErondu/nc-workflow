@@ -42,7 +42,6 @@
      <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
      <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
      <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
-     <link rel="manifest" href="{{ asset('favicon/manifest.json') }}">
      <meta name="msapplication-TileColor" content="#ffffff">
      <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
      <meta name="theme-color" content="#ffffff">
@@ -106,6 +105,10 @@
                                                 </span>
                                             @enderror
 
+                                        </div>
+
+                                        <div class="text-end mb-2">
+                                            <a href="{{ route('password.request') }}" style="color:#aaa; font-size:.85rem;">{{ __('Forgot password?') }}</a>
                                         </div>
 
                                         <div class="text-center mt-3">

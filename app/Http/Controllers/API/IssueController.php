@@ -115,7 +115,7 @@ class IssueController extends ApiController
      */
     public function edit($id)
     {
-        $issue = Issue::all()->find($id);
+        $issue = Issue::find($id);
 
         $issue_status   = array(
             'OPEN', 'CLOSED'

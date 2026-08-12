@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
+use App\Exports\Store\BatchStoreRequestsExport;
+use App\Exports\Store\ClosedStoreRequestsExport;
+use App\Exports\Store\StoreItemsExport;
+use App\Exports\Store\StoreRequestsExport;
 use App\Models\BatchStoreRequest;
+use App\Models\Location;
 use App\Models\Store;
 use App\Models\Department;
 use App\Models\StoreRequest;
@@ -12,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StoreController extends Controller
 {
@@ -38,11 +44,15 @@ class StoreController extends Controller
      */
     public function RequestIndex()
     {
-        $user_department = Auth::user()->department->name;
         $user = auth()->user();
-        $available_items = Store::all()->where('assigned_department', $user_department);
+        if ($user->hasRole('Admin')) {
+            $available_items = Store::all();
+        } else {
+            $user_department = $user->department->name;
+            $available_items = Store::where('assigned_department', $user_department)->get();
+        }
         $all_requested = StoreRequest::where('status', '!=', 'Pending')->where('user_id', $user->id)->get();
-        $requested_items = StoreRequest::all()->where('status', 'pending')->where('user_id',$user->id);
+        $requested_items = StoreRequest::where('status', 'pending')->where('user_id', $user->id)->get();
         $store_requests = StoreRequest::all();
         return view('dashboard.store.requests.index', compact('available_items','store_requests','requested_items','all_requested'));
     }
@@ -55,7 +65,8 @@ class StoreController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view('dashboard.store.items.create',compact('departments'));
+        $locations = Location::all();
+        return view('dashboard.store.items.create',compact('departments', 'locations'));
     }
 
      /**
@@ -64,10 +75,11 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function createRequest($id)
-    {   $requested_item = Store::all()->find($id);
+    {   $requested_item = Store::find($id);
         $store_items = Store::all();
         $store_requests = StoreRequest::all();
-        return view('dashboard.store.requests.create', compact('store_items','store_requests','requested_item'));
+        $locations = Location::all();
+        return view('dashboard.store.requests.create', compact('store_items','store_requests','requested_item', 'locations'));
     }
 
     /**
@@ -89,6 +101,8 @@ class StoreController extends Controller
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
+        $store_item->created_by = Auth::user()->name;
+        $store_item->last_modified_by = Auth::user()->name;
         $email = Auth::user()->email;
         $store_item->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -119,7 +133,7 @@ class StoreController extends Controller
             'return_date'           => 'required',
         ]);
         $user = auth()->user();
-        $requested_item = Store::all()->find($id);
+        $requested_item = Store::find($id);
         $store_requests = new storeRequest();
         $store_requests->user_id = $user->id;
         $store_requests->item = $requested_item->item_name;
@@ -162,8 +176,9 @@ class StoreController extends Controller
     public function editRequest(Request $request, $id)
     {
         $departments = Department::all();
-        $store_request = storeRequest::all()->find($id);
-        return view('dashboard.store.requests.edit',compact('departments','store_request'));
+        $store_request = storeRequest::find($id);
+        $locations = Location::all();
+        return view('dashboard.store.requests.edit',compact('departments','store_request', 'locations'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -174,8 +189,9 @@ class StoreController extends Controller
     public function edit($id)
     {
         $departments = Department::all();
-        $store_item = Store::all()->find($id);
-        return view('dashboard.store.items.edit',compact('departments','store_item'));
+        $store_item = Store::find($id);
+        $locations = Location::all();
+        return view('dashboard.store.items.edit',compact('departments','store_item', 'locations'));
     }
 
     /**
@@ -198,6 +214,7 @@ class StoreController extends Controller
         $store_item->serial_no = $request->input('serial_no');
         $store_item->assigned_department = $request->input('assigned_department');
         $store_item->state = $request->input('state');
+        $store_item->last_modified_by = Auth::user()->name;
         $store_item->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
         $details = [
@@ -224,7 +241,7 @@ class StoreController extends Controller
      */
     public function Approve(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Approved";
         $store_request->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -252,7 +269,7 @@ class StoreController extends Controller
      */
     public function Reject(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Rejected";
         $store_request->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -280,7 +297,7 @@ class StoreController extends Controller
      */
     public function Return(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Returned";
         $store_request->save();
         $cc_emails = DB::select('SELECT email from users WHERE department_id = 11');
@@ -327,5 +344,47 @@ class StoreController extends Controller
             $store_item->delete();
         }
         return redirect()->route('store.index')->with('message', 'Successfully Deleted Request');
+    }
+
+    public function exportStoreItems()
+    {
+        return Excel::download(new StoreItemsExport(), 'store-items.xlsx');
+    }
+
+    public function exportPendingRequests()
+    {
+        return Excel::download(new StoreRequestsExport('pending'), 'pending-store-requests.xlsx');
+    }
+
+    public function exportApprovedRequests()
+    {
+        return Excel::download(new StoreRequestsExport('Approved'), 'approved-store-requests.xlsx');
+    }
+
+    public function exportPendingBatchRequests()
+    {
+        return Excel::download(new BatchStoreRequestsExport('pending'), 'pending-batch-requests.xlsx');
+    }
+
+    public function exportApprovedBatchRequests()
+    {
+        return Excel::download(new BatchStoreRequestsExport('approved'), 'approved-batch-requests.xlsx');
+    }
+
+    public function exportAvailableItems()
+    {
+        $user = Auth::user();
+        $department = $user->hasRole('Admin') ? null : $user->department->name;
+        return Excel::download(new StoreItemsExport($department), 'available-items.xlsx');
+    }
+
+    public function exportMyRequests()
+    {
+        return Excel::download(new StoreRequestsExport('pending', Auth::id()), 'my-store-requests.xlsx');
+    }
+
+    public function exportClosedRequests()
+    {
+        return Excel::download(new ClosedStoreRequestsExport(Auth::id()), 'closed-requests.xlsx');
     }
 }

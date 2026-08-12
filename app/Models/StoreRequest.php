@@ -11,7 +11,12 @@ class StoreRequest extends Model
 {
 
     use HasFactory;
-    protected $fillable = ['status'];
+    protected $fillable = ['status', 'location_id'];
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 
     public const isPending    = 0;
     public const isApproved   = 1;

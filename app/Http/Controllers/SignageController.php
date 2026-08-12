@@ -21,7 +21,7 @@ class SignageController extends Controller
         $screenToShow = Screen::find($screen->id);
         $today = Carbon::today();
         $schedules = Schedule::whereDate('start', $today)->get();
-        $tickets = Issue::with('user')->where('status', 'OPEN')->orderByDesc('created_at')
+        $tickets = Issue::where('status', 'OPEN')->orderByDesc('created_at')
             ->take(20)
             ->get();
 
@@ -98,15 +98,20 @@ class SignageController extends Controller
             'name' => 'required|string|max:255|unique:screens,name',
             'views' => 'required|array|min:1',
             'views.*' => 'in:' . implode(',', Screen::VIEW_TYPES),
-            'slide_duration' => 'nullable|integer|min:1000|max:60000',
-            'view_duration' => 'nullable|integer|min:10000|max:600000',
+            'slide_duration' => 'nullable|integer|min:1|max:60',
+            'view_duration' => 'nullable|integer|min:10|max:600',
+        ], [
+            'slide_duration.min' => 'Slide duration must be at least 1 second.',
+            'slide_duration.max' => 'Slide duration must not exceed 60 seconds.',
+            'view_duration.min' => 'View duration must be at least 10 seconds.',
+            'view_duration.max' => 'View duration must not exceed 600 seconds (10 minutes).',
         ]);
 
         Screen::create([
             'name' => $validated['name'],
             'views' => $validated['views'],
-            'slide_duration' => $validated['slide_duration'] ?? 7000,
-            'view_duration' => $validated['view_duration'] ?? 60000,
+            'slide_duration' => ($validated['slide_duration'] ?? 7) * 1000,
+            'view_duration' => ($validated['view_duration'] ?? 60) * 1000,
         ]);
 
         return redirect()->route('signage.admin')
@@ -132,15 +137,20 @@ class SignageController extends Controller
             'name' => 'required|string|max:255|unique:screens,name,' . $screen->id,
             'views' => 'required|array|min:1',
             'views.*' => 'in:' . implode(',', Screen::VIEW_TYPES),
-            'slide_duration' => 'nullable|integer|min:1000|max:60000',
-            'view_duration' => 'nullable|integer|min:10000|max:600000',
+            'slide_duration' => 'nullable|integer|min:1|max:60',
+            'view_duration' => 'nullable|integer|min:10|max:600',
+        ], [
+            'slide_duration.min' => 'Slide duration must be at least 1 second.',
+            'slide_duration.max' => 'Slide duration must not exceed 60 seconds.',
+            'view_duration.min' => 'View duration must be at least 10 seconds.',
+            'view_duration.max' => 'View duration must not exceed 600 seconds (10 minutes).',
         ]);
 
         $screen->update([
             'name' => $validated['name'],
             'views' => $validated['views'],
-            'slide_duration' => $validated['slide_duration'] ?? 7000,
-            'view_duration' => $validated['view_duration'] ?? 60000,
+            'slide_duration' => ($validated['slide_duration'] ?? 7) * 1000,
+            'view_duration' => ($validated['view_duration'] ?? 60) * 1000,
         ]);
 
         return redirect()->route('signage.admin')

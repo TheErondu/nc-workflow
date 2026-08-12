@@ -1,260 +1,215 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\Department;
+use App\Models\Issue;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class Analytics
 {
-    public function GetDepartmentInfo()
+    public function GetSummaryStats(): array
     {
-        $departments = Department::where('id', '>', 0)->pluck('name');
-        $all_departments = Department::all();
-        $departmentInfo = collect(
-            [
-                'departments' => $departments,
-                'all_departments' => $all_departments
-            ]);
-        return $departmentInfo;
+        $totalIssues   = Issue::count();
+        $openIssues    = Issue::where('status', 'OPEN')->count();
+        $closedIssues  = Issue::where('status', 'CLOSED')->count();
+        $monthIssues   = Issue::whereYear('created_at', now()->year)
+                              ->whereMonth('created_at', now()->month)
+                              ->count();
+        $pendingStore  = DB::table('store_requests')->where('status', 'Pending')->count();
+        $prodLogs      = DB::table('production_show_logs')->count();
+        $activeStaff   = User::where('status', 'active')->count();
+
+        return compact(
+            'totalIssues', 'openIssues', 'closedIssues',
+            'monthIssues', 'pendingStore', 'prodLogs', 'activeStaff'
+        );
     }
-    public function GetEngineerStats(){
 
-        $most_active =  DB::select("SELECT fixed_by as 'name', COUNT(*) as 'stats'
-        FROM issues WHERE status = 'CLOSED'
-        GROUP BY fixed_by
-        ORDER BY 2 DESC LIMIT 3;");
-        $active_engineers_stats = collect($most_active)->pluck('stats');
-        $active_engineers = collect($most_active)->pluck('name');
-
-        $least_active =  DB::select("SELECT fixed_by as 'name', COUNT(*) as 'stats'
-        FROM issues WHERE status = 'CLOSED'
-        GROUP BY fixed_by
-        ORDER BY 2 ASC LIMIT 3;");
-         $inactive_engineers_stats = collect($least_active)->pluck('stats');
-         $inactive_engineers = collect($least_active)->pluck('name');
-
-        $engineerStats = collect([
-            'active_engineers_stats' => $active_engineers_stats,
-            'active_engineers' => $active_engineers,
-            'inactive_engineers_stats' => $inactive_engineers_stats,
-            'inactive_engineers' => $inactive_engineers
-
-        ]);
-
-        return $engineerStats;
-
-    }
-    public function GetBorrowerStats(){
-        $most_borrower_query =  DB::select("SELECT username as 'users', COUNT(*) as 'stats'
-        FROM store_requests
-
-        JOIN users
-        on store_requests.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 3;");
-
-            $most_borrowers_stats= collect($most_borrower_query)->pluck('stats');
-
-            $most_borrowers = collect($most_borrower_query)->pluck('users');
-            $borrower_stats = collect([
-                'most_borrowers_stats' => $most_borrowers_stats,
-                'most_borrowers' => $most_borrowers
-            ]);
-            return $borrower_stats;
-
-    }
-    public function GetProducerStats()
+    public function GetIssuesTrend(): array
     {
-        $most_active =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM production_show_logs
+        $start = now()->subMonths(5)->startOfMonth();
 
-        JOIN users
-        on production_show_logs.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 3;");
+        $raisedByMonth = Issue::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as total")
+            ->where('created_at', '>=', $start)
+            ->groupBy('ym')
+            ->pluck('total', 'ym');
 
-            $producers_count= collect($most_active)->pluck('stats');
+        $closedByMonth = Issue::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as total")
+            ->where('status', 'CLOSED')
+            ->where('created_at', '>=', $start)
+            ->groupBy('ym')
+            ->pluck('total', 'ym');
 
-            $producers_list = collect($most_active)->pluck('users');
-         $least_active =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-         FROM production_show_logs
+        $labels = [];
+        $raised = [];
+        $closed = [];
 
-         JOIN users
-         on production_show_logs.user_id = users.id
-         GROUP BY user_id
-         ORDER BY 2 ASC LIMIT 3;");
-          $least_producers_count= collect($least_active)->pluck('stats');
+        for ($i = 5; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $ym = $date->format('Y-m');
+            $labels[] = $date->format('M Y');
+            $raised[] = (int) ($raisedByMonth[$ym] ?? 0);
+            $closed[] = (int) ($closedByMonth[$ym] ?? 0);
+        }
 
-          $least_producers_list = collect($least_active)->pluck('users');
-
-            $producer_stats = collect([
-                'producer_stats' => $producers_count,
-                'producers_list' => $producers_list,
-                'least_producers_count' =>$least_producers_count,
-                'least_producers_list' =>$least_producers_list
-            ]);
-            return $producer_stats;
+        return compact('labels', 'raised', 'closed');
     }
-    public function GetDirectorStats()
+
+    public function GetTopEquipment(): array
     {
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM reports
+        $rows = Issue::select('item_name', DB::raw('COUNT(*) as total'))
+            ->whereNotNull('item_name')
+            ->where('item_name', '!=', '')
+            ->groupBy('item_name')
+            ->orderByDesc('total')
+            ->limit(8)
+            ->get();
 
-        JOIN users
-        on reports.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 3;");
-
-            $directors_count= collect($query)->pluck('stats');
-
-            $directors_list = collect($query)->pluck('users');
-
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM reports
-
-        JOIN users
-        on reports.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 ASC LIMIT 3;");
-          $least_directors_count= collect($query)->pluck('stats');
-
-          $least_directors_list = collect($query)->pluck('users');
-
-            $director_stats = collect([
-                'directors_count' => $directors_count,
-                'directors_list' => $directors_list,
-                'least_directors_count' => $least_directors_count,
-                'least_directors_list' => $least_directors_list
-            ]);
-            return $director_stats;
+        return [
+            'names'  => $rows->pluck('item_name')->toArray(),
+            'counts' => $rows->pluck('total')->toArray(),
+        ];
     }
-    public function GetVideoEditorStats()
+
+    public function GetDepartmentInfo(): array
     {
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM editor_logs
+        $departments = Department::withCount('employees')->get();
 
-        JOIN users
-        on editor_logs.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 3;");
-
-            $editors_count= collect($query)->pluck('stats');
-
-            $editors_list = collect($query)->pluck('users');
-
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM editor_logs
-
-        JOIN users
-        on editor_logs.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 ASC LIMIT 3;");
-
-          $least_editors_count= collect($query)->pluck('stats');
-
-          $least_editors_list = collect($query)->pluck('users');
-
-            $editor_stats = collect([
-                'editors_count' => $editors_count,
-                'editors_list' => $editors_list,
-                'least_editors_count' => $least_editors_count,
-                'least_editors_list' => $least_editors_list
-            ]);
-            return $editor_stats;
+        return [
+            'names'  => $departments->pluck('name')->toArray(),
+            'counts' => $departments->pluck('employees_count')->toArray(),
+        ];
     }
-    public function GetOBLogStats()
+
+    public function GetEngineerStats(): array
     {
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM o_blogs
+        $top = DB::select("SELECT fixed_by AS name, COUNT(*) AS stats
+            FROM issues WHERE status = 'CLOSED' AND fixed_by IS NOT NULL AND fixed_by != ''
+            GROUP BY fixed_by ORDER BY stats DESC LIMIT 5");
 
-        JOIN users
-        on o_blogs.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 3;");
+        $bottom = DB::select("SELECT fixed_by AS name, COUNT(*) AS stats
+            FROM issues WHERE status = 'CLOSED' AND fixed_by IS NOT NULL AND fixed_by != ''
+            GROUP BY fixed_by ORDER BY stats ASC LIMIT 5");
 
-            $oblogs_count= collect($query)->pluck('stats');
-
-            $oblogs_list = collect($query)->pluck('users');
-
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM o_blogs
-
-        JOIN users
-        on o_blogs.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 ASC LIMIT 3;");
-
-          $least_oblogs_count= collect($query)->pluck('stats');
-
-          $least_oblogs_list = collect($query)->pluck('users');
-
-            $oblogs_stats = collect([
-                'oblogs_count' => $oblogs_count,
-                'oblogs_list' => $oblogs_list,
-                'least_oblogs_count' => $least_oblogs_count,
-                'least_oblogs_list' => $least_oblogs_list
-            ]);
-            return $oblogs_stats;
+        return [
+            'top_names'    => collect($top)->pluck('name')->toArray(),
+            'top_stats'    => collect($top)->pluck('stats')->toArray(),
+            'bottom_names' => collect($bottom)->pluck('name')->toArray(),
+            'bottom_stats' => collect($bottom)->pluck('stats')->toArray(),
+        ];
     }
-    public function GetGraphicslogStats()
+
+    public function GetBorrowerStats(): array
     {
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM graphics_logs
+        $rows = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM store_requests
+            JOIN users ON store_requests.user_id = users.id
+            GROUP BY store_requests.user_id
+            ORDER BY stats DESC LIMIT 5");
 
-        JOIN users
-        on graphics_logs.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 DESC LIMIT 3;");
+        return [
+            'names' => collect($rows)->pluck('user')->toArray(),
+            'stats' => collect($rows)->pluck('stats')->toArray(),
+        ];
+    }
 
-            $graphics_logs_count= collect($query)->pluck('stats');
+    public function GetProducerStats(): array
+    {
+        $top = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM production_show_logs
+            JOIN users ON production_show_logs.user_id = users.id
+            GROUP BY production_show_logs.user_id
+            ORDER BY stats DESC LIMIT 5");
 
-            $graphics_logs_list = collect($query)->pluck('users');
+        $bottom = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM production_show_logs
+            JOIN users ON production_show_logs.user_id = users.id
+            GROUP BY production_show_logs.user_id
+            ORDER BY stats ASC LIMIT 5");
 
-        $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-        FROM graphics_logs
+        return [
+            'top_names'    => collect($top)->pluck('user')->toArray(),
+            'top_stats'    => collect($top)->pluck('stats')->toArray(),
+            'bottom_names' => collect($bottom)->pluck('user')->toArray(),
+            'bottom_stats' => collect($bottom)->pluck('stats')->toArray(),
+        ];
+    }
 
-        JOIN users
-        on graphics_logs.user_id = users.id
-        GROUP BY user_id
-        ORDER BY 2 ASC LIMIT 3;");
+    public function GetVideoEditorStats(): array
+    {
+        $top = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM editor_logs
+            JOIN users ON editor_logs.user_id = users.id
+            GROUP BY editor_logs.user_id
+            ORDER BY stats DESC LIMIT 5");
 
-          $least_graphics_logs_count= collect($query)->pluck('stats');
+        $bottom = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM editor_logs
+            JOIN users ON editor_logs.user_id = users.id
+            GROUP BY editor_logs.user_id
+            ORDER BY stats ASC LIMIT 5");
 
-          $least_graphics_logs_list = collect($query)->pluck('users');
+        return [
+            'top_names'    => collect($top)->pluck('user')->toArray(),
+            'top_stats'    => collect($top)->pluck('stats')->toArray(),
+            'bottom_names' => collect($bottom)->pluck('user')->toArray(),
+            'bottom_stats' => collect($bottom)->pluck('stats')->toArray(),
+        ];
+    }
 
-          $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-          FROM graphics_logs
+    public function GetOBLogStats(): array
+    {
+        $top = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM o_blogs
+            JOIN users ON o_blogs.user_id = users.id
+            GROUP BY o_blogs.user_id
+            ORDER BY stats DESC LIMIT 5");
 
-          JOIN users
-          on graphics_logs.user_id = users.id
-          GROUP BY user_id
-          ORDER BY 2 DESC LIMIT 3;");
+        $bottom = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM o_blogs
+            JOIN users ON o_blogs.user_id = users.id
+            GROUP BY o_blogs.user_id
+            ORDER BY stats ASC LIMIT 5");
 
-              $graphics_logs_shows_count= collect($query)->pluck('stats');
+        return [
+            'top_names'    => collect($top)->pluck('user')->toArray(),
+            'top_stats'    => collect($top)->pluck('stats')->toArray(),
+            'bottom_names' => collect($bottom)->pluck('user')->toArray(),
+            'bottom_stats' => collect($bottom)->pluck('stats')->toArray(),
+        ];
+    }
 
-              $graphics_logs_shows_list = collect($query)->pluck('users');
+    public function GetGraphicslogStats(): array
+    {
+        $top = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM graphics_logs
+            JOIN users ON graphics_logs.user_id = users.id
+            GROUP BY graphics_logs.user_id
+            ORDER BY stats DESC LIMIT 5");
 
-          $query =  DB::select("SELECT name as 'users', COUNT(*) as 'stats'
-          FROM graphics_log_shows
+        $bottom = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM graphics_logs
+            JOIN users ON graphics_logs.user_id = users.id
+            GROUP BY graphics_logs.user_id
+            ORDER BY stats ASC LIMIT 5");
 
-          JOIN users
-          on graphics_log_shows.user_id = users.id
-          GROUP BY user_id
-          ORDER BY 2 ASC LIMIT 3;");
+        // graphics_log_shows — separate table (was duplicated from graphics_logs previously)
+        $showsTop = DB::select("SELECT users.name AS user, COUNT(*) AS stats
+            FROM graphics_log_shows
+            JOIN users ON graphics_log_shows.user_id = users.id
+            GROUP BY graphics_log_shows.user_id
+            ORDER BY stats DESC LIMIT 5");
 
-            $least_graphics_logs_shows_count= collect($query)->pluck('stats');
-
-            $least_graphics_logs_shows_list = collect($query)->pluck('users');
-
-            $graphics_logs_show_stats = collect([
-                'graphics_logs_count' => $graphics_logs_count,
-                'graphics_logs_list' => $graphics_logs_list,
-                'least_graphics_logs_count' => $least_graphics_logs_count,
-                'least_graphics_logs_list' => $least_graphics_logs_list,
-                'graphics_logs_shows_count' => $graphics_logs_shows_count,
-                'graphics_logs_shows_list' => $graphics_logs_shows_list
-
-            ]);
-            return $graphics_logs_show_stats;
+        return [
+            'top_names'       => collect($top)->pluck('user')->toArray(),
+            'top_stats'       => collect($top)->pluck('stats')->toArray(),
+            'bottom_names'    => collect($bottom)->pluck('user')->toArray(),
+            'bottom_stats'    => collect($bottom)->pluck('stats')->toArray(),
+            'shows_top_names' => collect($showsTop)->pluck('user')->toArray(),
+            'shows_top_stats' => collect($showsTop)->pluck('stats')->toArray(),
+        ];
     }
 }

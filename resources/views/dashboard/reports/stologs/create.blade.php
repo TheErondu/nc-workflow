@@ -1,0 +1,109 @@
+@extends('layouts.app')
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card-opaque">
+                    <div class="card-header" style="background-color: #272727;">
+                        <h5 class="card-title" style="color: white;">Add STO Log</h5>
+                    </div>
+                    <div class="row">
+                        @if (Session::has('message'))
+                            <div class="container">
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <div class="alert-icon"><i class="far fa-fw fa-bell"></i></div>
+                                    <div class="alert-message"><strong>{{ session('message') }}</strong></div>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                            <div class="container">
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    @foreach ($errors->all() as $error)
+                                        <div class="alert-icon"><i class="far fa-fw fa-bell"></i></div>
+                                        <div class="alert-message"><strong>{{ $error }}</strong></div>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('sto-logs.store') }}">
+                            @csrf
+                            <div class="row justify-content-between">
+                                <x-user-select name="sto" label="STO" :users="$users" :department-ids="10" col-class="col-md-6" placeholder="select STO" />
+                                <div class="mb-3 col-md-4">
+                                    <label for="log_date">Log Date <span class="text-danger">*</span></label>
+                                    <input name="log_date" type="date" class="form-control" id="log_date" value="{{ old('log_date', date('Y-m-d')) }}" required>
+                                    <small class="text-muted">Select the date this log is for</small>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-4">
+                                    <label for="timing">Timings</label>
+                                    <input name="timing" type="text" class="form-control" id="timing" value="{{ old('timing') }}" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="programmes">Programmes</label>
+                                    <input name="programmes" type="text" class="form-control" id="programmes" value="{{ old('programmes') }}" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="traffic">Traffic</label>
+                                    <input name="traffic" type="text" class="form-control" id="traffic" value="{{ old('traffic') }}" placeholder="">
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-4">
+                                    <label for="squeezbacks">Squeeze Backs</label>
+                                    <input name="squeezbacks" type="text" class="form-control" id="squeezbacks" value="{{ old('squeezbacks') }}" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="tc">TC</label>
+                                    <input name="tc" type="text" class="form-control" id="tc" value="{{ old('tc') }}" placeholder="">
+                                </div>
+                                <x-user-select name="handed_over_to" label="Handed Over To" :users="$users" :department-ids="10" placeholder="select Hand over" />
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-12">
+                                    <label for="remarks">Remarks</label>
+                                    <textarea name="remarks" class="form-control" id="remarks" placeholder="">{{ old('remarks') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="mb-3 col-md-3">
+                                    <span>Uploaded by: <br> {{ Auth::user()->name }}</span>
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <span>Uploaded at: <br> {{ date('d-m-Y') }}</span>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="mb-3 col-md-6">
+                                    <a href="{{ route('sto-logs.index') }}" style="background-color: rgb(53, 54, 55) !important;" class="btn btn-primary">Cancel</a>
+                                </div>
+                                <div class="mb-3 col-md-1">
+                                    <button style="background-color: rgb(37, 38, 38) !important;" type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('javascript')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $(".select2").each(function() {
+            $(this).wrap("<div class=\"position-relative\"></div>").select2({
+                placeholder: "Select value",
+                dropdownParent: $(this).parent(),
+                tags: $(this).data('tags') || false
+            });
+        })
+    });
+</script>
+@endsection

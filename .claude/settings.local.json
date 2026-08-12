@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(php artisan:*)",
+      "Bash(php:*)",
+      "Bash(php -l:*)",
+      "Bash(echo:*)",
+      "Bash(grep:*)",
+      "Bash(composer show:*)",
+      "Bash(composer require:*)",
+      "Bash(wc:*)",
+      "Bash(cd:*)",
+      "Bash(New-Item -ItemType Directory -Force -Path \"C:\\\\Dev\\\\nc-workflow\\\\app\\\\Exports\\\\Store\")",
+      "Bash(Out-Null)",
+      "Bash(Write-Host \"done\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(ls /c/xampp/php/composer* 2>/dev/null; ls /c/Dev/nc-workflow/composer.phar 2>/dev/null; which composer 2>/dev/null || echo \"no composer in PATH\")",
+      "Read(//c/xampp/php/**)",
+      "Bash(find /c/xampp /c/Users/erondu -name \"composer*\" -maxdepth 5 2>/dev/null | head -10)",
+      "Read(//c/xampp/**)",
+      "Bash(find /c/ProgramData /c/Users/erondu/AppData -name \"composer.phar\" -o -name \"composer.bat\" -o -name \"composer.cmd\" 2>/dev/null | head -5)",
+      "Read(//c/ProgramData/**)",
+      "Bash(/c/xampp/php/php /c/ProgramData/ComposerSetup/bin/composer.phar require minishlink/web-push)",
+      "Bash(/c/xampp/php/php /c/ProgramData/ComposerSetup/bin/composer.phar require minishlink/web-push --ignore-platform-req=ext-gd)",
+      "Bash(/c/xampp/php/php /c/ProgramData/ComposerSetup/bin/composer.phar require minishlink/web-push --ignore-platform-req=ext-gd --ignore-platform-req=ext-zip)",
+      "Bash(openssl version *)",
+      "Bash(openssl ecparam *)",
+      "Bash(openssl ec *)"
+    ]
+  }
+}

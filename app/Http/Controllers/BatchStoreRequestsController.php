@@ -9,6 +9,7 @@ use App\Helpers\MailingLists;
 use App\Models\BatchStoreRequest;
 use App\Models\Department;
 use App\Models\Store;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,22 +45,26 @@ class BatchStoreRequestsController extends Controller
 
     public function submitBatchRequest(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'return_date'           => 'required',
-        // ]);
-        $user = auth()->user();
+        $admin = auth()->user();
+        $onBehalfOfId = $request->input('on_behalf_of_user_id');
+
+        // Admin submitting on behalf of another user
+        if ($admin->hasRole('Admin') && $onBehalfOfId) {
+            $user = User::findOrFail($onBehalfOfId);
+        } else {
+            $user = $admin;
+        }
+
         $batch_store_request = new BatchStoreRequest();
         $batch = explode(",", $request->input('item_ids'));
         if ($batch == null) {
             return redirect()->back()->withErrors(['No item selected!']);
         } else {
-            $allRequestedItems = [];
-            foreach ($batch as $requested_item) { // $interests array contains input data
-                $item = Store::find($requested_item);
-                $item->state = Store::is_borrowed;
-                $item->save();
-                $allRequestedItems[] = $item->attributesToArray();
-            }
+            Store::whereIn('id', $batch)->update(['state' => Store::is_borrowed]);
+            $updatedItems = Store::whereIn('id', $batch)->get()->keyBy('id');
+            $allRequestedItems = collect($batch)
+                ->map(fn ($id) => $updatedItems->get($id)->attributesToArray())
+                ->all();
 
             $batch_store_request->items = json_encode($allRequestedItems);
             $batch_store_request->user_id = $user->id;
@@ -73,19 +78,20 @@ class BatchStoreRequestsController extends Controller
             Session::remove('allRequestedItems');
             $cc_emails = MailingLists::addEmailsToCc($batch_store_request);
             $link = route('store.requests.batch.edit', ['batch_id' => $batch_store_request->id]);
+            $submittedBy = ($user->id !== $admin->id) ? " (submitted by {$admin->name})" : '';
             $details = [
                 'cc_emails' => $cc_emails,
-                'email' => Auth::user()->email,
-                'title' => $user->name . ' has made a new store request.',
+                'email' => $user->email,
+                'title' => $user->name . ' has made a new store request.' . $submittedBy,
                 'return date' => $batch_store_request->return_date,
-                'body' => $user->name . ' has requested some items' . 'from the store. Please click the link below to see details of this request and take action.',
+                'body' => $user->name . ' has requested some items from the store. Please click the link below to see details of this request and take action.',
                 'model' => 'Store Requests',
-                'user' => auth()->user()->name,
+                'user' => $admin->name,
                 'time' => date('d-m-Y'),
                 'link' => $link,
             ];
             Event::dispatch(new RecordCreatedEvent($details));
-            return redirect()->route('store-requests.index')->with('message', 'Batch request was sent sucessfully!');
+            return redirect()->route('store-requests.index')->with('message', 'Batch request was sent successfully!');
         }
     }
 
@@ -96,13 +102,12 @@ class BatchStoreRequestsController extends Controller
         $batch_store_request = BatchStoreRequest::find($id);
         $batch = collect(json_decode($batch_store_request->items))->pluck('id');
         $items = Store::find($batch)->where('state', Store::is_in_circulation);
-        $allRequestedItems = [];
-        foreach ($items as $requested_item) { // $interests array contains input data
-            $item = Store::find($requested_item->id);
-            $item->state = 3;
-            $item->save();
-            $allRequestedItems[] = $item->attributesToArray();
-        }
+        $ids = $items->pluck('id');
+        Store::whereIn('id', $ids)->update(['state' => 3]);
+        $updatedItems = Store::whereIn('id', $ids)->get()->keyBy('id');
+        $allRequestedItems = $ids
+            ->map(fn ($id) => $updatedItems->get($id)->attributesToArray())
+            ->all();
 
 
         $new_batch_store_request = new BatchStoreRequest();
@@ -215,13 +220,8 @@ class BatchStoreRequestsController extends Controller
         $batchRequest->rejection_comment = $request->input('rejection_comment');
         $batchRequest->save();
 
-        foreach (json_decode($batchRequest->items, false) as $item) {
-            $item = Store::find($item->id);
-            $item->state = Store::is_in_circulation;
-            ;
-            $item->save();
-            $allRequestedItems[] = $item->attributesToArray();
-        }
+        $rejectedIds = collect(json_decode($batchRequest->items, false))->pluck('id');
+        Store::whereIn('id', $rejectedIds)->update(['state' => Store::is_in_circulation]);
         $link = route('store.requests.batch.edit', ['batch_id' => $batch_id]);
         $cc_emails = MailingLists::addEmailsToCc($batchRequest);
         $details = [
@@ -248,13 +248,8 @@ class BatchStoreRequestsController extends Controller
         $batchRequest->update([
             'status' => 'returned'
         ]);
-        foreach (json_decode($batchRequest->items, false) as $item) {
-            $item = Store::find($item->id);
-            $item->state = Store::is_in_circulation;
-            ;
-            $item->save();
-            $allRequestedItems[] = $item->attributesToArray();
-        }
+        $returnedIds = collect(json_decode($batchRequest->items, false))->pluck('id');
+        Store::whereIn('id', $returnedIds)->update(['state' => Store::is_in_circulation]);
         $link = route('store.requests.batch.edit', ['batch_id' => $batch_id]);
         $cc_emails = MailingLists::addEmailsToCc($batchRequest);
         $details = [

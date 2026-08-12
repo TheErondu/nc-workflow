@@ -72,7 +72,7 @@ class DepartmentController extends ApiController
      */
     public function edit($id)
     {
-        $department = Department::all()->find($id);
+        $department = Department::find($id);
         $users = Users::all();
         return view('dashboard.departments.edit',compact('department','users'));
     }

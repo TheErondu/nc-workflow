@@ -32,7 +32,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        $drivers = User::all()->where('department_id', 21);
+        $drivers = User::where('department_id', 21)->get();
         return view('dashboard.logistics.vehicles.create', compact('drivers'));
     }
 
@@ -95,8 +95,8 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        $vehicle = Vehicle::all()->find($id);
-        $drivers = User::all()->where('department_id', 21);
+        $vehicle = Vehicle::find($id);
+        $drivers = User::where('department_id', 21)->get();
         return view('dashboard.logistics.vehicles.edit', compact('drivers', 'vehicle'));
     }
 

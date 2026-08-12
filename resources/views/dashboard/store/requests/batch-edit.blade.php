@@ -18,7 +18,7 @@
                                 <div class="col-12">
                                     <div class="table-card">
                                         <div class="card-header">
-                                            <h5 class="card-title">{{ $batch_store_request->user->name }}s'Batch Request
+                                            <h5 class="card-title">{{ $batch_store_request->user->name ?? 'Deleted User' }}s'Batch Request
                                                 with Batch No:{{ $batch_store_request->batch_id }} and Return
                                                 Date:{{ \Carbon\Carbon::parse($batch_store_request->return_date)->format('d-M-Y') }}
                                             </h5>
@@ -65,14 +65,14 @@
                                                     @if ($batch_store_request->date_extension_status == 1)
                                                         <div class="justify-content-center">
                                                             <h3 style="color: rgb(89, 187, 240)">
-                                                                {{ $batch_store_request->user->name }} wants to
+                                                                {{ $batch_store_request->user->name ?? 'Deleted User' }} wants to
                                                                 extend the return date to
                                                                 {{ \Carbon\Carbon::parse($batch_store_request->extended_date)->format('d-M-Y') }}.
                                                                 <br>
                                                                 Extension
                                                                 Reason:{{ $batch_store_request->date_extension_reason }}
                                                                 <br>
-b 
+
                                                                 <button form="batch-extend-form" style="margin: 1rem"
                                                                     class=" btn-primary" type="submit"
                                                                     style="background-color: green !important;" name="button">
@@ -83,7 +83,7 @@ b
                                                     @if ($batch_store_request->date_extension_status == 2)
                                                         <div class="justify-content-center">
                                                             <h3 style="color: rgb(89, 187, 240)">
-                                                                {{ $batch_store_request->user->name }}
+                                                                {{ $batch_store_request->user->name ?? 'Deleted User' }}
                                                                 wants to
                                                                 extend the return date to
                                                                 {{ \Carbon\Carbon::parse($batch_store_request->extended_date)->format('d-M-Y') }}.
@@ -102,7 +102,7 @@ b
                                                     @if ($batch_store_request->date_extension_status == 3)
                                                         <div class="justify-content-center">
                                                             <h3 style="color: rgb(89, 187, 240)">
-                                                                {{ $batch_store_request->user->name }} wants to
+                                                                {{ $batch_store_request->user->name ?? 'Deleted User' }} wants to
                                                                 extend the return date to
                                                                 {{ \Carbon\Carbon::parse($batch_store_request->extended_date)->format('d-M-Y') }}.
                                                                 <br>

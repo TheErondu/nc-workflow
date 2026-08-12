@@ -118,7 +118,7 @@ class OBlogsController extends Controller
      */
     public function edit($id)
     {
-        $oblogs = OBlogs::all()->find($id);
+        $oblogs = OBlogs::find($id);
         $users = User::all();
         return view('dashboard.reports.oblogs.edit', compact('oblogs','users'));
     }

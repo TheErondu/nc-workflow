@@ -99,7 +99,7 @@ class McrLogsController extends ApiController
      */
     public function edit($id)
     {
-        $mcr_logs = McrLogs::all()->find($id);
+        $mcr_logs = McrLogs::find($id);
         $users = User::all();
         return view('dashboard.reports.mcrlogs.edit', compact('mcr_logs','users'));
     }

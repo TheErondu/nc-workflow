@@ -74,11 +74,33 @@
                             </div>
 
                             <div class="row">
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-12">
+                                    <label class="d-block">Slide Type <span class="text-danger">*</span></label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="slide_type" id="slide_type_image"
+                                            value="image" {{ old('slide_type', 'image') === 'image' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="slide_type_image">Image</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="slide_type" id="slide_type_video"
+                                            value="video" {{ old('slide_type') === 'video' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="slide_type_video">Video</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6" id="image-field">
                                     <label for="image">Image <span class="text-danger">*</span></label>
                                     <input name="image" type="file" class="form-control" id="image"
-                                        accept="image/jpeg,image/png,image/gif" required>
+                                        accept="image/jpeg,image/png,image/gif">
                                     <small class="text-muted">Max size: 5MB. Allowed formats: JPG, PNG, GIF</small>
+                                </div>
+                                <div class="mb-3 col-md-6" id="video-field" style="display:none">
+                                    <label for="video">Video <span class="text-danger">*</span></label>
+                                    <input name="video" type="file" class="form-control" id="video"
+                                        accept="video/mp4,video/webm,video/ogg">
+                                    <small class="text-muted">Max size: 100MB. Allowed formats: MP4, WebM, OGG</small>
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <div class="form-check mt-4">
@@ -87,6 +109,14 @@
                                         <label class="form-check-label" for="is_active">
                                             Active
                                         </label>
+                                    </div>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="loop_indefinitely" id="loop_indefinitely"
+                                            value="1" {{ old('loop_indefinitely') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="loop_indefinitely">
+                                            Loop Indefinitely
+                                        </label>
+                                        <div><small class="text-muted">Slide stays on screen until this flag is unchecked (e.g. for events or appreciations).</small></div>
                                     </div>
                                 </div>
                             </div>
@@ -108,4 +138,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('javascript')
+<script>
+    (function () {
+        var imageField = document.getElementById('image-field');
+        var videoField = document.getElementById('video-field');
+        var radios = document.querySelectorAll('input[name="slide_type"]');
+
+        function toggleFields() {
+            var selected = document.querySelector('input[name="slide_type"]:checked');
+            var isVideo = selected && selected.value === 'video';
+            imageField.style.display = isVideo ? 'none' : '';
+            videoField.style.display = isVideo ? '' : 'none';
+            document.getElementById('image').required = !isVideo;
+            document.getElementById('video').required = isVideo;
+        }
+
+        radios.forEach(function (r) { r.addEventListener('change', toggleFields); });
+        toggleFields();
+    })();
+</script>
 @endsection

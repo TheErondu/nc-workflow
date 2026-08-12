@@ -22,8 +22,8 @@ class StoreController extends ApiController
     public function index()
     {
         $store_items = DB::table('stores')->orderBy('id','desc')->get();
-        $store_requests = StoreRequest::all()->where('status','pending');
-        $approved_items =StoreRequest::all()->where('status','Approved');
+        $store_requests = StoreRequest::where('status','pending')->get();
+        $approved_items = StoreRequest::where('status','Approved')->get();
         return response()->json( compact('store_items','store_requests','approved_items'));
     }
     public function MyStore()
@@ -44,9 +44,9 @@ class StoreController extends ApiController
     {
         $user_department = FacadesAuth::user()->department->name;
         $user = auth()->user();
-        $available_items = Store::all()->where('assigned_department', $user_department);
-        $all_requested = StoreRequest::all()->where('status', "!=",'pending');
-        $requested_items = StoreRequest::all()->where('status', 'pending')->where('user_id',$user->id);
+        $available_items = Store::where('assigned_department', $user_department)->get();
+        $all_requested = StoreRequest::where('status', "!=",'pending')->get();
+        $requested_items = StoreRequest::where('status', 'pending')->where('user_id',$user->id)->get();
         $store_requests = StoreRequest::all();
         return response()->json(compact('available_items','store_requests','requested_items','all_requested'));
     }
@@ -68,7 +68,7 @@ class StoreController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function createRequest($id)
-    {   $requested_item = Store::all()->find($id);
+    {   $requested_item = Store::find($id);
         $store_items = Store::all();
         $store_requests = StoreRequest::all();
         return view('dashboard.store.requests.create', compact('store_items','store_requests','requested_item'));
@@ -120,7 +120,7 @@ class StoreController extends ApiController
             'return_date'           => 'required',
         ]);
         $user = auth()->user();
-        $requested_item = $requested_item = Store::all()->find($id);
+        $requested_item = $requested_item = Store::find($id);
         $store_requests = new storeRequest();
         $store_requests->user_id = $user->id;
         $store_requests->item = $requested_item->item_name;
@@ -160,7 +160,7 @@ class StoreController extends ApiController
     public function editRequest(Request $request, $id)
     {
         $departments = Department::all();
-        $store_request = storeRequest::all()->find($id);
+        $store_request = storeRequest::find($id);
         return view('dashboard.store.requests.edit',compact('departments','store_request'));
     }
     /**
@@ -172,7 +172,7 @@ class StoreController extends ApiController
     public function edit($id)
     {
         $departments = Department::all();
-        $store_item = Store::all()->find($id);
+        $store_item = Store::find($id);
         return view('dashboard.store.items.edit',compact('departments','store_item'));
     }
 
@@ -220,7 +220,7 @@ class StoreController extends ApiController
      */
     public function Approve(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Approved";
         $store_request->save();
         $details = [
@@ -246,7 +246,7 @@ class StoreController extends ApiController
      */
     public function Reject(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Rejected";
         $store_request->save();
         $details = [
@@ -272,7 +272,7 @@ class StoreController extends ApiController
      */
     public function Return(Request $request, $id)
     {
-        $store_request = StoreRequest::all()->find($id);
+        $store_request = StoreRequest::find($id);
         $store_request->status = "Returned";
         $store_request->save();
         $details = [

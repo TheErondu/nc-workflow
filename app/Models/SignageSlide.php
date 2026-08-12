@@ -11,14 +11,17 @@ class SignageSlide extends Model
 
     protected $fillable = [
         'view_type',
+        'slide_type',
         'title',
         'celebrant_name',
         'birthday_date',
         'image_path',
+        'video_path',
         'active_from',
         'active_until',
         'sort_order',
         'is_active',
+        'loop_indefinitely',
         'user_id',
     ];
 
@@ -27,6 +30,7 @@ class SignageSlide extends Model
         'active_from' => 'date',
         'active_until' => 'date',
         'is_active' => 'boolean',
+        'loop_indefinitely' => 'boolean',
     ];
 
     /**
@@ -70,6 +74,14 @@ class SignageSlide extends Model
     public function getImageUrlAttribute()
     {
         return asset('uploads/signage/' . $this->image_path);
+    }
+
+    /**
+     * Get the full URL for the slide video.
+     */
+    public function getVideoUrlAttribute()
+    {
+        return asset('uploads/signage/' . $this->video_path);
     }
 
     /**

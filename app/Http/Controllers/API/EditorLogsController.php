@@ -90,7 +90,7 @@ class EditorLogsController extends ApiController
      */
     public function edit($id)
     {
-        $editors_logs = EditorLogs::all()->find($id);
+        $editors_logs = EditorLogs::find($id);
         return view('dashboard.reports.editors.edit', compact('editors_logs'));
     }
 

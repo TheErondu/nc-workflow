@@ -6,6 +6,7 @@ use App\Events\RecordCreatedEvent;
 use App\Events\RecordUpdatedEvent;
 use Illuminate\Http\Request;
 
+use App\Models\Location;
 use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,10 @@ class ScheduleController extends Controller
                 ->get(['id', 'name', 'start_date', 'end_date', 'type']);
             return response()->json($data);
         }
-        else
-        return view('dashboard.schedule.index');
+        else {
+            $locations = Location::all();
+            return view('dashboard.schedule.index', compact('locations'));
+        }
     }
 
 
@@ -65,7 +68,8 @@ class ScheduleController extends Controller
         $statuses = array(
             'Normal','Important','Urgent','Critical',
         );
-        return view('dashboard.schedule.create',compact('schedules','users','statuses'));
+        $locations = Location::all();
+        return view('dashboard.schedule.create',compact('schedules','users','statuses', 'locations'));
     }
 
     /**
@@ -136,7 +140,7 @@ class ScheduleController extends Controller
      */
     public function show($id){
 
-        $schedule = Schedule::all()->find($id);
+        $schedule = Schedule::find($id);
         $users = User::all();
 
         return view('dashboard.schedule.show', compact('schedule','users'));
@@ -154,12 +158,13 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        $schedule = Schedule::all()->find($id);
+        $schedule = Schedule::find($id);
         $users = User::all();
         $statuses = array(
             'Normal','Important','Urgent','Critical',
         );
-        return view('dashboard.schedule.edit', compact('schedule','users','statuses'));
+        $locations = Location::all();
+        return view('dashboard.schedule.edit', compact('schedule','users','statuses', 'locations'));
     }
 
        /**

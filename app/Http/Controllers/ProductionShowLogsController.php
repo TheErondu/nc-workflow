@@ -129,7 +129,7 @@ class ProductionShowLogsController extends Controller
     public function edit($id)
     {
         $users = User::all();
-        $production_logs = ProductionShowLogs::all()->find($id);
+        $production_logs = ProductionShowLogs::find($id);
         return view('dashboard.reports.production_logs.edit', compact('production_logs', 'users'));
     }
 

@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::put('profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password.update');
     Route::resource('messages', 'App\Http\Controllers\MessageController');
     Route::get('messages/{id}/download', 'App\Http\Controllers\MessageController@download')->name('file.download');
     Route::resource('content', 'App\Http\Controllers\ContentController');
@@ -66,6 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('signage/admin/slides/{slide}/edit', [App\Http\Controllers\SignageSlideController::class, 'edit'])->name('signage.slides.edit');
     Route::put('signage/admin/slides/{slide}', [App\Http\Controllers\SignageSlideController::class, 'update'])->name('signage.slides.update');
     Route::delete('signage/admin/slides/{slide}', [App\Http\Controllers\SignageSlideController::class, 'destroy'])->name('signage.slides.destroy');
+    Route::post('signage/admin/slides/{slide}/move-up', [App\Http\Controllers\SignageSlideController::class, 'moveUp'])->name('signage.slides.move-up');
+    Route::post('signage/admin/slides/{slide}/move-down', [App\Http\Controllers\SignageSlideController::class, 'moveDown'])->name('signage.slides.move-down');
 
     //Engineer logs
 
@@ -89,9 +92,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('mileage/track/{id}', [App\Http\Controllers\TrackerController::class, 'track'])->name('tracker.track');
     Route::resource('triplogger', 'App\Http\Controllers\TripLoggerController');
     Route::resource('departments', 'App\Http\Controllers\DepartmentController');
+    Route::resource('locations', App\Http\Controllers\LocationController::class);
+
+    // Store Excel export routes (must be before resource route to avoid {store} wildcard conflict)
+    Route::get('store/export/items', 'App\Http\Controllers\StoreController@exportStoreItems')->name('store.export.items');
+    Route::get('store/export/requests/pending', 'App\Http\Controllers\StoreController@exportPendingRequests')->name('store.export.requests.pending');
+    Route::get('store/export/requests/approved', 'App\Http\Controllers\StoreController@exportApprovedRequests')->name('store.export.requests.approved');
+    Route::get('store/export/batch/pending', 'App\Http\Controllers\StoreController@exportPendingBatchRequests')->name('store.export.batch.pending');
+    Route::get('store/export/batch/approved', 'App\Http\Controllers\StoreController@exportApprovedBatchRequests')->name('store.export.batch.approved');
 
     Route::resource('store', 'App\Http\Controllers\StoreController');
     Route::resource('logs/mcr', 'App\Http\Controllers\McrLogsController');
+    Route::resource('logs/sto', 'App\Http\Controllers\StoLogsController')->names('sto-logs');
+    Route::resource('logs/audio', 'App\Http\Controllers\AudioLogsController')->names('audio-logs');
     Route::resource('logs/production', 'App\Http\Controllers\ProductionShowLogsController');
     Route::resource('logs/editors', 'App\Http\Controllers\EditorLogsController');
     Route::resource('logs/prompter-news', 'App\Http\Controllers\PrompterLogsController');
@@ -143,12 +156,22 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
     Route::get('store-requests/create/{id}', 'App\Http\Controllers\StoreController@createRequest')->name('store-requests.create');
-    Route::get('store-requests', 'App\Http\Controllers\StoreController@RequestIndex')->name('store-requests.index');
+    // store-requests export routes must be before {id} wildcard
+    Route::get('store-requests/export/available', 'App\Http\Controllers\StoreController@exportAvailableItems')->name('store-requests.export.available');
+    Route::get('store-requests/export/my-requests', 'App\Http\Controllers\StoreController@exportMyRequests')->name('store-requests.export.my');
+    Route::get('store-requests/export/closed', 'App\Http\Controllers\StoreController@exportClosedRequests')->name('store-requests.export.closed');
     Route::post('store-requests/{id}', 'App\Http\Controllers\StoreController@storeRequest')->name('store-requests.store');
     Route::get('store-requests/{id}', 'App\Http\Controllers\StoreController@editRequest')->name('store-requests.edit');
     Route::put('store-requests/approve/{id}', 'App\Http\Controllers\StoreController@Approve')->name('store-requests.approve');
     Route::put('store-requests/reject/{id}', 'App\Http\Controllers\StoreController@Reject')->name('store-requests.reject');
     Route::put('store-requests/return/{id}', 'App\Http\Controllers\StoreController@Return')->name('store-requests.return');
+    Route::get('notifications/unread',         [App\Http\Controllers\NotificationController::class, 'unread'])->name('notifications.unread');
+    Route::post('notifications/mark-read',     [App\Http\Controllers\NotificationController::class, 'markAllRead'])->name('notifications.mark-read');
+    Route::post('notifications/{id}/mark-one', [App\Http\Controllers\NotificationController::class, 'markOne'])->name('notifications.mark-one');
+
+    Route::post('issues/bulk-close', [App\Http\Controllers\IssueController::class, 'bulkClose'])->name('issues.bulk-close');
+    Route::get('issues/export', [App\Http\Controllers\IssueController::class, 'export'])->name('issues.export');
+    Route::get('issues/datatables', [App\Http\Controllers\IssueController::class, 'datatables'])->name('issues.datatables');
     Route::resource('issues', 'App\Http\Controllers\IssueController');
     Route::resource('jobs', 'App\Http\Controllers\QueueJobsController');
     Route::get('job/retry/{id}', 'App\Http\Controllers\QueueJobsController@Retry')->name('job.retry');
@@ -159,8 +182,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('facility_type', App\Http\Controllers\FacilityTypeController::class);
     Route::resource('booking', App\Http\Controllers\BookingController::class);
     Route::resource('employees', App\Http\Controllers\EmployeeController::class);
-    Route::resource('ipaddresses', App\Http\Controllers\IpAddressController::class)->except('show');
+    Route::get('ipaddresses/export', [App\Http\Controllers\IpAddressController::class, 'export'])->name('ipaddresses.export');
     Route::get('ipaddresses/generate', [App\Http\Controllers\IpAddressController::class, 'generateUnusedIPAddress'])->name('ipaddresses.generate');
+    Route::resource('ipaddresses', App\Http\Controllers\IpAddressController::class)->except('show');
     Route::put('issues/assign-engineer/{id}', [App\Http\Controllers\IssueController::class, 'AssignEngineer'])->name('issues.assign');
     Route::resource('analytics', App\Http\Controllers\AnalysisController::class);
 });

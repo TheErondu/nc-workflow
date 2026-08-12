@@ -32,6 +32,8 @@ Route::get('reports-calendar', [App\Http\Controllers\API\CalendarViewController:
 Route::get('editors-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'EditorLogs']);
 Route::get('oblogs-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'ObLogs']);
 Route::get('mcrlogs-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'McrLogs']);
+Route::get('stologs-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'StoLogs']);
+Route::get('audiologs-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'AudioLogs']);
 Route::get('graphics-news-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'GraphicsLogs']);
 Route::get('graphics-shows-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'GraphicsLogShows']);
 Route::get('prompter-news-calendar', [App\Http\Controllers\API\CalendarViewController::class, 'PrompterLogs']);
