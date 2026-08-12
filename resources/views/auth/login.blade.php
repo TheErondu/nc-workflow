@@ -107,6 +107,10 @@
 
                                         </div>
 
+                                        <div class="text-end mb-2">
+                                            <a href="{{ route('password.request') }}" style="color:#aaa; font-size:.85rem;">{{ __('Forgot password?') }}</a>
+                                        </div>
+
                                         <div class="text-center mt-3">
                                           <!--  <a href="dashboard-default.html" class="btn btn-lg btn-primary">login</div></a>-->
                                          <button type="submit" class="btn btn-lg btn-primary">{{ __('Login') }}</button>

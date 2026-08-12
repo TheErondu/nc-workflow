@@ -96,6 +96,44 @@
 									</table>
 								</div>
 
+                                @if ($employee->id === Auth::id())
+                                <div class="card" id="change-password">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Change Password</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form method="POST" action="{{ route('profile.password.update') }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="mb-3">
+                                                <label>Current Password</label>
+                                                <input type="password" name="current_password"
+                                                    class="form-control @error('current_password') is-invalid @enderror"
+                                                    autocomplete="current-password" required>
+                                                @error('current_password')
+                                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label>New Password</label>
+                                                <input type="password" name="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    autocomplete="new-password" required>
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label>Confirm New Password</label>
+                                                <input type="password" name="password_confirmation"
+                                                    class="form-control" autocomplete="new-password" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Update Password</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                @endif
+
 
 
     </div>

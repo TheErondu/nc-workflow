@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::put('profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password.update');
     Route::resource('messages', 'App\Http\Controllers\MessageController');
     Route::get('messages/{id}/download', 'App\Http\Controllers\MessageController@download')->name('file.download');
     Route::resource('content', 'App\Http\Controllers\ContentController');
